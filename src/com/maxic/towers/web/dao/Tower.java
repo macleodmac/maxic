@@ -1,7 +1,7 @@
 package com.maxic.towers.web.dao;
 public class Tower {
 	private int towerId;
-	private int doveId;
+	private String doveId;
 	private int towerBaseId;
 	private String placeName;
 	private String placeName2;
@@ -30,7 +30,7 @@ public class Tower {
 		
 	}
 	
-	public Tower(int towerId, int doveId, int towerBaseId, String placeName,
+	public Tower(int towerId, String doveId, int towerBaseId, String placeName,
 			String placeName2, String placeNameCL, String associatedChurch,
 			String gridReference, float latitude, float longitude,
 			String postCode, float satNavLatitude, float satNavLongitude,
@@ -72,11 +72,11 @@ public class Tower {
 		this.towerId = towerId;
 	}
 
-	public int getDoveId() {
+	public String getDoveId() {
 		return doveId;
 	}
 
-	public void setDoveId(int doveId) {
+	public void setDoveId(String doveId) {
 		this.doveId = doveId;
 	}
 

@@ -6,11 +6,13 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import com.maxic.towers.web.dao.Tower;
+
 public class Parser {
 
 	public static void main(String[] args) {
 
-		String inputFile = "csv/dove.txt";
+		String inputFile = "./dove.txt";
 		BufferedReader br = null;
 		String line = null;
 		String delimiter = "\\\\";
@@ -23,12 +25,15 @@ public class Parser {
 			while ((line = br.readLine()) != null) {
 
 				String[] towers = line.split(delimiter);
-
+				Tower tower = new Tower();
+				
+				tower.setDoveId(towers[0]);
+				tower.setLatitude(Float.parseFloat(towers[36]));
+				tower.setLongitude(Float.parseFloat(towers[37]));
+				
 				System.out.println("Tower [" + towers[0] + " " + towers[36]
 						+ " " + towers[37] + "]");
 				i++;
-				
-				towerList.add(towers);
 				
 				
 				if (i > 200) {

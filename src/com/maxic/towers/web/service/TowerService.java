@@ -21,4 +21,8 @@ public class TowerService {
 	public List<Tower> getTowers() {
 		return towerDao.getTowers();
 	}
+	
+//	public boolean addTower(Tower tower) {
+//		return towerDao.addTower(tower);
+//	}
 }

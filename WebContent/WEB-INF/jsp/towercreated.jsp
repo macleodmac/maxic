@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -8,10 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>Hello World!</h1>
-
-<c:out value="${name}"></c:out>
-<a href="${pageContext.request.contextPath}/addtower">Add a new tower.</a>
-<a href="${pageContext.request.contextPath}/towers">View towers.</a>
+TOWER CREATED SUCCESSFULLY!
 </body>
 </html>
