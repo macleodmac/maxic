@@ -1,18 +1,21 @@
 #maxic towers project
 ##Environment Setup
 ###First
-* Create a [Github](https://github.com)
+* Create a [Github](https://github.com) account
 * Email me your username so I can add you as a collaborator to the project.
+
 ###Eclipse
 * Download and install [Eclipse IDE for Java EE Developers](https://eclipse.org/downloads/packages/release/Luna/SR1A)
 * In Eclipse, go to Help > Eclipse Marketplace
 * Search 'Maven Integration for Eclipse' and install this package
 * Search 'Spring IDE' and install this package
+
 ###Tomcat
 * Install [Tomcat 7.0](http://tomcat.apache.org/download-70.cgi), Service Installer is easiest
 * Start Tomcat, go to localhost:8080, if a Tomcat page appears it has installed correctly.
 * Stop Tomcat
 * In Eclipse go to Servers > New Server > Add the Tomcat 7.0 you just installed as a Server in Eclipse
+
 ###MySQL
 * Download and install [MySQL Server](http://dev.mysql.com/downloads/mysql/) and [MySQL Workbench](http://dev.mysql.com/downloads/workbench/)
 * Load up MySQL Workbench and create a new connection to the local server you installed with the username 'root' and password '' (blank)
@@ -28,8 +31,6 @@
 * Run `git remote add maxi https://github.com/macleodmac/maxic.git` This adds the maxi repository I created to your remote sources
 * Run `git pull maxi master (download the latest files)`
 * Go into Eclipse and Import Project > Existing Maven Project > Navigate to the folder where you've pulled the Github repository to and import it.
-
-
 
 ##Using Git
 ###Updating your files
