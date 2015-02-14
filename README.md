@@ -42,3 +42,47 @@
 * `git add -A` add all changed files to a commit
 * `git commit -m "message"` commit these changes to your local repository, with a message. The message should be a short summary of the changes made.
 * `git push -u maxi master` push these changes to the maxic repository on github (you will then be prompted for your username and password).
+
+##Project Structure
+
+##com.maxic.towers.web.config
+* dao-context.xml
+-- Sets annotation configuration, scans dao package for @Components
+* Defines the datasource used in the dao package
+service-context.xml
+Sets annotation configuration, scans service package for @Components
+com.maxic.towers.web.controllers
+HomeController.java
+Deals with requests for the home page, returns the relevant jsp
+TowerController.java
+Connects to towerService (autowired)
+Deals with request mappings related to towers
+com.maxic.towers.web.dao
+Tower.java
+The tower bean, defines the properties of the bean
+Defines constructors of bean
+Defines getters and setters
+TowerDao.java
+Connects to jdbc (autowired)
+Runs queries on database
+com.maxic.towers.web.service
+TowerService.java
+Instansiates towerDao (autowired)
+Interfaces between controller and data access object
+WEB-INF
+jsp folder
+Contains JSPs
+Towers-servlet.xml
+Component scans the controller package
+Defines the MVC as annotation driven
+Defines the Spring view resolver
+Defines the location of views (jsp folder, with extension .jsp)
+Web.xml
+Defines default home files
+Defines Dispatcher Servlet, set to load on startup, mapped to /
+Defines database connection linking to context.xml
+Defines locations to scan for context.xml files
+Defines contextLoaderListener to do this
+
+
+
