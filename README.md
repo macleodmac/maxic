@@ -73,6 +73,10 @@
   * Instansiates towerDao (autowired)
   * Interfaces between controller and data access object
 
+###com.maxic.towers.web.processing
+* Parser.java
+  * Splits the dove.txt file
+  
 ###WEB-INF
 * jsp folder
   * Contains JSPs
