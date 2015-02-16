@@ -12,7 +12,7 @@ public class Parser {
 
 	public static void main(String[] args) {
 
-		String inputFile = "./dove.txt";
+		String inputFile = "dove.txt";
 		BufferedReader br = null;
 		String line = null;
 		String delimiter = "\\\\";

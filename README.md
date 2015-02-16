@@ -29,7 +29,7 @@
 * Run `git config --global user.name "<Your Name>"` to set your name
 * Run `git config --global user.email "your_email@youremail.com"` your email here must be the one you signed up to Github with
 * Run `git remote add maxi https://github.com/macleodmac/maxic.git` This adds the maxi repository I created to your remote sources
-* Run `git pull maxi master (download the latest files)`
+* Run `git pull maxi master` (download the latest files)
 * Go into Eclipse and Import Project > Existing Maven Project > Navigate to the folder where you've pulled the Github repository to and import it.
 
 ##Using Git
@@ -85,12 +85,24 @@
   * Defines the MVC as annotation driven
   * Defines the Spring view resolver
   * Defines the location of views (jsp folder, with extension .jsp)
-* Web.xml
+* web.xml
   * Defines default home files
   * Defines Dispatcher Servlet, set to load on startup, mapped to /
   * Defines database connection linking to context.xml
   * Defines locations to scan for context.xml files
   * Defines contextLoaderListener to do this
+  
+###res
+* css
+  * Contains cascading style sheets
+* js
+  * Contains javascript used in front-end
+* img
+  * Contains images used on site
+  
+###Server
+* context.xml
+  * Contains details of database locations and username/password
 
 
 
