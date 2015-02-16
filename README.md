@@ -104,6 +104,14 @@
 ###Server
 * context.xml
   * Contains details of database locations and username/password
+  
+##Technologies Used
+###Java Spring Framework
+###Tomcat Web Server
+###MySQL Database
+###Spring Security
+###Twitter Bootstrap
+###Google Maps API
 
 
 
