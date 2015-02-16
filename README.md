@@ -48,10 +48,10 @@
 
 ###com.maxic.towers.web.config
 * dao-context.xml
-  * Sets annotation configuration, scans dao package for @Components
+  * Sets annotation configuration, scans dao package for @Component
   * Defines the datasource used in the dao package
 * service-context.xml
-  * Sets annotation configuration, scans service package for @Components
+  * Sets annotation configuration, scans service package for @Component
   
 ###com.maxic.towers.web.controllers
 * HomeController.java
