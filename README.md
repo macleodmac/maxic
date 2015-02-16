@@ -106,12 +106,20 @@
   * Contains details of database locations and username/password
   
 ##Technologies Used
-###Java Spring Framework
-###Tomcat Web Server
-###MySQL Database
-###Spring Security
-###Twitter Bootstrap
-###Google Maps API
+* Java Spring Framework
+  * We will be using the Spring Framework to structure our project, making use of the MVC provided as well as Autowiring.
+* Tomcat Web Server
+* MySQL Database
+* Spring Security
+  * Spring security will be used to secure access and allow us creation of user accounts.
+* Twitter Bootstrap
+  * Twitter Bootstrap css/js framework will be used to style the pages in a way that is responsive and thus suitable for all devices as per the requirements.
+* Google Maps API
+
+
+
+
+ 
 
 
 
