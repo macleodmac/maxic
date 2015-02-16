@@ -1,5 +1,6 @@
 #maxic towers project
 ##Environment Setup
+*Note: This won't yet create a working project, I've not worked out a good way to share the database yet.*
 ###First
 * Create a [Github](https://github.com) account
 * Email me your username so I can add you as a collaborator to the project.
