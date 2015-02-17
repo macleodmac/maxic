@@ -20,8 +20,8 @@
 			<div class="col-xs-6">
 
 				<c:out value="${name}"></c:out>
-				<h3><a href="${pageContext.request.contextPath}/addtower">Add a new tower.</a></h2>
-				<h3><a href="${pageContext.request.contextPath}/towers">View towers.</a></h2>
+				<h3><a href="${pageContext.request.contextPath}/addtower">Add a new tower.</a></h3>
+				<h3><a href="${pageContext.request.contextPath}/towers">View towers.</a></h3>
 				
 			</div>
 		</div>

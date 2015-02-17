@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -36,17 +37,24 @@ public class TowerController {
 
 	@RequestMapping(value = "/addtower")
 	public String addTower(Model model) {
-		model.addAttribute(new Tower());
+		model.addAttribute("tower", new Tower());
 		return "addtower";
 	}
+	
+	@RequestMapping(value = "/createtower")
+	public String createTower(Model model) {
+		model.addAttribute("tower", new Tower());
+		return "createtower";
+	}
 
-//	@RequestMapping(value = "/doadd", method = RequestMethod.POST)
-//	public String doAdd(Model model, @Valid Tower tower, BindingResult result) {
-//		if (result.hasErrors()) {
-//			return "addtower";
-//		}
-//		towerService.addTower(tower);
-//		return "towercreated";
-//	}
+	@RequestMapping(value = "/doadd", method = RequestMethod.POST)
+	public String doAdd(Model model, @Valid Tower tower, BindingResult result) {
+		if (result.hasErrors()) {
+			return "addtower";
+
+		}
+		towerService.addTower(tower);
+		return "towercreated";
+	}
 
 }

@@ -29,6 +29,7 @@ public class TowerDao {
 			public Tower mapRow(ResultSet rs, int rowNum) throws SQLException {
 				Tower tower = new Tower();
 				tower.setTowerId(rs.getInt("towerId"));
+				tower.setDoveId(rs.getString("doveId"));
 				tower.setPlaceName((rs.getString("placeName")));
 				tower.setLatitude((rs.getFloat("lat")));
 				tower.setLongitude((rs.getFloat("long")));
@@ -38,25 +39,17 @@ public class TowerDao {
 		});
 	}
 
-//	public boolean addTower(Tower tower) {
-//
-//		BeanPropertySqlParameterSource params = new BeanPropertySqlParameterSource(
-//				tower);
-//		boolean test = jdbc
-//				.update("INSERT INTO towers (`doveId`, `towerBaseId, `lat`, `long`, "
-//						+ "`placeName`, `placeName2`, `placeNameCL`, `associatedChurch`, "
-//						+ "`gridReference`, `postCode`, `satNavLatitude`, `satNavLongitude`, "
-//						+ "`countryID`, `countyID`, `dedication`, `listedGrade`, "
-//						+ "`groundFloorRing`, `simulator`, `toilet`, `extraInfo`, `buildingId`, "
-//						+ "`affiliation`, `towerCaptain`) "
-//						+ "VALUES (:doveId, :towerBaseId, :latitude, :longitude, :placeName, "
-//						+ ":placeName2, :placeNameCL, :associatedChurch, :gridReference, :postCode, "
-//						+ ":satNavLatitude, :satNavLongitude, :countryID, "
-//						+ ":countyID, :dedication, :listedGrade, :groundFloorRing, :simulator, :toilet, "
-//						+ ":extraInfo, :buildingId, :affiliation, :towerCaptain)",
-//						params) == 1;
-//		return test;
-//
-//	}
+
+	public boolean addTower(Tower tower) {
+
+		BeanPropertySqlParameterSource params = new BeanPropertySqlParameterSource(
+				tower);
+		System.out.println(tower.getDoveId());
+		boolean test = jdbc
+				.update("INSERT INTO towers (`doveId`, `lat`, `long`) VALUES (:doveId, :latitude, :longitude)",
+						params) == 1;
+		return test;
+
+	}
 
 }

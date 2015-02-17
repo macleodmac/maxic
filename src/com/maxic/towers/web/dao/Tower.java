@@ -256,4 +256,10 @@ public class Tower {
 		this.towerCaptain = towerCaptain;
 	}
 
+	@Override
+	public String toString() {
+		return "Tower [towerId=" + towerId + ", doveId=" + doveId
+				+ ", latitude=" + latitude + ", longitude=" + longitude + "]";
+	}
+
 }

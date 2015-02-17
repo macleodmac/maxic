@@ -9,18 +9,28 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>Hello World!</h1>
 
-<table>
+	<header>
+		<div class="jumbotron">
+			<h1>TowerFinder</h1>
+		</div>
+	</header>
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-6">
+				<table class="table">
 
-<c:forEach var="row" items="${towers}">
-    <tr>
-    	<td>${row.towerId}</td>
-    	<td>${row.placeName}</td>
-    	<td>${row.latitude}</td>
-    	<td>${row.longitude}</td>
-    </tr>
-</c:forEach>
-</table>
+					<c:forEach var="row" items="${towers}">
+						<tr>
+							<td>${row.doveId}</td>
+							<td>${row.placeName}</td>
+							<td>${row.latitude}</td>
+							<td>${row.longitude}</td>
+						</tr>
+					</c:forEach>
+				</table>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

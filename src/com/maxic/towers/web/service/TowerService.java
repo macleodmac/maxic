@@ -22,7 +22,7 @@ public class TowerService {
 		return towerDao.getTowers();
 	}
 	
-//	public boolean addTower(Tower tower) {
-//		return towerDao.addTower(tower);
-//	}
+	public boolean addTower(Tower tower) {
+		return towerDao.addTower(tower);
+	}
 }
