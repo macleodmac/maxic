@@ -33,6 +33,13 @@
 * Run `git pull maxi master` (download the latest files)
 * Go into Eclipse and Import Project > Existing Maven Project > Navigate to the folder where you've pulled the Github repository to and import it.
 
+##Setting up Database Syncing
+* Make sure you have all the MySQL commands added to your class path. You can check this by running cmd `mysql --version`. If it returns the MySQL version then it's fine, if not and it says something like "mysql is not a recognised command" then you need to do the following.
+  * Go to your MySQL installation `bin` folder in Explorer, it'll be something like `C:\Program Files\MySQL\MySQL Server 5.6\bin`
+  * Copy this path to clipboard
+  * Click the start menu, right-click on `Computer` and select `Properties`, then click `Advanced System Settings`.
+  * Click `Environment Variables` and find the variable called `Path`, edit the `Path` variable by adding the path name you copied onto the end after a semi-colon (;)
+
 ##Using Git
 ###Updating your files
 * `git fetch maxi master` sync the latest files but do not merge
