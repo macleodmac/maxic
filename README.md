@@ -40,6 +40,11 @@
   * Click the start menu, right-click on `Computer` and select `Properties`, then click `Advanced System Settings`.
   * Click `Environment Variables` and find the variable called `Path`, edit the `Path` variable by adding the path name you copied onto the end after a semi-colon (;)
   * Test again
+* Make sure you have a database in your MySQL server called `towers`
+  * `CREATE DATABASE towers`
+* Make sure you have a user called `admin` with password `letmein`
+  * You can do this in MySQL Workbench, connect to your server with the root details and then go to Management > Users and Privileges > Add Account and set the Administrative Roles tab to `DBA`
+* When you have pulled the latest versions of the files, in the project directory go to the /data/ folder and run `updateDB.bat`. This will update the MySQL database. This will only work if you have a database called `towers` and an admin user called `admin` with password `letmein`
 
 ##Using Git
 ###Updating your files
