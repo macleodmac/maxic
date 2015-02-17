@@ -39,6 +39,7 @@
   * Copy this path to clipboard
   * Click the start menu, right-click on `Computer` and select `Properties`, then click `Advanced System Settings`.
   * Click `Environment Variables` and find the variable called `Path`, edit the `Path` variable by adding the path name you copied onto the end after a semi-colon (;)
+  * Test again
 
 ##Using Git
 ###Updating your files
