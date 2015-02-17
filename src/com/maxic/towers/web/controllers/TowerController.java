@@ -11,6 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.maxic.towers.web.dao.Tower;
 import com.maxic.towers.web.service.TowerService;
@@ -35,12 +36,21 @@ public class TowerController {
 		return "towers";
 	}
 
+	@RequestMapping(value = "/viewtower", method = RequestMethod.GET)
+	public String showSingleTower(Model model, @RequestParam("t") String t) {
+		int id = Integer.parseInt(t);
+		Tower tower = towerService.getTower(id);
+		model.addAttribute("tower", tower);
+		System.out.println(tower.getTowerId());
+		return "viewtower";
+	}
+
 	@RequestMapping(value = "/addtower")
 	public String addTower(Model model) {
 		model.addAttribute("tower", new Tower());
 		return "addtower";
 	}
-	
+
 	@RequestMapping(value = "/createtower")
 	public String createTower(Model model) {
 		model.addAttribute("tower", new Tower());

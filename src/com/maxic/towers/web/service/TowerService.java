@@ -25,4 +25,8 @@ public class TowerService {
 	public boolean addTower(Tower tower) {
 		return towerDao.addTower(tower);
 	}
+
+	public Tower getTower(int id) {
+		return towerDao.getTower(id);
+	}
 }

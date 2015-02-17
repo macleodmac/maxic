@@ -58,7 +58,7 @@ public class TowerDao {
 		MapSqlParameterSource params = new MapSqlParameterSource();
 		params.addValue("id", id);
 
-		return jdbc.queryForObject("SELECT * FROM towers where id = :id",
+		return jdbc.queryForObject("SELECT * FROM towers where towerId = :id",
 				params, new RowMapper<Tower>() {
 
 			public Tower mapRow(ResultSet rs, int rowNum) throws SQLException {

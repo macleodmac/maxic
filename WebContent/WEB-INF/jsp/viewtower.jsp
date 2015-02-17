@@ -26,18 +26,13 @@
 							<th>lat</th>
 							<th>long</th>
 						</tr>
-					</thead>
-					<c:forEach var="row" items="${towers}">
-						
+					</thead>		
 						<tr>
-							<td>${row.towerId}</td>
-							<td>${row.doveId}</td>
-							<td>${row.latitude}</td>
-							<td>${row.longitude}</td>
-							<td><a href="${pageContext.request.contextPath}/viewtower?t=${row.towerId}">Edit tower</a></td>
+							<td><c:out value="${tower.towerId}"></c:out></td>
+							<td><c:out value="${tower.doveId}"></c:out></td>
+							<td><c:out value="${tower.latitude}"></c:out></td>
+							<td><c:out value="${tower.longitude}"></c:out></td>
 						</tr>
-						
-					</c:forEach>
 				</table>
 			</div>
 		</div>
