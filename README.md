@@ -44,13 +44,15 @@
   * `CREATE DATABASE towers`
 * Make sure you have a user called `admin` with password `letmein`
   * You can do this in MySQL Workbench, connect to your server with the root details and then go to Management > Users and Privileges > Add Account and set the Administrative Roles tab to `DBA`
-* When you have pulled the latest versions of the files, in the project directory go to the /data/ folder and run `updateDB.bat`. This will update the MySQL database. This will only work if you have a database called `towers` and an admin user called `admin` with password `letmein`
 
 ##Using Git
-###Updating your files
+###Downloading the latest files
 * `git fetch maxi master` sync the latest files but do not merge
 * `git merge` merge the synced files
 * `git pull maxi master` download and merge the latest files
+
+###Updating the database
+* When you have pulled the latest versions of the files, in the project directory go to the /data/ folder and run `updateDB.bat`. This will update the MySQL database. This will only work if you have a database called `towers` and an admin user called `admin` with password `letmein`
 
 ###Pushing changes to the repository
 * `git add -A` add all changed files to a commit
