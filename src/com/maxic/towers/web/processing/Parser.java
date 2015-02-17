@@ -4,7 +4,13 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.core.io.Resource;
 
 import com.maxic.towers.web.dao.Tower;
 
@@ -12,6 +18,11 @@ public class Parser {
 
 	public static void main(String[] args) {
 
+		ApplicationContext appContext = new ClassPathXmlApplicationContext();
+		
+		Resource resource = appContext.getResource("classpath:com/maxic/towers/web/processing/dove.txt");
+		
+		
 		String inputFile = "dove.txt";
 		BufferedReader br = null;
 		String line = null;
@@ -21,24 +32,20 @@ public class Parser {
 		
 		try {
 
-			br = new BufferedReader(new FileReader(inputFile));
+			InputStream is = resource.getInputStream();
+			br = new BufferedReader(new InputStreamReader(is));
+			
+			br.readLine();
 			while ((line = br.readLine()) != null) {
-
+					
+				
 				String[] towers = line.split(delimiter);
 				Tower tower = new Tower();
 				
 				tower.setDoveId(towers[0]);
-				tower.setLatitude(Float.parseFloat(towers[36]));
-				tower.setLongitude(Float.parseFloat(towers[37]));
 				
-				System.out.println("Tower [" + towers[0] + " " + towers[36]
-						+ " " + towers[37] + "]");
-				i++;
+				System.out.println(towers[0]);
 				
-				
-				if (i > 200) {
-					break;
-				}
 			}
 
 		} catch (FileNotFoundException e) {
@@ -55,19 +62,6 @@ public class Parser {
 			}
 		}
 
-		String[] tower1 = towerList.get(1);
-		
-		for (String towerproperty : tower1) {
-			System.out.println(towerproperty);
-		}
-		
-//		StringBuffer s = new StringBuffer();
-//		for (int j = 0; j < towerList.size(); j++) {
-//			s.append((j+1) + " TOWER: " + towerList.get(j)[0] + "\n");
-//			System.out.println(towerList.get(j)[0]);
-//		}
-		
-		System.out.println("Done");
 	}
 
 }

@@ -19,11 +19,18 @@
 		<div class="row">
 			<div class="col-xs-6">
 				<table class="table">
-
+					<thead>
+						<tr>
+							<th>TowerID</th>
+							<th>DoveID</th>
+							<th>lat</th>
+							<th>long</th>
+						</tr>
+					</thead>
 					<c:forEach var="row" items="${towers}">
 						<tr>
+							<td>${row.towerId}</td>
 							<td>${row.doveId}</td>
-							<td>${row.placeName}</td>
 							<td>${row.latitude}</td>
 							<td>${row.longitude}</td>
 						</tr>
