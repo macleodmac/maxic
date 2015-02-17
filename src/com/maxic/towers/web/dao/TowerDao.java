@@ -98,6 +98,15 @@ public class TowerDao {
 
 	}
 	
+	public boolean deleteTower(int id) {
+
+		MapSqlParameterSource params = new MapSqlParameterSource();
+		params.addValue("id", id);
+		
+		return jdbc.update("DELETE FROM towers WHERE towerId = :id",
+						params) == 1;
+	}
+	
 	
 
 }
