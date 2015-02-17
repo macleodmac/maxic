@@ -127,7 +127,7 @@
 * context.xml
   * Contains details of database locations and username/password
   
-##Technologies Used
+##Technology Stack
 * Java Spring Framework
   * We will be using the Spring Framework to structure our project, making use of the MVC provided as well as Autowiring.
 * Tomcat Web Server
