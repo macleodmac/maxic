@@ -1,38 +1,44 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/static/css/bootstrap.min.css" />
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 </head>
 <body>
 
+	<header>
+			<div class="jumbotron">
+				<h1>TowerFinder</h1>
+			</div>
+	</header>
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-6">
+				<sf:form method="post"
+					action="${pageContext.request.contextPath}/doadd"
+					commandName="tower">
+					<div class="form-group">
+						<label for="doveId">Dove ID</label> <input type="text"
+							class="form-control" id="doveId" placeholder="Enter Dove ID" />
+					</div>
+					<div class="form-group">
+						<label for="latitude">Latitude</label> <input type="text"
+							class="form-control" id="latitude" placeholder="Enter Latitude" />
+					</div>
+					<div class="form-group">
+						<label for="longitude">Longitude</label> <input type="text"
+							class="form-control" id="longitude" placeholder="Enter Longitude" />
+					</div>
+					<button type="submit" class="btn btn-default">Add Tower</button>
+				</sf:form>
+			</div>
 
-	<sf:form method="post"
-		action="${pageContext.request.contextPath}/doadd" commandName="tower">
-
-		<table class="formtable">
-			<tr>
-				<td>doveId:</td>
-				<td><sf:input name="doveId" path="doveId" type="text" /></td>
-			</tr>
-			<tr>
-				<td>Latitude:</td>
-				<td><sf:input name="latitude" path="latitude" type="text" /></td>
-			</tr>
-			<tr>
-				<td>Longitude:</td>
-				<td><sf:textarea name="longitude" path="longitude" type="text" ></sf:textarea></td>
-			</tr>
-			<tr>
-				<td></td>
-				<td><input value="Add Tower" type="submit" /></td>
-			</tr>
-		</table>
-	</sf:form>
-
+		</div>
+	</div>
 </body>
 </html>
