@@ -18,11 +18,12 @@
 * In Eclipse go to Servers > New Server > Add the Tomcat 7.0 you just installed as a Server in Eclipse
 * Find the file `context.xml` in the Tomcat server in Eclipse and add the following:
 
-`<Resource name="jdbc/towers" auth="Container" type="javax.sql.DataSource"
-		maxActive="100" maxIdle="30" maxWait="10000" username="admin"
-		password="letmein" driverClassName="com.mysql.jdbc.Driver"
-		url="jdbc:mysql://localhost:3306/towers" />`
-
+```xml
+<Resource name="jdbc/towers" auth="Container" type="javax.sql.DataSource"
+        maxActive="100" maxIdle="30" maxWait="10000" username="admin"
+        password="letmein" driverClassName="com.mysql.jdbc.Driver"
+        url="jdbc:mysql://localhost:3306/towers" />`
+```
 ###MySQL
 * Download and install [MySQL Server](http://dev.mysql.com/downloads/mysql/) and [MySQL Workbench](http://dev.mysql.com/downloads/workbench/)
 * Load up MySQL Workbench and create a new connection to the local server you installed with the username 'root' and password '' (blank)
