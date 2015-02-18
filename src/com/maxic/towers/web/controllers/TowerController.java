@@ -101,8 +101,7 @@ public class TowerController {
 			return ("redirect:/edittower");
 
 		}
-		System.out.println(tower.getTowerId());
-		System.out.println(t);
+		towerService.editTower(tower);
 		redirectAttributes.addFlashAttribute("message", "Tower successfully edited!");
 		return "redirect:/towers";
 	}

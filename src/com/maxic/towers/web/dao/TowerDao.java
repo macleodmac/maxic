@@ -43,7 +43,8 @@ public class TowerDao {
 								.getBoolean("groundFloorRing"), rs
 								.getBoolean("simulator"), rs
 								.getBoolean("toilet"), rs
-								.getString("extraInfo"), rowNum, rs
+								.getString("extraInfo"), rs
+								.getInt("buildingId"), rs
 								.getString("affiliation"), rs
 								.getString("accessDetails"), rs
 								.getString("towerCaptain"));
@@ -61,27 +62,34 @@ public class TowerDao {
 		return jdbc.queryForObject("SELECT * FROM towers where towerId = :id",
 				params, new RowMapper<Tower>() {
 
-			public Tower mapRow(ResultSet rs, int rowNum) throws SQLException {
-				Tower tower = new Tower(rs.getInt("towerId"), rs
-						.getString("doveId"), rs.getInt("towerbaseId"), rs
-						.getString("placeName"), rs.getString("placeName2"), rs
-						.getString("placeNameCL"), rs
-						.getString("associatedChurch"), rs
-						.getString("gridReference"), rs.getFloat("latitude"),
-						rs.getFloat("longitude"), rs.getString("postCode"), rs
-								.getFloat("satNavLatitude"), rs
-								.getFloat("satNavLongitude"), rs
-								.getInt("countryId"), rs.getInt("countyId"), rs
-								.getInt("guildId"), rs.getString("dedication"),
-						rs.getString("listedGrade"), rs
-								.getBoolean("groundFloorRing"), rs
-								.getBoolean("simulator"), rs
-								.getBoolean("toilet"), rs
-								.getString("extraInfo"), rowNum, rs
-								.getString("affiliation"), rs
-								.getString("accessDetails"), rs
-								.getString("towerCaptain"));
-				return tower;
+					public Tower mapRow(ResultSet rs, int rowNum)
+							throws SQLException {
+						Tower tower = new Tower(rs.getInt("towerId"), rs
+								.getString("doveId"), rs.getInt("towerbaseId"),
+								rs.getString("placeName"), rs
+										.getString("placeName2"), rs
+										.getString("placeNameCL"), rs
+										.getString("associatedChurch"), rs
+										.getString("gridReference"), rs
+										.getFloat("latitude"), rs
+										.getFloat("longitude"), rs
+										.getString("postCode"), rs
+										.getFloat("satNavLatitude"), rs
+										.getFloat("satNavLongitude"), rs
+										.getInt("countryId"), rs
+										.getInt("countyId"), rs
+										.getInt("guildId"), rs
+										.getString("dedication"), rs
+										.getString("listedGrade"), rs
+										.getBoolean("groundFloorRing"), rs
+										.getBoolean("simulator"), rs
+										.getBoolean("toilet"), rs
+										.getString("extraInfo"), rs
+										.getInt("buildingId"), rs
+										.getString("affiliation"), rs
+										.getString("accessDetails"), rs
+										.getString("towerCaptain"));
+						return tower;
 					}
 
 				});
@@ -97,16 +105,22 @@ public class TowerDao {
 		return test;
 
 	}
-	
+
 	public boolean deleteTower(int id) {
 
 		MapSqlParameterSource params = new MapSqlParameterSource();
 		params.addValue("id", id);
-		
-		return jdbc.update("DELETE FROM towers WHERE towerId = :id",
-						params) == 1;
+
+		return jdbc.update("DELETE FROM towers WHERE towerId = :id", params) == 1;
 	}
-	
-	
+
+	public boolean editTower(Tower tower) {
+		BeanPropertySqlParameterSource params = new BeanPropertySqlParameterSource(
+				tower);
+		boolean test = jdbc
+				.update("UPDATE towers SET doveId = :doveId, towerbaseId = :towerbaseId, placeName = :placeName, placeName2 = :placeName2, placeNameCL = :placeNameCL, associatedChurch = :associatedChurch, gridReference = :gridReference, postCode = :postCode, latitude = :latitude, longitude = :longitude, satNavLatitude = :satNavLatitude, satNavLongitude = :satNavLongitude, countryId = :countryId, countyId = :countyId, guildId = :guildId, dedication = :dedication, listedGrade = :listedGrade, groundFloorRing = :groundFloorRing, simulator = :simulator, toilet = :toilet, extraInfo = :extraInfo, buildingId = :buildingId, affiliation = :affiliation, accessDetails = :accessDetails, towerCaptain = :towerCaptain WHERE towerId = :towerId",
+						params) == 1;
+		return test;
+	}
 
 }

@@ -33,4 +33,9 @@ public class TowerService {
 	public boolean deleteTower(int id) {
 		return towerDao.deleteTower(id);
 	}
+
+	public boolean editTower(Tower tower) {
+		return towerDao.editTower(tower);
+		
+	}
 }
