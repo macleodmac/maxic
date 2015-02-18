@@ -55,7 +55,7 @@
 							<td>${row.latitude}</td>
 							<td>${row.longitude}</td>
 							<td><a class="btn btn-xs btn-default"
-								href="${pageContext.request.contextPath}/viewtower?t=${row.towerId}">Edit</a></td>
+								href="${pageContext.request.contextPath}/edittower?t=${row.towerId}">Edit</a></td>
 						</tr>
 
 					</c:forEach>

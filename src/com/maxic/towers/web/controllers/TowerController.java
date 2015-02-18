@@ -42,7 +42,6 @@ public class TowerController {
 		int id = Integer.parseInt(t);
 		Tower tower = towerService.getTower(id);
 		model.addAttribute("tower", tower);
-		System.out.println(tower.getTowerId());
 		return "viewtower";
 	}
 	
@@ -85,5 +84,28 @@ public class TowerController {
 			return ("redirect:/viewtower");
 		}
 	}
+	
+
+	@RequestMapping(value = "/edittower", method = RequestMethod.GET)
+	public String editTower(Model model, @RequestParam("t") String t) {
+		int id = Integer.parseInt(t);
+		Tower tower = towerService.getTower(id);
+		model.addAttribute("tower", tower);
+		return "edittower";
+	}
+	
+	@RequestMapping(value = "/doedit", method = RequestMethod.POST)
+	public String doEdit(Model model, Tower tower, BindingResult result, @RequestParam("t") String t, RedirectAttributes redirectAttributes) {
+		if (result.hasErrors()) {
+			model.addAttribute("t", t);
+			return ("redirect:/edittower");
+
+		}
+		System.out.println(tower.getTowerId());
+		System.out.println(t);
+		redirectAttributes.addFlashAttribute("message", "Tower successfully edited!");
+		return "redirect:/towers";
+	}
+
 
 }
