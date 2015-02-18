@@ -1,5 +1,6 @@
 package com.maxic.towers.web.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -9,13 +10,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.maxic.towers.web.dao.Tower;
+import com.maxic.towers.web.processing.Parser;
 import com.maxic.towers.web.service.TowerService;
 
 @Controller
@@ -98,6 +99,14 @@ public class TowerController {
 		towerService.editTower(tower);
 		redirectAttributes.addFlashAttribute("message", "Tower successfully edited!");
 		return "redirect:/admin/towers";
+	}
+	
+	@RequestMapping(value = "/admin/towers/parsedove")
+	public String parseDove(Model model) {
+		Parser parser = new Parser();
+		ArrayList<Tower> towerList = parser.parseDoveFile();
+		towerService.addTowers(towerList);
+		return "home";
 	}
 
 

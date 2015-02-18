@@ -2,6 +2,7 @@ package com.maxic.towers.web.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -96,7 +97,7 @@ public class TowerDao {
 	}
 
 	public boolean addTower(Tower tower) {
-
+		System.out.println("Adding tower " + tower.getDoveId());
 		BeanPropertySqlParameterSource params = new BeanPropertySqlParameterSource(
 				tower);
 		boolean test = jdbc
@@ -149,6 +150,13 @@ public class TowerDao {
 				+ "towerCaptain = :towerCaptain " + "WHERE towerId = :towerId",
 				params) == 1;
 		return test;
+	}
+
+	public boolean addTowers(ArrayList<Tower> towerList) {
+		for (Tower tower : towerList) {
+			this.addTower(tower);
+		}
+		return false;
 	}
 
 }

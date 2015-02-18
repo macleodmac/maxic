@@ -35,7 +35,7 @@
 							tower?</a>
 					</div>
 				</c:if>
-				<table class="table">
+				<table class="table" data-height="400" data-side-pagination="server" data-pagination="true" data-page-list="[5, 10, 20, 50, 100, 200]">
 					<thead>
 						<tr>
 							<th>TowerID</th>

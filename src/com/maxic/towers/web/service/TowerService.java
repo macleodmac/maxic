@@ -1,5 +1,6 @@
 package com.maxic.towers.web.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,5 +38,9 @@ public class TowerService {
 	public boolean editTower(Tower tower) {
 		return towerDao.editTower(tower);
 		
+	}
+
+	public boolean addTowers(ArrayList<Tower> towerList) {
+		return towerDao.addTowers(towerList);
 	}
 }

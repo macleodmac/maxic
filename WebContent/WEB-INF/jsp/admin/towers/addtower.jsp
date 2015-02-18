@@ -37,9 +37,6 @@
 			</div>
 			
 			<div class="row">
-			<div class="alert alert-info" role="alert">
-						At the moment, not all attributes are added to the database.
-					</div>
 				<hr />
 			</div>
 			<div class="row">
