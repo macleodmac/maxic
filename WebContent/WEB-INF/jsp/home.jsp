@@ -20,7 +20,7 @@
 		<div class="row">
 			<div class="col-xs-6">
 				<a class="btn btn-md btn-default"
-					href="${pageContext.request.contextPath}/towers">View Towers</a>
+					href="${pageContext.request.contextPath}/admin/towers">Admin Panel</a>
 			</div>
 
 		</div>

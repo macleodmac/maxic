@@ -77,6 +77,32 @@ LOCK TABLES `peal` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `persons`
+--
+
+DROP TABLE IF EXISTS `persons`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `persons` (
+  `PersonID` int(11) DEFAULT NULL,
+  `LastName` varchar(255) DEFAULT NULL,
+  `FirstName` varchar(255) DEFAULT NULL,
+  `Address` varchar(255) DEFAULT NULL,
+  `City` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `persons`
+--
+
+LOCK TABLES `persons` WRITE;
+/*!40000 ALTER TABLE `persons` DISABLE KEYS */;
+INSERT INTO `persons` VALUES (1,'MacLeod','Jamie',NULL,NULL);
+/*!40000 ALTER TABLE `persons` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `practice`
 --
 
@@ -138,7 +164,7 @@ CREATE TABLE `towers` (
   `accessDetails` varchar(100) DEFAULT NULL,
   `towerCaptain` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`towerId`)
-) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -147,11 +173,9 @@ CREATE TABLE `towers` (
 
 LOCK TABLES `towers` WRITE;
 /*!40000 ALTER TABLE `towers` DISABLE KEYS */;
-INSERT INTO `towers` VALUES (30,'news',52,'Sheffield','Sheffield','Sheffield','BSBC','12345',53,42,'12345',41,40,6,12,4,'St Mary','II',1,0,1,'None of note',50,'test','It\'s hard to get into','None');
-INSERT INTO `towers` VALUES (31,'',0,'','','','','',0,0,'',0,0,0,0,0,'','',0,0,0,'',20,'','','');
-INSERT INTO `towers` VALUES (34,'50',NULL,NULL,NULL,NULL,NULL,NULL,12,12,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
-INSERT INTO `towers` VALUES (35,'',NULL,NULL,NULL,NULL,NULL,NULL,0,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
-INSERT INTO `towers` VALUES (36,'',NULL,NULL,NULL,NULL,NULL,NULL,0,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
+INSERT INTO `towers` VALUES (46,'sampleTower',0,'Sheffield','City Centre','','Sheffield Cathedral','abcdef123',40,50,'s6',20,40,3,1,5,'St Mary','',0,0,0,'',0,'','','');
+INSERT INTO `towers` VALUES (47,'',0,'','','','','',0,0,'',0,0,0,0,0,'','',0,0,0,'',0,'','','');
+INSERT INTO `towers` VALUES (48,'',0,'','','','','',0,0,'',0,0,0,0,0,'','',0,0,0,'',0,'','','');
 /*!40000 ALTER TABLE `towers` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -164,4 +188,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-02-18 10:05:57
+-- Dump completed on 2015-02-18 14:58:31

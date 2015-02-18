@@ -100,7 +100,20 @@ public class TowerDao {
 		BeanPropertySqlParameterSource params = new BeanPropertySqlParameterSource(
 				tower);
 		boolean test = jdbc
-				.update("INSERT INTO towers (`doveId`, `latitude`, `longitude`) VALUES (:doveId, :latitude, :longitude)",
+				.update("INSERT INTO towers (`doveId`, `towerbaseId`, `placeName`,"
+						+ " `placeName2`, `placeNameCL`, `associatedChurch`,"
+						+ " `gridReference`, `latitude`, `longitude`, `postCode`,"
+						+ " `satNavLatitude`, `satNavLongitude`, `countryId`,"
+						+ " `countyId`, `guildId`, `dedication`, `listedGrade`,"
+						+ " `groundFloorRing`, `simulator`, `toilet`, `extraInfo`,"
+						+ " `buildingId`, `affiliation`, `accessDetails`, `towerCaptain`)"
+						+ " VALUES (:doveId, :towerbaseId, :placeName,"
+						+ " :placeName2, :placeNameCL, :associatedChurch,"
+						+ " :gridReference, :latitude, :longitude, :postCode,"
+						+ " :satNavLatitude, :satNavLongitude, :countryId,"
+						+ " :countyId, :guildId, :dedication, :listedGrade,"
+						+ " :groundFloorRing, :simulator, :toilet, :extraInfo,"
+						+ " :buildingId, :affiliation, :accessDetails, :towerCaptain)",
 						params) == 1;
 		return test;
 
@@ -117,9 +130,24 @@ public class TowerDao {
 	public boolean editTower(Tower tower) {
 		BeanPropertySqlParameterSource params = new BeanPropertySqlParameterSource(
 				tower);
-		boolean test = jdbc
-				.update("UPDATE towers SET doveId = :doveId, towerbaseId = :towerbaseId, placeName = :placeName, placeName2 = :placeName2, placeNameCL = :placeNameCL, associatedChurch = :associatedChurch, gridReference = :gridReference, postCode = :postCode, latitude = :latitude, longitude = :longitude, satNavLatitude = :satNavLatitude, satNavLongitude = :satNavLongitude, countryId = :countryId, countyId = :countyId, guildId = :guildId, dedication = :dedication, listedGrade = :listedGrade, groundFloorRing = :groundFloorRing, simulator = :simulator, toilet = :toilet, extraInfo = :extraInfo, buildingId = :buildingId, affiliation = :affiliation, accessDetails = :accessDetails, towerCaptain = :towerCaptain WHERE towerId = :towerId",
-						params) == 1;
+		boolean test = jdbc.update("UPDATE towers SET doveId = :doveId, "
+				+ "towerbaseId = :towerbaseId, " + "placeName = :placeName, "
+				+ "placeName2 = :placeName2, " + "placeNameCL = :placeNameCL, "
+				+ "associatedChurch = :associatedChurch, "
+				+ "gridReference = :gridReference, " + "postCode = :postCode, "
+				+ "latitude = :latitude, " + "longitude = :longitude, "
+				+ "satNavLatitude = :satNavLatitude, "
+				+ "satNavLongitude = :satNavLongitude, "
+				+ "countryId = :countryId, " + "countyId = :countyId, "
+				+ "guildId = :guildId, " + "dedication = :dedication, "
+				+ "listedGrade = :listedGrade, "
+				+ "groundFloorRing = :groundFloorRing, "
+				+ "simulator = :simulator, " + "toilet = :toilet, "
+				+ "extraInfo = :extraInfo, " + "buildingId = :buildingId, "
+				+ "affiliation = :affiliation, "
+				+ "accessDetails = :accessDetails, "
+				+ "towerCaptain = :towerCaptain " + "WHERE towerId = :towerId",
+				params) == 1;
 		return test;
 	}
 

@@ -18,14 +18,14 @@
 	</header>
 	<div class="container">
 		<sf:form method="post"
-			action="${pageContext.request.contextPath}/doadd"
+			action="${pageContext.request.contextPath}/admin/towers/doadd"
 			modelAttribute="tower" commandName="tower">
 
 			<div class="row">
 				<div class="col-xs-9">
 					<div class="form-group">
 						<a class="btn btn-default"
-							href="${pageContext.request.contextPath}/towers">Back</a>
+							href="${pageContext.request.contextPath}/admin/towers">Back</a>
 					</div>
 				</div>
 				<div class="col-xs-3 text-right">
@@ -38,7 +38,7 @@
 			
 			<div class="row">
 			<div class="alert alert-info" role="alert">
-						At the moment only DoveId, Latitude and Longitude are added to the database.
+						At the moment, not all attributes are added to the database.
 					</div>
 				<hr />
 			</div>
