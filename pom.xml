@@ -117,5 +117,30 @@
   		<artifactId>commons-io</artifactId>
   		<version>1.3.2</version>
   	</dependency>
+  		<dependency>
+  		<groupId>org.apache.tiles</groupId>
+  		<artifactId>tiles-extras</artifactId>
+  		<version>3.0.5</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>org.apache.tiles</groupId>
+  		<artifactId>tiles-servlet</artifactId>
+  		<version>3.0.5</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>org.apache.tiles</groupId>
+  		<artifactId>tiles-jsp</artifactId>
+  		<version>3.0.5</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>org.slf4j</groupId>
+  		<artifactId>slf4j-jdk14</artifactId>
+  		<version>1.7.6</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>org.slf4j</groupId>
+  		<artifactId>slf4j-api</artifactId>
+  		<version>1.7.6</version>
+  	</dependency>
 </dependencies>
 </project>

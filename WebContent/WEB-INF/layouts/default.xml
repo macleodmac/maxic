@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+       
+<tiles-definitions>
+
+	<definition name="towers.base" template="/WEB-INF/templates/default.jsp">
+		<put-attribute name="title" value="Tower Finder"></put-attribute>
+		<put-attribute name="header" value="/WEB-INF/tiles/default/header.jsp"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/default/content.jsp"></put-attribute>
+		<put-attribute name="footer" value="/WEB-INF/tiles/default/footer.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="home" extends="towers.base">
+		<put-attribute name="title" value="Tower Finder :: Home"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/main/home.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="admin.base" template="/WEB-INF/templates/default.jsp">
+		<put-attribute name="title" value="Tower Finder"></put-attribute>
+		<put-attribute name="header" value="/WEB-INF/tiles/default/header.jsp"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/default/content.jsp"></put-attribute>
+		<put-attribute name="footer" value="/WEB-INF/tiles/default/footer.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="/admin/towers" extends="admin.base">
+		<put-attribute name="title" value="Tower Finder :: Admin :: View Towers"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/admin/towers.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="/admin/towers/edittower" extends="admin.base">
+		<put-attribute name="title" value="Tower Finder :: Admin :: Edit Tower"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/admin/towers/edittower.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="/admin/towers/addtower" extends="admin.base">
+		<put-attribute name="title" value="Tower Finder :: Admin :: Add Tower"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/admin/towers/addtower.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="/admin/peals" extends="admin.base">
+		<put-attribute name="title" value="Tower Finder :: Admin :: View Peals"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/admin/peals.jsp"></put-attribute>
+	</definition>
+	
+
+</tiles-definitions>

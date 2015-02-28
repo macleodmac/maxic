@@ -95,7 +95,7 @@ public class AdminController {
 			return "redirect:/admin/towers";
 		} else {
 			model.addAttribute("t", t);
-			return ("redirect:/admin/towers/e");
+			return ("redirect:/admin/towers/edit");
 		}
 	}
 
