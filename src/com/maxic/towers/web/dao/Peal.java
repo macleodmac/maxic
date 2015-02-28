@@ -3,7 +3,7 @@ package com.maxic.towers.web.dao;
 public class Peal {
 	private int towerId;
 	private int pealId;
-	private String deadLication;
+	private String dedication;
 	private String dateRung;    //date
 	private String time;		//time
 	private String tenor;
@@ -19,12 +19,12 @@ public class Peal {
 		
 	}
 
-	public Peal(int towerId,int pealId,String deadLication,String dateRung,
+	public Peal(int towerId,int pealId,String dedication,String dateRung,
 			String time,String tenor,String method,String methodDetails,int changes,
 			String leader,String composer,String footnotes,String composition){
 		this.towerId = towerId;
 		this.pealId = pealId;
-		this.deadLication = deadLication;
+		this.dedication = dedication;
 		this.dateRung = dateRung;
 		this.time = time;
 		this.tenor = tenor;
@@ -49,11 +49,11 @@ public class Peal {
 	public void setPealId(int pealId) {
 		this.pealId = pealId;
 	}
-	public String getDeadLication() {
-		return deadLication;
+	public String getDedication() {
+		return dedication;
 	}
-	public void setDeadLication(String deadLication) {
-		this.deadLication = deadLication;
+	public void setDedication(String dedication) {
+		this.dedication = dedication;
 	}
 	public String getDateRung() {
 		return dateRung;
@@ -117,7 +117,7 @@ public class Peal {
 	}
 	public String toString() {
 		return "Peal [towerId ="+ towerId+", pealId ="+ pealId+
-				", deadLication ="+ deadLication+", dateRung ="+dateRung+
+				", dedication ="+ dedication+", dateRung ="+dateRung+
 				", time ="+ time+", tenor ="+ tenor+", method ="+ method+
 				", methodDetails ="+ methodDetails+", changes ="+ changes+
 		        ", leader ="+ leader+", composer ="+ composer+", footnotes= "

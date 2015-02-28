@@ -7,11 +7,15 @@
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/static/css/bootstrap.min.css" />
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
 <title>Insert title here</title>
 </head>
 <body>
-
-    
 	<header>
 		<div class="jumbotron">
 			<div class="row">
@@ -29,42 +33,42 @@
 						<c:out value="${message}"></c:out>
 					</div>
 				</c:if>
-				<c:if test="${empty towers}">
+				<c:if test="${empty peals}">
 					<div class="alert alert-info" role="alert">
 						Nothing to see here! Why not <a class="alert-link"
-							href="${pageContext.request.contextPath}/admin/towers/add">add a
-							tower?</a>
+							href="${pageContext.request.contextPath}/admin/peals/add">add a
+							peal?</a>
 					</div>
 				</c:if>
 				<table class="table" data-height="400" data-side-pagination="server" data-pagination="true" data-page-list="[5, 10, 20, 50, 100, 200]">
 					<thead>
 						<tr>
-							<th>TowerID</th>
-							<th>DoveID</th>
-							<th>Latitude</th>
-							<th>Longitude</th>
+							<th>PealId</th>
+							<th>dateRung</th>
+							<th>method</th>
+							<th>towerId</th>
 							<th></th>
 						</tr>
 					</thead>
 
 					<tfoot>
 						<tr>
-							<th>TowerID</th>
-							<th>DoveID</th>
-							<th>Latitude</th>
-							<th>Longitude</th>
+							<th>PealId</th>
+							<th>dateRung</th>
+							<th>method</th>
+							<th>towerId</th>
 							<th></th>
 						</tr>
 					</tfoot>
 					<tbody>
-						<c:forEach var="row" items="${towers}">
+						<c:forEach var="row" items="${peals}">
 							<tr>
+								<td>${row.pealId}</td>
+								<td>${row.dateRung}</td>
+								<td>${row.method}</td>
 								<td>${row.towerId}</td>
-								<td>${row.doveId}</td>
-								<td>${row.latitude}</td>
-								<td>${row.longitude}</td>
 								<td><a class="btn btn-xs btn-default"
-									href="${pageContext.request.contextPath}/admin/towers/edit?t=${row.towerId}">Edit</a></td>
+									href="${pageContext.request.contextPath}/admin/peals/edit?t=${row.pealId}">Edit</a></td>
 							</tr>
 
 						</c:forEach>
@@ -75,7 +79,7 @@
 		<div class="row">
 			<div class="col-xs-12">
 				<a class="btn btn-default"
-					href="${pageContext.request.contextPath}/admin/towers/add">Add a Tower</a>
+					href="${pageContext.request.contextPath}/admin/peals/add">Add a Peal</a>
 			</div>
 		</div>
 	</div>

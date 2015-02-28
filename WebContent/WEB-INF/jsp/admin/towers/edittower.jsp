@@ -1,11 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/static/css/bootstrap.min.css" />
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 </head>
@@ -20,7 +23,7 @@
 		<sf:form method="post"
 			action="${pageContext.request.contextPath}/admin/towers/doedit?t=${tower.towerId}"
 			modelAttribute="tower" commandName="tower">
-			
+
 			<div class="row">
 				<div class="col-xs-6">
 					<div class="form-group">
@@ -30,7 +33,8 @@
 				</div>
 				<div class="col-xs-6 text-right">
 					<div class="form-group">
-						<button type="submit" class="btn btn-default">Save Changes</button>
+						<button type="submit" class="btn btn-default">Save
+							Changes</button>
 					</div>
 				</div>
 			</div>
@@ -39,21 +43,21 @@
 			</div>
 			<div class="row">
 				<div class="col-xs-6 col-sm-4">
-					<div class="form-group" >
+					<div class="form-group">
 						<label for="towerId">Tower ID</label>
 						<sf:input type="text" class="form-control" path="towerId"
-							id="towerId" placeholder="Enter Tower ID" />
+							id="towerId" placeholder="Enter Tower ID" disabled="disabled"></sf:input>
 					</div>
 				</div>
 				<div class="col-xs-6 col-sm-4">
-					<div class="form-group" >
+					<div class="form-group">
 						<label for="doveId">Dove ID</label>
 						<sf:input type="text" class="form-control" path="doveId"
 							id="doveId" placeholder="Enter Dove ID" />
 					</div>
 				</div>
 				<div class="col-xs-6 col-sm-4">
-					<div class="form-group" >
+					<div class="form-group">
 						<label for="towerbaseId">Towerbase ID</label>
 						<sf:input type="text" class="form-control" path="towerbaseId"
 							id="towerbaseId" placeholder="towerbaseId" />
@@ -221,22 +225,49 @@
 				<div class="col-xs-6">
 					<div class="form-group">
 						<label for="accessDetails">accessDetails</label>
-						<sf:textarea style="resize: none;" rows="3" class="form-control" path="accessDetails"
-							id="accessDetails" placeholder="accessDetails" />
+						<sf:textarea style="resize: none;" rows="3" class="form-control"
+							path="accessDetails" id="accessDetails"
+							placeholder="accessDetails" />
 					</div>
 				</div>
 				<div class="col-xs-6">
 					<div class="form-group">
 						<label for="extraInfo">extraInfo</label>
-						<sf:textarea style="resize: none;" rows="3" class="form-control" path="extraInfo"
-							id="extraInfo" placeholder="extraInfo" />
+						<sf:textarea style="resize: none;" rows="3" class="form-control"
+							path="extraInfo" id="extraInfo" placeholder="extraInfo" />
 					</div>
 				</div>
 			</div>
 		</sf:form>
-		
+		<c:if test="${not empty contactMessage }">
+			<div class="row">
+				<div class="col-xs-6 col-sm-4">
+					<div class="form-group">
+						<label for="contactNumber">contactNumber</label>
+						<sf:input type="text" class="form-control" path="contactNumber"
+							id="contactNumber" placeholder="Enter contactNumber"></sf:input>
+					</div>
+				</div>
+				<div class="col-xs-6 col-sm-4">
+					<div class="form-group">
+						<label for="email">Dove ID</label>
+						<sf:input type="text" class="form-control" path="email" id="email"
+							placeholder="Enter contactEmail" />
+					</div>
+				</div>
+			</div>
+
+		</c:if>
+
+
 		<div class="row">
-			<div class="col-xs-6"></div>
+			<div class="col-xs-6">
+				<div class="form-group">
+					<a class="btn btn-default"
+						href="${pageContext.request.contextPath}/admin/towers/edit?t=${tower.towerId}&c=1">Add
+						Contact Details</a>
+				</div>
+			</div>
 			<div class="col-xs-6 text-right">
 				<a class="btn btn-danger"
 					href="${pageContext.request.contextPath}/admin/towers/dodelete?t=${tower.towerId}">Delete</a>

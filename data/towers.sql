@@ -23,13 +23,13 @@ DROP TABLE IF EXISTS `contactdetails`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `contactdetails` (
-  `towerRId` int(11) NOT NULL,
+  `towerId` int(11) NOT NULL,
   `email` varchar(60) DEFAULT NULL,
   `contactNumber` varchar(50) DEFAULT NULL,
   `website` varchar(50) DEFAULT NULL,
   `facebookPage` varchar(50) DEFAULT NULL,
   `twitterPage` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`towerRId`)
+  PRIMARY KEY (`towerId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -43,18 +43,18 @@ LOCK TABLES `contactdetails` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `peal`
+-- Table structure for table `peals`
 --
 
-DROP TABLE IF EXISTS `peal`;
+DROP TABLE IF EXISTS `peals`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `peal` (
+CREATE TABLE `peals` (
   `pealId` int(11) NOT NULL,
   `towerId` int(11) NOT NULL,
   `dedication` varchar(20) DEFAULT NULL,
   `dateRung` date DEFAULT NULL,
-  `timeRung` time DEFAULT NULL,
+  `time` varchar(20) DEFAULT NULL,
   `tenor` varchar(5) DEFAULT NULL,
   `method` varchar(20) DEFAULT NULL,
   `methodDetails` varchar(20) DEFAULT NULL,
@@ -68,12 +68,39 @@ CREATE TABLE `peal` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `peal`
+-- Dumping data for table `peals`
 --
 
-LOCK TABLES `peal` WRITE;
-/*!40000 ALTER TABLE `peal` DISABLE KEYS */;
-/*!40000 ALTER TABLE `peal` ENABLE KEYS */;
+LOCK TABLES `peals` WRITE;
+/*!40000 ALTER TABLE `peals` DISABLE KEYS */;
+INSERT INTO `peals` VALUES (20,10,NULL,NULL,NULL,NULL,'test',NULL,NULL,NULL,NULL,NULL,NULL);
+/*!40000 ALTER TABLE `peals` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `persons`
+--
+
+DROP TABLE IF EXISTS `persons`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `persons` (
+  `PersonID` int(11) DEFAULT NULL,
+  `LastName` varchar(255) DEFAULT NULL,
+  `FirstName` varchar(255) DEFAULT NULL,
+  `Address` varchar(255) DEFAULT NULL,
+  `City` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `persons`
+--
+
+LOCK TABLES `persons` WRITE;
+/*!40000 ALTER TABLE `persons` DISABLE KEYS */;
+INSERT INTO `persons` VALUES (1,'MacLeod','Jamie',NULL,NULL);
+/*!40000 ALTER TABLE `persons` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -7318,4 +7345,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-02-28 11:22:32
+-- Dump completed on 2015-02-28 13:28:25
