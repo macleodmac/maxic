@@ -40,27 +40,69 @@ public class Parser {
 				for (String property : towerProperties) {
 					if (property.isEmpty()) {
 						property = "0";
+						System.out.println("Replacing " + property + " with 0");
 					}
 				}
-				// Tower tower = new Tower(0, towerProperties[0],
-				// Integer.parseInt(towerProperties[5]),
-				// towerProperties[10], towerProperties[11],
-				// towerProperties[12], "", towerProperties[1],
-				// Float.parseFloat(towerProperties[36]),
-				// Float.parseFloat(towerProperties[37]),
-				// towerProperties[4],
-				// Float.parseFloat(towerProperties[2]),
-				// Float.parseFloat(towerProperties[3]), 0, 0, 0,
-				// towerProperties[13], towerProperties[38], false, false,
-				// false, towerProperties[30],
-				// Integer.parseInt(towerProperties[39]), "", "", "");
 
+				
+				// Get Latitude and Longitude in Float form.
+				Float latitude = 0f;
+				Float longitude = 0f;
+				Float satNavLatitude = 0f;
+				Float satNavLongitude = 0f;
+				try {
+					latitude = Float.parseFloat(towerProperties[36]);
+				} catch (NumberFormatException e) {
+					System.out.println("Latitude was empty!");
+				}
+				
+				try {
+					longitude = Float.parseFloat(towerProperties[37]);
+				} catch (NumberFormatException e) {
+					System.out.println("Longitude was empty!");
+				}
+				
+				try {
+					satNavLatitude = Float.parseFloat(towerProperties[2]);
+				} catch (NumberFormatException e) {
+					System.out.println("SNLatitude was empty!");
+				}
+				
+				try {
+					satNavLongitude = Float.parseFloat(towerProperties[3]);
+				} catch (NumberFormatException e) {
+					System.out.println("SNLongitude was empty!");
+				}
+				boolean sim = false;
+				boolean toilet = false;
+				boolean gfr = false;
+				boolean ringable = true;
+				
+				if (towerProperties[5].equalsIgnoreCase("t")) {
+					sim = true;
+				}
+				
+				if (towerProperties[21].equalsIgnoreCase("t")) {
+					toilet = true;
+				}
+				
+				if (towerProperties[20].equalsIgnoreCase("gf")) {
+					gfr = true;
+				}
+				
+				if (towerProperties[22].equalsIgnoreCase("u/r")) {
+					ringable = false;
+				}
+				
+				
+				System.out.println("Listing: " + towerProperties[39]);
 				Tower tower = new Tower(0, towerProperties[0],
 						Integer.parseInt(towerProperties[5]),
 						towerProperties[10], towerProperties[11],
-						towerProperties[12], "", towerProperties[1], 0, 0,
-						towerProperties[4], 0, 0, 0, 0, 0, towerProperties[13],
-						towerProperties[38], false, false, false,
+						towerProperties[12], ringable, towerProperties[1], 
+						latitude, longitude, 
+						towerProperties[4], satNavLatitude, satNavLongitude, 0, 0, 0, towerProperties[13],
+						towerProperties[38], gfr, sim, toilet,
 						towerProperties[30], 0, "", "", "");
 
 				towerList.add(tower);
@@ -84,11 +126,15 @@ public class Parser {
 		try {
 			((BufferedReader) appContext).close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return towerList;
 
+	}
+	
+	static void main(String[] args) {
+		Parser parser = new Parser();
+		parser.parseDoveFile();
 	}
 
 }

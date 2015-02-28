@@ -13,6 +13,7 @@ import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 @Component("towerDao")
 public class TowerDao {
@@ -33,7 +34,7 @@ public class TowerDao {
 						.getString("doveId"), rs.getInt("towerbaseId"), rs
 						.getString("placeName"), rs.getString("placeName2"), rs
 						.getString("placeNameCL"), rs
-						.getString("associatedChurch"), rs
+						.getBoolean("ringable"), rs
 						.getString("gridReference"), rs.getFloat("latitude"),
 						rs.getFloat("longitude"), rs.getString("postCode"), rs
 								.getFloat("satNavLatitude"), rs
@@ -70,7 +71,7 @@ public class TowerDao {
 								rs.getString("placeName"), rs
 										.getString("placeName2"), rs
 										.getString("placeNameCL"), rs
-										.getString("associatedChurch"), rs
+										.getBoolean("ringable"), rs
 										.getString("gridReference"), rs
 										.getFloat("latitude"), rs
 										.getFloat("longitude"), rs
@@ -102,14 +103,14 @@ public class TowerDao {
 				tower);
 		boolean test = jdbc
 				.update("INSERT INTO towers (`doveId`, `towerbaseId`, `placeName`,"
-						+ " `placeName2`, `placeNameCL`, `associatedChurch`,"
+						+ " `placeName2`, `placeNameCL`, `ringable`,"
 						+ " `gridReference`, `latitude`, `longitude`, `postCode`,"
 						+ " `satNavLatitude`, `satNavLongitude`, `countryId`,"
 						+ " `countyId`, `guildId`, `dedication`, `listedGrade`,"
 						+ " `groundFloorRing`, `simulator`, `toilet`, `extraInfo`,"
 						+ " `buildingId`, `affiliation`, `accessDetails`, `towerCaptain`)"
 						+ " VALUES (:doveId, :towerbaseId, :placeName,"
-						+ " :placeName2, :placeNameCL, :associatedChurch,"
+						+ " :placeName2, :placeNameCL, :ringable,"
 						+ " :gridReference, :latitude, :longitude, :postCode,"
 						+ " :satNavLatitude, :satNavLongitude, :countryId,"
 						+ " :countyId, :guildId, :dedication, :listedGrade,"
@@ -134,7 +135,7 @@ public class TowerDao {
 		boolean test = jdbc.update("UPDATE towers SET doveId = :doveId, "
 				+ "towerbaseId = :towerbaseId, " + "placeName = :placeName, "
 				+ "placeName2 = :placeName2, " + "placeNameCL = :placeNameCL, "
-				+ "associatedChurch = :associatedChurch, "
+				+ "ringable = :ringable, "
 				+ "gridReference = :gridReference, " + "postCode = :postCode, "
 				+ "latitude = :latitude, " + "longitude = :longitude, "
 				+ "satNavLatitude = :satNavLatitude, "
@@ -152,6 +153,7 @@ public class TowerDao {
 		return test;
 	}
 
+	@Transactional
 	public boolean addTowers(ArrayList<Tower> towerList) {
 		for (Tower tower : towerList) {
 			this.addTower(tower);

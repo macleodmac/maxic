@@ -84,9 +84,9 @@
 			<div class="row">
 				<div class="col-xs-6">
 					<div class="form-group">
-						<label for="associatedChurch">associatedChurch</label>
-						<sf:input type="text" class="form-control" path="associatedChurch"
-							id="associatedChurch" placeholder="associatedChurch" />
+						<label for="ringable">ringable</label>
+						<sf:input type="text" class="form-control" path="ringable"
+							id="ringable" placeholder="ringable" />
 					</div>
 				</div>
 				<div class="col-xs-6">

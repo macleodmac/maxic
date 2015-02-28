@@ -87,9 +87,8 @@ public class PealDao {
 				+ "method = :method,"+"methodDetails = :methodDetails,"
 				+ "changes = :changes, "+"leader = :leader,"+"composer = :composer,"
 				+ "footnotes = :footnotes,"+"composition = :composition"
-				+ "WHERE towerId = :towerId",
+				+ "WHERE pealId = :pealId",
 				params)==1;
-		//WHERE towerId = :towerId or pealId = :pealId		
 		return test;
 	}
 	public boolean addPeals(ArrayList<Peal> pealList) {
