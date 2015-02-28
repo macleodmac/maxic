@@ -14,33 +14,29 @@
 		</div>
 		<div id="navbar" class="collapse navbar-collapse">
 			<ul class="nav navbar-nav">
-				<li class="active"><a href="#" data-ytta-id="-">Towers</a></li>
+				<li><a href="#" data-ytta-id="-">Towers</a></li>
 				<li><a href="#" data-ytta-id="-">Peals</a></li>
-				<li class="dropdown"><a href="#" class="dropdown-toggle"
-					data-toggle="dropdown" role="button" aria-expanded="false"
-					data-ytta-id="-">Dropdown <span class="caret"></span></a>
-					<ul class="dropdown-menu" role="menu">
-						<li><a href="#" data-ytta-id="-">Action</a></li>
-						<li><a href="#" data-ytta-id="-">Another action</a></li>
-						<li><a href="#" data-ytta-id="-">Something else here</a></li>
-						<li class="divider"></li>
-						<li class="dropdown-header">Nav header</li>
-						<li><a href="#" data-ytta-id="-">Separated link</a></li>
-						<li><a href="#" data-ytta-id="-">One more separated link</a></li>
-					</ul></li>
+				
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
 				<li><a href="#" data-ytta-id="-">About</a></li>
 				<li><a href="#" data-ytta-id="-">Login</a></li>
+				<li class="dropdown"><a href="#" class="dropdown-toggle"
+					data-toggle="dropdown" role="button" aria-expanded="false"
+					data-ytta-id="-">Admin<span class="caret"></span></a>
+					<ul class="dropdown-menu" role="menu">
+						<li class="dropdown-header">Administration</li>
+						<li><a href="${pageContext.request.contextPath}/admin/dashboard" data-ytta-id="-">Dashboard</a></li>
+						<li><a href="${pageContext.request.contextPath}/admin/towers" data-ytta-id="-">Towers</a></li>
+						<li><a href="${pageContext.request.contextPath}/admin/peals" data-ytta-id="-">Peals</a></li>
+						<li><a href="${pageContext.request.contextPath}/admin/user" data-ytta-id="-">Users</a></li>
+						<li class="divider"></li>
+						<li class="dropdown-header">Help</li>
+						<li><a href="#" data-ytta-id="-">Manual</a></li>
+						<li><a href="#" data-ytta-id="-">Documentation</a></li>
+					</ul>
+				</li>
 			</ul>
-			<!-- Button trigger modal 
-			<button type="button" data-toggle="modal" data-target="#myModal">
-			  Launch demo modal
-			</button>-->
-
-			<!-- Modal -->
-
 		</div>
-		<!--/.nav-collapse -->
 	</div>
 </nav>
