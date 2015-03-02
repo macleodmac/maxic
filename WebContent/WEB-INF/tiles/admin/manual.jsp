@@ -2,8 +2,8 @@
 	<div class="row">
 		<div class="col-xs-3">
 			<div class="well bs-sidebar affix" id="sidebar">
-			<a href="#" class="nav nav-pills">Test</a>
 				<ul class="nav nav-pills nav-stacked">
+				<li><a href="#towers">Towers</a></li>
 					<li><a href="#towers">Towers</a></li>
 					<li><a href="#peals">Peals</a></li>
 					<li><a href="#users">Users</a></li>
