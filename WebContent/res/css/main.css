@@ -1,8 +1,34 @@
-/* all map containers must be full height */
-html, body, .container-fluid, .row, .map { height: 100% }
-
-#map-canvas {
-	width:100%;
-    height: 100%;
- 	height:calc(100% - 0px);
+.bs-sidebar.affix {
+  top: 25px;
+  margin-top: 35px;
 }
+
+.bs-docs-sidebar .nav>li>a {
+    color: #999;
+    border-left: 2px solid transparent;
+    padding: 4px 20px;
+    font-size: 13px;
+    font-weight: 400;
+}
+
+@media (min-width: 768px) {
+  .bs-sidebar.affix {
+    width: 158px;
+    top: 25px;
+  }
+}
+
+@media (min-width: 992px) {
+  .bs-sidebar.affix {
+    width: 213px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .bs-sidebar.affix {
+    width: 263px;
+  }
+}
+
+.google-map-canvas,
+.google-map-canvas * { .box-sizing(content-box); }

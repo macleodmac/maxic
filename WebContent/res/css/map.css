@@ -1,0 +1,24 @@
+@CHARSET "ISO-8859-1";
+
+html, body {
+	height: 100%;
+	margin: 0px;
+	padding: 0px;
+}
+
+.navbar {
+	margin: 0px;
+}
+
+#fullscreen-map {
+	height: 100%;
+	margin: 0px;
+	padding: 0px;
+	top: 50px;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	position: absolute;
+	width: auto;
+	height: auto;
+}

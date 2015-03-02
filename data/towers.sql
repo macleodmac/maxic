@@ -221,7 +221,7 @@ CREATE TABLE `towers` (
   `accessDetails` varchar(100) DEFAULT NULL,
   `towerCaptain` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`towerId`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -230,7 +230,7 @@ CREATE TABLE `towers` (
 
 LOCK TABLES `towers` WRITE;
 /*!40000 ALTER TABLE `towers` DISABLE KEYS */;
-INSERT INTO `towers` VALUES (1,'',342432432,'','','',0,'',0,0,'',0,0,0,0,0,'','',0,0,0,'',0,'','','');
+INSERT INTO `towers` VALUES (3,'',0,'','','',0,'',0,0,'',0,0,0,0,0,'','',0,0,0,'',0,'','','');
 /*!40000 ALTER TABLE `towers` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -243,4 +243,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-03-01 18:56:11
+-- Dump completed on 2015-03-02 17:39:05

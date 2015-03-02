@@ -34,17 +34,17 @@ public class AdminController {
 	public void setTowerService(TowerService towerService) {
 		this.towerService = towerService;
 	}
-	
+
 	@Autowired
 	public void setPealService(PealService pealService) {
 		this.pealService = pealService;
 	}
-	
+
 	@Autowired
-	public void setContactDetailsService(ContactDetailsService contactDetailsService) {
+	public void setContactDetailsService(
+			ContactDetailsService contactDetailsService) {
 		this.contactDetailsService = contactDetailsService;
 	}
-
 
 	@RequestMapping("/admin/towers")
 	public String showTowers(Model model,
@@ -100,13 +100,8 @@ public class AdminController {
 	}
 
 	@RequestMapping(value = "/admin/towers/edit", method = RequestMethod.GET)
-	public String editTower(Model model, @RequestParam("t") String t, @RequestParam("c") String c) {
+	public String editTower(Model model, @RequestParam("t") String t) {
 		int id = Integer.parseInt(t);
-		int contact = Integer.parseInt(c);
-		if (contact == 1) {
-			model.addAttribute("contactMessage", "true");
-			model.addAttribute("contactDetails", new ContactDetails());
-		}
 		Tower tower = towerService.getTower(id);
 		model.addAttribute("tower", tower);
 		return "/admin/towers/edittower";
@@ -133,7 +128,7 @@ public class AdminController {
 		towerService.addTowers(towerList);
 		return "home";
 	}
-	
+
 	@RequestMapping("/admin/peals")
 	public String showPeals(Model model,
 			@ModelAttribute("message") String message) {
@@ -142,6 +137,18 @@ public class AdminController {
 		model.addAttribute("peals", peals);
 		model.addAttribute("message", message);
 		return "/admin/peals";
+	}
+
+	@RequestMapping("/admin/dashboard")
+	public String showDashboard(Model model) {
+
+		return "/admin/dashboard";
+	}
+	
+	@RequestMapping("/admin/manual")
+	public String showManual(Model model) {
+
+		return "/admin/manual";
 	}
 
 }

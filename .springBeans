@@ -10,6 +10,7 @@
 		<config>WebContent/WEB-INF/towers-servlet.xml</config>
 		<config>src/com/maxic/towers/web/config/dao-context.xml</config>
 		<config>src/com/maxic/towers/web/config/service-context.xml</config>
+		<config>test/com/maxic/towers/web/test/config/datasource.xml</config>
 	</configs>
 	<autoconfigs>
 	</autoconfigs>

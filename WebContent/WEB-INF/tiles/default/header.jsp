@@ -32,7 +32,7 @@
 						<li><a href="${pageContext.request.contextPath}/admin/user" data-ytta-id="-">Users</a></li>
 						<li class="divider"></li>
 						<li class="dropdown-header">Help</li>
-						<li><a href="#" data-ytta-id="-">Manual</a></li>
+						<li><a href="${pageContext.request.contextPath}/admin/manual" data-ytta-id="-">Manual</a></li>
 						<li><a href="#" data-ytta-id="-">Documentation</a></li>
 					</ul>
 				</li>

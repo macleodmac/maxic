@@ -16,20 +16,17 @@
 
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/static/css/bootstrap.min.css">
-	<link rel="stylesheet"
+<link rel="stylesheet"
 	href="${pageContext.request.contextPath}/static/css/main.css">
+<link href='http://fonts.googleapis.com/css?family=Racing+Sans+One' rel='stylesheet' type='text/css'>
 
 </head>
 <body>
 	<header>
 		<tiles:insertAttribute name="header"></tiles:insertAttribute>
 	</header>
-	<div class="container">
-		<tiles:insertAttribute name="content"></tiles:insertAttribute>
-	</div>
-	<hr />
-	<div class="footer">
-		<tiles:insertAttribute name="footer"></tiles:insertAttribute>
-	</div>
+	<tiles:insertAttribute name="content"></tiles:insertAttribute>
+	
+	<tiles:insertAttribute name="footer"></tiles:insertAttribute>
 </body>
 </html>
