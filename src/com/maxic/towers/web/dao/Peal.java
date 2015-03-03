@@ -1,5 +1,6 @@
 package com.maxic.towers.web.dao;
 
+
 public class Peal {
 	private int towerId;
 	private int pealId;

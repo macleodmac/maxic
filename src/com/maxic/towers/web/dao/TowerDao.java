@@ -33,9 +33,8 @@ public class TowerDao {
 				Tower tower = new Tower(rs.getInt("towerId"), rs
 						.getString("doveId"), rs.getInt("towerbaseId"), rs
 						.getString("placeName"), rs.getString("placeName2"), rs
-						.getString("placeNameCL"), rs
-						.getBoolean("ringable"), rs
-						.getString("gridReference"), rs.getFloat("latitude"),
+						.getString("placeNameCL"), rs.getBoolean("ringable"),
+						rs.getString("gridReference"), rs.getFloat("latitude"),
 						rs.getFloat("longitude"), rs.getString("postCode"), rs
 								.getFloat("satNavLatitude"), rs
 								.getFloat("satNavLongitude"), rs
@@ -51,6 +50,20 @@ public class TowerDao {
 								.getString("accessDetails"), rs
 								.getString("towerCaptain"));
 				return tower;
+			}
+
+		});
+	}
+
+	public List<TowerShort> getTowersShort() {
+
+		return jdbc.query("SELECT * FROM towers", new RowMapper<TowerShort>() {
+
+			public TowerShort mapRow(ResultSet rs, int rowNum)
+					throws SQLException {
+				TowerShort towerShort = new TowerShort(rs.getInt("towerId"), rs
+						.getFloat("latitude"), rs.getFloat("longitude"));
+				return towerShort;
 			}
 
 		});
@@ -135,9 +148,9 @@ public class TowerDao {
 		boolean test = jdbc.update("UPDATE towers SET doveId = :doveId, "
 				+ "towerbaseId = :towerbaseId, " + "placeName = :placeName, "
 				+ "placeName2 = :placeName2, " + "placeNameCL = :placeNameCL, "
-				+ "ringable = :ringable, "
-				+ "gridReference = :gridReference, " + "postCode = :postCode, "
-				+ "latitude = :latitude, " + "longitude = :longitude, "
+				+ "ringable = :ringable, " + "gridReference = :gridReference, "
+				+ "postCode = :postCode, " + "latitude = :latitude, "
+				+ "longitude = :longitude, "
 				+ "satNavLatitude = :satNavLatitude, "
 				+ "satNavLongitude = :satNavLongitude, "
 				+ "countryId = :countryId, " + "countyId = :countyId, "
