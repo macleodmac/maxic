@@ -26,6 +26,7 @@
 				<div class="form-group">
 					<label for="towerId">Tower ID</label>
 					<p class="form-control-static">${tower.towerId}</p>
+					<sf:input type="hidden" path="towerId" id="towerId"></sf:input>
 				</div>
 			</div>
 			<div class="col-xs-6 col-sm-4">

@@ -46,7 +46,7 @@
 							<td>${row.method}</td>
 							<td>${row.towerId}</td>
 							<td><a class="btn btn-xs btn-default"
-								href="${pageContext.request.contextPath}/admin/peals/edit?t=${row.pealId}">Edit</a></td>
+								href="${pageContext.request.contextPath}/admin/peals/edit?p=${row.pealId}">Edit</a></td>
 						</tr>
 
 					</c:forEach>

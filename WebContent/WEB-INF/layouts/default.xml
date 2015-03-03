@@ -44,6 +44,16 @@
 		<put-attribute name="content" value="/WEB-INF/tiles/admin/peals.jsp"></put-attribute>
 	</definition>
 	
+	<definition name="/admin/peals/addpeal" extends="admin.base">
+		<put-attribute name="title" value="Tower Finder :: Admin :: Add a Peal"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/admin/peals/addpeal.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="/admin/peals/editpeal" extends="admin.base">
+		<put-attribute name="title" value="Tower Finder :: Admin :: Edit Peal"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/admin/peals/editpeal.jsp"></put-attribute>
+	</definition>
+	
 	<definition name="/admin/dashboard" extends="admin.base">
 		<put-attribute name="title" value="Tower Finder :: Admin :: Dashboard"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/admin/dashboard.jsp"></put-attribute>

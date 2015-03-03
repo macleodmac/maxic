@@ -33,6 +33,7 @@
 						<li><a href="${pageContext.request.contextPath}/admin/towers" data-ytta-id="-">Towers</a></li>
 						<li><a href="${pageContext.request.contextPath}/admin/peals" data-ytta-id="-">Peals</a></li>
 						<li><a href="${pageContext.request.contextPath}/admin/user" data-ytta-id="-">Users</a></li>
+						<li><a href="${pageContext.request.contextPath}/admin/messages" data-ytta-id="-">Users</a></li>
 						<li class="divider"></li>
 						<li class="dropdown-header">Help</li>
 						<li><a href="${pageContext.request.contextPath}/admin/manual" data-ytta-id="-">Manual</a></li>

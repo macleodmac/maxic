@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.maxic.towers.web.dao.ContactDetails;
 import com.maxic.towers.web.dao.Peal;
 import com.maxic.towers.web.dao.Tower;
 import com.maxic.towers.web.processing.Parser;
@@ -113,7 +112,6 @@ public class AdminController {
 		if (result.hasErrors()) {
 			model.addAttribute("t", t);
 			return ("redirect:/admin/towers/edit");
-
 		}
 		towerService.editTower(tower);
 		redirectAttributes.addFlashAttribute("message",
@@ -139,12 +137,66 @@ public class AdminController {
 		return "/admin/peals";
 	}
 
+	@RequestMapping("/admin/peals/add")
+	public String showAddPeal(Model model) {
+
+		Peal peal = new Peal();
+		model.addAttribute("peal", peal);
+		return "/admin/peals/addpeal";
+	}
+
+	@RequestMapping(value = "/admin/peals/doadd", method = RequestMethod.POST)
+	public String doAddPeal(Model model, @Valid Peal peal,
+			BindingResult result, RedirectAttributes redirectAttributes) {
+		if (result.hasErrors()) {
+			return "/admin/peals/addpeal";
+		}
+		pealService.addPeal(peal);
+		redirectAttributes.addFlashAttribute("message",
+				"Peal successfully added!");
+		return ("redirect:/admin/peals");
+	}
+
+	@RequestMapping(value = "/admin/peals/edit", method = RequestMethod.GET)
+	public String showEditPeal(Model model, @RequestParam("p") String p) {
+		int pealId = Integer.parseInt(p);
+		Peal peal = pealService.getPeal(pealId);
+		model.addAttribute("peal", peal);
+
+		return "/admin/peals/editpeal";
+	}
+
+	@RequestMapping(value = "/admin/peals/doedit", method = RequestMethod.POST)
+	public String doEditPeal(Model model, Peal peal, BindingResult result,
+			@RequestParam("p") String p, RedirectAttributes redirectAttributes) {
+		model.addAttribute("p", p);
+		if (result.hasErrors()) {
+			for (Object error : result.getAllErrors()) {
+				System.out.println(error);
+			}
+			redirectAttributes.addAttribute("p", p);
+			return ("redirect:/admin/peals/edit");
+		}
+		System.out.println("Trying to edit peal");
+		boolean editResult = pealService.editPeal(peal);
+		if (editResult) {
+			redirectAttributes.addFlashAttribute("message",
+					"Peal successfully edited!");
+			return ("redirect:/admin/peals");
+		} else {
+			redirectAttributes.addFlashAttribute("message",
+					"Peal not successfully edited. Please try again.");
+			redirectAttributes.addAttribute("p", p);
+			return ("redirect:/admin/peals/edit");
+		}
+	}
+
 	@RequestMapping("/admin/dashboard")
 	public String showDashboard(Model model) {
 
 		return "/admin/dashboard";
 	}
-	
+
 	@RequestMapping("/admin/manual")
 	public String showManual(Model model) {
 

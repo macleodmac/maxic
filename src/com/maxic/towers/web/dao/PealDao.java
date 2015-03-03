@@ -48,18 +48,15 @@ public class PealDao {
 		MapSqlParameterSource params = new MapSqlParameterSource();
 		params.addValue("id", id);
 
-		return jdbc.queryForObject("SELECT * FROM peals where towerId = :id",
+		return jdbc.queryForObject("SELECT * FROM peals where pealId = :id",
 				params, new RowMapper<Peal>() {
 					public Peal mapRow(ResultSet rs, int rowNum)
 							throws SQLException {
 						Peal peal = new Peal(rs.getInt("towerId"), rs
-								.getInt("pealId"),
-								rs.getString("dedication"), rs
-										.getString("dateRung"), rs
-										.getString("time"), rs
-										.getString("tenor"), rs
-										.getString("method"), rs
-										.getString("methodDetails"), rs
+								.getInt("pealId"), rs.getString("dedication"),
+								rs.getString("dateRung"), rs.getString("time"),
+								rs.getString("tenor"), rs.getString("method"),
+								rs.getString("methodDetails"), rs
 										.getInt("changes"), rs
 										.getString("leader"), rs
 										.getString("composer"), rs
@@ -75,11 +72,13 @@ public class PealDao {
 		System.out.println("Adding peal " + peal.getPealId());
 		BeanPropertySqlParameterSource params = new BeanPropertySqlParameterSource(
 				peal);
+
+		
 		boolean test = jdbc
-				.update("INSERT INTO peals (`pealId`,`dedication`,"
+				.update("INSERT INTO peals (`pealId`, `towerId`, `dedication`,"
 						+ "`dateRung`,`time`,`tenor`,`method`,`methodDetails`,`changes`,"
 						+ "`leader`,`composer`,`footnotes`,`composition`)"
-						+ "VALUES (:pealId, :dedication, "
+						+ "VALUES (:pealId, :towerId, :dedication, "
 						+ ":dateRung, :time, :tenor, :method, :methodDetails, :changes, "
 						+ ":leader, :composer, :footnotes, :composition)",
 						params) == 1;
@@ -97,13 +96,17 @@ public class PealDao {
 	public boolean editPeal(Peal peal) {
 		BeanPropertySqlParameterSource params = new BeanPropertySqlParameterSource(
 				peal);
-		boolean test = jdbc.update("UPDATE peals SET pealId = :pealId, "
-				+ "dedication = :dedication, " + "dateRung = :dateRung,"
-				+ "time = :time," + "tenor = :tenor," + "method = :method,"
-				+ "methodDetails = :methodDetails," + "changes = :changes, "
-				+ "leader = :leader," + "composer = :composer,"
-				+ "footnotes = :footnotes," + "composition = :composition"
-				+ "WHERE pealId = :pealId", params) == 1;
+
+		boolean test = jdbc
+				.update("UPDATE peals SET `towerId` = :towerId, "
+						+ "`dedication` = :dedication, `dateRung` = :dateRung, "
+						+ "`time` = :time, `tenor` = :tenor, `method` = :method, "
+						+ "`methodDetails` = :methodDetails, `changes` = :changes, "
+						+ "`leader` = :leader, `composer` = :composer, "
+						+ "`footnotes` = :footnotes, `composition` = :composition "
+						+ "WHERE `pealId` = :pealId",
+						params) == 1;
+		
 		return test;
 	}
 
