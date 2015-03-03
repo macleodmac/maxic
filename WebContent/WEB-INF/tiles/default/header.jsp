@@ -37,7 +37,7 @@
 						<li class="divider"></li>
 						<li class="dropdown-header">Help</li>
 						<li><a href="${pageContext.request.contextPath}/admin/manual" data-ytta-id="-">Manual</a></li>
-						<li><a href="#" data-ytta-id="-">Documentation</a></li>
+						<li><a href="${pageContext.request.contextPath}/admin/documentation" data-ytta-id="-">Documentation</a></li>
 					</ul>
 				</li>
 			</ul>

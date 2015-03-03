@@ -111,6 +111,7 @@ public class AdminController {
 			@RequestParam("t") String t, RedirectAttributes redirectAttributes) {
 		if (result.hasErrors()) {
 			model.addAttribute("t", t);
+			redirectAttributes.addAttribute("t", t);
 			return ("redirect:/admin/towers/edit");
 		}
 		towerService.editTower(tower);
@@ -201,6 +202,12 @@ public class AdminController {
 	public String showManual(Model model) {
 
 		return "/admin/manual";
+	}
+	
+	@RequestMapping("/admin/documentation")
+	public String showDocumentation(Model model) {
+
+		return "/admin/documentation";
 	}
 
 }

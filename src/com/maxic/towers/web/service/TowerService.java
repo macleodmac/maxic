@@ -48,4 +48,8 @@ public class TowerService {
 	public List<TowerShort> getTowersShort() {
 		return towerDao.getTowersShort();
 	}
+
+	public List<String> getTowersShortStrings() {
+		return towerDao.getTowerShortStrings();
+	}
 }

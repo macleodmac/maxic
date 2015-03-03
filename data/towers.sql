@@ -43,40 +43,6 @@ LOCK TABLES `contactdetails` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `peal`
---
-
-DROP TABLE IF EXISTS `peal`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `peal` (
-  `pealId` int(11) NOT NULL,
-  `towerId` int(11) NOT NULL,
-  `dedication` varchar(20) DEFAULT NULL,
-  `dateRung` date DEFAULT NULL,
-  `timeRung` time DEFAULT NULL,
-  `tenor` varchar(5) DEFAULT NULL,
-  `method` varchar(20) DEFAULT NULL,
-  `methodDetails` varchar(20) DEFAULT NULL,
-  `changes` int(3) DEFAULT NULL,
-  `leader` varchar(50) DEFAULT NULL,
-  `composer` varchar(50) DEFAULT NULL,
-  `footnotes` varchar(50) DEFAULT NULL,
-  `composition` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`pealId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `peal`
---
-
-LOCK TABLES `peal` WRITE;
-/*!40000 ALTER TABLE `peal` DISABLE KEYS */;
-/*!40000 ALTER TABLE `peal` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `peals`
 --
 
@@ -236,8 +202,7 @@ CREATE TABLE `towers` (
 
 LOCK TABLES `towers` WRITE;
 /*!40000 ALTER TABLE `towers` DISABLE KEYS */;
-INSERT INTO `towers` VALUES (23976,'test',0,'','','',0,'',0,0,'',0,0,0,0,0,'','',0,0,0,'',0,'','','');
-INSERT INTO `towers` VALUES (23977,'AB KETTLEB',6918,'Ab Kettleby','','',1,'SK724229',52.7986,-0.92747,'LE14 3HS',52.7997,-0.92635,0,0,0,'S James','II*',1,0,0,'Tuning: 1-3 of 4',0,'','','');
+INSERT INTO `towers` VALUES (23977,'AB KETTLEB',99,'Ab Kettleby','','',1,'SK724229',52.7986,-0.92747,'LE14 3HS',52.7997,-0.92635,0,0,0,'S James','II*',1,0,0,'Tuning: 1-3 of 4',0,'','','');
 INSERT INTO `towers` VALUES (23978,'ABBESS ROD',7481,'Abbess Roding','','',0,'TL571114',51.7796,0.2769,'CM5 0PA',0,0,0,0,0,'S Edmund K&M','II',1,0,0,'Unringable; ropes fall in a straight line; no sliders',0,'','','');
 INSERT INTO `towers` VALUES (23979,'ABBEY DORE',1,'Abbey Dore','','',1,'SO387304',51.9686,-2.89361,'HR2 0AA',0,0,0,0,0,'S Mary','I',0,0,0,'Anti-clockwise; no electric lighting on stairs or ante-chamber to ringing room',0,'','','');
 INSERT INTO `towers` VALUES (23980,'ABBOTS BIC',6922,'Abbots Bickington','','',0,'SS385133',50.8961,-4.29828,'EX22 7LQ',0,0,0,0,0,'S James','II*',1,0,0,'Unringable; anti-clockwise; tuning: 1,2,4 of 5; (BUT notes perceived not=nominal/2)',0,'','','');
@@ -7385,4 +7350,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-03-03 11:53:57
+-- Dump completed on 2015-03-03 14:37:02

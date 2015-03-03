@@ -68,6 +68,16 @@ public class TowerDao {
 
 		});
 	}
+	
+	public List<String> getTowerShortStrings() {
+		List<TowerShort> towers = this.getTowersShort();
+		List<String> towerStrings = new ArrayList<String>();
+		
+		for (TowerShort tower : towers) {
+			towerStrings.add(tower.toString());
+		}
+		return towerStrings;
+	}
 
 	public Tower getTower(int id) {
 

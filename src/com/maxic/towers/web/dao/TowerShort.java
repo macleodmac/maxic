@@ -41,7 +41,9 @@ public class TowerShort {
 
 	@Override
 	public String toString() {
-		return "TowerShort [t=" + t + ", la=" + la + ", lo=" + lo + "]";
+		return t + "," + la + "," + lo;
 	}
+	
+	
 
 }

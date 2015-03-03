@@ -21,18 +21,15 @@ function initialize() {
 		return json;
 	})();
 	
-	var fastMarkers = [];
-
-	
 	for (var i = 0; i < json.towers.length; i++) {
 		var obj = json.towers[i];
-		var location = new google.maps.LatLng(json.towers[i]["la"],json.towers[i]["lo"]);
-		// id, latLng, innerHtmlArray, divClassName, zIndex, leftOffset, topOffset
-		var marker = new com.redfin.FastMarker(json.towers[i]["t"], location, ["<img src='/towers/static/js/marker.png'>"], "myMarker", 0, 10/*px*/, 10/*px*/);
-		fastMarkers.push(marker);
+		var location = new google.maps.LatLng(json.towers[i]["la"],
+				json.towers[i]["lo"]);
+		var towerMarker = new google.maps.Marker({
+			position : location,
+			map : map,
+		});
 	}
-	
-	new com.redfin.FastMarkerOverlay(map, fastMarkers);
 
 		// google.maps.event.addListener(towerMarker, 'click', function() {
 		// map.setZoom(10);

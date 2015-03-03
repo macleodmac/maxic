@@ -64,5 +64,9 @@
 		<put-attribute name="content" value="/WEB-INF/tiles/admin/manual.jsp"></put-attribute>
 	</definition>
 	
+	<definition name="/admin/documentation" extends="admin.base">
+		<put-attribute name="title" value="Tower Finder :: Admin :: Documentation"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/admin/documentation.jsp"></put-attribute>
+	</definition>
 
 </tiles-definitions>
