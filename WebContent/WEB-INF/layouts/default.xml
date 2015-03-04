@@ -12,9 +12,36 @@
 		<put-attribute name="footer" value="/WEB-INF/tiles/default/footer.jsp"></put-attribute>
 	</definition>
 	
+	<definition name="modal.base" template="/WEB-INF/templates/modal.jsp">
+		<put-attribute name="title" value="Tower Finder"></put-attribute>
+		<put-attribute name="prebody" value="/WEB-INF/tiles/default/prebody.jsp"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/default/content.jsp"></put-attribute>
+		<put-attribute name="footer" value="/WEB-INF/tiles/default/footer.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="view.base" template="/WEB-INF/templates/view.jsp">
+		<put-attribute name="title" value="Tower Finder"></put-attribute>
+		<put-attribute name="header" value="/WEB-INF/tiles/default/header.jsp"></put-attribute>
+		<put-attribute name="prebody" value="/WEB-INF/tiles/default/prebody.jsp"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/default/content.jsp"></put-attribute>
+		<put-attribute name="footer" value="/WEB-INF/tiles/default/footer.jsp"></put-attribute>
+	</definition>
+	
 	<definition name="home" extends="towers.base">
 		<put-attribute name="title" value="Tower Finder :: Home"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/main/home.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="/towers/view" extends="view.base">
+		<put-attribute name="title" value="Tower Finder :: View Tower"></put-attribute>
+		<put-attribute name="prebody" value="/WEB-INF/tiles/towers/viewprebody.jsp"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/towers/viewbody.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="/towers/modal" extends="modal.base">
+		<put-attribute name="title" value="Tower Finder :: View Tower"></put-attribute>
+		<put-attribute name="prebody" value="/WEB-INF/tiles/towers/viewprebody.jsp"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/towers/viewbody.jsp"></put-attribute>
 	</definition>
 	
 	<definition name="admin.base" template="/WEB-INF/templates/default.jsp">

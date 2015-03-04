@@ -243,7 +243,7 @@
 	<div class="row">
 		<div class="col-xs-6">
 			<div class="form-group">
-				<a class="btn btn-default"
+				<a class="btn btn-default disabled"
 					href="${pageContext.request.contextPath}/admin/towers/edit?t=${tower.towerId}&c=1">Add
 					Contact Details</a>
 			</div>

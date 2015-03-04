@@ -1,18 +1,20 @@
+var map;
+
 function initialize() {
 	var mapCanvas = document.getElementById('fullscreen-map');
 	var mapOptions = {
 		center : new google.maps.LatLng(53.3795514, -1.4709423),
-		zoom : 8,
+		zoom : 12,
 		mapTypeId : google.maps.MapTypeId.ROADMAP
 	}
-	var map = new google.maps.Map(mapCanvas, mapOptions);
+	map = new google.maps.Map(mapCanvas, mapOptions);
 
 	var json = (function() {
 		var json = null;
 		$.ajax({
 			'async' : false,
 			'global' : false,
-			'url' : '../towers/gettowers',
+			'url' : './gettowers',
 			'dataType' : "json",
 			'success' : function(data) {
 				json = data;
@@ -20,24 +22,87 @@ function initialize() {
 		});
 		return json;
 	})();
-	
-	var fastMarkers = [];
 
-	
+	var iconURL = './static/img/church.png';
+	var markers = [];
+	var mcOptions = {
+		gridSize : 50,
+		maxZoom : 12
+//	 ,styles : [
+//	 {
+//	 height : 53,
+//	 url :
+//	 "http://ismailkarakurt.com/wp-content/uploads/2014/08/fb_icon_325x3251.png",
+//	 width : 53
+//	 },
+//	 {
+//	 height : 56,
+//	 url :
+//	 "http://ismailkarakurt.com/wp-content/uploads/2014/08/fb_icon_325x3251.png",
+//	 width : 56
+//	 },
+//	 {
+//	 height : 66,
+//	 url :
+//	 "http://ismailkarakurt.com/wp-content/uploads/2014/08/fb_icon_325x3251.png",
+//	 width : 66
+//	 },
+//	 {
+//	 height : 78,
+//	 url :
+//	 "http://ismailkarakurt.com/wp-content/uploads/2014/08/fb_icon_325x3251.png",
+//	 width : 78
+//	 },
+//	 {
+//	 height : 90,
+//	 url :
+//	 "http://ismailkarakurt.com/wp-content/uploads/2014/08/fb_icon_325x3251.png",
+//	 width : 90
+//	
+//	 } ]
+	};
+
 	for (var i = 0; i < json.towers.length; i++) {
 		var obj = json.towers[i];
-		var location = new google.maps.LatLng(json.towers[i]["la"],json.towers[i]["lo"]);
-		// id, latLng, innerHtmlArray, divClassName, zIndex, leftOffset, topOffset
-		var marker = new com.redfin.FastMarker(json.towers[i]["t"], location, ["<img src='/towers/static/js/marker.png'>"], "myMarker", 0, 10/*px*/, 10/*px*/);
-		fastMarkers.push(marker);
+		var location = new google.maps.LatLng(json.towers[i]["la"],
+				json.towers[i]["lo"]);
+
+		var towerMarker = new google.maps.Marker({
+			position : location,
+			url : './towers/modal?t=' + json.towers[i]["t"],
+			// map : map,
+			icon : iconURL,
+			title : json.towers[i]["t"].toString()
+		});
+
+		google.maps.event.addListener(towerMarker, 'click', function() {
+			$('#viewTower').attr('data-remote',
+					('./towers/modal?t=' + this.getTitle()));
+			$('#viewTower').modal('show');
+
+		});
+
+		markers.push(towerMarker);
+
 	}
-	
-	new com.redfin.FastMarkerOverlay(map, fastMarkers);
 
-		// google.maps.event.addListener(towerMarker, 'click', function() {
-		// map.setZoom(10);
-		// map.setCenter(towerMarker.getPosition());
-		// });
-
+	var mc = new MarkerClusterer(map, markers, mcOptions);
 }
+
+function showMarkers() {
+	var bounds = map.getBounds();
+	console.log(bounds);
+	window.alert(bounds);
+	// Call you server with ajax passing it the bounds
+
+	// In the ajax callback delete the current markers and add new markers
+}
+
 google.maps.event.addDomListener(window, 'load', initialize);
+google.maps.event.addListener(map, 'idle', function() {
+	window.alert(map.getBounds());
+});
+
+$('body').on('hidden.bs.modal', '.modal', function() {
+	$(this).removeData('bs.modal');
+});

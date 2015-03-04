@@ -221,7 +221,7 @@ CREATE TABLE `towers` (
   `accessDetails` varchar(100) DEFAULT NULL,
   `towerCaptain` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`towerId`)
-) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -242,4 +242,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-03-03 11:53:57
+-- Dump completed on 2015-03-04 10:08:48
