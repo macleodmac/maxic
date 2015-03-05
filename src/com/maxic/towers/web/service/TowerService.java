@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.maxic.towers.web.dao.Tower;
 import com.maxic.towers.web.dao.TowerDao;
+import com.maxic.towers.web.dao.TowerDescriptor;
 import com.maxic.towers.web.dao.TowerShort;
 
 @Service("towerService")
@@ -51,5 +52,9 @@ public class TowerService {
 
 	public List<String> getTowersShortStrings() {
 		return towerDao.getTowerShortStrings();
+	}
+
+	public List<TowerDescriptor> getTowerDescriptors() {
+		return towerDao.getTowerDescriptors();
 	}
 }

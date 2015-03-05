@@ -68,11 +68,28 @@ public class TowerDao {
 
 		});
 	}
-	
+
+	public List<TowerDescriptor> getTowerDescriptors() {
+
+		return jdbc.query("SELECT * FROM towers",
+				new RowMapper<TowerDescriptor>() {
+
+					public TowerDescriptor mapRow(ResultSet rs, int rowNum)
+							throws SQLException {
+						TowerDescriptor towerDescriptor = new TowerDescriptor(
+								rs.getInt("towerId"), (rs.getString("placeName")
+										+ " " + rs.getString("placeName2")
+										+ " " + rs.getString("dedication")));
+						return towerDescriptor;
+					}
+
+				});
+	}
+
 	public List<String> getTowerShortStrings() {
 		List<TowerShort> towers = this.getTowersShort();
 		List<String> towerStrings = new ArrayList<String>();
-		
+
 		for (TowerShort tower : towers) {
 			towerStrings.add(tower.toString());
 		}

@@ -120,5 +120,6 @@
 						id="composition" placeholder="composition" />
 				</div>
 			</div>
+		</div>
 	</sf:form>
 </div>

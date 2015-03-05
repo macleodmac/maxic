@@ -1,7 +1,9 @@
 package com.maxic.towers.web.controllers;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.validation.Valid;
 
@@ -13,10 +15,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.maxic.towers.web.dao.Peal;
 import com.maxic.towers.web.dao.Tower;
+import com.maxic.towers.web.dao.TowerDescriptor;
 import com.maxic.towers.web.processing.Parser;
 import com.maxic.towers.web.service.ContactDetailsService;
 import com.maxic.towers.web.service.PealService;
@@ -25,6 +29,9 @@ import com.maxic.towers.web.service.TowerService;
 @Controller
 public class AdminController {
 
+	/*
+	 * Defining and autowiring services
+	 */
 	private TowerService towerService;
 	private PealService pealService;
 	private ContactDetailsService contactDetailsService;
@@ -45,11 +52,19 @@ public class AdminController {
 		this.contactDetailsService = contactDetailsService;
 	}
 
+	/**
+	 * Fetches a list of all towers from the tower service and returns to the
+	 * page
+	 * 
+	 * @param message
+	 *            arbitrary message to display on the page
+	 * @return /admin/towers view
+	 */
 	@RequestMapping("/admin/towers")
 	public String showTowers(Model model,
 			@ModelAttribute("message") String message) {
 
-		List<Tower> towers = towerService.getTowers();
+		List<TowerDescriptor> towers = towerService.getTowerDescriptors();
 		model.addAttribute("towers", towers);
 		model.addAttribute("message", message);
 		return "/admin/towers";
@@ -63,12 +78,25 @@ public class AdminController {
 	// return "viewtower";
 	// }
 
+	/**
+	 * Creates a new instance of tower and returns to the page
+	 * 
+	 * @return /admin/towers/add view
+	 */
 	@RequestMapping(value = "/admin/towers/add")
 	public String addTower(Model model) {
 		model.addAttribute("tower", new Tower());
 		return "/admin/towers/addtower";
 	}
 
+	/**
+	 * Fetches tower from page using POST, checks for errors, adds tower to
+	 * database using service
+	 * 
+	 * @param tower
+	 *            tower object fetched from form submission
+	 * @return redirect:/admin/towers/towers view if successful
+	 */
 	@RequestMapping(value = "/admin/towers/doadd", method = RequestMethod.POST)
 	public String doAdd(Model model, @Valid Tower tower, BindingResult result,
 			RedirectAttributes redirectAttributes) {
@@ -82,6 +110,14 @@ public class AdminController {
 		return "redirect:/admin/towers";
 	}
 
+	/**
+	 * Fetches tower id from page, deletes tower using service, adds
+	 * success/failure flashAttribute
+	 * 
+	 * @param t
+	 *            string identifying tower by towerId
+	 * @return redirect:/admin/towers view if successful
+	 */
 	@RequestMapping(value = "/admin/towers/dodelete", method = RequestMethod.GET)
 	public String deleteTower(Model model, @RequestParam("t") String t,
 			RedirectAttributes redirectAttributes) {
@@ -192,6 +228,22 @@ public class AdminController {
 		}
 	}
 
+	@RequestMapping(value = "/admin/peals/dodelete", method = RequestMethod.GET)
+	public String deletePeal(Model model, @RequestParam("p") String p,
+			RedirectAttributes redirectAttributes) {
+		int pealId = Integer.parseInt(p);
+		boolean success = pealService.deletePeal(pealId);
+
+		if (success) {
+			redirectAttributes.addFlashAttribute("message",
+					"Peal successfully deleted.");
+			return "redirect:/admin/peals";
+		} else {
+			model.addAttribute("p", p);
+			return ("redirect:/admin/peals/edit");
+		}
+	}
+
 	@RequestMapping("/admin/dashboard")
 	public String showDashboard(Model model) {
 
@@ -203,11 +255,26 @@ public class AdminController {
 
 		return "/admin/manual";
 	}
-	
+
 	@RequestMapping("/admin/documentation")
 	public String showDocumentation(Model model) {
 
 		return "/admin/documentation";
+	}
+
+	@RequestMapping(value = "/towerlist", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public Map<String, Object> getTowerList() {
+
+		List<TowerDescriptor> towers = null;
+		towers = towerService.getTowerDescriptors();
+		
+		Map<String, Object> towerMap = new HashMap<String, Object>();
+
+		towerMap.put("towers", towers);
+		towerMap.put("number", towers.size());
+
+		return towerMap;
 	}
 
 }

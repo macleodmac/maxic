@@ -8,14 +8,19 @@
 <script
 	src="${pageContext.request.contextPath}/static/js/markerclusterer_compiled.js"></script>
 <script src="${pageContext.request.contextPath}/static/js/maps.js"></script>
-
+<style>
+.modal .modal-body {
+    max-height: 450px;
+    overflow-y: auto;
+}
+</style>
 
 <div id="fullscreen-map"></div>
 
 <div class="modal" id="viewTower" aria-labelledby="myModalLabel"
 	aria-hidden="true"
 	data-remote="#">
-	<div class="modal-dialog modal-lg">
+	<div class="modal-dialog modal-vertical-centered modal-lg">
 		<div class="modal-content"></div>
 	</div>
 </div>

@@ -18,11 +18,11 @@
 		<div id="navbar" class="collapse navbar-collapse">
 			<ul class="nav navbar-nav">
 				<li><a href="#" data-ytta-id="-">Towers</a></li>
-				<li><a href="#" data-ytta-id="-">Peals</a></li>
+				<li><a href="${pageContext.request.contextPath}/peals" data-ytta-id="-">Peals</a></li>
 				
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
-				<li><a href="#" data-ytta-id="-">About</a></li>
+				<li><a href="${pageContext.request.contextPath}/about" data-ytta-id="-">About</a></li>
 				<li><a href="#" data-ytta-id="-">Login</a></li>
 				<li class="dropdown"><a href="#" class="dropdown-toggle"
 					data-toggle="dropdown" role="button" aria-expanded="false"

@@ -55,15 +55,15 @@
 			<div class="col-xs-6 col-sm-4">
 				<div class="form-group">
 					<label for="time">time</label>
-					<sf:input type="text" class="form-control" path="time"
-						id="time" placeholder="time" />
+					<sf:input type="text" class="form-control" path="time" id="time"
+						placeholder="time" />
 				</div>
 			</div>
 			<div class="col-xs-6 col-sm-4">
 				<div class="form-group">
 					<label for="tenor">tenor</label>
-					<sf:input type="text" class="form-control" path="tenor"
-						id="tenor" placeholder="tenor" />
+					<sf:input type="text" class="form-control" path="tenor" id="tenor"
+						placeholder="tenor" />
 				</div>
 			</div>
 		</div>
@@ -121,5 +121,15 @@
 						id="composition" placeholder="composition" />
 				</div>
 			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-6">
+			</div>
+			<div class="col-xs-6 text-right">
+				<a class="btn btn-danger"
+					href="${pageContext.request.contextPath}/admin/peals/dodelete?p=${peal.pealId}">Delete</a>
+			</div>
+		</div>
 	</sf:form>
 </div>

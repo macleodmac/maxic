@@ -28,38 +28,38 @@ function initialize() {
 	var mcOptions = {
 		gridSize : 50,
 		maxZoom : 12
-//	 ,styles : [
-//	 {
-//	 height : 53,
-//	 url :
-//	 "http://ismailkarakurt.com/wp-content/uploads/2014/08/fb_icon_325x3251.png",
-//	 width : 53
-//	 },
-//	 {
-//	 height : 56,
-//	 url :
-//	 "http://ismailkarakurt.com/wp-content/uploads/2014/08/fb_icon_325x3251.png",
-//	 width : 56
-//	 },
-//	 {
-//	 height : 66,
-//	 url :
-//	 "http://ismailkarakurt.com/wp-content/uploads/2014/08/fb_icon_325x3251.png",
-//	 width : 66
-//	 },
-//	 {
-//	 height : 78,
-//	 url :
-//	 "http://ismailkarakurt.com/wp-content/uploads/2014/08/fb_icon_325x3251.png",
-//	 width : 78
-//	 },
-//	 {
-//	 height : 90,
-//	 url :
-//	 "http://ismailkarakurt.com/wp-content/uploads/2014/08/fb_icon_325x3251.png",
-//	 width : 90
-//	
-//	 } ]
+	 ,styles : [
+	 {
+	 height : 31,
+	 url :
+	 "http://i.imgur.com/5oeQDPd.png",
+	 width : 31
+	 },
+	 {
+	 height : 56,
+	 url :
+	 "http://i.imgur.com/lUekSlS.png",
+	 width : 56
+	 },
+	 {
+	 height : 66,
+	 url :
+	 "http://i.imgur.com/lUekSlS.png",
+	 width : 66
+	 },
+	 {
+	 height : 78,
+	 url :
+	 "http://i.imgur.com/lUekSlS.png",
+	 width : 78
+	 },
+	 {
+	 height : 90,
+	 url :
+	 "http://i.imgur.com/lUekSlS.png",
+	 width : 90
+	
+	 } ]
 	};
 
 	for (var i = 0; i < json.towers.length; i++) {

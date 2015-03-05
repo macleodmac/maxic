@@ -37,7 +37,7 @@
 		
 	</div>
 	<div class="modal-footer">
-		<a class="btn btn-default btn-primary"
+		<a class="btn btn-default btn-primary pull-left"
 			href="${pageContext.request.contextPath}/towers/view?t=${tower.towerId}">View
 			Alone</a>
 		<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

@@ -38,11 +38,29 @@
 		<put-attribute name="content" value="/WEB-INF/tiles/towers/viewbody.jsp"></put-attribute>
 	</definition>
 	
+	<definition name="/towers/alltower" extends="view.base">
+		<put-attribute name="title" value="Tower Finder :: View Tower"></put-attribute>
+		<put-attribute name="prebody" value="/WEB-INF/tiles/towers/allprebody.jsp"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/towers/alltower.jsp"></put-attribute>
+	</definition>
+	
 	<definition name="/towers/modal" extends="modal.base">
 		<put-attribute name="title" value="Tower Finder :: View Tower"></put-attribute>
 		<put-attribute name="prebody" value="/WEB-INF/tiles/towers/viewprebody.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/towers/viewbody.jsp"></put-attribute>
 	</definition>
+	
+	<definition name="/peals" extends="towers.base">
+		<put-attribute name="title" value="Tower Finder :: View Peals"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/peals/peals.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="/peals/view" extends="towers.base">
+		<put-attribute name="title" value="Tower Finder :: View Peal"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/peals/viewpeal.jsp"></put-attribute>
+	</definition>
+	
+	
 	
 	<definition name="admin.base" template="/WEB-INF/templates/default.jsp">
 		<put-attribute name="title" value="Tower Finder"></put-attribute>
@@ -94,6 +112,16 @@
 	<definition name="/admin/documentation" extends="admin.base">
 		<put-attribute name="title" value="Tower Finder :: Admin :: Documentation"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/admin/documentation.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="/error" extends="towers.base">
+		<put-attribute name="title" value="Tower Finder :: Error"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/error/error.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="/about" extends="towers.base">
+		<put-attribute name="title" value="Tower Finder :: About"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/main/about.jsp"></put-attribute>
 	</definition>
 
 </tiles-definitions>

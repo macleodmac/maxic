@@ -29,7 +29,7 @@ public class ContactDetailsService {
 		return contactDetailsDao.addContactDetails(contactDetails);
 	}
 
-	public ContactDetails getContactDetails(int id) {
+	public List<ContactDetails> getContactDetails(int id) {
 		return contactDetailsDao.getContactDetails(id);
 	}
 

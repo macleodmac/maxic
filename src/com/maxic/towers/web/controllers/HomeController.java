@@ -7,6 +7,7 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,7 +15,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.maxic.towers.web.dao.Peal;
 import com.maxic.towers.web.dao.Tower;
+import com.maxic.towers.web.dao.TowerExec;
 import com.maxic.towers.web.dao.TowerShort;
+import com.maxic.towers.web.service.ContactDetailsService;
 import com.maxic.towers.web.service.PealService;
 import com.maxic.towers.web.service.TowerService;
 
@@ -24,6 +27,7 @@ public class HomeController {
 	private static Logger logger = Logger.getLogger(HomeController.class);
 	private TowerService towerService;
 	private PealService pealService;
+	private ContactDetailsService contactDetailsService;
 
 	@Autowired
 	public void setTowerService(TowerService towerService) {
@@ -33,6 +37,11 @@ public class HomeController {
 	@Autowired
 	public void setPealService(PealService pealService) {
 		this.pealService = pealService;
+	}
+	
+	@Autowired
+	public void setContactDetailsService(ContactDetailsService contactDetailsService) {
+		this.contactDetailsService = contactDetailsService;
 	}
 
 	@RequestMapping("/")
@@ -72,4 +81,24 @@ public class HomeController {
 
 		return pealMap;
 	}
+	
+	@RequestMapping(value = "/alltower", method = RequestMethod.GET)
+	public String getAllTowerInfo(Model model, @RequestParam("t") String t) {
+		int towerId = Integer.parseInt(t);
+		TowerExec towerAll = new TowerExec();
+		
+		towerAll.setTower(towerService.getTower(towerId));
+		towerAll.setContactDetails(contactDetailsService.getContactDetails(towerId));
+		
+		model.addAttribute("towerAll", towerAll);
+		return "/towers/alltower";
+		
+	}
+	
+
+	
+	@RequestMapping(value="/about")
+	 public String showAbout(){
+	  return "/about";
+	 }
 }
