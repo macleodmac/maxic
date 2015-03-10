@@ -104,6 +104,36 @@
 		<put-attribute name="content" value="/WEB-INF/tiles/admin/dashboard.jsp"></put-attribute>
 	</definition>
 	
+	<definition name="/admin/countries/addcountry" extends="admin.base">
+		<put-attribute name="title" value="Tower Finder :: Admin :: Add Country"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/admin/countries/addcountry.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="/admin/countries/editcountry" extends="admin.base">
+		<put-attribute name="title" value="Tower Finder :: Admin :: Edit Country"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/admin/countries/editcountry.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="/admin/dioceses" extends="admin.base">
+		<put-attribute name="title" value="Tower Finder :: Admin :: Dioceses"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/admin/dioceses.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="/admin/dioceses/adddiocese" extends="admin.base">
+		<put-attribute name="title" value="Tower Finder :: Admin :: Add Diocese"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/admin/dioceses/adddiocese.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="/admin/dioceses/editdiocese" extends="admin.base">
+		<put-attribute name="title" value="Tower Finder :: Admin :: Edit Diocese"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/admin/dioceses/editdiocese.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="/admin/countries" extends="admin.base">
+		<put-attribute name="title" value="Tower Finder :: Admin :: Countries"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/admin/countries.jsp"></put-attribute>
+	</definition>
+	
 	<definition name="/admin/manual" extends="admin.base">
 		<put-attribute name="title" value="Tower Finder :: Admin :: Manual"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/admin/manual.jsp"></put-attribute>

@@ -69,7 +69,7 @@ function initialize() {
 
 		var towerMarker = new google.maps.Marker({
 			position : location,
-			url : './towers/modal?t=' + json.towers[i]["t"],
+			// url : './towers/modal?t=' + json.towers[i]["t"],
 			// map : map,
 			icon : iconURL,
 			title : json.towers[i]["t"].toString()
@@ -102,6 +102,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
 google.maps.event.addListener(map, 'idle', function() {
 	window.alert(map.getBounds());
 });
+
 
 $('body').on('hidden.bs.modal', '.modal', function() {
 	$(this).removeData('bs.modal');

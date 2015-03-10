@@ -221,7 +221,7 @@ CREATE TABLE `towers` (
   `accessDetails` varchar(100) DEFAULT NULL,
   `towerCaptain` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`towerId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=81 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -230,6 +230,8 @@ CREATE TABLE `towers` (
 
 LOCK TABLES `towers` WRITE;
 /*!40000 ALTER TABLE `towers` DISABLE KEYS */;
+INSERT INTO `towers` VALUES (79,'TestDoveId',1234,'Sheffield','Crookesmoor','Road',1,'SC1234',51.42,52.34,'S6 3FQ',0,0,0,0,0,'St James','II',0,0,0,'',1234,'St James','','');
+INSERT INTO `towers` VALUES (80,'newId',1234,'Bishop\'s Stortford','Abbotts','Way',1,'BS999',51.42,52.34,'S6 3FQ',0,0,0,0,0,'St James','II',0,0,0,'',1234,'St Andrew','','');
 /*!40000 ALTER TABLE `towers` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -242,4 +244,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-03-04 10:08:48
+-- Dump completed on 2015-03-10 19:53:27

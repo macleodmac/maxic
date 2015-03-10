@@ -2,6 +2,7 @@ package com.maxic.towers.web.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,8 +26,8 @@ public class TowerService {
 		return towerDao.getTowers();
 	}
 	
-	public boolean addTower(Tower tower) {
-		return towerDao.addTower(tower);
+	public void addTower(Tower tower) {
+		towerDao.addTower(tower);
 	}
 
 	public Tower getTower(int id) {
@@ -37,24 +38,24 @@ public class TowerService {
 		return towerDao.deleteTower(id);
 	}
 
-	public boolean editTower(Tower tower) {
-		return towerDao.editTower(tower);
+	public void editTower(Tower tower) {
+		towerDao.editTower(tower);
 		
 	}
 
-	public boolean addTowers(ArrayList<Tower> towerList) {
-		return towerDao.addTowers(towerList);
+	public void addTowers(ArrayList<Tower> towerList) {
+		towerDao.addTowers(towerList);
 	}
 
 	public List<TowerShort> getTowersShort() {
 		return towerDao.getTowersShort();
 	}
 
-	public List<String> getTowersShortStrings() {
-		return towerDao.getTowerShortStrings();
-	}
-
 	public List<TowerDescriptor> getTowerDescriptors() {
 		return towerDao.getTowerDescriptors();
+	}
+
+	public Map<Integer, String> getTowerDescriptorMap() {
+		return towerDao.getTowerDescriptorMap();
 	}
 }

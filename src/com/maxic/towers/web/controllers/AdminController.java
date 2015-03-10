@@ -18,11 +18,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.maxic.towers.web.dao.Country;
+import com.maxic.towers.web.dao.Diocese;
 import com.maxic.towers.web.dao.Peal;
 import com.maxic.towers.web.dao.Tower;
 import com.maxic.towers.web.dao.TowerDescriptor;
 import com.maxic.towers.web.processing.Parser;
 import com.maxic.towers.web.service.ContactDetailsService;
+import com.maxic.towers.web.service.CountryService;
+import com.maxic.towers.web.service.DioceseService;
 import com.maxic.towers.web.service.PealService;
 import com.maxic.towers.web.service.TowerService;
 
@@ -34,6 +38,8 @@ public class AdminController {
 	 */
 	private TowerService towerService;
 	private PealService pealService;
+	private CountryService countryService;
+	private DioceseService dioceseService;
 	private ContactDetailsService contactDetailsService;
 
 	@Autowired
@@ -47,10 +53,64 @@ public class AdminController {
 	}
 
 	@Autowired
+	public void setCountryService(CountryService countryService) {
+		this.countryService = countryService;
+	}
+
+	@Autowired
+	public void setDioceseService(DioceseService dioceseService) {
+		this.dioceseService = dioceseService;
+	}
+
+	@Autowired
 	public void setContactDetailsService(
 			ContactDetailsService contactDetailsService) {
 		this.contactDetailsService = contactDetailsService;
 	}
+
+	/*
+	 * 
+	 * NON-CRUD RELATED ADMIN MAPPINGS
+	 */
+
+	@RequestMapping("/admin/dashboard")
+	public String showDashboard(Model model) {
+
+		return "/admin/dashboard";
+	}
+
+	@RequestMapping("/admin/manual")
+	public String showManual(Model model) {
+
+		return "/admin/manual";
+	}
+
+	@RequestMapping("/admin/documentation")
+	public String showDocumentation(Model model) {
+
+		return "/admin/documentation";
+	}
+
+	@RequestMapping(value = "/towerlist", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public Map<String, Object> getTowerList() {
+
+		List<TowerDescriptor> towers = null;
+		towers = towerService.getTowerDescriptors();
+
+		Map<String, Object> towerMap = new HashMap<String, Object>();
+
+		towerMap.put("towers", towers);
+		towerMap.put("number", towers.size());
+
+		return towerMap;
+	}
+
+	/*
+	 * 
+	 * ADMIN TOWERS REQUEST MAPPINGS
+	 * 
+	 */
 
 	/**
 	 * Fetches a list of all towers from the tower service and returns to the
@@ -70,14 +130,6 @@ public class AdminController {
 		return "/admin/towers";
 	}
 
-	// @RequestMapping(value = "/viewtower", method = RequestMethod.GET)
-	// public String showSingleTower(Model model, @RequestParam("t") String t) {
-	// int id = Integer.parseInt(t);
-	// Tower tower = towerService.getTower(id);
-	// model.addAttribute("tower", tower);
-	// return "viewtower";
-	// }
-
 	/**
 	 * Creates a new instance of tower and returns to the page
 	 * 
@@ -86,6 +138,11 @@ public class AdminController {
 	@RequestMapping(value = "/admin/towers/add")
 	public String addTower(Model model) {
 		model.addAttribute("tower", new Tower());
+		Map<String, String> countryMap = countryService.getCountryMap();
+		model.addAttribute("countries", countryMap);
+
+		Map<String, String> dioceseMap = dioceseService.getDioceseMap();
+		model.addAttribute("dioceses", dioceseMap);
 		return "/admin/towers/addtower";
 	}
 
@@ -160,9 +217,30 @@ public class AdminController {
 	public String parseDove(Model model) {
 		Parser parser = new Parser();
 		ArrayList<Tower> towerList = parser.parseDoveFile();
+		for (Tower tower : towerList) {
+			if (!countryService.countryExists(tower.getCountry().getIsoCode())) {
+				Country country = new Country(tower.getCountry().getIsoCode(),
+						tower.getCountry().getName());
+				countryService.addCountry(country);
+			}
+			if (!dioceseService
+					.dioceseExists(tower.getDiocese().getDioceseId())) {
+				Diocese diocese = new Diocese(
+						tower.getDiocese().getDioceseId(), tower.getDiocese()
+								.getName());
+				dioceseService.addDiocese(diocese);
+			}
+
+		}
 		towerService.addTowers(towerList);
 		return "home";
 	}
+
+	/*
+	 * 
+	 * ADMIN PEALS REQUEST MAPPINGS
+	 * 
+	 */
 
 	@RequestMapping("/admin/peals")
 	public String showPeals(Model model,
@@ -176,8 +254,9 @@ public class AdminController {
 
 	@RequestMapping("/admin/peals/add")
 	public String showAddPeal(Model model) {
-
 		Peal peal = new Peal();
+		Map<Integer, String> hm = towerService.getTowerDescriptorMap();
+		model.addAttribute("towers", hm);
 		model.addAttribute("peal", peal);
 		return "/admin/peals/addpeal";
 	}
@@ -215,17 +294,8 @@ public class AdminController {
 			return ("redirect:/admin/peals/edit");
 		}
 		System.out.println("Trying to edit peal");
-		boolean editResult = pealService.editPeal(peal);
-		if (editResult) {
-			redirectAttributes.addFlashAttribute("message",
-					"Peal successfully edited!");
-			return ("redirect:/admin/peals");
-		} else {
-			redirectAttributes.addFlashAttribute("message",
-					"Peal not successfully edited. Please try again.");
-			redirectAttributes.addAttribute("p", p);
-			return ("redirect:/admin/peals/edit");
-		}
+		pealService.editPeal(peal);
+		return ("redirect:/admin/peals");
 	}
 
 	@RequestMapping(value = "/admin/peals/dodelete", method = RequestMethod.GET)
@@ -244,37 +314,150 @@ public class AdminController {
 		}
 	}
 
-	@RequestMapping("/admin/dashboard")
-	public String showDashboard(Model model) {
+	/*
+	 * 
+	 * ADMIN COUNTRIES REQUEST MAPPINGS
+	 * 
+	 */
 
-		return "/admin/dashboard";
+	@RequestMapping("/admin/countries")
+	public String showCountries(Model model,
+			@ModelAttribute("message") String message) {
+
+		List<Country> countries = countryService.getCountries();
+		model.addAttribute("countries", countries);
+		model.addAttribute("message", message);
+		return "/admin/countries";
 	}
 
-	@RequestMapping("/admin/manual")
-	public String showManual(Model model) {
+	@RequestMapping("/admin/countries/add")
+	public String showAddCountry(Model model) {
+		Country country = new Country();
 
-		return "/admin/manual";
+		model.addAttribute("country", country);
+		return "/admin/countries/addcountry";
 	}
 
-	@RequestMapping("/admin/documentation")
-	public String showDocumentation(Model model) {
-
-		return "/admin/documentation";
+	@RequestMapping(value = "/admin/countries/doadd", method = RequestMethod.POST)
+	public String doAddCountry(Model model, @Valid Country country,
+			BindingResult result, RedirectAttributes redirectAttributes) {
+		if (result.hasErrors()) {
+			return "/admin/countries/addcountry";
+		}
+		countryService.addCountry(country);
+		redirectAttributes.addFlashAttribute("message",
+				"Country successfully added!");
+		return ("redirect:/admin/countries");
 	}
 
-	@RequestMapping(value = "/towerlist", method = RequestMethod.GET, produces = "application/json")
-	@ResponseBody
-	public Map<String, Object> getTowerList() {
+	@RequestMapping(value = "/admin/countries/edit", method = RequestMethod.GET)
+	public String showEditCountry(Model model, @RequestParam("c") String c) {
+		Country country = countryService.getCountry(c);
+		model.addAttribute("country", country);
 
-		List<TowerDescriptor> towers = null;
-		towers = towerService.getTowerDescriptors();
-		
-		Map<String, Object> towerMap = new HashMap<String, Object>();
+		return "/admin/countries/editcountry";
+	}
 
-		towerMap.put("towers", towers);
-		towerMap.put("number", towers.size());
+	@RequestMapping(value = "/admin/countries/doedit", method = RequestMethod.POST)
+	public String doEditCountry(Model model, Country country,
+			BindingResult result, @RequestParam("c") String c,
+			RedirectAttributes redirectAttributes) {
+		model.addAttribute("c", c);
+		if (result.hasErrors()) {
+			for (Object error : result.getAllErrors()) {
+				System.out.println(error);
+			}
+			redirectAttributes.addAttribute("c", c);
+			return ("redirect:/admin/countries/edit");
+		}
+		System.out.println("Trying to edit country");
+		countryService.editCountry(country);
+		return ("redirect:/admin/countries");
+	}
 
-		return towerMap;
+	@RequestMapping(value = "/admin/countries/dodelete", method = RequestMethod.GET)
+	public String deleteCountry(Model model, @RequestParam("c") String c,
+			RedirectAttributes redirectAttributes) {
+
+		countryService.deleteCountry(c);
+
+		redirectAttributes.addFlashAttribute("message",
+				"Country successfully deleted.");
+		return "redirect:/admin/countries";
+
+	}
+	
+	/*
+	 * 
+	 * ADMIN DIOCESE REQUEST MAPPINGS
+	 * 
+	 */
+
+	@RequestMapping("/admin/dioceses")
+	public String showDioceses(Model model,
+			@ModelAttribute("message") String message) {
+
+		List<Diocese> dioceses = dioceseService.getDioceses();
+		model.addAttribute("dioceses", dioceses);
+		model.addAttribute("message", message);
+		return "/admin/dioceses";
+	}
+
+	@RequestMapping("/admin/dioceses/add")
+	public String showAddDiocese(Model model) {
+		Diocese diocese = new Diocese();
+
+		model.addAttribute("diocese", diocese);
+		return "/admin/dioceses/adddiocese";
+	}
+
+	@RequestMapping(value = "/admin/dioceses/doadd", method = RequestMethod.POST)
+	public String doAddDiocese(Model model, @Valid Diocese diocese,
+			BindingResult result, RedirectAttributes redirectAttributes) {
+		if (result.hasErrors()) {
+			return "/admin/dioceses/adddiocese";
+		}
+		dioceseService.addDiocese(diocese);
+		redirectAttributes.addFlashAttribute("message",
+				"Diocese successfully added!");
+		return ("redirect:/admin/dioceses");
+	}
+
+	@RequestMapping(value = "/admin/dioceses/edit", method = RequestMethod.GET)
+	public String showEditDiocese(Model model, @RequestParam("d") String d) {
+		Diocese diocese = dioceseService.getDiocese(d);
+		model.addAttribute("diocese", diocese);
+
+		return "/admin/dioceses/editdiocese";
+	}
+
+	@RequestMapping(value = "/admin/dioceses/doedit", method = RequestMethod.POST)
+	public String doEditDiocese(Model model, Diocese diocese,
+			BindingResult result, @RequestParam("d") String d,
+			RedirectAttributes redirectAttributes) {
+		model.addAttribute("d", d);
+		if (result.hasErrors()) {
+			for (Object error : result.getAllErrors()) {
+				System.out.println(error);
+			}
+			redirectAttributes.addAttribute("d", d);
+			return ("redirect:/admin/dioceses/edit");
+		}
+		System.out.println("Trying to edit diocese");
+		dioceseService.editDiocese(diocese);
+		return ("redirect:/admin/dioceses");
+	}
+
+	@RequestMapping(value = "/admin/dioceses/dodelete", method = RequestMethod.GET)
+	public String deleteDiocese(Model model, @RequestParam("d") String d,
+			RedirectAttributes redirectAttributes) {
+
+		dioceseService.deleteDiocese(d);
+
+		redirectAttributes.addFlashAttribute("message",
+				"Diocese successfully deleted.");
+		return "redirect:/admin/dioceses";
+
 	}
 
 }

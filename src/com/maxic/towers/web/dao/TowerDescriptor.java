@@ -1,5 +1,6 @@
 package com.maxic.towers.web.dao;
 
+
 public class TowerDescriptor {
 	private int id;
 	private String de;

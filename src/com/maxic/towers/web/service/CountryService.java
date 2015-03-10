@@ -2,6 +2,7 @@ package com.maxic.towers.web.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,24 +24,32 @@ public class CountryService {
 		return countryDao.getCountries();
 	}
 	
-	public boolean addCountry(Country country) {
-		return countryDao.addCountry(country);
+	public void addCountry(Country country) {
+		countryDao.addCountry(country);
 	}
 
-	public Country getCountry(int id) {
+	public Country getCountry(String id) {
 		return countryDao.getCountry(id);
 	}
 
-	public boolean deleteCountry(int id) {
-		return countryDao.deleteCountry(id);
+	public void deleteCountry(String id) {
+		countryDao.deleteCountry(id);
 	}
 
-	public boolean editCountry(Country country) {
-		return countryDao.editCountry(country);
+	public void editCountry(Country country) {
+		countryDao.editCountry(country);
 		
 	}
 
-	public boolean addCountries(ArrayList<Country> countryList) {
-		return countryDao.addCountries(countryList);
+	public void addCountries(ArrayList<Country> countryList) {
+		countryDao.addCountries(countryList);
+	}
+
+	public boolean countryExists(String isoCode) {
+		return countryDao.countryExists(isoCode);
+	}
+
+	public Map<String, String> getCountryMap() {
+		return countryDao.getCountryMap();
 	}
 }

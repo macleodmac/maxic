@@ -11,6 +11,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.io.Resource;
 
+import com.maxic.towers.web.dao.Country;
+import com.maxic.towers.web.dao.Diocese;
 import com.maxic.towers.web.dao.Tower;
 
 public class Parser {
@@ -44,7 +46,6 @@ public class Parser {
 					}
 				}
 
-				
 				// Get Latitude and Longitude in Float form.
 				Float latitude = 0f;
 				Float longitude = 0f;
@@ -55,19 +56,19 @@ public class Parser {
 				} catch (NumberFormatException e) {
 					System.out.println("Latitude was empty!");
 				}
-				
+
 				try {
 					longitude = Float.parseFloat(towerProperties[37]);
 				} catch (NumberFormatException e) {
 					System.out.println("Longitude was empty!");
 				}
-				
+
 				try {
 					satNavLatitude = Float.parseFloat(towerProperties[2]);
 				} catch (NumberFormatException e) {
 					System.out.println("SNLatitude was empty!");
 				}
-				
+
 				try {
 					satNavLongitude = Float.parseFloat(towerProperties[3]);
 				} catch (NumberFormatException e) {
@@ -77,33 +78,34 @@ public class Parser {
 				boolean toilet = false;
 				boolean gfr = false;
 				boolean ringable = true;
-				
+
 				if (towerProperties[5].equalsIgnoreCase("t")) {
 					sim = true;
 				}
-				
+
 				if (towerProperties[21].equalsIgnoreCase("t")) {
 					toilet = true;
 				}
-				
+
 				if (towerProperties[20].equalsIgnoreCase("gf")) {
 					gfr = true;
 				}
-				
+
 				if (towerProperties[22].equalsIgnoreCase("u/r")) {
 					ringable = false;
 				}
-				
-				
+
 				System.out.println("Listing: " + towerProperties[39]);
 				Tower tower = new Tower(0, towerProperties[0],
 						Integer.parseInt(towerProperties[5]),
 						towerProperties[10], towerProperties[11],
-						towerProperties[12], ringable, towerProperties[1], 
-						latitude, longitude, 
-						towerProperties[4], satNavLatitude, satNavLongitude, 0, 0, 0, towerProperties[13],
-						towerProperties[38], gfr, sim, toilet,
-						towerProperties[30], 0, "", "", "");
+						towerProperties[12], ringable, towerProperties[1],
+						latitude, longitude, towerProperties[4],
+						satNavLatitude, satNavLongitude, new Country(
+								towerProperties[8], towerProperties[7]),
+						new Diocese(towerProperties[9], towerProperties[9]), 0,
+						towerProperties[13], towerProperties[38], gfr, sim,
+						toilet, towerProperties[30], 0, "", "", "");
 
 				towerList.add(tower);
 
@@ -131,7 +133,7 @@ public class Parser {
 		return towerList;
 
 	}
-	
+
 	static void main(String[] args) {
 		Parser parser = new Parser();
 		parser.parseDoveFile();

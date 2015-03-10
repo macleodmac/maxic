@@ -1,8 +1,21 @@
 package com.maxic.towers.web.dao;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="towers")
 public class TowerShort {
+	@Id
+	@GeneratedValue
+	@Column(name="towerId")
 	private int t;
+	@Column(name="latitude")
 	private float la;
+	@Column(name="longitude")
 	private float lo;
 
 	public TowerShort() {

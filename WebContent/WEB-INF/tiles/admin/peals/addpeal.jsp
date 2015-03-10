@@ -24,17 +24,11 @@
 			<hr />
 		</div>
 		<div class="row">
-			<div class="col-xs-6 col-sm-4">
+			<div class="col-xs-12 col-sm-8">
 				<div class="form-group">
-					<label for="pealId">Peal ID</label>
-					<p class="form-control-static">autofilled</p>
-				</div>
-			</div>
-			<div class="col-xs-6 col-sm-4">
-				<div class="form-group">
-					<label for="towerId">towerId</label>
-					<sf:input type="text" class="form-control" path="towerId"
-						id="towerId" placeholder="Enter Tower ID" />
+					<label for="towerId">Tower</label>
+					<sf:select class="form-control" path="towerId"
+						id="towerId" items="${towers}" />
 				</div>
 			</div>
 			<div class="col-xs-6 col-sm-4">

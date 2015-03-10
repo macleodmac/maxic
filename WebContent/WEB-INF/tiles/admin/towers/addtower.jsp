@@ -129,16 +129,16 @@
 			</div>
 			<div class="col-xs-6 col-sm-3">
 				<div class="form-group">
-					<label for="countryId">countryId</label>
-					<sf:input type="text" class="form-control" path="countryId"
-						id="countryId" placeholder="countryId" />
+					<label for="country.isoCode">Country</label>
+					<sf:select class="form-control" path="country.isoCode"
+						id="country.isoCode" items="${countries}" />
 				</div>
 			</div>
 			<div class="col-xs-6 col-sm-3">
 				<div class="form-group">
-					<label for="countyId">countyId</label>
-					<sf:input type="text" class="form-control" path="countyId"
-						id="countyId" placeholder="countyId" />
+					<label for="diocese.dioceseId">Diocese</label>
+					<sf:select class="form-control" path="diocese.dioceseId"
+						id="diocese.dioceseId" items="${dioceses}" />
 				</div>
 			</div>
 		</div>

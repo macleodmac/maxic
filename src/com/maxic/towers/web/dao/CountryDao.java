@@ -1,89 +1,81 @@
 package com.maxic.towers.web.dao;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
-import javax.sql.DataSource;
-
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
+@Transactional
 @Component("countryDao")
 public class CountryDao {
 
-	private NamedParameterJdbcTemplate jdbc;
-
+	
 	@Autowired
-	public void setDataSource(DataSource jdbc) {
-		this.jdbc = new NamedParameterJdbcTemplate(jdbc);
+	private SessionFactory sessionFactory;
+	
+	public Session session() {
+		return sessionFactory.getCurrentSession();
 	}
+	
+	@SuppressWarnings("unchecked")
 	public List<Country> getCountries() {
 
-		return jdbc.query("SELECT * FROM countries", new RowMapper<Country>() {
-
-			public Country mapRow(ResultSet rs, int rowNum) throws SQLException {
-				Country country = new Country(rs.getInt("countryId"), rs
-						.getString("name"), rs.getString("ISOcode"));
-				return country;
-			}
-			
-		});
+		return session().createQuery("from Country c order by c.name").list();
 	}
 	
-	public Country getCountry(int id) {
+	public Country getCountry(String id) {
 
-		MapSqlParameterSource params = new MapSqlParameterSource();
-		params.addValue("id", id);
-
-		return jdbc.queryForObject("SELECT * FROM countries where countryId = :id",
-				params, new RowMapper<Country>() {
-
-					public Country mapRow(ResultSet rs, int rowNum)
-							throws SQLException {
-						Country country = new Country(rs.getInt("countryId"), rs
-								.getString("name"), rs.getString("ISOcode"));
-						return country;
-					}
-
-				});
+		Criteria crit = session().createCriteria(Country.class);
+		crit.add(Restrictions.idEq(id));
+		Country country = (Country) crit.uniqueResult();
+		
+		return country;
 	}
 	
-	public boolean addCountry(Country country) {
-		System.out.println("Adding country " + country.getname());
-		BeanPropertySqlParameterSource params = new BeanPropertySqlParameterSource(
-				country);
-		boolean test = jdbc
-				.update("INSERT INTO countries (`name`, `ISOcode`)",
-						params) == 1;
-		return test;
+	public boolean countryExists(String id) {
+
+		Criteria crit = session().createCriteria(Country.class);
+		crit.add(Restrictions.idEq(id));
+		Country country = (Country) crit.uniqueResult();
+		
+		return country != null;
+	}
+	
+	public void addCountry(Country country) {
+		session().save(country);
 
 	}
 	
-	public boolean deleteCountry(int id) {
+	public boolean deleteCountry(String id) {
+		String hql = "delete from Country where isoCode = :id";
+		return session().createQuery(hql).setString("id", id).executeUpdate() == 1;
 
-		MapSqlParameterSource params = new MapSqlParameterSource();
-		params.addValue("id", id);
-
-		return jdbc.update("DELETE FROM countries WHERE countryId = :id", params) == 1;
 	}
 	
-	public boolean editCountry(Country country) {
-		BeanPropertySqlParameterSource params = new BeanPropertySqlParameterSource(
-				country);
-		boolean test = jdbc.update("UPDATE countries SET name = :name, "
-				+ "ISOcode = :ISOcode, ",params) == 1;
-		return test;
+	public void editCountry(Country country) {
+		session().update(country);
 	}
-	public boolean addCountries(ArrayList<Country> countrylist) {
+	
+	public void addCountries(ArrayList<Country> countrylist) {
 		for (Country country : countrylist) {
 			this.addCountry(country);
 		}
-		return false;
+	}
+	
+	public Map<String, String> getCountryMap() {
+		List<Country> countries = this.getCountries();
+		LinkedHashMap<String, String> hm = new LinkedHashMap<String, String>();
+		for (Country country : countries) {
+			hm.put(country.getIsoCode(), country.getName() + " (" + country.getIsoCode() + ")");
+		}
+		return hm;
 	}
 }

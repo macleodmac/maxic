@@ -43,16 +43,16 @@
 					<td>${tower.postCode}</td>
 				</tr>
 			</c:if>
-			<c:if test="${not empty tower.countyId}">
+			<c:if test="${not empty tower.diocese.name}">
 				<tr>
-					<th>County</th>
-					<td>${tower.countyId}</td>
+					<th>Diocese</th>
+					<td>${tower.diocese.name}</td>
 				</tr>
 			</c:if>
-			<c:if test="${not empty tower.countryId}">
+			<c:if test="${not empty tower.country.isoCode}">
 				<tr>
 					<th>Country</th>
-					<td>${tower.countryId}</td>
+					<td>${tower.country.isoCode}</td>
 				</tr>
 			</c:if>
 			<c:if test="${not empty tower.guildId}">

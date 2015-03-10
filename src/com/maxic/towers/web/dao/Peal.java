@@ -1,8 +1,18 @@
 package com.maxic.towers.web.dao;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Entity
+@Table(name="peals")
 public class Peal {
 	private int towerId;
+	@Id
+	@GeneratedValue
+	@Column(name="pealId")
 	private int pealId;
 	private String dedication;
 	private String dateRung;    //date

@@ -1,38 +1,47 @@
 package com.maxic.towers.web.dao;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="countries")
 public class Country {
-	private int countryId;
+	@Id
+	@Column(name="isoCode")
+	private String isoCode;
 	private String name;
-	private String ISOcode;
 
 	public Country(){
 		
 	}
-	public Country(int countryId, String name, String ISOcode){
-		this.countryId=countryId;
-		this.name=name;
-		this.ISOcode=ISOcode;	
+
+	public Country(String isoCode, String name) {
+		this.isoCode = isoCode;
+		this.name = name;
 	}
-	public int getcountryId(){
-		return countryId;
+
+	public String getIsoCode() {
+		return isoCode;
 	}
-	public void setcountryId(int countryId){
-		this.countryId=countryId;
+
+	public void setIsoCode(String isoCode) {
+		this.isoCode = isoCode;
 	}
-	public String getname(){
+
+	public String getName() {
 		return name;
 	}
-	public void setname(String name){
-		this.name=name;
+
+	public void setName(String name) {
+		this.name = name;
 	}
-	public String getISOcode(){
-		return ISOcode;
-	}
-	public void setISOcode(String ISOcode){
-		this.ISOcode=ISOcode;
+
+	@Override
+	public String toString() {
+		return "Country [isoCode=" + isoCode + ", name=" + name + "]";
 	}
 	
-	public String toString(){
-		return "Country[countryId=" + countryId + ",name=" + name + ",ISOcode=" + ISOcode + "]";
-	}
+	
 }

@@ -22,8 +22,8 @@ public class PealService {
 		return pealDao.getPeals();
 	}
 	
-	public boolean addPeal(Peal peal) {
-		return pealDao.addPeal(peal);
+	public void addPeal(Peal peal) {
+		pealDao.addPeal(peal);
 	}
 
 	public Peal getPeal(int id) {
@@ -34,8 +34,8 @@ public class PealService {
 		return pealDao.deletePeal(id);
 	}
 
-	public boolean editPeal(Peal peal) {
-		return pealDao.editPeal(peal);
+	public void editPeal(Peal peal) {
+		pealDao.editPeal(peal);
 		
 	}
 
