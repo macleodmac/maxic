@@ -26,12 +26,6 @@
 		<div class="row">
 			<div class="col-xs-6 col-sm-4">
 				<div class="form-group">
-					<label for="towerId">Tower ID</label>
-					<p class="form-control-static">autofilled</p>
-				</div>
-			</div>
-			<div class="col-xs-6 col-sm-4">
-				<div class="form-group">
 					<label for="doveId">Dove ID</label>
 					<sf:input type="text" class="form-control" path="doveId"
 						id="doveId" placeholder="Enter Dove ID" />
@@ -41,19 +35,19 @@
 				<div class="form-group">
 					<label for="towerbaseId">Towerbase ID</label>
 					<sf:input type="text" class="form-control" path="towerbaseId"
-						id="towerbaseId" placeholder="towerbaseId" />
+						id="towerbaseId" placeholder="Enter TowerBase ID" />
 				</div>
 			</div>
 			<div class="col-xs-6 col-sm-4">
 				<div class="form-group">
-					<label for="placeName">placeName</label>
+					<label for="placeName">Place Name</label>
 					<sf:input type="text" class="form-control" path="placeName"
-						id="placeName" placeholder="placeName" />
+						id="placeName" placeholder="e.g. Sheffield" />
 				</div>
 			</div>
 			<div class="col-xs-6 col-sm-4">
 				<div class="form-group">
-					<label for="placeName2">placeName2</label>
+					<label for="placeName2">Place Name 2</label>
 					<sf:input type="text" class="form-control" path="placeName2"
 						id="placeName2" placeholder="placeName2" />
 				</div>

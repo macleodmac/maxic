@@ -1,11 +1,8 @@
 package com.maxic.towers.web.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.stereotype.Service;
-
 import org.springframework.stereotype.Service;
 
 import com.maxic.towers.web.dao.ContactDetails;
@@ -21,28 +18,24 @@ public class ContactDetailsService {
 		this.contactDetailsDao = contactDetailsDao;
 	}
 
-	public List<ContactDetails> getContactDetails() {
-		return contactDetailsDao.getContactDetails();
-	}
-	
-	public boolean addContactDetails(ContactDetails contactDetails) {
-		return contactDetailsDao.addContactDetails(contactDetails);
+	public List<ContactDetails> getAllContactDetails() {
+		return contactDetailsDao.getAllContactDetails();
 	}
 
 	public List<ContactDetails> getContactDetails(int id) {
 		return contactDetailsDao.getContactDetails(id);
 	}
 
-	public boolean deleteContactDetails(int id) {
-		return contactDetailsDao.deleteContactDetails(id);
+	public void addContactDetails(ContactDetails contactDetails) {
+		contactDetailsDao.addContactDetails(contactDetails);
 	}
 
-	public boolean editContactDetails(ContactDetails contactDetails) {
-		return contactDetailsDao.editContactDetails(contactDetails);
-		
+	public boolean deleteContactDetails(int towerId, int contactId) {
+		return contactDetailsDao.deleteContactDetails(towerId, contactId);
 	}
 
-	public boolean addContactDetails(ArrayList<ContactDetails> contactDetailsList) {
-		return contactDetailsDao.addContactDetails(contactDetailsList);
+	public void editContactDetails(ContactDetails contactDetails) {
+		contactDetailsDao.editContactDetails(contactDetails);
+
 	}
 }

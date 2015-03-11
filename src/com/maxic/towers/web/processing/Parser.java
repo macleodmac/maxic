@@ -11,6 +11,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.io.Resource;
 
+import com.maxic.towers.web.dao.ContactDetails;
 import com.maxic.towers.web.dao.Country;
 import com.maxic.towers.web.dao.Diocese;
 import com.maxic.towers.web.dao.Tower;
@@ -95,6 +96,19 @@ public class Parser {
 					ringable = false;
 				}
 
+				ArrayList<ContactDetails> detailsList = null;
+				if (!towerProperties[31].isEmpty()) {
+					detailsList = new ArrayList<ContactDetails>();
+					ContactDetails contactDetails = new ContactDetails();
+					contactDetails.setWebsite(towerProperties[31]);
+					detailsList.add(contactDetails);
+				}
+				
+				
+				
+				
+				
+				
 				System.out.println("Listing: " + towerProperties[39]);
 				Tower tower = new Tower(0, towerProperties[0],
 						Integer.parseInt(towerProperties[5]),
@@ -105,7 +119,7 @@ public class Parser {
 								towerProperties[8], towerProperties[7]),
 						new Diocese(towerProperties[9], towerProperties[9]), 0,
 						towerProperties[13], towerProperties[38], gfr, sim,
-						toilet, towerProperties[30], 0, "", "", "", null);
+						toilet, towerProperties[30], 0, "", "", "", null, detailsList);
 
 				towerList.add(tower);
 

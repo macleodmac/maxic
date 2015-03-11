@@ -4,12 +4,16 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 
 @Entity
@@ -53,8 +57,14 @@ public class Tower {
 	private String towerCaptain;
 	
 	@OneToMany
+	@LazyCollection(LazyCollectionOption.FALSE)
 	@JoinColumn(name="towerId")
 	private List<Practice> practices;
+	
+	@OneToMany
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@JoinColumn(name="towerId")
+	private List<ContactDetails> contactDetails;
 	
 	public Tower() {
 		
@@ -68,7 +78,8 @@ public class Tower {
 			String listedGrade, boolean groundFloorRing, boolean simulator,
 			boolean toilet, String extraInfo, int buildingId,
 			String affiliation, String accessDetails, String towerCaptain,
-			List<Practice> practices) {
+			List<Practice> practices, List<ContactDetails> contactDetails) {
+		super();
 		this.towerId = towerId;
 		this.doveId = doveId;
 		this.towerbaseId = towerbaseId;
@@ -96,6 +107,7 @@ public class Tower {
 		this.accessDetails = accessDetails;
 		this.towerCaptain = towerCaptain;
 		this.practices = practices;
+		this.contactDetails = contactDetails;
 	}
 
 	public int getTowerId() {
@@ -314,6 +326,14 @@ public class Tower {
 		this.practices = practices;
 	}
 
+	public List<ContactDetails> getContactDetails() {
+		return contactDetails;
+	}
+
+	public void setContactDetails(List<ContactDetails> contactDetails) {
+		this.contactDetails = contactDetails;
+	}
+
 	@Override
 	public String toString() {
 		return "Tower [towerId=" + towerId + ", doveId=" + doveId
@@ -330,8 +350,11 @@ public class Tower {
 				+ toilet + ", extraInfo=" + extraInfo + ", buildingId="
 				+ buildingId + ", affiliation=" + affiliation
 				+ ", accessDetails=" + accessDetails + ", towerCaptain="
-				+ towerCaptain + ", practices=" + practices + "]";
+				+ towerCaptain + ", practices=" + practices
+				+ ", contactDetails=" + contactDetails + "]";
 	}
+
+	
 
 	
 

@@ -30,7 +30,7 @@ public class PracticeDao {
 	}
 	
 	public void addPractice(Practice practice){
-		session().save(practice);
+		session().saveOrUpdate(practice);
 	}
 	
 	public boolean practicesExist(int id) {

@@ -1,8 +1,20 @@
 package com.maxic.towers.web.dao;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.IdClass;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="contactdetails")
+@IdClass(ContactPK.class)
 public class ContactDetails {
+	
+	@Id
 	private int towerId;
+	@Id
 	private int contactId;
+	private String address;
 	private String email;
 	private String contactNumber;
 	private String website;
@@ -13,11 +25,13 @@ public class ContactDetails {
 
 	}
 
-	public ContactDetails(int towerId, int contactId, String email,
-			String contactNumber, String website, String facebookPage,
-			String twitterPage) {
+	public ContactDetails(int towerId, int contactId, String address,
+			String email, String contactNumber, String website,
+			String facebookPage, String twitterPage) {
+		super();
 		this.towerId = towerId;
 		this.contactId = contactId;
+		this.address = address;
 		this.email = email;
 		this.contactNumber = contactNumber;
 		this.website = website;
@@ -39,6 +53,14 @@ public class ContactDetails {
 
 	public void setContactId(int contactId) {
 		this.contactId = contactId;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
 	public String getEmail() {
@@ -84,9 +106,11 @@ public class ContactDetails {
 	@Override
 	public String toString() {
 		return "ContactDetails [towerId=" + towerId + ", contactId="
-				+ contactId + ", email=" + email + ", contactNumber="
-				+ contactNumber + ", website=" + website + ", facebookPage="
-				+ facebookPage + ", twitterPage=" + twitterPage + "]";
+				+ contactId + ", address=" + address + ", email=" + email
+				+ ", contactNumber=" + contactNumber + ", website=" + website
+				+ ", facebookPage=" + facebookPage + ", twitterPage="
+				+ twitterPage + "]";
 	}
 
+	
 }

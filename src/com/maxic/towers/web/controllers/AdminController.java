@@ -25,7 +25,6 @@ import com.maxic.towers.web.dao.Practice;
 import com.maxic.towers.web.dao.Tower;
 import com.maxic.towers.web.dao.TowerDescriptor;
 import com.maxic.towers.web.processing.Parser;
-import com.maxic.towers.web.service.ContactDetailsService;
 import com.maxic.towers.web.service.CountryService;
 import com.maxic.towers.web.service.DioceseService;
 import com.maxic.towers.web.service.PealService;
@@ -42,7 +41,6 @@ public class AdminController {
 	private PealService pealService;
 	private CountryService countryService;
 	private DioceseService dioceseService;
-	private ContactDetailsService contactDetailsService;
 	private PracticeService practiceService;
 
 	@Autowired
@@ -68,12 +66,6 @@ public class AdminController {
 	@Autowired
 	public void setPracticeService(PracticeService practiceService) {
 		this.practiceService = practiceService;
-	}
-
-	@Autowired
-	public void setContactDetailsService(
-			ContactDetailsService contactDetailsService) {
-		this.contactDetailsService = contactDetailsService;
 	}
 
 	/*
@@ -237,8 +229,7 @@ public class AdminController {
 						tower.getDiocese().getDioceseId(), tower.getDiocese()
 								.getName());
 				dioceseService.addDiocese(diocese);
-			}
-			
+			}	
 			towerService.addTower(tower);
 		}
 
@@ -254,7 +245,7 @@ public class AdminController {
 		}
 		
 		
-		return "home";
+		return "redirect:/admin/towers";
 	}
 
 	/*
