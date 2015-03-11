@@ -21,6 +21,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.maxic.towers.web.dao.Country;
 import com.maxic.towers.web.dao.Diocese;
 import com.maxic.towers.web.dao.Peal;
+import com.maxic.towers.web.dao.Practice;
 import com.maxic.towers.web.dao.Tower;
 import com.maxic.towers.web.dao.TowerDescriptor;
 import com.maxic.towers.web.processing.Parser;
@@ -28,6 +29,7 @@ import com.maxic.towers.web.service.ContactDetailsService;
 import com.maxic.towers.web.service.CountryService;
 import com.maxic.towers.web.service.DioceseService;
 import com.maxic.towers.web.service.PealService;
+import com.maxic.towers.web.service.PracticeService;
 import com.maxic.towers.web.service.TowerService;
 
 @Controller
@@ -41,6 +43,7 @@ public class AdminController {
 	private CountryService countryService;
 	private DioceseService dioceseService;
 	private ContactDetailsService contactDetailsService;
+	private PracticeService practiceService;
 
 	@Autowired
 	public void setTowerService(TowerService towerService) {
@@ -60,6 +63,11 @@ public class AdminController {
 	@Autowired
 	public void setDioceseService(DioceseService dioceseService) {
 		this.dioceseService = dioceseService;
+	}
+	
+	@Autowired
+	public void setPracticeService(PracticeService practiceService) {
+		this.practiceService = practiceService;
 	}
 
 	@Autowired
@@ -230,9 +238,22 @@ public class AdminController {
 								.getName());
 				dioceseService.addDiocese(diocese);
 			}
-
+			
+			towerService.addTower(tower);
 		}
-		towerService.addTowers(towerList);
+
+		List<Tower> insertedTowerList = towerService.getTowers();
+		
+		for (Tower tower : insertedTowerList) {
+			if (!practiceService.practicesExist(tower.getTowerId())) {
+				Practice practice = new Practice(tower.getTowerId(), 1, null, null, null, false);
+				System.out.println("Adding practice for tower: " + tower.getTowerId());
+				practiceService.addPractice(practice);
+			}
+			
+		}
+		
+		
 		return "home";
 	}
 

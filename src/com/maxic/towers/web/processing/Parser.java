@@ -40,8 +40,8 @@ public class Parser {
 
 				String[] towerProperties = line.split(delimiter, -1);
 				for (String property : towerProperties) {
-					if (property.isEmpty()) {
-						property = "0";
+					if (property.isEmpty() || property.equals("")) {
+						property = null;
 						System.out.println("Replacing " + property + " with 0");
 					}
 				}
@@ -105,7 +105,7 @@ public class Parser {
 								towerProperties[8], towerProperties[7]),
 						new Diocese(towerProperties[9], towerProperties[9]), 0,
 						towerProperties[13], towerProperties[38], gfr, sim,
-						toilet, towerProperties[30], 0, "", "", "");
+						toilet, towerProperties[30], 0, "", "", "", null);
 
 				towerList.add(tower);
 

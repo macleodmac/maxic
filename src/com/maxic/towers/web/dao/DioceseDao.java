@@ -49,7 +49,7 @@ public class DioceseDao {
 	}
 
 	public void addDiocese(Diocese diocese) {
-		session().save(diocese);
+		session().saveOrUpdate(diocese);
 
 	}
 

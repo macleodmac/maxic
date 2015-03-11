@@ -50,7 +50,7 @@ public class CountryDao {
 	}
 	
 	public void addCountry(Country country) {
-		session().save(country);
+		session().saveOrUpdate(country);
 
 	}
 	

@@ -1,7 +1,6 @@
 package com.maxic.towers.web.dao;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -82,7 +81,7 @@ public class TowerDao {
 	}
 
 	public void addTower(Tower tower) {
-		session().save(tower);
+		session().saveOrUpdate(tower);
 	}
 
 	public boolean deleteTower(int id) {

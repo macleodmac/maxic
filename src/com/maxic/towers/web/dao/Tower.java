@@ -1,11 +1,14 @@
 package com.maxic.towers.web.dao;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 
@@ -49,6 +52,10 @@ public class Tower {
 	private String accessDetails;
 	private String towerCaptain;
 	
+	@OneToMany
+	@JoinColumn(name="towerId")
+	private List<Practice> practices;
+	
 	public Tower() {
 		
 	}
@@ -60,7 +67,8 @@ public class Tower {
 			Country country, Diocese diocese, int guildId, String dedication,
 			String listedGrade, boolean groundFloorRing, boolean simulator,
 			boolean toilet, String extraInfo, int buildingId,
-			String affiliation, String accessDetails, String towerCaptain) {
+			String affiliation, String accessDetails, String towerCaptain,
+			List<Practice> practices) {
 		this.towerId = towerId;
 		this.doveId = doveId;
 		this.towerbaseId = towerbaseId;
@@ -87,6 +95,7 @@ public class Tower {
 		this.affiliation = affiliation;
 		this.accessDetails = accessDetails;
 		this.towerCaptain = towerCaptain;
+		this.practices = practices;
 	}
 
 	public int getTowerId() {
@@ -296,6 +305,35 @@ public class Tower {
 	public void setTowerCaptain(String towerCaptain) {
 		this.towerCaptain = towerCaptain;
 	}
+
+	public List<Practice> getPractices() {
+		return practices;
+	}
+
+	public void setPractices(List<Practice> practices) {
+		this.practices = practices;
+	}
+
+	@Override
+	public String toString() {
+		return "Tower [towerId=" + towerId + ", doveId=" + doveId
+				+ ", towerbaseId=" + towerbaseId + ", placeName=" + placeName
+				+ ", placeName2=" + placeName2 + ", placeNameCL=" + placeNameCL
+				+ ", ringable=" + ringable + ", gridReference=" + gridReference
+				+ ", latitude=" + latitude + ", longitude=" + longitude
+				+ ", postCode=" + postCode + ", satNavLatitude="
+				+ satNavLatitude + ", satNavLongitude=" + satNavLongitude
+				+ ", country=" + country + ", diocese=" + diocese
+				+ ", guildId=" + guildId + ", dedication=" + dedication
+				+ ", listedGrade=" + listedGrade + ", groundFloorRing="
+				+ groundFloorRing + ", simulator=" + simulator + ", toilet="
+				+ toilet + ", extraInfo=" + extraInfo + ", buildingId="
+				+ buildingId + ", affiliation=" + affiliation
+				+ ", accessDetails=" + accessDetails + ", towerCaptain="
+				+ towerCaptain + ", practices=" + practices + "]";
+	}
+
+	
 
 
 }

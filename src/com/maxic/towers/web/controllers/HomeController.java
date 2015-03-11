@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.maxic.towers.web.dao.Peal;
-import com.maxic.towers.web.dao.Tower;
-import com.maxic.towers.web.dao.TowerExec;
 import com.maxic.towers.web.dao.TowerShort;
 import com.maxic.towers.web.service.ContactDetailsService;
 import com.maxic.towers.web.service.PealService;
@@ -82,21 +80,7 @@ public class HomeController {
 		return pealMap;
 	}
 	
-	@RequestMapping(value = "/alltower", method = RequestMethod.GET)
-	public String getAllTowerInfo(Model model, @RequestParam("t") String t) {
-		int towerId = Integer.parseInt(t);
-		TowerExec towerAll = new TowerExec();
-		
-		towerAll.setTower(towerService.getTower(towerId));
-		towerAll.setContactDetails(contactDetailsService.getContactDetails(towerId));
-		
-		model.addAttribute("towerAll", towerAll);
-		return "/towers/alltower";
-		
-	}
-	
 
-	
 	@RequestMapping(value="/about")
 	 public String showAbout(){
 	  return "/about";

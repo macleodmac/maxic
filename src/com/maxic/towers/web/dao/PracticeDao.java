@@ -1,84 +1,54 @@
 package com.maxic.towers.web.dao;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.sql.DataSource;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
-import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-
+@Transactional
+@Component("practiceDao")
 public class PracticeDao {
 
-	private NamedParameterJdbcTemplate jdbc;
+	@Autowired
+	private SessionFactory sessionFactory;
 	
-	public void setDataSource(DataSource jdbc) {
-		this.jdbc = new NamedParameterJdbcTemplate(jdbc);
+	public Session session() {
+		return sessionFactory.getCurrentSession();
 	}
 	
-	public List<Practice> getPractice() {
-		return jdbc.query("SELECT * FROM practice", new RowMapper<Practice>() {
-			
-			public Practice mapRow(ResultSet rs, int rowNum) throws SQLException {
-				Practice practice = new Practice(rs.getInt("towerId"), rs.getString("day"),
-						rs.getString("time"),rs.getString("regularity"),rs.getString("visitorsWelcome"));
-				return practice;
-				}
-			
-		});
+	@SuppressWarnings("unchecked")
+	public List<Practice> getAllPractices() {
+		return session().createQuery("from Practice").list();
 	}
 	
-	public Practice getPractice(int id){
-
-		MapSqlParameterSource params = new MapSqlParameterSource();
-		params.addValue("id", id);
-		
-		return jdbc.queryForObject("SELECT * FROM practice where towerId = :id",params, new RowMapper<Practice>(){
-			public Practice mapRow(ResultSet rs, int rowNum)throws SQLException{
-				Practice practice=new Practice(rs.getInt("towerId"),rs.getString("day"),rs.getString("time"),
-						rs.getString("regularity"),rs.getString("visitorsWelcome"));
-			return practice;
-			}
-		});
+	public List<Practice> getPractices(int id){
+		return (List<Practice>) session().createQuery("from Practice where towerId = :id").setInteger("id", id).list();
 	}
 	
-	public boolean addPractice (Practice practice){
-		System.out.println("Adding practice " + practice.getTowerId());
-		BeanPropertySqlParameterSource params = new BeanPropertySqlParameterSource(
-				practice);
-		boolean test = jdbc.update("INSERT INTO practice (`day`,`time`,`regularity`,`visitorsWelcome`)"
-				+ "VALUES (:day, :time, :regularity, :visitorsWelcome) ", params)==1;
-		
-		return test;
+	public void addPractice(Practice practice){
+		session().save(practice);
+	}
 	
+	public boolean practicesExist(int id) {
+		return this.getPractices(id).size() != 0;
 	}
 	
 	public boolean deletePractice(int id) {
-
-		MapSqlParameterSource params = new MapSqlParameterSource();
-		params.addValue("id", id);
-
-		return jdbc.update("DELETE FROM practice WHERE towerId = :id", params) == 1;
+		String hql = "delete from Practice where `towerId` = :id";
+		return session().createQuery(hql).setInteger("id", id).executeUpdate() == 1;
 	}
 	
-	public boolean editPractice(Practice practice) {
-		BeanPropertySqlParameterSource params = new BeanPropertySqlParameterSource(
-				practice);
-		boolean test = jdbc.update("UPDATE practice SET day=:day, "
-				+ "time = :time, "+ "regularity = :regularity, "
-				+ "visitorsWelcome = :visitorsWelcome" + "WHERE towerId = :towerId",
-				params) ==1;
-		return test;
+	public void editPractice(Practice practice) {
+		session().update(practice);
 	}
-	public boolean addPractice(ArrayList<Practice> practiceList) {
+	public void addPractice(ArrayList<Practice> practiceList) {
 		for (Practice practice : practiceList) {
 			this.addPractice(practice);
 		}
-		return false;
 	}
 	
 }
