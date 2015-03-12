@@ -20,14 +20,14 @@ import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 @Entity
-@Table(name = "towers", catalog="towers")
+@Table(name = "towers")
 public class Tower implements Serializable {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	@Id
-	@Column(name = "towerId", unique=true, nullable=false)
+	@Column(name = "towerId", unique = true, nullable = false)
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int towerId;
 	private String doveId;
@@ -64,9 +64,9 @@ public class Tower implements Serializable {
 	private String towerCaptain;
 
 	@OneToMany
+	@JoinColumn(name="towerId")
 	@LazyCollection(LazyCollectionOption.FALSE)
-	@JoinColumn(name = "towerId")
-	private Set<Practice> practices = new LinkedHashSet<Practice>();
+	private List<Practice> practices = new ArrayList<Practice>();
 
 	// @OneToMany
 	// @LazyCollection(LazyCollectionOption.FALSE)
@@ -85,7 +85,7 @@ public class Tower implements Serializable {
 			String listedGrade, boolean groundFloorRing, boolean simulator,
 			boolean toilet, String extraInfo, int buildingId,
 			String affiliation, String accessDetails, String towerCaptain,
-			Set<Practice> practices) {
+			List<Practice> practices) {
 		this.towerId = towerId;
 		this.doveId = doveId;
 		this.towerbaseId = towerbaseId;
@@ -322,11 +322,12 @@ public class Tower implements Serializable {
 	public void setTowerCaptain(String towerCaptain) {
 		this.towerCaptain = towerCaptain;
 	}
-	public Set<Practice> getPractices() {
+
+	public List<Practice> getPractices() {
 		return practices;
 	}
 
-	public void setPractices(Set<Practice> practices) {
+	public void setPractices(List<Practice> practices) {
 		this.practices = practices;
 	}
 
