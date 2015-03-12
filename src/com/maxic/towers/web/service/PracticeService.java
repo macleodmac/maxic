@@ -31,8 +31,8 @@ public class PracticeService {
 		return practiceDao.getPractices(id);
 	}
 
-	public boolean deletePractice(int id) {
-		return practiceDao.deletePractice(id);
+	public boolean deletePractice(int practiceId) {
+		return practiceDao.deletePractice(practiceId);
 	}
 
 	public void editPractice(Practice practice) {

@@ -32,7 +32,7 @@ public class ContactDetailsDao {
 	}
 
 	public void addContactDetails(ContactDetails contactDetails) {
-		session().saveOrUpdate(contactDetails);
+		session().save(contactDetails);
 	}
 
 	public boolean contactDetailsExist(int id) {

@@ -196,6 +196,7 @@ public class AdminController {
 		int id = Integer.parseInt(t);
 		Tower tower = towerService.getTower(id);
 		model.addAttribute("tower", tower);
+		System.out.println(tower);
 		return "/admin/towers/edittower";
 	}
 
@@ -207,6 +208,7 @@ public class AdminController {
 			redirectAttributes.addAttribute("t", t);
 			return ("redirect:/admin/towers/edit");
 		}
+		System.out.println("Editing tower: " + tower.getTowerId());
 		towerService.editTower(tower);
 		redirectAttributes.addFlashAttribute("message",
 				"Tower successfully edited!");
@@ -230,8 +232,10 @@ public class AdminController {
 								.getName());
 				dioceseService.addDiocese(diocese);
 			}	
-			towerService.addTower(tower);
+			System.out.println(tower);
 		}
+		
+		towerService.addTowers(towerList);
 
 		List<Tower> insertedTowerList = towerService.getTowers();
 		

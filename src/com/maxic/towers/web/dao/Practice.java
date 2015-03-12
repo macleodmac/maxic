@@ -2,15 +2,12 @@ package com.maxic.towers.web.dao;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="practice")
-@IdClass(PracticePK.class)
 public class Practice {
 
-	@Id
 	private int towerId;
 	@Id
 	private int practiceId;

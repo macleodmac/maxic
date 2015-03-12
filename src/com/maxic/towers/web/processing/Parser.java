@@ -119,7 +119,7 @@ public class Parser {
 								towerProperties[8], towerProperties[7]),
 						new Diocese(towerProperties[9], towerProperties[9]), 0,
 						towerProperties[13], towerProperties[38], gfr, sim,
-						toilet, towerProperties[30], 0, "", "", "", null, detailsList);
+						toilet, towerProperties[30], 0, "", "", "", null);
 
 				towerList.add(tower);
 

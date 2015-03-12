@@ -81,7 +81,7 @@ public class TowerDao {
 	}
 
 	public void addTower(Tower tower) {
-		session().saveOrUpdate(tower);
+		session().save(tower);
 	}
 
 	public boolean deleteTower(int id) {
@@ -90,12 +90,15 @@ public class TowerDao {
 	}
 
 	public void editTower(Tower tower) {
+		System.out.println("Got tower at Dao: " + tower.getTowerId());
+		System.out.println(tower);
 		session().update(tower);
 	}
 
 	@Transactional
 	public void addTowers(ArrayList<Tower> towerList) {
 		for (Tower tower : towerList) {
+			System.out.println(tower);
 			this.addTower(tower);
 		}
 	}

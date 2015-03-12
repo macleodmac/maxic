@@ -37,9 +37,9 @@ public class PracticeDao {
 		return this.getPractices(id).size() != 0;
 	}
 	
-	public boolean deletePractice(int id) {
-		String hql = "delete from Practice where `towerId` = :id";
-		return session().createQuery(hql).setInteger("id", id).executeUpdate() == 1;
+	public boolean deletePractice(int practiceId) {
+		String hql = "delete from Practice where practiceId = :practiceId";
+		return session().createQuery(hql).setInteger("practiceId", practiceId).executeUpdate() == 1;
 	}
 	
 	public void editPractice(Practice practice) {

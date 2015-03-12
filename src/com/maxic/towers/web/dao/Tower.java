@@ -1,11 +1,15 @@
 package com.maxic.towers.web.dao;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -15,13 +19,16 @@ import javax.persistence.Table;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
-
 @Entity
-@Table(name="towers")
-public class Tower {
+@Table(name = "towers", catalog="towers")
+public class Tower implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Id
-	@Column(name="towerId")
-	@GeneratedValue
+	@Column(name = "towerId", unique=true, nullable=false)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int towerId;
 	private String doveId;
 	private int towerbaseId;
@@ -35,15 +42,15 @@ public class Tower {
 	private String postCode;
 	private float satNavLatitude;
 	private float satNavLongitude;
-	
+
 	@ManyToOne
-	@JoinColumn(name="isoCode")
+	@JoinColumn(name = "isoCode")
 	private Country country;
-	
+
 	@ManyToOne
-	@JoinColumn(name="dioceseId")
+	@JoinColumn(name = "dioceseId")
 	private Diocese diocese;
-	
+
 	private int guildId;
 	private String dedication;
 	private String listedGrade;
@@ -55,19 +62,19 @@ public class Tower {
 	private String affiliation;
 	private String accessDetails;
 	private String towerCaptain;
-	
+
 	@OneToMany
 	@LazyCollection(LazyCollectionOption.FALSE)
-	@JoinColumn(name="towerId")
-	private List<Practice> practices;
-	
-	@OneToMany
-	@LazyCollection(LazyCollectionOption.FALSE)
-	@JoinColumn(name="towerId")
-	private List<ContactDetails> contactDetails;
-	
+	@JoinColumn(name = "towerId")
+	private Set<Practice> practices = new LinkedHashSet<Practice>();
+
+	// @OneToMany
+	// @LazyCollection(LazyCollectionOption.FALSE)
+	// @JoinColumn(name="towerId")
+	// private List<ContactDetails> contactDetails;
+
 	public Tower() {
-		
+
 	}
 
 	public Tower(int towerId, String doveId, int towerbaseId, String placeName,
@@ -78,8 +85,7 @@ public class Tower {
 			String listedGrade, boolean groundFloorRing, boolean simulator,
 			boolean toilet, String extraInfo, int buildingId,
 			String affiliation, String accessDetails, String towerCaptain,
-			List<Practice> practices, List<ContactDetails> contactDetails) {
-		super();
+			Set<Practice> practices) {
 		this.towerId = towerId;
 		this.doveId = doveId;
 		this.towerbaseId = towerbaseId;
@@ -107,7 +113,6 @@ public class Tower {
 		this.accessDetails = accessDetails;
 		this.towerCaptain = towerCaptain;
 		this.practices = practices;
-		this.contactDetails = contactDetails;
 	}
 
 	public int getTowerId() {
@@ -317,21 +322,12 @@ public class Tower {
 	public void setTowerCaptain(String towerCaptain) {
 		this.towerCaptain = towerCaptain;
 	}
-
-	public List<Practice> getPractices() {
+	public Set<Practice> getPractices() {
 		return practices;
 	}
 
-	public void setPractices(List<Practice> practices) {
+	public void setPractices(Set<Practice> practices) {
 		this.practices = practices;
-	}
-
-	public List<ContactDetails> getContactDetails() {
-		return contactDetails;
-	}
-
-	public void setContactDetails(List<ContactDetails> contactDetails) {
-		this.contactDetails = contactDetails;
 	}
 
 	@Override
@@ -350,13 +346,7 @@ public class Tower {
 				+ toilet + ", extraInfo=" + extraInfo + ", buildingId="
 				+ buildingId + ", affiliation=" + affiliation
 				+ ", accessDetails=" + accessDetails + ", towerCaptain="
-				+ towerCaptain + ", practices=" + practices
-				+ ", contactDetails=" + contactDetails + "]";
+				+ towerCaptain + ", practices=" + practices + "]";
 	}
-
-	
-
-	
-
 
 }

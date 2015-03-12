@@ -128,16 +128,16 @@
 			</div>
 			<div class="col-xs-6 col-sm-3">
 				<div class="form-group">
-					<label for="countryId">countryId</label>
-					<sf:input type="text" class="form-control" path="countryId"
-						id="countryId" placeholder="countryId" />
+					<label for="country.isoCode">Country</label>
+					<sf:select class="form-control" path="country.isoCode"
+						id="country.isoCode" items="${countries}" />
 				</div>
 			</div>
 			<div class="col-xs-6 col-sm-3">
 				<div class="form-group">
-					<label for="countyId">countyId</label>
-					<sf:input type="text" class="form-control" path="countyId"
-						id="countyId" placeholder="countyId" />
+					<label for="diocese.dioceseId">Diocese</label>
+					<sf:select class="form-control" path="diocese.dioceseId"
+						id="diocese.dioceseId" items="${dioceses}" />
 				</div>
 			</div>
 		</div>
@@ -218,26 +218,53 @@
 				</div>
 			</div>
 		</div>
-	</sf:form>
-	<c:if test="${not empty contactMessage }">
-		<div class="row">
-			<div class="col-xs-6 col-sm-4">
-				<div class="form-group">
-					<label for="contactNumber">contactNumber</label>
-					<sf:input type="text" class="form-control" path="contactNumber"
-						id="contactNumber" placeholder="Enter contactNumber"></sf:input>
-				</div>
-			</div>
-			<div class="col-xs-6 col-sm-4">
-				<div class="form-group">
-					<label for="email">Dove ID</label>
-					<sf:input type="text" class="form-control" path="email" id="email"
-						placeholder="Enter contactEmail" />
-				</div>
-			</div>
-		</div>
 
-	</c:if>
+
+		<c:forEach var="practice" items="${tower.practices}" varStatus="i">
+			<div class="row">
+
+				<div class="col-xs-2">
+					<div class="form-group">
+						<label for="practiceId">Practice ID</label>
+						<sf:input type="text" class="form-control"
+							path="practices[0].towerId" id="towerId"
+							placeholder="Practince Number" />
+					</div>
+				</div>
+				<div class="col-xs-2">
+					<div class="form-group">
+						<label for="practiceId">Practice ID</label>
+						<sf:input type="text" class="form-control"
+							path="practices[0].practiceId" id="practiceId"
+							placeholder="Practince Number" />
+					</div>
+				</div>
+				<div class="col-xs-2">
+					<div class="form-group">
+						<label for="day">Day</label>
+						<sf:input type="text" class="form-control" path="practices[0].day"
+							id="day" placeholder="Day" />
+					</div>
+				</div>
+				<div class="col-xs-2">
+					<div class="form-group">
+						<label for="time">Day</label>
+						<sf:input type="text" class="form-control"
+							path="practices[0].time" id="time" placeholder="time" />
+					</div>
+				</div>
+				<div class="col-xs-2">
+					<div class="form-group">
+						<label for="regularity">Day</label>
+						<sf:input type="text" class="form-control"
+							path="practices[0].regularity" id="regularity"
+							placeholder="regularity" />
+					</div>
+				</div>
+			</div>
+		</c:forEach>
+
+	</sf:form>
 
 
 	<div class="row">

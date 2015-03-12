@@ -21,11 +21,19 @@
 		<table class="table">
 			<c:forEach var="practice" items="${tower.practices}">
 				<tr>
-					<td>${practice.day}</td>
+					<th>Day</th>
+					<td>${practice.day}</td>				
+				</tr>
+				<tr>
+					<th>Time</th>
 					<td>${practice.time}</td>
 				</tr>
 				<tr>
+					<th>Regularity</th>
 					<td>${practice.regularity}</td>
+				</tr>
+				<tr>
+					<th>Visitors welcome</th>
 					<c:if test="${practice.visitorsWelcome}"><td>Yes</td></c:if>
 					<c:if test="${not practice.visitorsWelcome}"><td>No</td></c:if>
 				</tr>
