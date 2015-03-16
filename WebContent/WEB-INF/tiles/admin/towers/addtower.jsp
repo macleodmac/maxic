@@ -15,7 +15,7 @@
 			</div>
 			<div class="col-xs-6 text-right">
 				<div class="form-group">
-					<button type="submit" class="btn btn-default">Save Changes</button>
+					<button type="submit" class="btn btn-default">Add Tower</button>
 				</div>
 			</div>
 		</div>

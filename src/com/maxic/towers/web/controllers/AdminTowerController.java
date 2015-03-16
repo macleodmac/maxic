@@ -18,13 +18,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.maxic.towers.web.dao.ContactDetails;
 import com.maxic.towers.web.dao.Country;
 import com.maxic.towers.web.dao.Diocese;
 import com.maxic.towers.web.dao.Peal;
 import com.maxic.towers.web.dao.Practice;
+import com.maxic.towers.web.dao.PracticeListWrapper;
 import com.maxic.towers.web.dao.Tower;
 import com.maxic.towers.web.dao.TowerDescriptor;
+import com.maxic.towers.web.dao.TowerWrapper;
 import com.maxic.towers.web.processing.Parser;
+import com.maxic.towers.web.service.ContactDetailsService;
 import com.maxic.towers.web.service.CountryService;
 import com.maxic.towers.web.service.DioceseService;
 import com.maxic.towers.web.service.PealService;
@@ -32,7 +36,7 @@ import com.maxic.towers.web.service.PracticeService;
 import com.maxic.towers.web.service.TowerService;
 
 @Controller
-public class AdminController {
+public class AdminTowerController {
 
 	/*
 	 * Defining and autowiring services
@@ -42,6 +46,7 @@ public class AdminController {
 	private CountryService countryService;
 	private DioceseService dioceseService;
 	private PracticeService practiceService;
+	private ContactDetailsService contactDetailsService;
 
 	@Autowired
 	public void setTowerService(TowerService towerService) {
@@ -67,10 +72,16 @@ public class AdminController {
 	public void setPracticeService(PracticeService practiceService) {
 		this.practiceService = practiceService;
 	}
+	
+	@Autowired
+	public void setContactDetailsService(ContactDetailsService contactDetailsService) {
+		this.contactDetailsService = contactDetailsService;
+	}
 
 	/*
 	 * 
 	 * NON-CRUD RELATED ADMIN MAPPINGS
+	 * 
 	 */
 
 	@RequestMapping("/admin/dashboard")
@@ -116,8 +127,7 @@ public class AdminController {
 	 * Fetches a list of all towers from the tower service and returns to the
 	 * page
 	 * 
-	 * @param message
-	 *            arbitrary message to display on the page
+	 * @param message arbitrary information message to display on the page
 	 * @return /admin/towers view
 	 */
 	@RequestMapping("/admin/towers")
@@ -194,26 +204,96 @@ public class AdminController {
 	@RequestMapping(value = "/admin/towers/edit", method = RequestMethod.GET)
 	public String editTower(Model model, @RequestParam("t") String t) {
 		int id = Integer.parseInt(t);
-		Tower tower = towerService.getTower(id);
-		model.addAttribute("tower", tower);
-		System.out.println(tower);
+		
+		TowerWrapper towerWrapper = new TowerWrapper();
+		towerWrapper.setTower(towerService.getTower(id));
+		
+		for (Practice practice : practiceService.getPractices(id)) {
+			towerWrapper.addPractice(practice);
+		}
+		
+		for (ContactDetails contactDetails : contactDetailsService.getContactDetails(id)) {
+			towerWrapper.addContactDetails(contactDetails);
+		}
+
+		model.addAttribute("towerWrapper", towerWrapper);
+		
+		Map<String, String> countryMap = countryService.getCountryMap();
+		model.addAttribute("countries", countryMap);
+
+		Map<String, String> dioceseMap = dioceseService.getDioceseMap();
+		model.addAttribute("dioceses", dioceseMap);
 		return "/admin/towers/edittower";
 	}
 
 	@RequestMapping(value = "/admin/towers/doedit", method = RequestMethod.POST)
-	public String doEdit(Model model, Tower tower, BindingResult result,
+	public String doEdit(Model model, TowerWrapper towerWrapper, BindingResult result,
 			@RequestParam("t") String t, RedirectAttributes redirectAttributes) {
+		
 		if (result.hasErrors()) {
 			model.addAttribute("t", t);
 			redirectAttributes.addAttribute("t", t);
 			return ("redirect:/admin/towers/edit");
 		}
-		System.out.println("Editing tower: " + tower.getTowerId());
-		towerService.editTower(tower);
+		
+		towerService.editTower(towerWrapper.getTower());
+		
+		for (ContactDetails contactDetails : towerWrapper.getContactDetailsList()) {
+			System.out.println("Here at " + contactDetails);
+			contactDetailsService.editContactDetails(contactDetails);
+		}
+		
+		for (Practice practice : towerWrapper.getPracticeList()) {
+			System.out.println("Here at " + practice);
+			practiceService.editPractice(practice);
+		}
+		
+		
 		redirectAttributes.addFlashAttribute("message",
 				"Tower successfully edited!");
 		return "redirect:/admin/towers";
 	}
+	
+	/**
+	 * Creates a new instance of tower and returns to the page
+	 * 
+	 * @return /admin/towers/add view
+	 */
+	@RequestMapping(value = "/admin/towers/addpractice")
+	public String addPractice(Model model, @RequestParam("t") int t) {
+		
+		
+		int practiceId = practiceService.getPractices(t).size();
+		
+		Practice practice = new Practice(t, practiceId+1, null, "00:00:00", null, true);
+		model.addAttribute("practice", practice);
+
+		return "/admin/towers/addpractice";
+	}
+
+	/**
+	 * Fetches tower from page using POST, checks for errors, adds tower to
+	 * database using service
+	 * 
+	 * @param tower
+	 *            tower object fetched from form submission
+	 * @return redirect:/admin/towers/towers view if successful
+	 */
+	@RequestMapping(value = "/admin/towers/doaddpractice", method = RequestMethod.POST)
+	public String doAddPractice(Model model, @Valid Practice practice, BindingResult result,
+			RedirectAttributes redirectAttributes) {
+		if (result.hasErrors()) {
+			return "/admin/towers/addpractice";
+
+		}
+		practiceService.addPractice(practice);
+
+		redirectAttributes.addFlashAttribute("message",
+				"Practice successfully added!");
+		redirectAttributes.addAttribute("t", practice.getTowerId());
+		return "redirect:/admin/towers/edit";
+	}
+	
 
 	@RequestMapping(value = "/admin/towers/parsedove")
 	public String parseDove(Model model) {

@@ -2,12 +2,11 @@ package com.maxic.towers.web.dao;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,9 +14,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
 
 @Entity
 @Table(name = "towers")
@@ -63,10 +59,8 @@ public class Tower implements Serializable {
 	private String accessDetails;
 	private String towerCaptain;
 
-	@OneToMany
-	@JoinColumn(name="towerId")
-	@LazyCollection(LazyCollectionOption.FALSE)
-	private List<Practice> practices = new ArrayList<Practice>();
+//	@OneToMany(fetch = FetchType.EAGER)
+//	private List<Practice> practices = new ArrayList<Practice>();
 
 	// @OneToMany
 	// @LazyCollection(LazyCollectionOption.FALSE)
@@ -112,7 +106,7 @@ public class Tower implements Serializable {
 		this.affiliation = affiliation;
 		this.accessDetails = accessDetails;
 		this.towerCaptain = towerCaptain;
-		this.practices = practices;
+	//	this.practices = practices;
 	}
 
 	public int getTowerId() {
@@ -323,13 +317,13 @@ public class Tower implements Serializable {
 		this.towerCaptain = towerCaptain;
 	}
 
-	public List<Practice> getPractices() {
-		return practices;
-	}
-
-	public void setPractices(List<Practice> practices) {
-		this.practices = practices;
-	}
+//	public List<Practice> getPractices() {
+//		return practices;
+//	}
+//
+//	public void setPractices(List<Practice> practices) {
+//		this.practices = practices;
+//	}
 
 	@Override
 	public String toString() {
@@ -347,7 +341,7 @@ public class Tower implements Serializable {
 				+ toilet + ", extraInfo=" + extraInfo + ", buildingId="
 				+ buildingId + ", affiliation=" + affiliation
 				+ ", accessDetails=" + accessDetails + ", towerCaptain="
-				+ towerCaptain + ", practices=" + practices + "]";
+				+ towerCaptain + ", practices=]";
 	}
 
 }

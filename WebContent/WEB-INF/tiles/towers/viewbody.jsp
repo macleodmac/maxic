@@ -18,27 +18,33 @@
 	</div>
 	<div class="col-xs-12 col-sm-6">
 		<h3>Practice Details</h3>
-		<table class="table">
-			<c:forEach var="practice" items="${tower.practices}">
-				<tr>
-					<th>Day</th>
-					<td>${practice.day}</td>				
-				</tr>
-				<tr>
-					<th>Time</th>
-					<td>${practice.time}</td>
-				</tr>
-				<tr>
-					<th>Regularity</th>
-					<td>${practice.regularity}</td>
-				</tr>
-				<tr>
-					<th>Visitors welcome</th>
-					<c:if test="${practice.visitorsWelcome}"><td>Yes</td></c:if>
-					<c:if test="${not practice.visitorsWelcome}"><td>No</td></c:if>
-				</tr>
-			</c:forEach>
-		</table>
+		<c:if test="${not empty towerWrapper.practiceList}">
+			<table class="table">
+				<c:forEach var="practice" items="${towerWrapper.practiceList}">
+					<tr>
+						<th>Day</th>
+						<td>${practice.day}</td>
+					</tr>
+					<tr>
+						<th>Time</th>
+						<td>${practice.time}</td>
+					</tr>
+					<tr>
+						<th>Regularity</th>
+						<td>${practice.regularity}</td>
+					</tr>
+					<tr>
+						<th>Visitors welcome</th>
+						<c:if test="${practice.visitorsWelcome}">
+							<td>Yes</td>
+						</c:if>
+						<c:if test="${not practice.visitorsWelcome}">
+							<td>No</td>
+						</c:if>
+					</tr>
+				</c:forEach>
+			</table>
+		</c:if>
 	</div>
 </div>
 <div class="row">
@@ -62,13 +68,13 @@
 		<table class="table">
 			<thead>
 				<tr>
-					<th>Date</th>
+					<th>Type</th>
 					<th>Details</th>
 				</tr>
 			</thead>
 			<tr>
-				<td>Peal1 Date</td>
-				<td>Peal1 Details</td>
+				<td>Number</td>
+				<td>01442 567890</td>
 			</tr>
 		</table>
 	</div>

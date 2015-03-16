@@ -1,7 +1,11 @@
 package com.maxic.towers.web.dao;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -10,6 +14,7 @@ public class Practice {
 
 	private int towerId;
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int practiceId;
 	private String day;
 	private String time;

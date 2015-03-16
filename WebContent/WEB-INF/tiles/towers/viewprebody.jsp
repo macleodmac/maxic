@@ -2,12 +2,12 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <h2 class="modal-title">
-	<strong>${tower.dedication}</strong>
-	<c:if test="${not empty tower.placeName}">
-		<small> ${tower.placeName}, </small>
+	<strong>${towerWrapper.tower.dedication}</strong>
+	<c:if test="${not empty towerWrapper.tower.placeName}">
+		<small> ${towerWrapper.tower.placeName}, </small>
 	</c:if>
-	<c:if test="${not empty tower.placeName2}">
-		<small>${tower.placeName2}</small>
+	<c:if test="${not empty towerWrapper.tower.placeName2}">
+		<small>${towerWrapper.tower.placeName2}</small>
 	</c:if>
-	<small><small> id: ${tower.towerId}</small></small>
+	<small><small> id: ${towerWrapper.tower.towerId}</small></small>
 </h2>
