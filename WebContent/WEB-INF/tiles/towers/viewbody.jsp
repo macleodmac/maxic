@@ -4,7 +4,7 @@
 
 <div class="row">
 	<div class="col-xs-12 col-sm-6">
-		<h3>News and Information</h3>
+		<h4>News and Information</h4>
 		<table class="table">
 			<tr>
 				<th>Info</th>
@@ -15,9 +15,22 @@
 				<td>Sample News</td>
 			</tr>
 		</table>
+		<h4>Latest Performances</h4>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Date</th>
+					<th>Details</th>
+				</tr>
+			</thead>
+			<tr>
+				<td>Peal1</td>
+				<td>Peal1 Details</td>
+			</tr>
+		</table>
 	</div>
 	<div class="col-xs-12 col-sm-6">
-		<h3>Practice Details</h3>
+		<h4>Practice Details</h4>
 		<c:if test="${not empty towerWrapper.practiceList}">
 			<table class="table">
 				<c:forEach var="practice" items="${towerWrapper.practiceList}">
@@ -45,26 +58,7 @@
 				</c:forEach>
 			</table>
 		</c:if>
-	</div>
-</div>
-<div class="row">
-	<div class="col-xs-12 col-sm-6">
-		<h3>Latest Performances</h3>
-		<table class="table">
-			<thead>
-				<tr>
-					<th>Date</th>
-					<th>Details</th>
-				</tr>
-			</thead>
-			<tr>
-				<td>Peal1</td>
-				<td>Peal1 Details</td>
-			</tr>
-		</table>
-	</div>
-	<div class="col-xs-12 col-sm-6">
-		<h3>Contact Details</h3>
+		<h4>Contact Details</h4>
 		<table class="table">
 			<thead>
 				<tr>
@@ -160,10 +154,4 @@
 			<td>${tower.satNavLatitude},${tower.satNavLongitude}</td>
 		</tr>
 	</c:if>
-	<c:forEach var="practice" items="${tower.practices}">
-		<tr>
-			<td>${practice.towerId}</td>
-			<td>${practice.regularity}</td>
-		</tr>
-	</c:forEach>
 </table> -->

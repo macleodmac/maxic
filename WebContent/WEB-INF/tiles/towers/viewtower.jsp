@@ -4,7 +4,7 @@
 
 <div class="container">
 	<h2 class="modal-title">
-		<strong>${tower.placeName}</strong> <small>${tower.placeName2},
+		<strong>${tower.Wrappertower.placeName}</strong> <small>${tower.placeName2},
 			${tower.dedication} <small>id: ${tower.towerId}</small>
 		</small>
 	</h2>

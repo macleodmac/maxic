@@ -34,8 +34,18 @@ public class TowerController {
 	@RequestMapping(value = "/towers/view", method = RequestMethod.GET)
 	public String viewTower(Model model, @RequestParam("t") String t) {
 		int id = Integer.parseInt(t);
-		Tower tower = towerService.getTower(id);
-		model.addAttribute("tower", tower);
+		TowerWrapper towerWrapper = new TowerWrapper();
+		
+		towerWrapper.setTower(towerService.getTower(id));
+		
+		List<Practice> practices = practiceService.getPractices(id);
+		
+		if (!practices.isEmpty()) {
+			towerWrapper.setPracticeList(practices);
+		}
+		
+		
+		model.addAttribute("towerWrapper", towerWrapper);
 		return "/towers/view";
 	}
 	
