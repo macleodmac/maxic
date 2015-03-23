@@ -58,4 +58,9 @@ public class TowerService {
 	public Map<Integer, String> getTowerDescriptorMap() {
 		return towerDao.getTowerDescriptorMap();
 	}
+
+	public String getTowerDescriptor(int towerId) {
+		return towerDao.getTowerDescriptor(towerId);
+		
+	}
 }

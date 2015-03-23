@@ -11,11 +11,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.maxic.towers.web.dao.Peal;
 import com.maxic.towers.web.service.PealService;
+import com.maxic.towers.web.service.TowerService;
 
 @Controller
 public class PealController {
 
+	private TowerService towerService;
 	private PealService pealService;
+
+	@Autowired
+	public void setTowerService(TowerService towerService) {
+		this.towerService = towerService;
+	}
 
 	@Autowired
 	public void setPealService(PealService pealService) {
@@ -34,6 +41,8 @@ public class PealController {
 	public String viewPeal(Model model, @RequestParam("p") String p) {
 		int id = Integer.parseInt(p);
 		Peal peal = pealService.getPeal(id);
+		String towerDescription = towerService.getTowerDescriptor(peal.getTowerId());
+		model.addAttribute("tower", towerDescription);
 		model.addAttribute("peal", peal);
 		return "/peals/view";
 	}

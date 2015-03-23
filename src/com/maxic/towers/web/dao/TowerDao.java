@@ -61,6 +61,20 @@ public class TowerDao {
 		
 		return towerDescriptors;
 	}
+	
+	public String getTowerDescriptor(int id) {
+		Tower tower = this.getTower(id);
+		StringBuffer sb = new StringBuffer();
+		sb.append(tower.getPlaceName());
+		if (tower.getPlaceName2() != null && !tower.getPlaceName2().equals("")) {
+			sb.append(", " + tower.getPlaceName2());
+		}
+		if (tower.getDedication() != null && !tower.getDedication().equals("")) {
+			sb.append(", " + tower.getDedication());
+		}
+
+		return sb.toString();
+	}
 
 	public Map<Integer, String> getTowerDescriptorMap() {
 		List<TowerDescriptor> towers = this.getTowerDescriptors();

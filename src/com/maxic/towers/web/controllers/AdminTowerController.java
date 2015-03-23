@@ -373,6 +373,8 @@ public class AdminTowerController {
 	public String showEditPeal(Model model, @RequestParam("p") String p) {
 		int pealId = Integer.parseInt(p);
 		Peal peal = pealService.getPeal(pealId);
+		Map<Integer, String> hm = towerService.getTowerDescriptorMap();
+		model.addAttribute("towers", hm);
 		model.addAttribute("peal", peal);
 
 		return "/admin/peals/editpeal";
