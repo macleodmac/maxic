@@ -22,6 +22,14 @@ public class PealService {
 		return pealDao.getPeals();
 	}
 	
+	public List<Peal> getLatestPealsForTower(int towerId) {
+		return pealDao.getLatestPealsForTower(towerId);
+	}
+	
+	public List<Peal> getPealsForTower(int towerId) {
+		return pealDao.getPealsForTower(towerId);
+	}
+	
 	public void addPeal(Peal peal) {
 		pealDao.addPeal(peal);
 	}

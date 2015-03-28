@@ -1,34 +1,34 @@
 package com.maxic.towers.web.dao;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="practice")
+@Table(name = "practice")
 public class Practice {
 
 	private int towerId;
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int practiceId;
+	private String practiceName;
 	private String day;
 	private String time;
 	private String regularity;
 	private boolean visitorsWelcome;
-	
+
 	public Practice() {
-		
+
 	}
 
-	public Practice(int towerId, int practiceId, String day, String time,
-			String regularity, boolean visitorsWelcome) {
+	public Practice(int towerId, int practiceId, String practiceName,
+			String day, String time, String regularity, boolean visitorsWelcome) {
 		this.towerId = towerId;
 		this.practiceId = practiceId;
+		this.practiceName = practiceName;
 		this.day = day;
 		this.time = time;
 		this.regularity = regularity;
@@ -49,6 +49,14 @@ public class Practice {
 
 	public void setPracticeId(int practiceId) {
 		this.practiceId = practiceId;
+	}
+
+	public String getPracticeName() {
+		return practiceName;
+	}
+
+	public void setPracticeName(String practiceName) {
+		this.practiceName = practiceName;
 	}
 
 	public String getDay() {
@@ -86,11 +94,9 @@ public class Practice {
 	@Override
 	public String toString() {
 		return "Practice [towerId=" + towerId + ", practiceId=" + practiceId
-				+ ", day=" + day + ", time=" + time + ", regularity="
-				+ regularity + ", visitorsWelcome=" + visitorsWelcome + "]";
+				+ ", practiceName=" + practiceName + ", day=" + day + ", time="
+				+ time + ", regularity=" + regularity + ", visitorsWelcome="
+				+ visitorsWelcome + "]";
 	}
 
-	
-	
-	
 }

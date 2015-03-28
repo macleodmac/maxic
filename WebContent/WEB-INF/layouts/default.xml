@@ -89,6 +89,11 @@
 		<put-attribute name="content" value="/WEB-INF/tiles/admin/towers/addpractice.jsp"></put-attribute>
 	</definition>
 	
+	<definition name="/admin/towers/addcontact" extends="admin.base">
+		<put-attribute name="title" value="Tower Finder :: Admin :: Add Contact"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/admin/towers/addcontact.jsp"></put-attribute>
+	</definition>
+	
 	<definition name="/admin/peals" extends="admin.base">
 		<put-attribute name="title" value="Tower Finder :: Admin :: View Peals"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/admin/peals.jsp"></put-attribute>

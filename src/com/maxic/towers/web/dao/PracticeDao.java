@@ -25,18 +25,19 @@ public class PracticeDao {
 		return session().createQuery("from Practice").list();
 	}
 
-	public List<Practice> getPractices(int id) {
+	@SuppressWarnings("unchecked")
+	public List<Practice> getPractices(int towerId) {
 		return (List<Practice>) session()
 				.createQuery("from Practice where towerId = :id")
-				.setInteger("id", id).list();
+				.setInteger("id", towerId).list();
 	}
 
 	public void addPractice(Practice practice) {
 		session().saveOrUpdate(practice);
 	}
 
-	public boolean practicesExist(int id) {
-		return this.getPractices(id).size() != 0;
+	public boolean practicesExist(int towerId) {
+		return this.getPractices(towerId).size() != 0;
 	}
 
 	public boolean deletePractice(int practiceId) {
@@ -46,8 +47,7 @@ public class PracticeDao {
 	}
 
 	public void editPractice(Practice practice) {
-		String hql = "update from Practice where practiceId = :practiceId and towerId = :towerId";
-		session().createQuery(hql).setInteger("practiceId", practice.getPracticeId()).setInteger("towerId", practice.getTowerId()).executeUpdate();
+		session().update(practice);
 	}
 
 	public void addPractice(ArrayList<Practice> practiceList) {

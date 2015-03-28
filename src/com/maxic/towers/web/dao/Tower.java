@@ -59,14 +59,6 @@ public class Tower implements Serializable {
 	private String accessDetails;
 	private String towerCaptain;
 
-//	@OneToMany(fetch = FetchType.EAGER)
-//	private List<Practice> practices = new ArrayList<Practice>();
-
-	// @OneToMany
-	// @LazyCollection(LazyCollectionOption.FALSE)
-	// @JoinColumn(name="towerId")
-	// private List<ContactDetails> contactDetails;
-
 	public Tower() {
 
 	}
@@ -317,13 +309,6 @@ public class Tower implements Serializable {
 		this.towerCaptain = towerCaptain;
 	}
 
-//	public List<Practice> getPractices() {
-//		return practices;
-//	}
-//
-//	public void setPractices(List<Practice> practices) {
-//		this.practices = practices;
-//	}
 
 	@Override
 	public String toString() {

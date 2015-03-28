@@ -15,62 +15,92 @@
 				<td>Sample News</td>
 			</tr>
 		</table>
-		<h4>Latest Performances</h4>
-		<table class="table">
-			<thead>
-				<tr>
-					<th>Date</th>
-					<th>Details</th>
-				</tr>
-			</thead>
-			<tr>
-				<td>Peal1</td>
-				<td>Peal1 Details</td>
-			</tr>
-		</table>
+		<h4>
+			Latest Performances <c:if test="${not empty peals}"><a class="btn btn-default btn-xs pull-right"
+				href="${pageContext.request.contextPath}/peals?t=${towerWrapper.tower.towerId}">View All</a></c:if>
+		</h4>
+		<c:if test="${not empty peals}">
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Date</th>
+						<th>Details</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach var="peal" items="${peals}">
+						<tr>
+							<td>${peal.dateRung}</td>
+							<td>${peal.changes} ${peal.method}</td>
+							<td><a class="btn btn-default btn-xs pull-right" href="${pageContext.request.contextPath}/peals/view?p=${peal.pealId}">View</a></td>
+						</tr>
+					</c:forEach>
+			</table>
+		</c:if>
+		<c:if test="${empty peals}">
+			<div class="alert alert-info" role="alert">No performances
+				found.</div>
+		</c:if>
 	</div>
 	<div class="col-xs-12 col-sm-6">
 		<h4>Practice Details</h4>
 		<c:if test="${not empty towerWrapper.practiceList}">
 			<table class="table">
-				<c:forEach var="practice" items="${towerWrapper.practiceList}">
+				<thead>
 					<tr>
+						<th></th>
 						<th>Day</th>
-						<td>${practice.day}</td>
-					</tr>
-					<tr>
 						<th>Time</th>
-						<td>${practice.time}</td>
+						<th></th>
+						<th>Visitors?</th>
 					</tr>
-					<tr>
-						<th>Regularity</th>
-						<td>${practice.regularity}</td>
-					</tr>
-					<tr>
-						<th>Visitors welcome</th>
-						<c:if test="${practice.visitorsWelcome}">
-							<td>Yes</td>
-						</c:if>
-						<c:if test="${not practice.visitorsWelcome}">
-							<td>No</td>
-						</c:if>
-					</tr>
-				</c:forEach>
+				</thead>
+				<tbody>
+					<c:forEach var="practice" items="${towerWrapper.practiceList}">
+						<tr>
+							<td>${practice.practiceName}</td>
+							<td>${practice.day}</td>
+							<td>${practice.time}</td>
+							<td>${practice.regularity}</td>
+							<c:if test="${practice.visitorsWelcome}">
+								<td>Yes</td>
+							</c:if>
+							<c:if test="${not practice.visitorsWelcome}">
+								<td>No</td>
+							</c:if>
+						</tr>
+					</c:forEach>
+				</tbody>
 			</table>
 		</c:if>
+		<c:if test="${empty towerWrapper.practiceList}">
+			<div class="alert alert-info" role="alert">No practice
+				information held.</div>
+		</c:if>
 		<h4>Contact Details</h4>
-		<table class="table">
-			<thead>
-				<tr>
-					<th>Type</th>
-					<th>Details</th>
-				</tr>
-			</thead>
-			<tr>
-				<td>Number</td>
-				<td>01442 567890</td>
-			</tr>
-		</table>
+		<c:if test="${not empty towerWrapper.contactDetailsList}">
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Type</th>
+						<th>Detail</th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach var="contact" items="${towerWrapper.contactDetailsList}">
+						<tr>
+							<td>${contact.type}</td>
+							<td>${contact.detail}</td>
+						</tr>
+					</c:forEach>
+				</tbody>
+			</table>
+		</c:if>
+		<c:if test="${empty towerWrapper.contactDetailsList}">
+			<div class="alert alert-info" role="alert">No contact details
+				held.</div>
+		</c:if>
 	</div>
 </div>
 

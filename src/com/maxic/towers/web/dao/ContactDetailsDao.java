@@ -39,10 +39,9 @@ public class ContactDetailsDao {
 		return this.getContactDetails(id).size() != 0;
 	}
 
-	public boolean deleteContactDetails(int towerId, int contactId) {
-		String hql = "delete from Practice where towerId = :towerId and contactId = :contactId";
-		return session().createQuery(hql).setInteger("towerId", towerId)
-				.setInteger("contactId", contactId).executeUpdate() == 1;
+	public boolean deleteContactDetails(int contactId) {
+		String hql = "delete from ContactDetails where contactId = :contactId";
+		return session().createQuery(hql).setInteger("contactId", contactId).executeUpdate() == 1;
 	}
 
 	public void editContactDetails(ContactDetails contactDetails) {

@@ -33,7 +33,7 @@
 			</property>
 			<property name="packagesToScan">
 				<list>
-					<value>com.ecommerce.stucat012.dao</value>
+					<value>com.maxic.towers.web.dao</value>
 				</list>
 			</property>
 		</bean>

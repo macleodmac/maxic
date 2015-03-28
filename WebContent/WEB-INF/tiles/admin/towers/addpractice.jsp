@@ -24,25 +24,27 @@
 			<hr />
 		</div>
 		<div class="row">
-			<div class="col-xs-6 col-sm-4">
+			<div class="col-xs-2 col-sm-4">
 				<div class="form-group">
-					<label for="towerId">Tower ID</label>
+					<label for="towerId">Tower</label>
 					<p class="form-control-static">${practice.towerId}</p>
 					<sf:input type="hidden" path="towerId" id="towerId" />
+					<sf:input type="hidden" path="practiceId" id="practiceId" />
 				</div>
 			</div>
-			<div class="col-xs-6 col-sm-4">
+			<div class="col-xs-10 col-sm-4">
 				<div class="form-group">
-					<label for="practiceId">Practice ID</label>
-					<p class="form-control-static">${practice.practiceId}</p>
-					<sf:input type="hidden" path="practiceId" id="practiceId" />
+					<label for="practiceName">Practice Name</label>
+					<sf:input type="text" class="form-control" path="practiceName"
+						id="practiceName" placeholder="Name" />
 				</div>
 			</div>
 			<div class="col-xs-6 col-sm-4">
 				<div class="form-group">
 					<label for="day">Day</label>
-					<sf:input type="text" class="form-control" path="day"
-						id="day" placeholder="Day" />
+					<sf:select class="form-control" path="day"
+						id="day" items="${days}" />
+
 				</div>
 			</div>
 			<div class="col-xs-6 col-sm-4">

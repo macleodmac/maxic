@@ -2,8 +2,12 @@ package com.maxic.towers.web.controllers;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 
 import javax.validation.Valid;
 
@@ -23,7 +27,6 @@ import com.maxic.towers.web.dao.Country;
 import com.maxic.towers.web.dao.Diocese;
 import com.maxic.towers.web.dao.Peal;
 import com.maxic.towers.web.dao.Practice;
-import com.maxic.towers.web.dao.PracticeListWrapper;
 import com.maxic.towers.web.dao.Tower;
 import com.maxic.towers.web.dao.TowerDescriptor;
 import com.maxic.towers.web.dao.TowerWrapper;
@@ -150,7 +153,7 @@ public class AdminTowerController {
 		model.addAttribute("tower", new Tower());
 		Map<String, String> countryMap = countryService.getCountryMap();
 		model.addAttribute("countries", countryMap);
-
+		
 		Map<String, String> dioceseMap = dioceseService.getDioceseMap();
 		model.addAttribute("dioceses", dioceseMap);
 		return "/admin/towers/addtower";
@@ -215,7 +218,22 @@ public class AdminTowerController {
 		for (ContactDetails contactDetails : contactDetailsService.getContactDetails(id)) {
 			towerWrapper.addContactDetails(contactDetails);
 		}
+		
+		Set<String> days = new LinkedHashSet<String>();
+		days.add("Monday");
+		days.add("Tuesday");
+		days.add("Wednesday");
+		days.add("Thursday");
+		days.add("Friday");
+		days.add("Saturday");
+		days.add("Sunday");
+		model.addAttribute("days", days);
 
+		Map<Boolean, String> booleanMap = new LinkedHashMap<Boolean, String>();
+		booleanMap.put(true, "Yes");
+		booleanMap.put(false, "No");
+		model.addAttribute("yesno", booleanMap);
+		
 		model.addAttribute("towerWrapper", towerWrapper);
 		
 		Map<String, String> countryMap = countryService.getCountryMap();
@@ -251,21 +269,29 @@ public class AdminTowerController {
 		
 		redirectAttributes.addFlashAttribute("message",
 				"Tower successfully edited!");
-		return "redirect:/admin/towers";
+		redirectAttributes.addAttribute("t", t);
+		return ("redirect:/admin/towers/edit");
 	}
 	
 	/**
-	 * Creates a new instance of tower and returns to the page
+	 * Creates a new instance of a practice and returns to the tower edit page
 	 * 
 	 * @return /admin/towers/add view
 	 */
 	@RequestMapping(value = "/admin/towers/addpractice")
 	public String addPractice(Model model, @RequestParam("t") int t) {
 		
+		Set<String> days = new LinkedHashSet<String>();
+		days.add("Monday");
+		days.add("Tuesday");
+		days.add("Wednesday");
+		days.add("Thursday");
+		days.add("Friday");
+		days.add("Saturday");
+		days.add("Sunday");
+		model.addAttribute("days", days);
 		
-		int practiceId = practiceService.getPractices(t).size();
-		
-		Practice practice = new Practice(t, practiceId+1, null, "00:00:00", null, true);
+		Practice practice = new Practice(t, 0, null, null, "00:00:00", null, true);
 		model.addAttribute("practice", practice);
 
 		return "/admin/towers/addpractice";
@@ -294,6 +320,67 @@ public class AdminTowerController {
 		return "redirect:/admin/towers/edit";
 	}
 	
+	@RequestMapping(value = "/admin/towers/dodeletepractice", method = RequestMethod.GET)
+	public String doDeletePractice(Model model, @RequestParam("pr") int pr, @RequestParam("t") int t,
+			RedirectAttributes redirectAttributes) {
+
+		practiceService.deletePractice(pr);
+
+		redirectAttributes.addFlashAttribute("message",
+				"Practice successfully deleted!");
+		redirectAttributes.addAttribute("t", t);
+		return "redirect:/admin/towers/edit";
+	}
+	
+	/**
+	 * Creates a new instance of a practice and returns to the tower edit page
+	 * 
+	 * @return /admin/towers/add view
+	 */
+	@RequestMapping(value = "/admin/towers/addcontact")
+	public String addContact(Model model, @RequestParam("t") int t) {
+		
+		
+		ContactDetails contact = new ContactDetails(t, 0, null, null);
+		model.addAttribute("contact", contact);
+
+		return "/admin/towers/addcontact";
+	}
+
+	/**
+	 * Fetches tower from page using POST, checks for errors, adds tower to
+	 * database using service
+	 * 
+	 * @param tower
+	 *            tower object fetched from form submission
+	 * @return redirect:/admin/towers/towers view if successful
+	 */
+	@RequestMapping(value = "/admin/towers/doaddcontact", method = RequestMethod.POST)
+	public String doAddContact(Model model, @Valid ContactDetails contactDetails, BindingResult result,
+			RedirectAttributes redirectAttributes) {
+		if (result.hasErrors()) {
+			return "/admin/towers/addcontact";
+
+		}
+		contactDetailsService.addContactDetails(contactDetails);
+
+		redirectAttributes.addFlashAttribute("message",
+				"Contact Details successfully added!");
+		redirectAttributes.addAttribute("t", contactDetails.getTowerId());
+		return "redirect:/admin/towers/edit";
+	}
+
+	@RequestMapping(value = "/admin/towers/dodeletecontact", method = RequestMethod.GET)
+	public String doDeleteContact(Model model, @RequestParam("c") int c, @RequestParam("t") int t,
+			RedirectAttributes redirectAttributes) {
+
+		contactDetailsService.deleteContactDetails(c);
+
+		redirectAttributes.addFlashAttribute("message",
+				"Contact Details successfully deleted!");
+		redirectAttributes.addAttribute("t", t);
+		return "redirect:/admin/towers/edit";
+	}
 
 	@RequestMapping(value = "/admin/towers/parsedove")
 	public String parseDove(Model model) {
@@ -321,7 +408,7 @@ public class AdminTowerController {
 		
 		for (Tower tower : insertedTowerList) {
 			if (!practiceService.practicesExist(tower.getTowerId())) {
-				Practice practice = new Practice(tower.getTowerId(), 1, null, null, null, false);
+				Practice practice = new Practice(tower.getTowerId(), 1, null, null, null, null, false);
 				System.out.println("Adding practice for tower: " + tower.getTowerId());
 				practiceService.addPractice(practice);
 			}

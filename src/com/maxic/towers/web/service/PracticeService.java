@@ -27,8 +27,8 @@ public class PracticeService {
 		practiceDao.addPractice(practice);
 	}
 
-	public List<Practice> getPractices(int id) {
-		return practiceDao.getPractices(id);
+	public List<Practice> getPractices(int towerId) {
+		return practiceDao.getPractices(towerId);
 	}
 
 	public boolean deletePractice(int practiceId) {

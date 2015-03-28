@@ -27,39 +27,29 @@ function initialize() {
 	var markers = [];
 	var mcOptions = {
 		gridSize : 50,
-		maxZoom : 12
-	 ,styles : [
-	 {
-	 height : 31,
-	 url :
-	 "http://i.imgur.com/5oeQDPd.png",
-	 width : 31
-	 },
-	 {
-	 height : 56,
-	 url :
-	 "http://i.imgur.com/lUekSlS.png",
-	 width : 56
-	 },
-	 {
-	 height : 66,
-	 url :
-	 "http://i.imgur.com/lUekSlS.png",
-	 width : 66
-	 },
-	 {
-	 height : 78,
-	 url :
-	 "http://i.imgur.com/lUekSlS.png",
-	 width : 78
-	 },
-	 {
-	 height : 90,
-	 url :
-	 "http://i.imgur.com/lUekSlS.png",
-	 width : 90
-	
-	 } ]
+		maxZoom : 12,
+		styles : [ {
+			height : 31,
+			url : "http://i.imgur.com/5oeQDPd.png",
+			width : 31
+		}, {
+			height : 56,
+			url : "http://i.imgur.com/lUekSlS.png",
+			width : 56
+		}, {
+			height : 66,
+			url : "http://i.imgur.com/lUekSlS.png",
+			width : 66
+		}, {
+			height : 78,
+			url : "http://i.imgur.com/lUekSlS.png",
+			width : 78
+		}, {
+			height : 90,
+			url : "http://i.imgur.com/lUekSlS.png",
+			width : 90
+
+		} ]
 	};
 
 	for (var i = 0; i < json.towers.length; i++) {
@@ -75,7 +65,13 @@ function initialize() {
 			title : json.towers[i]["t"].toString()
 		});
 
+		function emptyTower() {
+			$('#viewTower').attr('data-remote', '#');
+			return true;
+		}
+
 		google.maps.event.addListener(towerMarker, 'click', function() {
+			var test = emptyTower();
 			$('#viewTower').attr('data-remote',
 					('./towers/modal?t=' + this.getTitle()));
 			$('#viewTower').modal('show');
@@ -89,21 +85,10 @@ function initialize() {
 	var mc = new MarkerClusterer(map, markers, mcOptions);
 }
 
-function showMarkers() {
-	var bounds = map.getBounds();
-	console.log(bounds);
-	window.alert(bounds);
-	// Call you server with ajax passing it the bounds
-
-	// In the ajax callback delete the current markers and add new markers
-}
-
 google.maps.event.addDomListener(window, 'load', initialize);
-google.maps.event.addListener(map, 'idle', function() {
-	window.alert(map.getBounds());
-});
 
-
-$('body').on('hidden.bs.modal', '.modal', function() {
-	$(this).removeData('bs.modal');
-});
+$('#viewTower').modal().on('shown', function() {
+	$('body').css('overflow', 'hidden');
+}).on('hidden', function() {
+	$('body').css('overflow', 'auto');
+})

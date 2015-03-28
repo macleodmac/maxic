@@ -32,6 +32,16 @@ public class PealDao {
 	public List<Peal> getPeals() {
 		return session().createQuery("from Peal").list();
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Peal> getLatestPealsForTower(int towerId) {
+		return session().createQuery("from Peal where towerId = :towerId order by dateRung desc").setInteger("towerId", towerId).setMaxResults(5).list();
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Peal> getPealsForTower(int towerId) {
+		return session().createQuery("from Peal where towerId = :towerId order by dateRung desc").setInteger("towerId", towerId).list();
+	}
 
 	public Peal getPeal(int id) {
 		
