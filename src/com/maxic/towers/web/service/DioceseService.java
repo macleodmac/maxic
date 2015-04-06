@@ -7,7 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.maxic.towers.web.dao.Diocese;
+import com.maxic.towers.web.model.*;
 import com.maxic.towers.web.dao.DioceseDao;
 
 

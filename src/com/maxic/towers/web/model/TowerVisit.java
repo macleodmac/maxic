@@ -1,4 +1,4 @@
-package com.maxic.towers.web.dao;
+package com.maxic.towers.web.model;
 public class TowerVisit {
 	private int towerId;
 	private int visitId;

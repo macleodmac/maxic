@@ -1,5 +1,5 @@
 package com.maxic.towers.web.dao;
-
+import com.maxic.towers.web.model.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;

@@ -1,5 +1,5 @@
 package com.maxic.towers.web.dao;
-
+import com.maxic.towers.web.model.*;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;

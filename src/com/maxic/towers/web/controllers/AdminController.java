@@ -1,5 +1,6 @@
 package com.maxic.towers.web.controllers;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -7,11 +8,16 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.TreeSet;
+import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import com.maxic.towers.web.model.*;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailSender;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,14 +28,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.maxic.towers.web.dao.ContactDetails;
-import com.maxic.towers.web.dao.Country;
-import com.maxic.towers.web.dao.Diocese;
-import com.maxic.towers.web.dao.Peal;
-import com.maxic.towers.web.dao.Practice;
-import com.maxic.towers.web.dao.Tower;
-import com.maxic.towers.web.dao.TowerDescriptor;
-import com.maxic.towers.web.dao.TowerWrapper;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.maxic.towers.web.dao.TowerJsonObject;
+import com.maxic.towers.web.model.ContactDetails;
+import com.maxic.towers.web.model.Country;
+import com.maxic.towers.web.model.Diocese;
+import com.maxic.towers.web.model.Peal;
+import com.maxic.towers.web.model.Practice;
+import com.maxic.towers.web.model.Tower;
+import com.maxic.towers.web.model.TowerDescriptor;
+import com.maxic.towers.web.model.TowerWrapper;
+import com.maxic.towers.web.model.User;
+import com.maxic.towers.web.model.VerificationToken;
 import com.maxic.towers.web.processing.Parser;
 import com.maxic.towers.web.service.ContactDetailsService;
 import com.maxic.towers.web.service.CountryService;
@@ -37,9 +48,11 @@ import com.maxic.towers.web.service.DioceseService;
 import com.maxic.towers.web.service.PealService;
 import com.maxic.towers.web.service.PracticeService;
 import com.maxic.towers.web.service.TowerService;
+import com.maxic.towers.web.service.UserService;
+import com.maxic.towers.web.service.VerificationService;
 
 @Controller
-public class AdminTowerController {
+public class AdminController {
 
 	/*
 	 * Defining and autowiring services
@@ -50,7 +63,12 @@ public class AdminTowerController {
 	private DioceseService dioceseService;
 	private PracticeService practiceService;
 	private ContactDetailsService contactDetailsService;
+	private UserService userService;
+	private VerificationService verificationService;
 
+	@Autowired
+	private MailSender mailSender;
+	
 	@Autowired
 	public void setTowerService(TowerService towerService) {
 		this.towerService = towerService;
@@ -70,21 +88,31 @@ public class AdminTowerController {
 	public void setDioceseService(DioceseService dioceseService) {
 		this.dioceseService = dioceseService;
 	}
-	
+
 	@Autowired
 	public void setPracticeService(PracticeService practiceService) {
 		this.practiceService = practiceService;
 	}
-	
+
 	@Autowired
-	public void setContactDetailsService(ContactDetailsService contactDetailsService) {
+	public void setContactDetailsService(
+			ContactDetailsService contactDetailsService) {
 		this.contactDetailsService = contactDetailsService;
+	}
+
+	@Autowired
+	public void setUserService(UserService userService) {
+		this.userService = userService;
+	}
+
+	@Autowired
+	public void setVerificationService(VerificationService verificationService) {
+		this.verificationService = verificationService;
 	}
 
 	/*
 	 * 
 	 * NON-CRUD RELATED ADMIN MAPPINGS
-	 * 
 	 */
 
 	@RequestMapping("/admin/dashboard")
@@ -123,14 +151,14 @@ public class AdminTowerController {
 	/*
 	 * 
 	 * ADMIN TOWERS REQUEST MAPPINGS
-	 * 
 	 */
 
 	/**
 	 * Fetches a list of all towers from the tower service and returns to the
 	 * page
 	 * 
-	 * @param message arbitrary information message to display on the page
+	 * @param message
+	 *            arbitrary information message to display on the page
 	 * @return /admin/towers view
 	 */
 	@RequestMapping("/admin/towers")
@@ -153,7 +181,7 @@ public class AdminTowerController {
 		model.addAttribute("tower", new Tower());
 		Map<String, String> countryMap = countryService.getCountryMap();
 		model.addAttribute("countries", countryMap);
-		
+
 		Map<String, String> dioceseMap = dioceseService.getDioceseMap();
 		model.addAttribute("dioceses", dioceseMap);
 		return "/admin/towers/addtower";
@@ -207,18 +235,19 @@ public class AdminTowerController {
 	@RequestMapping(value = "/admin/towers/edit", method = RequestMethod.GET)
 	public String editTower(Model model, @RequestParam("t") String t) {
 		int id = Integer.parseInt(t);
-		
+
 		TowerWrapper towerWrapper = new TowerWrapper();
 		towerWrapper.setTower(towerService.getTower(id));
-		
+
 		for (Practice practice : practiceService.getPractices(id)) {
 			towerWrapper.addPractice(practice);
 		}
-		
-		for (ContactDetails contactDetails : contactDetailsService.getContactDetails(id)) {
+
+		for (ContactDetails contactDetails : contactDetailsService
+				.getContactDetails(id)) {
 			towerWrapper.addContactDetails(contactDetails);
 		}
-		
+
 		Set<String> days = new LinkedHashSet<String>();
 		days.add("Monday");
 		days.add("Tuesday");
@@ -233,9 +262,9 @@ public class AdminTowerController {
 		booleanMap.put(true, "Yes");
 		booleanMap.put(false, "No");
 		model.addAttribute("yesno", booleanMap);
-		
+
 		model.addAttribute("towerWrapper", towerWrapper);
-		
+
 		Map<String, String> countryMap = countryService.getCountryMap();
 		model.addAttribute("countries", countryMap);
 
@@ -245,34 +274,35 @@ public class AdminTowerController {
 	}
 
 	@RequestMapping(value = "/admin/towers/doedit", method = RequestMethod.POST)
-	public String doEdit(Model model, TowerWrapper towerWrapper, BindingResult result,
-			@RequestParam("t") String t, RedirectAttributes redirectAttributes) {
-		
+	public String doEdit(Model model, TowerWrapper towerWrapper,
+			BindingResult result, @RequestParam("t") String t,
+			RedirectAttributes redirectAttributes) {
+
 		if (result.hasErrors()) {
 			model.addAttribute("t", t);
 			redirectAttributes.addAttribute("t", t);
 			return ("redirect:/admin/towers/edit");
 		}
-		
+
 		towerService.editTower(towerWrapper.getTower());
-		
-		for (ContactDetails contactDetails : towerWrapper.getContactDetailsList()) {
+
+		for (ContactDetails contactDetails : towerWrapper
+				.getContactDetailsList()) {
 			System.out.println("Here at " + contactDetails);
 			contactDetailsService.editContactDetails(contactDetails);
 		}
-		
+
 		for (Practice practice : towerWrapper.getPracticeList()) {
 			System.out.println("Here at " + practice);
 			practiceService.editPractice(practice);
 		}
-		
-		
+
 		redirectAttributes.addFlashAttribute("message",
 				"Tower successfully edited!");
 		redirectAttributes.addAttribute("t", t);
 		return ("redirect:/admin/towers/edit");
 	}
-	
+
 	/**
 	 * Creates a new instance of a practice and returns to the tower edit page
 	 * 
@@ -280,7 +310,7 @@ public class AdminTowerController {
 	 */
 	@RequestMapping(value = "/admin/towers/addpractice")
 	public String addPractice(Model model, @RequestParam("t") int t) {
-		
+
 		Set<String> days = new LinkedHashSet<String>();
 		days.add("Monday");
 		days.add("Tuesday");
@@ -290,8 +320,9 @@ public class AdminTowerController {
 		days.add("Saturday");
 		days.add("Sunday");
 		model.addAttribute("days", days);
-		
-		Practice practice = new Practice(t, 0, null, null, "00:00:00", null, true);
+
+		Practice practice = new Practice(t, 0, null, null, "00:00:00", null,
+				true);
 		model.addAttribute("practice", practice);
 
 		return "/admin/towers/addpractice";
@@ -306,8 +337,8 @@ public class AdminTowerController {
 	 * @return redirect:/admin/towers/towers view if successful
 	 */
 	@RequestMapping(value = "/admin/towers/doaddpractice", method = RequestMethod.POST)
-	public String doAddPractice(Model model, @Valid Practice practice, BindingResult result,
-			RedirectAttributes redirectAttributes) {
+	public String doAddPractice(Model model, @Valid Practice practice,
+			BindingResult result, RedirectAttributes redirectAttributes) {
 		if (result.hasErrors()) {
 			return "/admin/towers/addpractice";
 
@@ -319,10 +350,10 @@ public class AdminTowerController {
 		redirectAttributes.addAttribute("t", practice.getTowerId());
 		return "redirect:/admin/towers/edit";
 	}
-	
+
 	@RequestMapping(value = "/admin/towers/dodeletepractice", method = RequestMethod.GET)
-	public String doDeletePractice(Model model, @RequestParam("pr") int pr, @RequestParam("t") int t,
-			RedirectAttributes redirectAttributes) {
+	public String doDeletePractice(Model model, @RequestParam("pr") int pr,
+			@RequestParam("t") int t, RedirectAttributes redirectAttributes) {
 
 		practiceService.deletePractice(pr);
 
@@ -331,7 +362,7 @@ public class AdminTowerController {
 		redirectAttributes.addAttribute("t", t);
 		return "redirect:/admin/towers/edit";
 	}
-	
+
 	/**
 	 * Creates a new instance of a practice and returns to the tower edit page
 	 * 
@@ -339,8 +370,7 @@ public class AdminTowerController {
 	 */
 	@RequestMapping(value = "/admin/towers/addcontact")
 	public String addContact(Model model, @RequestParam("t") int t) {
-		
-		
+
 		ContactDetails contact = new ContactDetails(t, 0, null, null);
 		model.addAttribute("contact", contact);
 
@@ -356,7 +386,8 @@ public class AdminTowerController {
 	 * @return redirect:/admin/towers/towers view if successful
 	 */
 	@RequestMapping(value = "/admin/towers/doaddcontact", method = RequestMethod.POST)
-	public String doAddContact(Model model, @Valid ContactDetails contactDetails, BindingResult result,
+	public String doAddContact(Model model,
+			@Valid ContactDetails contactDetails, BindingResult result,
 			RedirectAttributes redirectAttributes) {
 		if (result.hasErrors()) {
 			return "/admin/towers/addcontact";
@@ -371,8 +402,8 @@ public class AdminTowerController {
 	}
 
 	@RequestMapping(value = "/admin/towers/dodeletecontact", method = RequestMethod.GET)
-	public String doDeleteContact(Model model, @RequestParam("c") int c, @RequestParam("t") int t,
-			RedirectAttributes redirectAttributes) {
+	public String doDeleteContact(Model model, @RequestParam("c") int c,
+			@RequestParam("t") int t, RedirectAttributes redirectAttributes) {
 
 		contactDetailsService.deleteContactDetails(c);
 
@@ -398,31 +429,74 @@ public class AdminTowerController {
 						tower.getDiocese().getDioceseId(), tower.getDiocese()
 								.getName());
 				dioceseService.addDiocese(diocese);
-			}	
+			}
 			System.out.println(tower);
 		}
-		
+
 		towerService.addTowers(towerList);
 
 		List<Tower> insertedTowerList = towerService.getTowers();
-		
+
 		for (Tower tower : insertedTowerList) {
 			if (!practiceService.practicesExist(tower.getTowerId())) {
-				Practice practice = new Practice(tower.getTowerId(), 1, null, null, null, null, false);
-				System.out.println("Adding practice for tower: " + tower.getTowerId());
+				Practice practice = new Practice(tower.getTowerId(), 1, null,
+						null, null, null, false);
+				System.out.println("Adding practice for tower: "
+						+ tower.getTowerId());
 				practiceService.addPractice(practice);
 			}
-			
+
 		}
-		
-		
+
 		return "redirect:/admin/towers";
+	}
+
+	@RequestMapping(value = "/admin/towers/towerpagination", method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody String springPaginationDataTables(
+			HttpServletRequest request) throws IOException {
+
+		int pageNo = 0;
+
+		if (request.getParameter("iDisplayStart") != null) {
+			pageNo = (Integer.valueOf(request.getParameter("iDisplayStart")) / 10) + 1;
+		}
+
+		String searchTerm = request.getParameter("sSearch");
+		int pageLength = Integer
+				.valueOf(request.getParameter("iDisplayLength"));
+		List<Tower> towerList;
+		int towerCount = towerService.getNumberOfTowers();
+		int towerListCount;
+
+		if (searchTerm != null && !searchTerm.equals("")) {
+			towerList = towerService.getPaginatedTowersByTerm(pageLength,
+					(pageNo - 1) * 10, searchTerm);
+			towerListCount = towerService
+					.getNumberOfTowersBySearchTerm(searchTerm);
+		} else {
+			towerList = towerService.getPaginatedTowers(pageLength,
+					(pageNo - 1) * 10);
+			towerListCount = towerCount;
+		}
+
+		TowerJsonObject towerJson = new TowerJsonObject();
+		// Set Total display record
+
+		towerJson.setiTotalDisplayRecords(towerListCount);
+		// Set Total record
+		towerJson.setiTotalRecords(towerCount);
+		towerJson.setAaData(towerList);
+
+		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+		String jsonForReturn = gson.toJson(towerJson);
+
+		return jsonForReturn;
+
 	}
 
 	/*
 	 * 
 	 * ADMIN PEALS REQUEST MAPPINGS
-	 * 
 	 */
 
 	@RequestMapping("/admin/peals")
@@ -448,6 +522,10 @@ public class AdminTowerController {
 	public String doAddPeal(Model model, @Valid Peal peal,
 			BindingResult result, RedirectAttributes redirectAttributes) {
 		if (result.hasErrors()) {
+			model.addAttribute("message",
+					"Peal not added. An error occured in the input");
+			Map<Integer, String> hm = towerService.getTowerDescriptorMap();
+			model.addAttribute("towers", hm);
 			return "/admin/peals/addpeal";
 		}
 		pealService.addPeal(peal);
@@ -502,7 +580,6 @@ public class AdminTowerController {
 	/*
 	 * 
 	 * ADMIN COUNTRIES REQUEST MAPPINGS
-	 * 
 	 */
 
 	@RequestMapping("/admin/countries")
@@ -571,11 +648,10 @@ public class AdminTowerController {
 		return "redirect:/admin/countries";
 
 	}
-	
+
 	/*
 	 * 
 	 * ADMIN DIOCESE REQUEST MAPPINGS
-	 * 
 	 */
 
 	@RequestMapping("/admin/dioceses")
@@ -643,6 +719,65 @@ public class AdminTowerController {
 				"Diocese successfully deleted.");
 		return "redirect:/admin/dioceses";
 
+	}
+
+	@RequestMapping(value = "/admin/users")
+	public String showUsers(Model model) {
+
+		List<User> users = userService.getUsers();
+
+		model.addAttribute("users", users);
+
+		return "/admin/users";
+
+	}
+	
+	@RequestMapping(value = "/admin/users/add")
+	public String addUser(Model model) {
+
+		User user = new User();
+		model.addAttribute("user", user);
+		return "/admin/users/add";
+
+	}
+
+	@RequestMapping(value = "/admin/users/reset", method = RequestMethod.GET)
+	public String resetUser(Model model,
+			@RequestParam("u") String email,
+			RedirectAttributes redirectAttributes, HttpServletRequest httpRequestServlet) {
+
+		User tempUser = new User();
+		tempUser.setEmail(email);
+		VerificationToken verificationToken = null;
+		User user = null;
+		
+		if (userService.exists(tempUser)) {
+			user = userService.getUser(email);
+			String token = UUID.randomUUID().toString();
+			verificationToken = new VerificationToken(token, user);
+			verificationService.addToken(verificationToken);
+			
+			SimpleMailMessage mailMessage = new SimpleMailMessage();
+			String contextPath = httpRequestServlet.getContextPath();
+			StringBuffer sb = new StringBuffer();
+			sb.append("An administrator has submitted a request to reset your password. \n\n");
+			sb.append("Please visit the below URL to reset your password:\n\n");
+			sb.append("http://localhost:8080" + contextPath + "/reset?token=" + verificationToken.getToken() + "\n\n");
+			sb.append("Please note: this link will expire in two days, and can only be used once.\n\n");
+			sb.append("Many Thanks,\n\n");
+			sb.append("The TowerFinder team");
+			
+			mailMessage.setTo(user.getEmail());
+			mailMessage.setFrom("noreply@towerfinder.com");
+			mailMessage.setSubject("TowerFinder - Reset Password");
+			mailMessage.setText(sb.toString());
+			mailSender.send(mailMessage);
+			redirectAttributes.addFlashAttribute("message", "User " + user.getEmail() + " has been emailed a request to reset their password.");
+			return "redirect:/admin/users";
+		} else {
+			redirectAttributes.addFlashAttribute("message", "An unforseen error occured, that user was not found.");
+			return "redirect:/admin/users";
+		}
 	}
 
 }

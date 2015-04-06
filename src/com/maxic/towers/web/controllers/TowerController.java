@@ -9,11 +9,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.maxic.towers.web.dao.ContactDetails;
-import com.maxic.towers.web.dao.Peal;
-import com.maxic.towers.web.dao.Practice;
-import com.maxic.towers.web.dao.Tower;
-import com.maxic.towers.web.dao.TowerWrapper;
+import com.maxic.towers.web.model.ContactDetails;
+import com.maxic.towers.web.model.Peal;
+import com.maxic.towers.web.model.Practice;
+import com.maxic.towers.web.model.TowerWrapper;
 import com.maxic.towers.web.service.ContactDetailsService;
 import com.maxic.towers.web.service.PealService;
 import com.maxic.towers.web.service.PracticeService;
@@ -58,7 +57,8 @@ public class TowerController {
 		List<Practice> practices = practiceService.getPractices(t);
 		List<ContactDetails> contactDetails = contactDetailsService
 				.getContactDetails(t);
-
+		List<Peal> pealList = pealService.getPealsForTower(t);
+		
 		if (!practices.isEmpty()) {
 			towerWrapper.setPracticeList(practices);
 		}
@@ -67,6 +67,7 @@ public class TowerController {
 			towerWrapper.setContactDetailsList(contactDetails);
 		}
 
+		model.addAttribute("peals", pealList);
 		model.addAttribute("towerWrapper", towerWrapper);
 		return "/towers/view";
 	}

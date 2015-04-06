@@ -1,4 +1,6 @@
-package com.maxic.towers.web.dao;
+package com.maxic.towers.web.model;
+
+import java.sql.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -6,18 +8,23 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 @Entity
 @Table(name="peals")
 public class Peal {
+
 	private int towerId;
 	@Id
 	@GeneratedValue
 	@Column(name="pealId")
 	private int pealId;
 	private String dedication;
-	private String dateRung;    //date
+	private Date dateRung;
+	//private String dateRung;    //date
 	private String time;		//time
 	private String tenor;
+	@NotBlank(message="Method cannot be blank.")
 	private String method;
 	private String methodDetails;
 	private int changes;
@@ -25,6 +32,7 @@ public class Peal {
 	private String composer;
 	private String footnotes;
 	private String composition;
+	@NotBlank(message="At least one ringer must be entered.")
 	private String ringer1;
 	private String ringer2;
 	private String ringer3;
@@ -46,7 +54,7 @@ public class Peal {
 		
 	}
 
-	public Peal(int towerId, int pealId, String dedication, String dateRung,
+	public Peal(int towerId, int pealId, String dedication, Date dateRung,
 			String time, String tenor, String method, String methodDetails,
 			int changes, String leader, String composer, String footnotes,
 			String composition, String ringer1, String ringer2, String ringer3,
@@ -109,11 +117,11 @@ public class Peal {
 		this.dedication = dedication;
 	}
 
-	public String getDateRung() {
+	public Date getDateRung() {
 		return dateRung;
 	}
 
-	public void setDateRung(String dateRung) {
+	public void setDateRung(Date dateRung) {
 		this.dateRung = dateRung;
 	}
 

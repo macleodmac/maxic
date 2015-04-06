@@ -8,13 +8,13 @@ function initialize() {
 		mapTypeId : google.maps.MapTypeId.ROADMAP
 	}
 	map = new google.maps.Map(mapCanvas, mapOptions);
-
+	
 	var json = (function() {
 		var json = null;
 		$.ajax({
 			'async' : false,
 			'global' : false,
-			'url' : './gettowers',
+			'url' : './towers/gettowers',
 			'dataType' : "json",
 			'success' : function(data) {
 				json = data;
@@ -86,9 +86,3 @@ function initialize() {
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);
-
-$('#viewTower').modal().on('shown', function() {
-	$('body').css('overflow', 'hidden');
-}).on('hidden', function() {
-	$('body').css('overflow', 'auto');
-})

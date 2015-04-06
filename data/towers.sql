@@ -28,7 +28,7 @@ CREATE TABLE `contactdetails` (
   `type` varchar(45) DEFAULT NULL,
   `detail` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`contactId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -37,6 +37,7 @@ CREATE TABLE `contactdetails` (
 
 LOCK TABLES `contactdetails` WRITE;
 /*!40000 ALTER TABLE `contactdetails` DISABLE KEYS */;
+INSERT INTO `contactdetails` VALUES (56,1,'Phone','07887394234');
 /*!40000 ALTER TABLE `contactdetails` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -64,18 +65,18 @@ INSERT INTO `countries` VALUES ('AU','Australia');
 INSERT INTO `countries` VALUES ('CA','Canada');
 INSERT INTO `countries` VALUES ('ES','Spain');
 INSERT INTO `countries` VALUES ('GB','United Kingdom');
-INSERT INTO `countries` VALUES ('GD','Windward Is');
-INSERT INTO `countries` VALUES ('GG','Channel Is');
+INSERT INTO `countries` VALUES ('GD','Grenada');
+INSERT INTO `countries` VALUES ('GG','Guernsey');
 INSERT INTO `countries` VALUES ('IE','Ireland');
 INSERT INTO `countries` VALUES ('IM','Isle of Man');
 INSERT INTO `countries` VALUES ('IN','India');
-INSERT INTO `countries` VALUES ('JE','Channel Is');
+INSERT INTO `countries` VALUES ('JE','Jersey');
 INSERT INTO `countries` VALUES ('KE','Kenya');
 INSERT INTO `countries` VALUES ('NL','Netherlands');
 INSERT INTO `countries` VALUES ('NZ','New Zealand');
 INSERT INTO `countries` VALUES ('PK','Pakistan');
 INSERT INTO `countries` VALUES ('US','USA');
-INSERT INTO `countries` VALUES ('VC','Windward Is');
+INSERT INTO `countries` VALUES ('VC','Saint Vincent And Grenadines');
 INSERT INTO `countries` VALUES ('ZA','South Africa');
 INSERT INTO `countries` VALUES ('ZW','Zimbabwe');
 /*!40000 ALTER TABLE `countries` ENABLE KEYS */;
@@ -234,7 +235,7 @@ CREATE TABLE `peals` (
   `pealId` int(11) NOT NULL AUTO_INCREMENT,
   `towerId` int(11) NOT NULL,
   `dedication` varchar(20) DEFAULT NULL,
-  `dateRung` varchar(20) DEFAULT NULL,
+  `dateRung` date DEFAULT NULL,
   `time` varchar(20) DEFAULT NULL,
   `tenor` varchar(5) DEFAULT NULL,
   `method` varchar(20) DEFAULT NULL,
@@ -261,7 +262,7 @@ CREATE TABLE `peals` (
   `ringer15` varchar(50) DEFAULT NULL,
   `ringer16` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`pealId`)
-) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -270,13 +271,10 @@ CREATE TABLE `peals` (
 
 LOCK TABLES `peals` WRITE;
 /*!40000 ALTER TABLE `peals` DISABLE KEYS */;
-INSERT INTO `peals` VALUES (34,194,'Test Dedication','29/09/1992','','','This is a method lol','',1000,'','','','','','','','','','','','','','','','','','','','');
-INSERT INTO `peals` VALUES (35,1,'','','','','','',0,'','','','','','','','','','','','','','','','','','','','');
-INSERT INTO `peals` VALUES (36,5487,'','20/10/14','3:20','','Suprise Major','',1320,'','','','','','','','','','','','','','','','','','','','');
-INSERT INTO `peals` VALUES (37,5487,'','30/10/14','','','Suprise Minor','',2000,'','','','','','','','','','','','','','','','','','','','');
-INSERT INTO `peals` VALUES (38,5487,'','22/10/14','','','Suprise Modal','',1400,'','','','','','','','','','','','','','','','','','','','');
-INSERT INTO `peals` VALUES (40,5487,'','12/01/13','3:20','','This is awesome','',1200,'','','','','Bob Geldof','Bob Geldof','Bob Geldof','Bob Geldof','Bob Geldof','Bob Geldof','Bob Geldof','Bob Geldof','Bob Geldof','Bob Geldof','Bob Geldof','Bob Geldof','Bob Geldof','Bob Geldof','Bob Geldof','Bob Geldof');
-INSERT INTO `peals` VALUES (41,5487,NULL,'10/12/12',NULL,NULL,'Shouldn\'t appear',NULL,100,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
+INSERT INTO `peals` VALUES (42,1,'','2011-12-31','','','','',0,'','','','','','','','','','','','','','','','','','','','');
+INSERT INTO `peals` VALUES (43,1,'','2014-12-12','','','','',0,'','','','','','','','','','','','','','','','','','','','');
+INSERT INTO `peals` VALUES (44,7,'','2015-03-29','','','test','',0,'','','','','test','','','','','','','','','','','','','','','');
+INSERT INTO `peals` VALUES (45,14,'','2015-04-02','','','This is my method.','',0,'','','','','James Boblee','Billy Nomates','','','','','','','','','','','','','','');
 /*!40000 ALTER TABLE `peals` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -322,7 +320,7 @@ CREATE TABLE `practice` (
   `visitorsWelcome` tinyint(1) DEFAULT '0',
   `practiceName` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`practiceId`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -333,8 +331,8 @@ LOCK TABLES `practice` WRITE;
 /*!40000 ALTER TABLE `practice` DISABLE KEYS */;
 INSERT INTO `practice` VALUES (2,1,'Monday','00:00:00','',1,'');
 INSERT INTO `practice` VALUES (2,2,'Monday','00:00:00','',1,'');
-INSERT INTO `practice` VALUES (2,3,'Monday','00:00:00','',1,'');
-INSERT INTO `practice` VALUES (2,4,'Monday','00:00:00','',1,'');
+INSERT INTO `practice` VALUES (43,5,'Monday','00:00:00','',1,'');
+INSERT INTO `practice` VALUES (56,6,'Monday','19:00:00','Weekly',1,'Beginners');
 /*!40000 ALTER TABLE `practice` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -359,6 +357,65 @@ CREATE TABLE `test` (
 LOCK TABLES `test` WRITE;
 /*!40000 ALTER TABLE `test` DISABLE KEYS */;
 /*!40000 ALTER TABLE `test` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tokens`
+--
+
+DROP TABLE IF EXISTS `tokens`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tokens` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `token` varchar(120) NOT NULL,
+  `user_id` varchar(45) DEFAULT NULL,
+  `expiryDate` date NOT NULL,
+  `verified` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tokens`
+--
+
+LOCK TABLES `tokens` WRITE;
+/*!40000 ALTER TABLE `tokens` DISABLE KEYS */;
+INSERT INTO `tokens` VALUES (1,'5fc6a948-c820-4a70-a0bd-59ebb04f87dc','macleod.mac@gmail.com','2015-04-04',1);
+INSERT INTO `tokens` VALUES (2,'db91ac70-f72b-46ec-b542-500ce0453097','macleod.mac@gmail.com','2015-04-04',1);
+INSERT INTO `tokens` VALUES (3,'1f78515f-ef4f-4558-b0a8-b3b850de686a','macleod.mac@gmail.com','2015-04-04',0);
+INSERT INTO `tokens` VALUES (4,'d7a33e4a-af6a-4d11-aa1f-ec1c07bf80e1','macleod.mac@gmail.com','2015-04-04',1);
+INSERT INTO `tokens` VALUES (5,'d78668b4-b8aa-4e07-b4ad-c97c0ebbcaa5','macleod.mac@gmail.com','2015-04-04',0);
+INSERT INTO `tokens` VALUES (6,'2d1392b1-0448-4a3d-99ed-83b58a1aeb09','macleod.mac@gmail.com','2015-04-04',1);
+INSERT INTO `tokens` VALUES (7,'03fce446-7fd1-4909-9361-f0dc03569866','macleod.mac@gmail.com','2015-04-04',0);
+INSERT INTO `tokens` VALUES (8,'00423a1b-2332-4b98-a74f-bef3126f17d2','macleod.mac@gmail.com','2015-04-04',0);
+INSERT INTO `tokens` VALUES (9,'99b03b59-5e34-466a-9339-c036822b5654','macleod.mac@gmail.com','2015-04-04',1);
+INSERT INTO `tokens` VALUES (10,'b29e0cfa-f7bb-4fa8-a5a8-e7d2c9b5436f','macleod.mac@gmail.com','2015-04-04',1);
+INSERT INTO `tokens` VALUES (11,'85d231ef-c579-4383-a0c0-8906a72a03a5','macleod.mac@gmail.com','2015-04-04',1);
+INSERT INTO `tokens` VALUES (12,'3e773df0-03e3-494e-a157-c7257ea07613','macleod.mac@gmail.com','2015-04-04',1);
+INSERT INTO `tokens` VALUES (13,'7b922147-c268-4f0a-8957-7da8148b24cc','macleod.mac@gmail.com','2015-04-04',1);
+INSERT INTO `tokens` VALUES (14,'6f6a3788-fec2-4ae3-87ed-b7ceb402b8f4','macleod.mac@gmail.com','2015-04-04',1);
+INSERT INTO `tokens` VALUES (15,'f8c323ed-a103-4317-a265-1026e3128a7a','macleod.mac@gmail.com','2015-04-05',1);
+INSERT INTO `tokens` VALUES (16,'80a82543-77ee-4335-8366-2fd8bc7c33f5','macleod.mac@gmail.com','2015-04-05',1);
+INSERT INTO `tokens` VALUES (17,'8678a6ac-3f9a-4e44-a054-e0b9fc5b1a65','email@email.com','2015-04-05',0);
+INSERT INTO `tokens` VALUES (18,'dbf1db9d-fa4b-48a4-8aed-6f18efc64f2a','macleod.mac@gmail.com','2015-04-05',1);
+INSERT INTO `tokens` VALUES (19,'4a04e66b-2d16-42bb-a23a-123ea6946167','jamie@macleod.co.uk','2015-04-05',0);
+INSERT INTO `tokens` VALUES (20,'c50a0fef-2593-434f-8dfd-a72b0534c580','jamie@mymacleod.co.uk','2015-04-05',0);
+INSERT INTO `tokens` VALUES (21,'50227695-ae4b-479e-88ee-52325ff2bcae','jmacleod2@shef.ac.uk','2015-04-05',0);
+INSERT INTO `tokens` VALUES (22,'d23e5355-7278-41a5-803b-86918b7b800a','macleod.mac+amazon@gmail.com','2015-04-05',1);
+INSERT INTO `tokens` VALUES (23,'aa71b51c-4768-4e92-aea5-35b38331bf79','macleod.mac+amazon@gmail.com','2015-04-05',1);
+INSERT INTO `tokens` VALUES (24,'71377c63-28f4-4f0c-90d5-145a945f6d68','macleod.mac+amazon@gmail.com','2015-04-05',1);
+INSERT INTO `tokens` VALUES (25,'29cbf2e3-f1a7-4a18-aa4c-b80e5c324811','macleod.mac@gmail.com','2015-04-05',1);
+INSERT INTO `tokens` VALUES (26,'f6f88a40-bc7b-45d9-9e14-21fe683bba76','macleod.mac+new@gmail.com','2015-04-05',1);
+INSERT INTO `tokens` VALUES (27,'e12ff619-a5a7-4776-87be-43f86f9cfd51','macleod.mac+test@gmail.com','2015-04-05',0);
+INSERT INTO `tokens` VALUES (28,'7b46799c-9a67-4777-b2af-a5ba23bff633','macleod.mac@gmail.com','2015-04-05',1);
+INSERT INTO `tokens` VALUES (29,'a636343f-7623-4bef-86be-53f069b39d03','jmacleod2@shef.ac.uk','2015-04-05',0);
+INSERT INTO `tokens` VALUES (30,'ff3c6aae-f829-41c5-a3a6-d47123b60fc0','macleod.mac@gmail.com','2015-04-05',0);
+INSERT INTO `tokens` VALUES (31,'8c45f8fe-3f78-498b-82c1-0cb882abd7fe','macleod.mac@gmail.com','2015-04-05',0);
+INSERT INTO `tokens` VALUES (32,'f75acd18-8b8b-4851-b84b-3ea8bd7d07ee','macleod.mac@gmail.com','2015-04-06',0);
+INSERT INTO `tokens` VALUES (33,'5ad9bf0a-4e66-4fe3-a2ec-52bad7316349','macleod.mac@gmail.com','2015-04-06',1);
+/*!40000 ALTER TABLE `tokens` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -7571,6 +7628,37 @@ LOCK TABLES `towers_practice` WRITE;
 INSERT INTO `towers_practice` VALUES (1,1,NULL,NULL,NULL,0);
 /*!40000 ALTER TABLE `towers_practice` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `users`
+--
+
+DROP TABLE IF EXISTS `users`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `users` (
+  `email` varchar(50) NOT NULL,
+  `password` varchar(100) NOT NULL,
+  `role` varchar(45) NOT NULL,
+  `enabled` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`email`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `users`
+--
+
+LOCK TABLES `users` WRITE;
+/*!40000 ALTER TABLE `users` DISABLE KEYS */;
+INSERT INTO `users` VALUES ('macleod.mac@gmail.com','394f03bd2fecb2b99770a801b92f83ea6ec6808ca1a52f07bc295bc139bc851e5d1c13430a56aa85','ROLE_ADMIN',1);
+INSERT INTO `users` VALUES ('jamie@macleod.co.uk','78827f331a8f1970d7b5b6ef555504233c30778829348fd7fc55bf77d0bc65119fc9ee401730f22a','ROLE_USER',0);
+INSERT INTO `users` VALUES ('jamie@mymacleod.co.uk','e3846b23e25ecd5b6141086bd32b4935e1c42131e0ecc694a97722acd0a8ebfde94692a08d0dd536','ROLE_USER',0);
+INSERT INTO `users` VALUES ('jmacleod2@shef.ac.uk','32f80014754c64a71c0edbb17eb33f30321cce629ebb7d33824e78dfe1f8989c07a932b9d2876e11','ROLE_USER',0);
+INSERT INTO `users` VALUES ('macleod.mac+amazon@gmail.com','7fba6961d7b1f7c33485ad6109ad25ad1f76c3f07a6911df8337d33204a0717d7e70bca232e1eddc','ROLE_USER',1);
+INSERT INTO `users` VALUES ('macleod.mac+new@gmail.com','6791c5359194dbbc60f624a7813899111e8884f93b14f3633c82e45d3937ac92ba19d46e376a7b53','ROLE_USER',1);
+/*!40000 ALTER TABLE `users` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -7581,4 +7669,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-03-28 17:43:23
+-- Dump completed on 2015-04-06 14:53:09

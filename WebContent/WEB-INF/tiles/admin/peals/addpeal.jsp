@@ -1,11 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<script
+	src="${pageContext.request.contextPath}/static/js/bootstrap-datepicker.js"></script>
+
+<link
+	href='${pageContext.request.contextPath}/static/css/datepicker.css'
+	rel='stylesheet' type='text/css' />
+
+
 <div class="container">
+
+	
 	<sf:form method="post"
 		action="${pageContext.request.contextPath}/admin/peals/doadd"
 		modelAttribute="peal" commandName="peal">
-
+		
 		<div class="row">
 			<div class="col-xs-6">
 				<div class="form-group">
@@ -22,6 +33,14 @@
 
 		<div class="row">
 			<hr />
+			<c:if test="${not empty message }">
+				<div class="alert alert-danger" role="alert">
+					<c:out value="${message}"></c:out>
+				</div>
+			</c:if>
+			<sf:errors path="dateRung" cssClass="alert alert-danger" element="div" />
+			<sf:errors path="method" cssClass="alert alert-danger" element="div" />
+			<sf:errors path="ringer1" cssClass="alert alert-danger" element="div" />
 		</div>
 		<div class="row">
 			<div class="col-xs-12 col-sm-9">
@@ -34,8 +53,8 @@
 			<div class="col-xs-12 col-sm-3">
 				<div class="form-group">
 					<label for="dateRung">Date</label>
-					<sf:input type="text" class="form-control" path="dateRung"
-						id="dateRung" placeholder="Date" />
+					<sf:input type="text" class="form-control" path="dateRung" id="dp"
+						placeholder="Date"/>
 				</div>
 			</div>
 			<div class="col-xs-12 col-sm-6">
@@ -203,16 +222,14 @@
 				<div class="form-group">
 					<label for="footnotes">Footnotes</label>
 					<sf:textarea style="resize: none;" rows="3" class="form-control"
-						path="footnotes" id="footnotes"
-						placeholder="Footnotes" />
+						path="footnotes" id="footnotes" placeholder="Footnotes" />
 				</div>
 			</div>
 			<div class="col-xs-12 col-sm-6">
 				<div class="form-group">
 					<label for="composition">Composition</label>
 					<sf:textarea style="resize: none;" rows="3" class="form-control"
-						path="composition" id="composition"
-						placeholder="Composition" />
+						path="composition" id="composition" placeholder="Composition" />
 				</div>
 			</div>
 			<div class="col-xs-6 col-sm-3">
@@ -229,7 +246,25 @@
 						id="composer" placeholder="Composer" />
 				</div>
 			</div>
-			
+
 		</div>
 	</sf:form>
+<script>
+$(document).ready(function(){
+    
+	var nowTemp = new Date();
+    var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
+	
+	$('#dp').datepicker({
+        format: 'yyyy-mm-dd',
+        endDate: '0d',
+        autoclose: true,
+        onRender: function(date) {
+            return date.valueOf() > now.valueOf() ? 'disabled' : '';
+        }
+    });
+   
+});
+
+</script>
 </div>

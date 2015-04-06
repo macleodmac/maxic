@@ -2,6 +2,8 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 <script type="text/javascript">
 	window.onload = function() {
 		document.getElementById('currentLink').value = document.URL;
@@ -9,18 +11,23 @@
 </script>
 <div class="container">
 	<div class="row">
-		<div class="col-xs-8 col-md-offset-2">
-			<h2>${tower}</h2>
+		<div class="col-xs-12 col-md-8 col-md-offset-2">
+			<h2>${tower} <sec:authorize access="hasRole('ROLE_ADMIN')">
+				<div class="pull-right">
+					<a class="btn btn-sm btn-default"
+						href="${pageContext.request.contextPath}/admin/peals/edit?p=${peal.pealId}">Edit</a>
+				</div>
+			</sec:authorize></h2>
 			<hr />
 			<h3>Association</h3>
-			<h4>${peal.dateRung} in ${peal.time}</h4>
+			<h4>${peal.dateRung}in ${peal.time}</h4>
 			<h4>
 				<strong>${peal.changes} ${peal.method}</strong>
 			</h4>
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-xs-4 col-xs-offset-2">
+		<div class="col-xs-12 col-md-4 col-md-offset-2">
 			<table class="table">
 				<c:if test="${not empty peal.ringer1}">
 					<tr>
@@ -72,7 +79,7 @@
 				</c:if>
 			</table>
 		</div>
-		<div class="col-xs-4">
+		<div class="col-xs-12 col-md-4">
 			<table class="table">
 				<c:if test="${not empty peal.ringer9}">
 					<tr>
@@ -126,7 +133,7 @@
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-xs-4 col-xs-offset-2">
+		<div class="col-xs-12 col-md-4 col-md-offset-2">
 			<div class="form-group">
 				<label for="currentLink">Sharing Link</label> <input
 					onClick="this.setSelectionRange(0, this.value.length)" type="text"

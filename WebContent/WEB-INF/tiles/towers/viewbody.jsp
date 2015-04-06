@@ -7,8 +7,18 @@
 		<h4>News and Information</h4>
 		<table class="table">
 			<tr>
+				<th>Ringable</th>
+				<c:if test="${towerWrapper.tower.ringable}">
+					<td>Yes</td>
+				</c:if>
+				<c:if test="${not towerWrapper.tower.ringable}">
+					<td>No</td>
+				</c:if>
+				
+			</tr>
+			<tr>
 				<th>Info</th>
-				<td>Sample Info</td>
+				<td>${towerWrapper.tower.extraInfo}</td>
 			</tr>
 			<tr>
 				<th>News</th>

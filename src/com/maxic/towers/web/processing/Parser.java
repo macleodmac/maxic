@@ -1,5 +1,4 @@
 package com.maxic.towers.web.processing;
-
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -11,10 +10,10 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.io.Resource;
 
-import com.maxic.towers.web.dao.ContactDetails;
-import com.maxic.towers.web.dao.Country;
-import com.maxic.towers.web.dao.Diocese;
-import com.maxic.towers.web.dao.Tower;
+import com.maxic.towers.web.model.ContactDetails;
+import com.maxic.towers.web.model.Country;
+import com.maxic.towers.web.model.Diocese;
+import com.maxic.towers.web.model.Tower;
 
 public class Parser {
 

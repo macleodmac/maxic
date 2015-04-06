@@ -1,4 +1,4 @@
-package com.maxic.towers.web.dao;
+package com.maxic.towers.web.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

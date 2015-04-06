@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.maxic.towers.web.dao.Peal;
-import com.maxic.towers.web.dao.TowerShort;
+import com.maxic.towers.web.model.Peal;
+import com.maxic.towers.web.model.TowerShort;
 import com.maxic.towers.web.service.ContactDetailsService;
 import com.maxic.towers.web.service.PealService;
 import com.maxic.towers.web.service.TowerService;
@@ -46,7 +46,7 @@ public class HomeController {
 		return "home";
 	}
 
-	@RequestMapping(value = "/gettowers", method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "/towers/gettowers", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
 	public Map<String, Object> getTowers() {
 
@@ -62,7 +62,7 @@ public class HomeController {
 		return data;
 	}
 
-	@RequestMapping(value = "/getpeals", method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "/peals/getpeals", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
 	public Map<String, Object> getPeals() {
 

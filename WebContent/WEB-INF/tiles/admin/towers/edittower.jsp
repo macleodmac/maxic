@@ -233,7 +233,7 @@
 			</div>
 		</div>
 		<h3>
-			Practices <a class="btn btn-primary btn-sm"
+			Practices <a class="btn btn-default btn-sm"
 				href="${pageContext.request.contextPath}/admin/towers/addpractice?t=${towerWrapper.tower.towerId}">Add</a>
 		</h3>
 		<c:if test="${empty towerWrapper.practiceList}">
@@ -309,7 +309,7 @@
 			</c:forEach>
 		</c:if>
 		<h3>
-			Contact Details <a class="btn btn-primary btn-sm"
+			Contact Details <a class="btn btn-default btn-sm"
 				href="${pageContext.request.contextPath}/admin/towers/addcontact?t=${towerWrapper.tower.towerId}">Add</a>
 		</h3>
 		<c:if test="${empty towerWrapper.contactDetailsList}">

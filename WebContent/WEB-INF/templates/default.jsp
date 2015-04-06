@@ -14,12 +14,25 @@
 <meta name="author" content="">
 
 <title><tiles:insertAttribute name="title"></tiles:insertAttribute></title>
-
+<!--[if lte IE 9]>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.2/html5shiv.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.3.0/respond.js"></script>
+<![endif]-->
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/static/css/bootstrap.min.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/static/css/main.css">
-<link href='http://fonts.googleapis.com/css?family=Racing+Sans+One' rel='stylesheet' type='text/css'>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+<script src="${pageContext.request.contextPath}/static/js/jquery.min.js"></script>
+<script
+	src="${pageContext.request.contextPath}/static/js/bootstrap.min.js"></script>
+<script
+	src="${pageContext.request.contextPath}/static/js/FastMarkerOverlay.js"></script>
+<script
+	src="${pageContext.request.contextPath}/static/js/markerclusterer_compiled.js"></script>
+
+<link href='http://fonts.googleapis.com/css?family=Racing+Sans+One'
+	rel='stylesheet' type='text/css'>
 
 </head>
 <body>
@@ -27,7 +40,7 @@
 		<tiles:insertAttribute name="header"></tiles:insertAttribute>
 	</header>
 	<tiles:insertAttribute name="content"></tiles:insertAttribute>
-	
+
 	<tiles:insertAttribute name="footer"></tiles:insertAttribute>
 </body>
 </html>

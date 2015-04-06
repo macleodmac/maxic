@@ -1,4 +1,4 @@
-package com.maxic.towers.web.dao;
+package com.maxic.towers.web.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

@@ -60,7 +60,10 @@
 		<put-attribute name="content" value="/WEB-INF/tiles/peals/viewpeal.jsp"></put-attribute>
 	</definition>
 	
-	
+	<definition name="/peals/add" extends="admin.base">
+		<put-attribute name="title" value="Tower Finder :: Add a Peal"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/admin/peals/addpeal.jsp"></put-attribute>
+	</definition>
 	
 	<definition name="admin.base" template="/WEB-INF/templates/default.jsp">
 		<put-attribute name="title" value="Tower Finder"></put-attribute>
@@ -103,6 +106,8 @@
 		<put-attribute name="title" value="Tower Finder :: Admin :: Add a Peal"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/admin/peals/addpeal.jsp"></put-attribute>
 	</definition>
+	
+	
 	
 	<definition name="/admin/peals/editpeal" extends="admin.base">
 		<put-attribute name="title" value="Tower Finder :: Admin :: Edit Peal"></put-attribute>
@@ -154,6 +159,16 @@
 		<put-attribute name="content" value="/WEB-INF/tiles/admin/documentation.jsp"></put-attribute>
 	</definition>
 	
+	<definition name="/admin/users" extends="admin.base">
+		<put-attribute name="title" value="Tower Finder :: Admin :: Users"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/admin/users.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="/admin/users/add" extends="admin.base">
+		<put-attribute name="title" value="Tower Finder :: Admin :: Add User"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/admin/users/adduser.jsp"></put-attribute>
+	</definition>
+	
 	<definition name="/error" extends="towers.base">
 		<put-attribute name="title" value="Tower Finder :: Error"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/error/error.jsp"></put-attribute>
@@ -162,6 +177,71 @@
 	<definition name="/about" extends="towers.base">
 		<put-attribute name="title" value="Tower Finder :: About"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/main/about.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="/login" extends="towers.base">
+		<put-attribute name="title" value="Tower Finder :: Login"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/user/login.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="/loggedout" extends="towers.base">
+		<put-attribute name="title" value="Tower Finder :: Logged Out"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/user/loggedout.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="/accountcreated" extends="towers.base">
+		<put-attribute name="title" value="Tower Finder :: Account Created"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/user/accountcreated.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="/verified" extends="towers.base">
+		<put-attribute name="title" value="Tower Finder :: Account Verified"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/user/verified.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="/newaccount" extends="towers.base">
+		<put-attribute name="title" value="Tower Finder :: Create an Account"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/user/newaccount.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="/accountcreated" extends="towers.base">
+		<put-attribute name="title" value="Tower Finder :: Account Created"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/user/accountcreated.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="/forgotpassword" extends="towers.base">
+		<put-attribute name="title" value="Tower Finder :: Forgotten Password"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/user/forgotpassword.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="/resetpassword" extends="towers.base">
+		<put-attribute name="title" value="Tower Finder :: Reset Password"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/user/resetpassword.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="/changepassword" extends="towers.base">
+		<put-attribute name="title" value="Tower Finder :: Change Password"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/user/changepassword.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="/badtoken" extends="towers.base">
+		<put-attribute name="title" value="Tower Finder :: Bad Token"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/user/badtoken.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="/resetsuccess" extends="towers.base">
+		<put-attribute name="title" value="Tower Finder :: Password Reset"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/user/resetsuccess.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="/account/edit" extends="towers.base">
+		<put-attribute name="title" value="Tower Finder :: Edit Account"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/user/editaccount.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="/account/visits" extends="towers.base">
+		<put-attribute name="title" value="Tower Finder :: My Visits"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/user/visits.jsp"></put-attribute>
 	</definition>
 
 </tiles-definitions>

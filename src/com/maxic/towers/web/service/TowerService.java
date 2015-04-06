@@ -7,10 +7,8 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.maxic.towers.web.dao.Tower;
 import com.maxic.towers.web.dao.TowerDao;
-import com.maxic.towers.web.dao.TowerDescriptor;
-import com.maxic.towers.web.dao.TowerShort;
+import com.maxic.towers.web.model.*;
 
 @Service("towerService")
 public class TowerService {
@@ -61,6 +59,22 @@ public class TowerService {
 
 	public String getTowerDescriptor(int towerId) {
 		return towerDao.getTowerDescriptor(towerId);
+	}
+	
+	public List<Tower> getPaginatedTowers(int pageLength, int displayStart) {
+		return towerDao.getPaginatedTowers(pageLength, displayStart);
+	}
+
+	public int getNumberOfTowers() {
+		return towerDao.getNumberOfTowers();
+	}
+
+	public List<Tower> getPaginatedTowersByTerm(int pageLength, int displayStart, String searchCriteria) {
 		
+		return towerDao.getPaginatedTowersByTerm(pageLength, displayStart, searchCriteria);
+	}
+
+	public int getNumberOfTowersBySearchTerm(String searchTerm) {
+		return towerDao.getNumberOfTowersBySearchTerm(searchTerm);
 	}
 }

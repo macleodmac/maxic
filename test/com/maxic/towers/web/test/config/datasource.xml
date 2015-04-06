@@ -15,13 +15,12 @@
 	<beans profile="dev">
 		<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
 			destroy-method="close">
-
 			<property name="driverClassName" value="${jdbc.driver}"></property>
 			<property name="url" value="${jdbc.url}"></property>
 			<property name="password" value="${jdbc.password}"></property>
 			<property name="username" value="${jdbc.username}"></property>
 		</bean>
-
+		
 		
 		<bean id="sessionFactory"
 			class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">

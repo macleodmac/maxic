@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.maxic.towers.web.dao.Practice;
+import com.maxic.towers.web.model.*;
 import com.maxic.towers.web.dao.PracticeDao;
 
 @Service("practiceService")
