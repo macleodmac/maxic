@@ -28,7 +28,6 @@ public class VerificationDao {
 
 	public boolean validToken(VerificationToken verificationToken) {
 		Date timeNow = new Date(Calendar.getInstance().getTimeInMillis());
-		System.out.println(timeNow);
 		return session()
 				.createQuery(
 						"from VerificationToken where token = :token and verified = :verified and expiryDate >= :date")

@@ -2,53 +2,54 @@ package com.maxic.towers.web.model;
 
 import java.io.Serializable;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
-import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.NotBlank;
-
 @SuppressWarnings("serial")
 public class EditUser implements Serializable {
 
-	@NotNull
-	@NotBlank(message = "Email address cannot be blank.")
-	@Size(min = 8, message = "Email address must be at least 8 characters long.")
-	@Email(message = "Email address cannot be validated.")
-	private String oldEmail;
-	@NotNull
-	@NotBlank(message = "Email address cannot be blank.")
-	@Size(min = 8, message = "Email address must be at least 8 characters long.")
-	@Email(message = "Email address cannot be validated.")
-	private String newEmail;
-	@NotNull
-	@NotBlank
-	private String currentPassword;
-	private String newPassword;
-	private boolean enabled;
+	private int id;
 
-	private String role;
+	private User user;
+
+	private String newName;
+
+	private String newEmail;
+
+	private String newPassword;
 
 	public EditUser() {
 
 	}
 
-	public EditUser(String oldEmail, String newEmail, String currentPassword,
-			String newPassword, boolean enabled, String role) {
-		this.oldEmail = oldEmail;
+	public EditUser(int id, User user, String newName, String newEmail,
+			String newPassword) {
+		this.id = id;
+		this.user = user;
+		this.newName = newName;
 		this.newEmail = newEmail;
-		this.currentPassword = currentPassword;
 		this.newPassword = newPassword;
-		this.enabled = enabled;
-		this.role = role;
 	}
 
-	public String getOldEmail() {
-		return oldEmail;
+	public int getId() {
+		return id;
 	}
 
-	public void setOldEmail(String oldEmail) {
-		this.oldEmail = oldEmail;
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public String getNewName() {
+		return newName;
+	}
+
+	public void setNewName(String newName) {
+		this.newName = newName;
 	}
 
 	public String getNewEmail() {
@@ -59,14 +60,6 @@ public class EditUser implements Serializable {
 		this.newEmail = newEmail;
 	}
 
-	public String getCurrentPassword() {
-		return currentPassword;
-	}
-
-	public void setCurrentPassword(String currentPassword) {
-		this.currentPassword = currentPassword;
-	}
-
 	public String getNewPassword() {
 		return newPassword;
 	}
@@ -75,36 +68,17 @@ public class EditUser implements Serializable {
 		this.newPassword = newPassword;
 	}
 
-	public boolean isEnabled() {
-		return enabled;
-	}
-
-	public void setEnabled(boolean enabled) {
-		this.enabled = enabled;
-	}
-
-	public String getRole() {
-		return role;
-	}
-
-	public void setRole(String role) {
-		this.role = role;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result
-				+ ((currentPassword == null) ? 0 : currentPassword.hashCode());
-		result = prime * result + (enabled ? 1231 : 1237);
+		result = prime * result + id;
 		result = prime * result
 				+ ((newEmail == null) ? 0 : newEmail.hashCode());
+		result = prime * result + ((newName == null) ? 0 : newName.hashCode());
 		result = prime * result
 				+ ((newPassword == null) ? 0 : newPassword.hashCode());
-		result = prime * result
-				+ ((oldEmail == null) ? 0 : oldEmail.hashCode());
-		result = prime * result + ((role == null) ? 0 : role.hashCode());
+		result = prime * result + ((user == null) ? 0 : user.hashCode());
 		return result;
 	}
 
@@ -117,41 +91,36 @@ public class EditUser implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		EditUser other = (EditUser) obj;
-		if (currentPassword == null) {
-			if (other.currentPassword != null)
-				return false;
-		} else if (!currentPassword.equals(other.currentPassword))
-			return false;
-		if (enabled != other.enabled)
+		if (id != other.id)
 			return false;
 		if (newEmail == null) {
 			if (other.newEmail != null)
 				return false;
 		} else if (!newEmail.equals(other.newEmail))
 			return false;
+		if (newName == null) {
+			if (other.newName != null)
+				return false;
+		} else if (!newName.equals(other.newName))
+			return false;
 		if (newPassword == null) {
 			if (other.newPassword != null)
 				return false;
 		} else if (!newPassword.equals(other.newPassword))
 			return false;
-		if (oldEmail == null) {
-			if (other.oldEmail != null)
+		if (user == null) {
+			if (other.user != null)
 				return false;
-		} else if (!oldEmail.equals(other.oldEmail))
-			return false;
-		if (role == null) {
-			if (other.role != null)
-				return false;
-		} else if (!role.equals(other.role))
+		} else if (!user.equals(other.user))
 			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "EditUser [oldEmail=" + oldEmail + ", newEmail=" + newEmail
-				+ ", currentPassword=" + currentPassword + ", newPassword="
-				+ newPassword + ", enabled=" + enabled + ", role=" + role + "]";
+		return "EditUser [id=" + id + ", user=" + user + ", newName=" + newName
+				+ ", newEmail=" + newEmail + ", newPassword=" + newPassword
+				+ "]";
 	}
 
 }

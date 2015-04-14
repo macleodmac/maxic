@@ -1,112 +1,56 @@
 package com.maxic.towers.web.dao;
-import com.maxic.towers.web.model.*;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.sql.DataSource;
-
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-//import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.maxic.towers.web.model.TowerVisit;
 
 
+@Transactional
+@Component("towerVisitDao")
 public class TowerVisitDao {
 
-	private NamedParameterJdbcTemplate jdbc;
-
 	@Autowired
-	public void setDataSource(DataSource jdbc) {
-		this.jdbc = new NamedParameterJdbcTemplate(jdbc);
+	private SessionFactory sessionFactory;
+
+	public Session session() {
+		return sessionFactory.getCurrentSession();
 	}
 
-	public List<TowerVisit> getTowerVisits() {
-
-		return jdbc.query("SELECT * FROM towerVisits", new RowMapper<TowerVisit>() {
-
-			public TowerVisit mapRow(ResultSet rs, int rowNum) throws SQLException {
-				TowerVisit towerVisit = new TowerVisit(rs.getInt("towerId"), rs
-						.getInt("visitId"), rs.getString("userName"), rs
-						.getString("date"), rs.getString("time"), rs
-								.getBoolean("rung"), rs
-								.getBoolean("pealRung"), rs
-								.getBoolean("quarterPealRung"), rs
-								.getString("notes"));
-				return towerVisit;
-			}
-
-		});
+	@SuppressWarnings("unchecked")
+	public List<TowerVisit> getVisitsByUserId(int userId) {
+		Criteria crit = session().createCriteria(TowerVisit.class);
+		crit.add(Restrictions.eq("userId", userId));
+		List<TowerVisit> visits = (List<TowerVisit>) crit.list();
+		return visits;
 	}
-
+	
 	public TowerVisit getTowerVisit(int id) {
 
-		MapSqlParameterSource params = new MapSqlParameterSource();
-		params.addValue("id", id);
+		Criteria crit = session().createCriteria(TowerVisit.class);
+		crit.add(Restrictions.idEq(id));
+		TowerVisit visit = (TowerVisit) crit.uniqueResult();
 
-		return jdbc.queryForObject("SELECT * FROM towerVisit where towerId = :id",
-				params, new RowMapper<TowerVisit>() {
-
-					public TowerVisit mapRow(ResultSet rs, int rowNum)
-							throws SQLException {
-						TowerVisit towerVisit = new TowerVisit(rs.getInt("towerId"), rs
-								.getInt("visitId"), rs.getString("userName"),
-								rs.getString("date"), rs
-										.getString("time"), rs
-										.getBoolean("rung"), rs
-										.getBoolean("pealRung"), rs
-										.getBoolean("quarterPealRung"), rs
-										.getString("notes"));
-						return towerVisit;
-					}
-
-				});
+		return visit;
 	}
 
-	public boolean addTowerVisit(TowerVisit towerVisit) {
-		System.out.println("Adding towerVisit " + towerVisit.getVisitId());
-		BeanPropertySqlParameterSource params = new BeanPropertySqlParameterSource(
-				towerVisit);
-		boolean test = jdbc
-				.update("INSERT INTO towerVisit (`visitId`, `userName`, `date`,"
-						+ " `time`, `rung`, `pealRung`,"
-						+ " `quarterPealRung`, `notes`)"
-						+ " VALUES (:visitId, :userName, :date,"
-						+ " :time, :rung, :pealRung,"
-						+ " :quarterPealRung, :notes)",
-						params) == 1;
-		return test;
-
+	public void addTowerVisit(TowerVisit visit) {
+		session().save(visit);
 	}
 
-	public boolean deleteTowerVisit(int id) {
-
-		MapSqlParameterSource params = new MapSqlParameterSource();
-		params.addValue("id", id);
-
-		return jdbc.update("DELETE FROM towerVisits WHERE towerId = :id", params) == 1;
+	public void deleteTowerVisit(TowerVisit visit) {
+		session().delete(visit);
 	}
 
-	public boolean editTowerVisit(TowerVisit towerVisit) {
-		BeanPropertySqlParameterSource params = new BeanPropertySqlParameterSource(
-				towerVisit);
-		boolean test = jdbc.update("UPDATE towerVisit SET visitId = :visitId, "
-				+ "userName = :userName, " + "date = :date, "
-				+ "time = :time, " + "rung = :rung, "
-				+ "pealRung = :pealRung, "
-				+ "quarterPealRung = :quarterPealRung, " + "notes = :notes, ",
-				params) == 1;
-		return test;
+	public void editTowerVisit(TowerVisit visit) {
+		session().update(visit);
 	}
-
-	public boolean addTowerVisit(ArrayList<TowerVisit> towerVisitList) {
-		for (TowerVisit towerVisit : towerVisitList) {
-			this.addTowerVisit(towerVisit);
-		}
-		return false;
-	}
-
+	
+	
 }

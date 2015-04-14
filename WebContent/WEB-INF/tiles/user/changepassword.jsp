@@ -58,6 +58,7 @@
 				<div id="passlength"></div>
 				<sf:input type="hidden" path="role" id="role" />
 				<sf:input type="hidden" path="enabled" id="enabled" />
+				<sf:input type="hidden" path="id" id="id" />
 			</div>
 			<button type="submit" id="submitbtn" class="btn btn-default" disabled>Submit</button>
 		</sf:form>

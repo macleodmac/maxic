@@ -1,4 +1,5 @@
 package com.maxic.towers.web.dao;
+
 import com.maxic.towers.web.model.*;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -17,13 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @Component("towerDao")
 public class TowerDao {
-
-	// private NamedParameterJdbcTemplate jdbc;
-	//
-	// @Autowired
-	// public void setDataSource(DataSource jdbc) {
-	// this.jdbc = new NamedParameterJdbcTemplate(jdbc);
-	// }
 
 	@Autowired
 	private SessionFactory sessionFactory;
@@ -71,21 +65,29 @@ public class TowerDao {
 				.setFirstResult(displayStart).setMaxResults(pageLength).list();
 
 	}
-	
+
 	@SuppressWarnings("unchecked")
-	public List<Tower> getPaginatedTowersByTerm(int pageLength, int displayStart, String searchCriteria) {
-		return session().createQuery("from Tower where placeName like :searchCriteria")
-				.setString("searchCriteria", "%"+searchCriteria+"%").setFirstResult(displayStart).setMaxResults(pageLength).list();
+	public List<Tower> getPaginatedTowersByTerm(int pageLength,
+			int displayStart, String searchCriteria) {
+		return session()
+				.createQuery("from Tower where placeName like :searchCriteria")
+				.setString("searchCriteria", "%" + searchCriteria + "%")
+				.setFirstResult(displayStart).setMaxResults(pageLength).list();
 
 	}
-	
-	
+
 	public int getNumberOfTowersBySearchTerm(String searchCriteria) {
-		int count = session().createQuery("from Tower where placeName like :searchCriteria").setString("searchCriteria", "%"+searchCriteria+"%").list().size();
+		int count = session()
+				.createQuery("from Tower where placeName like :searchCriteria")
+				.setString("searchCriteria", "%" + searchCriteria + "%").list()
+				.size();
 		return count;
 	}
+
 	public int getNumberOfTowers() {
-		int count = ((Long)session().createCriteria(Tower.class).setProjection(Projections.rowCount()).uniqueResult()).intValue();
+		int count = ((Long) session().createCriteria(Tower.class)
+				.setProjection(Projections.rowCount()).uniqueResult())
+				.intValue();
 		return count;
 	}
 

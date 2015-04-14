@@ -13,36 +13,37 @@
 			<table class="table">
 				<thead>
 					<tr>
-						<th>ID</th>
-						<th>Email</th>
-						<th>Role</th>
-						<th>Enabled</th>
+						<th>Tower</th>
+						<th>Date</th>
+						<th>Rung</th>
+						<th>QP Rung</th>
+						<th>Peal Rung</th>
+						<th>Notes</th>
 						<th></th>
 					</tr>
 				</thead>
 
 				<tfoot>
 					<tr>
-						<th>ID</th>
-						<th>Email</th>
-						<th>Role</th>
-						<th>Enabled</th>
+						<th>Tower</th>
+						<th>Date</th>
+						<th>Rung</th>
+						<th>QP Rung</th>
+						<th>Peal Rung</th>
+						<th>Notes</th>
 						<th></th>
 					</tr>
 				</tfoot>
 				<tbody>
-					<c:forEach var="user" items="${users}">
+					<c:forEach var="visit" items="${visits}">
 						<tr>
-							<td>${user.id}</td>
-							<td>${user.email}</td>
-							<td>${user.role}</td>
-							<td>${user.enabled}</td>
-							<td><a class="btn btn-xs btn-default"
-								href="${pageContext.request.contextPath}/#">Edit</a> <a
-								class="btn btn-xs btn-default"
-								href="${pageContext.request.contextPath}/admin/users/reset?u=${user.email}">Reset</a></td>
+							<td>${visit.towerId}</td>
+							<td>${visit.date}</td>
+							<td>${visit.rung}</td>
+							<td>${visit.quarterPealRung}</td>
+							<td>${visit.pealRung}</td>
+							<td>${visit.notes}</td>
 						</tr>
-
 					</c:forEach>
 				</tbody>
 			</table>
@@ -51,8 +52,7 @@
 	<div class="row">
 		<div class="col-xs-12">
 			<a class="btn btn-default"
-				href="${pageContext.request.contextPath}/admin/users/add">Create
-				a User</a>
+				href="${pageContext.request.contextPath}/account/visits/add?t=0">Add a Visit</a>
 		</div>
 	</div>
 </div>

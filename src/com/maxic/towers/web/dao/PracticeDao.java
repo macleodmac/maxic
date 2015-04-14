@@ -1,10 +1,13 @@
 package com.maxic.towers.web.dao;
 import com.maxic.towers.web.model.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,10 +35,20 @@ public class PracticeDao {
 				.setInteger("id", towerId).list();
 	}
 
+	public Practice getPractice(int id) {
+
+		Criteria crit = session().createCriteria(Practice.class);
+		crit.add(Restrictions.idEq(id));
+		Practice practice = (Practice) crit.uniqueResult();
+
+		return practice;
+	}
+	
 	public void addPractice(Practice practice) {
 		session().saveOrUpdate(practice);
 	}
 
+	
 	public boolean practicesExist(int towerId) {
 		return this.getPractices(towerId).size() != 0;
 	}

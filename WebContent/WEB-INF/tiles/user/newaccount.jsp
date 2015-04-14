@@ -50,16 +50,21 @@
 			<sf:errors path="email" cssClass="alert alert-danger" element="div" />
 			<sf:errors path="password" cssClass="alert alert-danger"
 				element="div" />
+				<div class="form-group">
+				<label for="email">Display Name</label>
+				<sf:input type="text" class="form-control" path="name" id="name"
+					placeholder="Name" required="true" />
+			</div>
 			<div class="form-group">
 				<label for="email">Email</label>
 				<sf:input type="text" class="form-control" path="email" id="email"
-					placeholder="Email" />
+					placeholder="Email" required="true" />
 				 <p class="help-block">Your email will act as your login for the website.</p>
 			</div>
 			<div class="form-group">
 				<label for="email">Password</label>
 				<sf:input type="password" class="form-control" path="password"
-					id="password" placeholder="Password" />
+					id="password" placeholder="Password" required="true" />
 				 <p class="help-block">Your password must be at least 8 characters long.</p>
 			</div>
 			<div class="form-group">

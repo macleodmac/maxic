@@ -1,197 +1,189 @@
 <%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script src="${pageContext.request.contextPath}/static/js/edit.js"></script>
+
 <div class="container">
 	<sf:form method="post"
-		action="${pageContext.request.contextPath}/admin/towers/doedit?t=${towerWrapper.tower.towerId}"
+		action="${pageContext.request.contextPath}/captain/doedit"
 		modelAttribute="towerWrapper" commandName="towerWrapper">
 		<div class="row">
-			<div class="col-xs-6">
+			<div class="col-xs-12 col-sm-3">
 				<div class="form-group">
-					<a class="btn btn-default"
-						href="${pageContext.request.contextPath}/admin/towers">Back to Towers</a>
 					<a class="btn btn-info"
-						href="${pageContext.request.contextPath}/towers/view?t=${towerWrapper.tower.towerId}">View
+						href="${pageContext.request.contextPath}/captain/view">View
 						Tower</a>
 				</div>
 			</div>
-			<div class="col-xs-6 text-right">
+			<div class="col-xs-12 col-sm-6">
+				<c:if test="${not empty message }">
+					<div class="alert alert-success" role="alert" style="margin-bottom: 0px;">
+						<c:out value="${message}"></c:out>
+					</div>
+				</c:if>
+				<c:if test="${not empty dangerMessage }">
+					<div class="alert alert-danger" role="alert" style="margin-bottom: 0px;">
+						<c:out value="${dangerMessage}"></c:out>
+					</div>
+				</c:if>
+			</div>
+			<div class="col-xs-12 col-sm-3 text-right">
 				<div class="form-group">
-					
+
 					<button type="submit" class="btn btn-primary">Save Changes</button>
 				</div>
 			</div>
 		</div>
 		<div class="row">
 			<hr />
-			<div class="col-xs-12">
-				<c:if test="${not empty message }">
-					<div class="alert alert-success" role="alert">
-						<c:out value="${message}"></c:out>
-					</div>
-				</c:if>
-				<c:if test="${not empty dangerMessage }">
-					<div class="alert alert-danger" role="alert">
-						<c:out value="${dangerMessage}"></c:out>
-					</div>
-				</c:if>
-			</div>
 		</div>
 
 		<div class="row">
-			<div class="col-xs-6 col-sm-4">
+			<div class="col-xs-6 col-sm-4 col-md-2">
 				<div class="form-group">
 					<label for="towerId">Tower ID</label>
 					<p class="form-control-static">${towerWrapper.tower.towerId}</p>
 					<sf:input type="hidden" path="tower.towerId" id="towerId" />
 				</div>
 			</div>
-			<div class="col-xs-6 col-sm-4">
+			<div class="col-xs-6 col-sm-4 col-md-2">
 				<div class="form-group">
 					<label for="doveId">Dove ID</label>
-					<sf:input type="text" class="form-control" path="tower.doveId"
-						id="doveId" placeholder="Dove ID" />
+					<p class="form-control-static">${towerWrapper.tower.doveId}</p>
+					<sf:input type="hidden" path="tower.doveId" id="doveId" />
 				</div>
 			</div>
-			<div class="col-xs-6 col-sm-4">
+			<div class="col-xs-6 col-sm-4 col-md-2">
 				<div class="form-group">
 					<label for="towerbaseId">Towerbase ID</label>
-					<sf:input type="text" class="form-control" path="tower.towerbaseId"
-						id="towerbaseId" placeholder="Towerbase ID" />
+					<p class="form-control-static">${towerWrapper.tower.towerbaseId}</p>
+					<sf:input type="hidden" path="tower.towerbaseId" id="towerbaseId" />
 				</div>
 			</div>
-			<div class="col-xs-6 col-sm-4">
+			<div class="col-xs-6 col-sm-4 col-md-2">
 				<div class="form-group">
 					<label for="placeName">Place Name</label>
-					<sf:input type="text" class="form-control" path="tower.placeName"
-						id="placeName" placeholder="Place Name" />
+					<p class="form-control-static">${towerWrapper.tower.placeName}</p>
+					<sf:input type="hidden" path="tower.placeName" id="placeName" />
 				</div>
 			</div>
-			<div class="col-xs-6 col-sm-4">
+			<div class="col-xs-6 col-sm-4 col-md-2">
 				<div class="form-group">
 					<label for="placeName2">Place Name 2</label>
-					<sf:input type="text" class="form-control" path="tower.placeName2"
-						id="placeName2" placeholder="Place Name 2" />
+					<p class="form-control-static">${towerWrapper.tower.placeName2}</p>
+					<sf:input type="hidden" path="tower.placeName2" id="placeName2" />
 				</div>
 			</div>
-			<div class="col-xs-6 col-sm-4">
+			<div class="col-xs-6 col-sm-4 col-md-2">
 				<div class="form-group">
-					<label for="placeNameCL">Place Name (County Lists)</label>
-					<sf:input type="text" class="form-control" path="tower.placeNameCL"
-						id="placeNameCL" placeholder="Place Name (CL)" />
+					<label for="placeNameCL">Place Name (CL)</label>
+					<p class="form-control-static">${towerWrapper.tower.placeNameCL}</p>
+					<sf:input type="hidden" path="tower.placeNameCL" id="placeNameCL" />
 				</div>
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-xs-6">
+			<div class="col-xs-6 col-sm-4 col-md-2">
+				<div class="form-group">
+					<label for="latitude">Latitude</label>
+					<p class="form-control-static">${towerWrapper.tower.latitude}</p>
+					<sf:input type="hidden" path="tower.latitude" id="latitude" />
+				</div>
+			</div>
+			<div class="col-xs-6 col-sm-4 col-md-2">
+				<div class="form-group">
+					<label for="longitude">Longitude</label>
+					<p class="form-control-static">${towerWrapper.tower.longitude}</p>
+					<sf:input type="hidden" path="tower.longitude" id="longitude" />
+				</div>
+			</div>
+			<div class="col-xs-6 col-sm-4 col-md-2">
+				<div class="form-group">
+					<label for="satNavLatitude">SatNav Latitude</label>
+					<p class="form-control-static">${towerWrapper.tower.satNavLatitude}</p>
+					<sf:input type="hidden" path="tower.satNavLatitude"
+						id="satNavLatitude" />
+				</div>
+			</div>
+			<div class="col-xs-6 col-sm-4 col-md-2">
+				<div class="form-group">
+					<label for="satNavLongitude">SatNav Longitude</label>
+					<p class="form-control-static">${towerWrapper.tower.satNavLongitude}</p>
+					<sf:input type="hidden" path="tower.satNavLongitude"
+						id="satNavLongitude" />
+				</div>
+			</div>
+			<div class="col-xs-6 col-sm-4 col-md-2">
+				<div class="form-group">
+					<label for="gridReference">Grid Reference</label>
+					<p class="form-control-static">${towerWrapper.tower.gridReference}</p>
+					<sf:input type="hidden" path="tower.gridReference"
+						id="gridReference" />
+				</div>
+			</div>
+			<div class="col-xs-6 col-sm-4 col-md-2">
+				<div class="form-group">
+					<label for="postCode">Postcode</label>
+					<p class="form-control-static">${towerWrapper.tower.postCode}</p>
+					<sf:input type="hidden" path="tower.postCode" id="postCode" />
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-6 col-sm-4 col-md-2">
+				<div class="form-group">
+					<label for="dedication">Dedication</label>
+					<p class="form-control-static">${towerWrapper.tower.dedication}</p>
+					<sf:input type="hidden" path="tower.dedication" id="dedication" />
+				</div>
+			</div>
+			<div class="col-xs-6 col-sm-4 col-md-2">
+				<div class="form-group">
+					<label for="affiliation">Affiliation</label>
+					<p class="form-control-static">${towerWrapper.tower.affiliation}</p>
+					<sf:input type="hidden" path="tower.affiliation" id="affiliation" />
+				</div>
+			</div>
+			<div class="col-xs-6 col-sm-4 col-md-2">
+				<div class="form-group">
+					<label for="isoCode">Country</label>
+					<p class="form-control-static">${towerWrapper.tower.country.name}</p>
+					<sf:input type="hidden" path="tower.country.isoCode" id="isoCode" />
+					<sf:input type="hidden" path="tower.country.name" id="name" />
+				</div>
+			</div>
+			<div class="col-xs-6 col-sm-4 col-md-2">
+				<div class="form-group">
+					<label for="dioceseId">Diocese</label>
+					<p class="form-control-static">${towerWrapper.tower.diocese.name}</p>
+					<sf:input type="hidden" path="tower.diocese.dioceseId"
+						id="dioceseId" />
+					<sf:input type="hidden" path="tower.diocese.name" id="dioceseId" />
+				</div>
+			</div>
+			<div class="col-xs-6 col-sm-4 col-md-2">
+				<div class="form-group">
+					<label for="buildingId">Building ID</label>
+					<p class="form-control-static">${towerWrapper.tower.buildingId}</p>
+					<sf:input type="hidden" path="tower.buildingId" id="buildingId" />
+				</div>
+			</div>
+			<div class="col-xs-6 col-sm-4 col-md-2">
+				<div class="form-group">
+					<label for="listedGrade">Listed Grade</label>
+					<p class="form-control-static">${towerWrapper.tower.listedGrade}</p>
+					<sf:input type="hidden" path="tower.listedGrade" id="listedGrade" />
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-6 col-sm-3">
 				<div class="form-group">
 					<label for="ringable">Ringable?</label>
 					<sf:select class="form-control" path="tower.ringable" id="ringable"
 						items="${yesno}" />
 				</div>
 			</div>
-			<div class="col-xs-6">
-				<div class="form-group">
-					<label for="dedication">Dedication</label>
-					<sf:input type="text" class="form-control" path="tower.dedication"
-						id="dedication" placeholder="Dedication" />
-				</div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-xs-6 col-sm-3">
-				<div class="form-group">
-					<label for="latitude">Latitude</label>
-					<sf:input type="text" class="form-control" path="tower.latitude"
-						id="latitude" placeholder="Latitude" />
-				</div>
-			</div>
-			<div class="col-xs-6 col-sm-3">
-				<div class="form-group">
-					<label for="longitude">Longitude</label>
-					<sf:input type="text" class="form-control" path="tower.longitude"
-						id="longitude" placeholder="Longitude" />
-				</div>
-			</div>
-			<div class="col-xs-6 col-sm-3">
-				<div class="form-group">
-					<label for="satNavLatitude">Sat Nav Latitude</label>
-					<sf:input type="text" class="form-control"
-						path="tower.satNavLatitude" id="satNavLatitude"
-						placeholder="SatNav Latitude" />
-				</div>
-			</div>
-			<div class="col-xs-6 col-sm-3">
-				<div class="form-group">
-					<label for="satNavLongitude">Sat Nav Longitude</label>
-					<sf:input type="text" class="form-control"
-						path="tower.satNavLongitude" id="satNavLongitude"
-						placeholder="SatNav Longitude" />
-				</div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-xs-6 col-sm-3">
-				<div class="form-group">
-					<label for="gridReference">Grid Reference</label>
-					<sf:input type="text" class="form-control"
-						path="tower.gridReference" id="gridReference"
-						placeholder="Grid Reference" />
-				</div>
-			</div>
-			<div class="col-xs-6 col-sm-3">
-				<div class="form-group">
-					<label for="postCode">Postcode</label>
-					<sf:input type="text" class="form-control" path="tower.postCode"
-						id="postCode" placeholder="Postcode" />
-				</div>
-			</div>
-			<div class="col-xs-6 col-sm-3">
-				<div class="form-group">
-					<label for="isoCode">Country</label>
-					<sf:select class="form-control" path="tower.country.isoCode"
-						id="isoCode" items="${countries}" />
-				</div>
-			</div>
-			<div class="col-xs-6 col-sm-3">
-				<div class="form-group">
-					<label for="dioceseId">Diocese</label>
-					<sf:select class="form-control" path="tower.diocese.dioceseId"
-						id="dioceseId" items="${dioceses}" />
-				</div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-xs-6 col-sm-3">
-				<div class="form-group">
-					<label for="guildId">Guild</label>
-					<sf:input type="text" class="form-control" path="tower.guildId"
-						id="guildId" placeholder="Guild" />
-				</div>
-			</div>
-			<div class="col-xs-6 col-sm-3">
-				<div class="form-group">
-					<label for="affiliation">Affiliation</label>
-					<sf:input type="text" class="form-control" path="tower.affiliation"
-						id="affiliation" placeholder="Affiliation" />
-				</div>
-			</div>
-			<div class="col-xs-6 col-sm-3">
-				<div class="form-group">
-					<label for="buildingId">Building ID</label>
-					<sf:input type="text" class="form-control" path="tower.buildingId"
-						id="buildingId" placeholder="Building ID" />
-				</div>
-			</div>
-			<div class="col-xs-6 col-sm-3">
-				<div class="form-group">
-					<label for="listedGrade">Listed Grade</label>
-					<sf:input type="text" class="form-control" path="tower.listedGrade"
-						id="listedGrade" placeholder="Listed Grade" />
-				</div>
-			</div>
-		</div>
-		<div class="row">
 			<div class="col-xs-6 col-sm-3">
 				<div class="form-group">
 					<label for="groundFloorRing">Ground Floor Ring?</label>
@@ -214,15 +206,9 @@
 						items="${yesno}" />
 				</div>
 			</div>
-			<div class="col-xs-6 col-sm-3">
-				<div class="form-group">
-					<label for="towerCaptain">Tower Captain</label>
-					<sf:input type="text" class="form-control"
-						path="tower.towerCaptain" id="towerCaptain"
-						placeholder="Tower Captain" />
-				</div>
-			</div>
+
 		</div>
+		<div class="row"></div>
 		<div class="row">
 			<div class="col-xs-6">
 				<div class="form-group">
@@ -243,12 +229,12 @@
 		</div>
 		<h3>
 			Practices <a class="btn btn-default btn-sm"
-				href="${pageContext.request.contextPath}/admin/towers/addpractice?t=${towerWrapper.tower.towerId}">Add</a>
+				href="${pageContext.request.contextPath}/captain/addpractice">Add</a>
 		</h3>
 		<c:if test="${empty towerWrapper.practiceList}">
 			<div class="alert alert-info" role="alert">
 				No practice details held, why not <a class="alert-link"
-					href="${pageContext.request.contextPath}/admin/towers/addpractice?t=${towerWrapper.tower.towerId}">add
+					href="${pageContext.request.contextPath}/captain/addpractice">add
 					a practice?</a>
 			</div>
 		</c:if>
@@ -266,7 +252,6 @@
 							<sf:input class="form-control"
 								path="practiceList[${i.index}].practiceName"
 								id="practiceName${i.index + 1}" type="text" required="true" />
-
 						</div>
 					</div>
 					<div class="col-xs-6 col-sm-2">
@@ -275,7 +260,6 @@
 							<sf:select class="form-control"
 								path="practiceList[${i.index}].day"
 								id="practiceDay${i.index + 1}" items="${days}" required="true" />
-
 						</div>
 					</div>
 					<div class="col-xs-6 col-sm-2">
@@ -301,8 +285,7 @@
 								Welcome?</label>
 							<sf:select class="form-control"
 								path="practiceList[${i.index}].visitorsWelcome"
-								id="practiceVisitorsWelcome${i.index + 1}" items="${yesno}"
-								required="true" />
+								id="practiceVisitorsWelcome${i.index + 1}" items="${yesno}" required="true" />
 
 						</div>
 					</div>
@@ -310,9 +293,8 @@
 						<div class="form-group">
 							<label for="towerId"></label>
 							<p class="form-control-static">
-								<a class="btn btn-danger btn-sm"
-									onClick="return checkPractice()"
-									href="${pageContext.request.contextPath}/admin/towers/dodeletepractice?pr=${practiceDetail.practiceId}&t=${towerWrapper.tower.towerId}">X</a>
+								<a class="btn btn-danger btn-sm" onClick="return checkPractice()"
+									href="${pageContext.request.contextPath}/captain/deletepractice?pr=${practiceDetail.practiceId}">X</a>
 							</p>
 						</div>
 					</div>
@@ -321,12 +303,12 @@
 		</c:if>
 		<h3>
 			Contact Details <a class="btn btn-default btn-sm"
-				href="${pageContext.request.contextPath}/admin/towers/addcontact?t=${towerWrapper.tower.towerId}">Add</a>
+				href="${pageContext.request.contextPath}/captain/addcontact">Add</a>
 		</h3>
 		<c:if test="${empty towerWrapper.contactDetailsList}">
 			<div class="alert alert-info" role="alert">
 				No contact details held, why not <a class="alert-link"
-					href="${pageContext.request.contextPath}/admin/towers/addcontact?t=${towerWrapper.tower.towerId}">add
+					href="${pageContext.request.contextPath}/captain/addcontact">add
 					some contact details?</a>
 			</div>
 		</c:if>
@@ -343,8 +325,7 @@
 							<label for="contactType${i.index}">Type</label>
 							<sf:select class="form-control"
 								path="contactDetailsList[${i.index}].type"
-								id="contactType${i.index}" items="${contactTypes}"
-								required="true" />
+								id="contactType${i.index}" items="${contactTypes}" required="true" />
 						</div>
 					</div>
 					<div class="col-xs-5 col-sm-3">
@@ -360,7 +341,7 @@
 							<label for="towerId"></label>
 							<p class="form-control-static">
 								<a class="btn btn-danger btn-sm" onClick="return checkContact()"
-									href="${pageContext.request.contextPath}/admin/towers/dodeletecontact?c=${contactDetail.contactId}&t=${towerWrapper.tower.towerId}">X</a>
+									href="${pageContext.request.contextPath}/captain/deletecontact?c=${contactDetail.contactId}">X</a>
 							</p>
 						</div>
 					</div>
@@ -368,19 +349,4 @@
 			</c:forEach>
 		</c:if>
 	</sf:form>
-
-	<div class="row">
-		<hr />
-	</div>
-	<div class="row">
-		<div class="col-xs-12 text-right">
-			<a class="btn btn-danger" onClick="return checkTower()"
-				href="${pageContext.request.contextPath}/admin/towers/dodelete?t=${towerWrapper.tower.towerId}">Delete
-				Tower</a>
-		</div>
-
-	</div>
-	<div class="row">
-		<hr />
-	</div>
 </div>

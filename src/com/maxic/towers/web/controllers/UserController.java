@@ -1,6 +1,12 @@
 package com.maxic.towers.web.controllers;
 
 import java.security.Principal;
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.util.Calendar;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,6 +17,7 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,8 +30,11 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.maxic.towers.web.model.EditUser;
+import com.maxic.towers.web.model.TowerVisit;
 import com.maxic.towers.web.model.User;
 import com.maxic.towers.web.model.VerificationToken;
+import com.maxic.towers.web.service.TowerService;
+import com.maxic.towers.web.service.TowerVisitService;
 import com.maxic.towers.web.service.UserService;
 import com.maxic.towers.web.service.VerificationService;
 
@@ -33,6 +43,8 @@ public class UserController {
 
 	private UserService userService;
 	private VerificationService verificationService;
+	private TowerVisitService towerVisitService;
+	private TowerService towerService;
 
 	@Autowired
 	ApplicationEventPublisher eventPublisher;
@@ -41,13 +53,26 @@ public class UserController {
 	private MailSender mailSender;
 
 	@Autowired
+	private PasswordEncoder passwordEncoder;
+
+	@Autowired
 	public void setUserService(UserService userService) {
 		this.userService = userService;
 	}
 
 	@Autowired
+	public void setTowerVisitService(TowerVisitService towerVisitService) {
+		this.towerVisitService = towerVisitService;
+	}
+
+	@Autowired
 	public void setVerificationService(VerificationService verificationService) {
 		this.verificationService = verificationService;
+	}
+
+	@Autowired
+	public void setTowerService(TowerService towerService) {
+		this.towerService = towerService;
 	}
 
 	@RequestMapping(value = "/newaccount")
@@ -66,14 +91,12 @@ public class UserController {
 			HttpServletRequest httpRequestServlet,
 			RedirectAttributes redirectAttributes) {
 
-		if (result.hasErrors()) {
-			return "/newaccount";
-		}
-		if (userService.exists(user)) {
-			model.addAttribute(
-					"message",
-					"That email address already exists in the database. Please login, or try a different email address.");
-			return "/newaccount";
+		if (result.hasErrors() || userService.exists(user)) {
+			redirectAttributes
+					.addFlashAttribute(
+							"message",
+							"That email address already exists in the database. Please login, or try a different email address.");
+			return "redirect:/newaccount";
 		}
 
 		user.setRole("ROLE_USER");
@@ -81,6 +104,7 @@ public class UserController {
 		try {
 
 			String token = UUID.randomUUID().toString();
+			user.setPassword(passwordEncoder.encode(user.getPassword()));
 			verificationToken = new VerificationToken(token, user);
 			verificationService.addToken(verificationToken);
 			SimpleMailMessage mailMessage = new SimpleMailMessage();
@@ -99,7 +123,6 @@ public class UserController {
 			mailMessage.setSubject("TowerFinder - Account Created");
 			mailMessage.setText(sb.toString());
 			mailSender.send(mailMessage);
-			userService.addUser(user);
 		} catch (DuplicateKeyException e) {
 			result.rejectValue(
 					"email",
@@ -107,6 +130,7 @@ public class UserController {
 					"That email address already exists in the database. Please login, or try a different email address.");
 			return "/newaccount";
 		} catch (Exception e) {
+			System.out.println(e);
 			model.addAttribute(
 					"message",
 					"An unexpected error occurred. Please try again later, or if it continues, contact the admin team.");
@@ -184,7 +208,6 @@ public class UserController {
 		tempUser.setEmail(email);
 		VerificationToken verificationToken = null;
 		User user = null;
-
 		if (userService.exists(tempUser)) {
 			user = userService.getUser(email);
 			String token = UUID.randomUUID().toString();
@@ -246,16 +269,19 @@ public class UserController {
 	public String doResetPassword(Model model, @Valid User user,
 			BindingResult result, WebRequest request, Errors errors,
 			HttpServletRequest httpRequestServlet) {
-
+		System.out.println(user);
 		if (result.hasErrors()) {
 
 			for (ObjectError error : result.getAllErrors()) {
 				System.out.println("ERROR:" + error.toString());
 			}
 			return "/changepassword";
+		} else {
+			user.setEnabled(true);
+			userService.update(user);
+			return "/resetsuccess";
+
 		}
-		userService.updatePassword(user);
-		return "/resetsuccess";
 	}
 
 	@RequestMapping(value = "/account")
@@ -270,13 +296,11 @@ public class UserController {
 	public String showEditAccount(Model model, Principal principal) {
 		String email = principal.getName();
 		User currentUser = userService.getUser(email);
-		
+		currentUser.setPassword(null);
 		EditUser editUser = new EditUser();
-		editUser.setEnabled(currentUser.isEnabled());
-		editUser.setOldEmail(currentUser.getEmail());
-		editUser.setRole(currentUser.getRole());
-		
-		model.addAttribute("user", editUser);
+		editUser.setUser(currentUser);
+
+		model.addAttribute("editUser", editUser);
 		return "/account/edit";
 	}
 
@@ -294,28 +318,74 @@ public class UserController {
 					.addFlashAttribute("dangerMessage",
 							"There was an error in the input and the account details could not be edited.");
 			return "redirect:/account/edit";
+
 		} else {
-			User user = new User();
-			user.setEnabled(editUser.isEnabled());
-			user.setRole(editUser.getRole());
-			
-			if (editUser.getNewEmail().isEmpty()) {
-				user.setEmail(editUser.getOldEmail());
+
+			User user = editUser.getUser();
+
+			System.out.println("Current User: " + user);
+			User checkingUser = userService.getUser(user.getEmail());
+
+			if (passwordEncoder.matches(user.getPassword(),
+					checkingUser.getPassword())) {
+
+				if (!editUser.getNewEmail().isEmpty()) {
+
+					SimpleMailMessage mailMessage = new SimpleMailMessage();
+					SimpleMailMessage newEmailMessage = new SimpleMailMessage();
+					StringBuffer sb = new StringBuffer();
+					sb.append("This is email notification to confirm your email address has been changed: \n\n");
+					sb.append("Old email address: " + user.getEmail() + "\n");
+					sb.append("New email address: " + editUser.getNewEmail()
+							+ "\n\n");
+					sb.append("If you did not wish to make this change please contact an administrator. \n\n");
+					sb.append("Many Thanks,\n\n");
+					sb.append("The TowerFinder team");
+
+					mailMessage.setTo(user.getEmail());
+					mailMessage.setFrom("noreply@towerfinder.com");
+					mailMessage.setSubject("TowerFinder - Email Changed");
+					mailMessage.setText(sb.toString());
+
+					newEmailMessage.setTo(editUser.getNewEmail());
+					newEmailMessage.setFrom("noreply@towerfinder.com");
+					newEmailMessage.setSubject("TowerFinder - Email Changed");
+					newEmailMessage.setText(sb.toString());
+
+					user.setEmail(editUser.getNewEmail());
+
+					mailSender.send(mailMessage);
+					mailSender.send(newEmailMessage);
+
+				}
+
+				if (!editUser.getNewPassword().isEmpty()) {
+					user.setPassword(editUser.getNewPassword());
+				}
+
+				if (!editUser.getNewName().isEmpty()) {
+					user.setName(editUser.getNewName());
+				}
+
+				System.out.println("Saving User: " + user);
+				userService.update(user);
+
+				if (!editUser.getNewEmail().isEmpty()) {
+					redirectAttributes.addFlashAttribute("successMessage",
+							"Your email address has been changed, you can now login using "
+									+ editUser.getNewEmail());
+					return "redirect:/j_spring_security_logout";
+				}
+				redirectAttributes.addFlashAttribute("successMessage",
+						"Your details have been successfully changed.");
+				return "redirect:/account/edit";
 			} else {
-				user.setEmail(editUser.getNewEmail());
+				redirectAttributes
+						.addFlashAttribute("dangerMessage",
+								"Your current password could not be verified, please try again.");
+				return "redirect:/account/edit";
 			}
-			
-			if (editUser.getNewPassword().isEmpty()) {
-				user.setPassword(editUser.getCurrentPassword());
-			} else {
-				user.setPassword(editUser.getNewPassword());
-			}
-			
-			
-			redirectAttributes
-					.addFlashAttribute("successMessage",
-							"Your new email now has to be verified, please check your inbox for details.");
-			return "redirect:/account/edit";
+
 		}
 
 	}
@@ -325,10 +395,53 @@ public class UserController {
 		String email = principal.getName();
 		User currentUser = userService.getUser(email);
 		currentUser.setPassword(null);
-		User user = new User();
-		model.addAttribute("currentUser", currentUser);
-		model.addAttribute("user", user);
+		int id = currentUser.getId();
+		List<TowerVisit> visits = towerVisitService.getVisitsByUserId(id);
+		model.addAttribute("visits", visits);
 		return "/account/visits";
+	}
+
+	@RequestMapping(value = "/account/visits/add", method = RequestMethod.GET)
+	public String addVisit(Model model, Principal principal,
+			@RequestParam("t") int t) {
+		String email = principal.getName();
+		User currentUser = userService.getUser(email);
+		currentUser.setPassword(null);
+		int id = currentUser.getId();
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(new Timestamp(cal.getTime().getTime()));
+		Date date = new Date(cal.getTime().getTime());
+
+		TowerVisit visit = new TowerVisit(t, 0, id, date, false, false, false,
+				null);
+
+		model.addAttribute("visit", visit);
+
+		Map<Integer, String> hm = towerService.getTowerDescriptorMap();
+		model.addAttribute("towers", hm);
+
+		Map<Boolean, String> booleanMap = new LinkedHashMap<Boolean, String>();
+		booleanMap.put(true, "Yes");
+		booleanMap.put(false, "No");
+		model.addAttribute("yesno", booleanMap);
+
+		return "/account/visits/add";
+	}
+
+	@RequestMapping(value = "/account/visits/doadd", method = RequestMethod.POST)
+	public String doAddVisit(Model model, @Valid TowerVisit towerVisit,
+			BindingResult result, RedirectAttributes redirectAttributes) {
+		if (result.hasErrors()) {
+			redirectAttributes.addFlashAttribute("dangerMessage",
+					"Visit not added. An error occured in the input");
+			redirectAttributes.addAttribute("t", towerVisit.getTowerId());
+			return "redirect:/account/visits/add";
+		} else {
+			towerVisitService.addTowerVisit(towerVisit);
+			redirectAttributes.addFlashAttribute("message",
+					"Tower visit successfully added!");
+			return "redirect:/account/visits";
+		}
 	}
 
 }

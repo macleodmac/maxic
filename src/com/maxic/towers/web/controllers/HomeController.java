@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.maxic.towers.web.model.Peal;
 import com.maxic.towers.web.model.TowerShort;
-import com.maxic.towers.web.service.ContactDetailsService;
 import com.maxic.towers.web.service.PealService;
 import com.maxic.towers.web.service.TowerService;
 
@@ -23,7 +22,6 @@ public class HomeController {
 	private static Logger logger = Logger.getLogger(HomeController.class);
 	private TowerService towerService;
 	private PealService pealService;
-	private ContactDetailsService contactDetailsService;
 
 	@Autowired
 	public void setTowerService(TowerService towerService) {
@@ -33,11 +31,6 @@ public class HomeController {
 	@Autowired
 	public void setPealService(PealService pealService) {
 		this.pealService = pealService;
-	}
-	
-	@Autowired
-	public void setContactDetailsService(ContactDetailsService contactDetailsService) {
-		this.contactDetailsService = contactDetailsService;
 	}
 
 	@RequestMapping("/")

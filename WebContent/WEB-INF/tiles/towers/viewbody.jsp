@@ -14,20 +14,32 @@
 				<c:if test="${not towerWrapper.tower.ringable}">
 					<td>No</td>
 				</c:if>
-				
+
 			</tr>
-			<tr>
-				<th>Info</th>
-				<td>${towerWrapper.tower.extraInfo}</td>
-			</tr>
+			<c:if test="${not empty towerWrapper.tower.extraInfo}">
+				<tr>
+					<th>Info</th>
+					<td>${towerWrapper.tower.extraInfo}</td>
+				</tr>
+			</c:if>
 			<tr>
 				<th>News</th>
 				<td>Sample News</td>
 			</tr>
+			<c:if test="${not empty towerWrapper.tower.accessDetails}">
+				<tr>
+					<th>Access</th>
+					<td>${towerWrapper.tower.accessDetails}</td>
+				</tr>
+			</c:if>
 		</table>
 		<h4>
-			Latest Performances <c:if test="${not empty peals}"><a class="btn btn-default btn-xs pull-right"
-				href="${pageContext.request.contextPath}/peals?t=${towerWrapper.tower.towerId}">View All</a></c:if>
+			Latest Performances
+			<c:if test="${not empty peals}">
+				<a class="btn btn-default btn-xs pull-right"
+					href="${pageContext.request.contextPath}/peals?t=${towerWrapper.tower.towerId}">View
+					All</a>
+			</c:if>
 		</h4>
 		<c:if test="${not empty peals}">
 			<table class="table">
@@ -42,8 +54,9 @@
 					<c:forEach var="peal" items="${peals}">
 						<tr>
 							<td>${peal.dateRung}</td>
-							<td>${peal.changes} ${peal.method}</td>
-							<td><a class="btn btn-default btn-xs pull-right" href="${pageContext.request.contextPath}/peals/view?p=${peal.pealId}">View</a></td>
+							<td>${peal.changes}${peal.method}</td>
+							<td><a class="btn btn-default btn-xs pull-right"
+								href="${pageContext.request.contextPath}/peals/view?p=${peal.pealId}">View</a></td>
 						</tr>
 					</c:forEach>
 			</table>
@@ -101,7 +114,18 @@
 					<c:forEach var="contact" items="${towerWrapper.contactDetailsList}">
 						<tr>
 							<td>${contact.type}</td>
-							<td>${contact.detail}</td>
+							<td><c:choose>
+									<c:when test="${contact.type == 'Website'}">
+										<a href="${contact.detail}">Link</a>
+									</c:when>
+									<c:when test="${contact.type == 'Twitter'}">
+										<a href="http://www.twitter.com/${contact.detail}">@${contact.detail}</a>
+									</c:when>
+									<c:when test="${contact.type == 'Facebook'}">
+										<a href="http://www.facebook.com/${contact.detail}">Link</a>
+									</c:when>
+									<c:otherwise>${contact.detail}</c:otherwise>
+								</c:choose></td>
 						</tr>
 					</c:forEach>
 				</tbody>

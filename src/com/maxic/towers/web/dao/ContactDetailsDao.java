@@ -3,8 +3,11 @@ package com.maxic.towers.web.dao;
 import java.util.List;
 
 import com.maxic.towers.web.model.*;
+
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -40,13 +43,22 @@ public class ContactDetailsDao {
 		return this.getContactDetails(id).size() != 0;
 	}
 
-	public boolean deleteContactDetails(int contactId) {
+	public boolean deleteContactDetail(int contactId) {
 		String hql = "delete from ContactDetails where contactId = :contactId";
 		return session().createQuery(hql).setInteger("contactId", contactId).executeUpdate() == 1;
 	}
 
 	public void editContactDetails(ContactDetails contactDetails) {
 		session().update(contactDetails);
+	}
+
+	public ContactDetails getContactDetail(int id) {
+		
+		Criteria crit = session().createCriteria(ContactDetails.class);
+		crit.add(Restrictions.idEq(id));
+		ContactDetails contactDetails = (ContactDetails) crit.uniqueResult();
+
+		return contactDetails;
 	}
 
 

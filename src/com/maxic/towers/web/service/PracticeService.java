@@ -48,4 +48,8 @@ public class PracticeService {
 	public void addPractice(ArrayList<Practice> practiceList) {
 		practiceDao.addPractice(practiceList);
 	}
+
+	public Practice getPractice(int pr) {
+		return practiceDao.getPractice(pr);
+	}
 }

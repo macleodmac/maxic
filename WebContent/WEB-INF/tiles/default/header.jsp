@@ -71,13 +71,20 @@
 						data-toggle="dropdown" role="button" aria-expanded="false"
 						data-ytta-id="-">Account<span class="caret"></span></a>
 						<ul class="dropdown-menu" role="menu">
-							<li class="dropdown-header">My Account</li>
+							<li class="dropdown-header">Account</li>
 							<li><a
 								href="${pageContext.request.contextPath}/account/visits"
 								data-ytta-id="-">My Visits</a></li>
 							<li><a
 								href="${pageContext.request.contextPath}/account/edit"
 								data-ytta-id="-">Edit Details</a></li>
+							<sec:authorize access="hasRole('ROLE_CAPTAIN')">
+								<li class="divider"></li>
+								<li class="dropdown-header">Tower Captain</li>
+								
+								<li><a href="${pageContext.request.contextPath}/captain/edit"
+									data-ytta-id="-">Edit Tower</a></li>
+							</sec:authorize>
 							<li class="divider"></li>
 							<li class="dropdown-header">Help</li>
 							<li><a

@@ -1,15 +1,14 @@
 package com.maxic.towers.web.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Service;
 
-import com.maxic.towers.web.model.*;
 import com.maxic.towers.web.dao.TowerVisitDao;
+import com.maxic.towers.web.model.TowerVisit;
 
-
+@Service("towerVisitService")
 public class TowerVisitService {
 
 	private TowerVisitDao towerVisitDao;
@@ -19,28 +18,23 @@ public class TowerVisitService {
 		this.towerVisitDao = towerVisitDao;
 	}
 
-	public List<TowerVisit> getTowerVisits() {
-		return towerVisitDao.getTowerVisits();
+	public List<TowerVisit> getVisitsByUserId(int userId) {
+		return towerVisitDao.getVisitsByUserId(userId);
 	}
 	
-	public boolean addTowerVisit(TowerVisit towerVisit) {
-		return towerVisitDao.addTowerVisit(towerVisit);
-	}
-
 	public TowerVisit getTowerVisit(int id) {
 		return towerVisitDao.getTowerVisit(id);
 	}
-
-	public boolean deleteTower(int id) {
-		return towerVisitDao.deleteTowerVisit(id);
+	
+	public void addTowerVisit(TowerVisit visit) {
+		towerVisitDao.addTowerVisit(visit);
 	}
 
-	public boolean editTower(TowerVisit towerVisit) {
-		return towerVisitDao.editTowerVisit(towerVisit);
-		
+	public void deleteTowerVisit(TowerVisit visit) {
+		towerVisitDao.deleteTowerVisit(visit);
 	}
 
-	public boolean addTowers(ArrayList<TowerVisit> towerVisitList) {
-		return towerVisitDao.addTowerVisit(towerVisitList);
+	public void editTowerVisit(TowerVisit visit) {
+		towerVisitDao.editTowerVisit(visit);
 	}
 }

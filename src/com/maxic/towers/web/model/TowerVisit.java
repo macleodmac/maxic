@@ -1,134 +1,134 @@
 package com.maxic.towers.web.model;
+
+import java.sql.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "visits")
 public class TowerVisit {
+	
+	
+	@Column(name = "towerId", unique = false, nullable = false)
 	private int towerId;
+	
+	@Id
+	@Column(name = "visitId", unique = true, nullable = false)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int visitId;
-	private String userName;
-	private String date;
-	private String time;
+	
+	@Column(name = "userId", unique = false, nullable = false)
+	private int userId;
+	
+	@Column(name = "date")
+	private Date date;
+	
+	@Column(name = "rung")
 	private boolean rung;
+	
+	@Column(name = "pealRung")
 	private boolean pealRung;
+	
+	@Column(name = "quarterPealRung")
 	private boolean quarterPealRung;
+	
+	@Column(name = "notes")
 	private String notes;
 	
 	public TowerVisit() {
 		
 	}
 
-
-	public TowerVisit(int towerId, int visitId, String userName, String date, String time, boolean rung, boolean pealRung, boolean quarterPealRung, String notes) {
+	public TowerVisit(int towerId, int visitId, int userId, Date date,
+			boolean rung, boolean pealRung, boolean quarterPealRung,
+			String notes) {
 		this.towerId = towerId;
 		this.visitId = visitId;
-		this.userName = userName;
+		this.userId = userId;
 		this.date = date;
-		this.time = time;
 		this.rung = rung;
 		this.pealRung = pealRung;
 		this.quarterPealRung = quarterPealRung;
 		this.notes = notes;
-		
 	}
-
-
-	
 
 	public int getTowerId() {
 		return towerId;
 	}
 
-
 	public void setTowerId(int towerId) {
 		this.towerId = towerId;
 	}
-
 
 	public int getVisitId() {
 		return visitId;
 	}
 
-
 	public void setVisitId(int visitId) {
 		this.visitId = visitId;
 	}
 
-
-	public String getUserName() {
-		return userName;
+	public int getUserId() {
+		return userId;
 	}
 
-
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
 
-
-	public String getDate() {
+	public Date getDate() {
 		return date;
 	}
 
-
-	public void setDate(String date) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
-
-
-	public String getTime() {
-		return time;
-	}
-
-
-	public void setTime(String time) {
-		this.time = time;
-	}
-
 
 	public boolean isRung() {
 		return rung;
 	}
 
-
 	public void setRung(boolean rung) {
 		this.rung = rung;
 	}
-
 
 	public boolean isPealRung() {
 		return pealRung;
 	}
 
-
 	public void setPealRung(boolean pealRung) {
 		this.pealRung = pealRung;
 	}
-
 
 	public boolean isQuarterPealRung() {
 		return quarterPealRung;
 	}
 
-
 	public void setQuarterPealRung(boolean quarterPealRung) {
 		this.quarterPealRung = quarterPealRung;
 	}
-
 
 	public String getNotes() {
 		return notes;
 	}
 
-
 	public void setNotes(String notes) {
 		this.notes = notes;
 	}
 
-
 	@Override
 	public String toString() {
-		return "Tower [towerId=" + towerId + ", visitId=" + visitId
-				+ ", userName=" + userName + ", date=" + date
-				+ ", time=" + time + ", rung=" + rung
+		return "TowerVisit [towerId=" + towerId + ", visitId=" + visitId
+				+ ", userId=" + userId + ", date=" + date + ", rung=" + rung
 				+ ", pealRung=" + pealRung + ", quarterPealRung="
 				+ quarterPealRung + ", notes=" + notes + "]";
 	}
+
 	
 
 

@@ -5,14 +5,14 @@
 
 <div class="container">
 	<sf:form method="post"
-		action="${pageContext.request.contextPath}/admin/towers/doaddcontact"
+		action="${pageContext.request.contextPath}/captain/doaddcontact"
 		modelAttribute="contact" commandName="contact">
 
 		<div class="row">
 			<div class="col-xs-12 col-sm-3">
 				<div class="form-group">
 					<a class="btn btn-default"
-						href="${pageContext.request.contextPath}/admin/towers/edit?t=${practice.towerId}">Back</a>
+						href="${pageContext.request.contextPath}/captain/edit">Back</a>
 				</div>
 			</div>
 			<div class="col-xs-12 col-sm-6">

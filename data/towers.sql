@@ -28,7 +28,7 @@ CREATE TABLE `contactdetails` (
   `type` varchar(45) DEFAULT NULL,
   `detail` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`contactId`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -38,6 +38,7 @@ CREATE TABLE `contactdetails` (
 LOCK TABLES `contactdetails` WRITE;
 /*!40000 ALTER TABLE `contactdetails` DISABLE KEYS */;
 INSERT INTO `contactdetails` VALUES (56,1,'Phone','07887394234');
+INSERT INTO `contactdetails` VALUES (5481,6,'Website','http://www.bellringingwebsite.com');
 /*!40000 ALTER TABLE `contactdetails` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -191,40 +192,6 @@ INSERT INTO `messages` VALUES (1,'2015-03-04 14:13:04','This is a sample message
 UNLOCK TABLES;
 
 --
--- Table structure for table `peal`
---
-
-DROP TABLE IF EXISTS `peal`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `peal` (
-  `pealId` int(11) NOT NULL,
-  `towerId` int(11) NOT NULL,
-  `dedication` varchar(20) DEFAULT NULL,
-  `dateRung` date DEFAULT NULL,
-  `timeRung` time DEFAULT NULL,
-  `tenor` varchar(5) DEFAULT NULL,
-  `method` varchar(20) DEFAULT NULL,
-  `methodDetails` varchar(20) DEFAULT NULL,
-  `changes` int(3) DEFAULT NULL,
-  `leader` varchar(50) DEFAULT NULL,
-  `composer` varchar(50) DEFAULT NULL,
-  `footnotes` varchar(50) DEFAULT NULL,
-  `composition` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`pealId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `peal`
---
-
-LOCK TABLES `peal` WRITE;
-/*!40000 ALTER TABLE `peal` DISABLE KEYS */;
-/*!40000 ALTER TABLE `peal` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `peals`
 --
 
@@ -279,32 +246,6 @@ INSERT INTO `peals` VALUES (45,14,'','2015-04-02','','','This is my method.','',
 UNLOCK TABLES;
 
 --
--- Table structure for table `persons`
---
-
-DROP TABLE IF EXISTS `persons`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `persons` (
-  `PersonID` int(11) DEFAULT NULL,
-  `LastName` varchar(255) DEFAULT NULL,
-  `FirstName` varchar(255) DEFAULT NULL,
-  `Address` varchar(255) DEFAULT NULL,
-  `City` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `persons`
---
-
-LOCK TABLES `persons` WRITE;
-/*!40000 ALTER TABLE `persons` DISABLE KEYS */;
-INSERT INTO `persons` VALUES (1,'MacLeod','Jamie',NULL,NULL);
-/*!40000 ALTER TABLE `persons` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `practice`
 --
 
@@ -320,7 +261,7 @@ CREATE TABLE `practice` (
   `visitorsWelcome` tinyint(1) DEFAULT '0',
   `practiceName` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`practiceId`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -333,30 +274,8 @@ INSERT INTO `practice` VALUES (2,1,'Monday','00:00:00','',1,'');
 INSERT INTO `practice` VALUES (2,2,'Monday','00:00:00','',1,'');
 INSERT INTO `practice` VALUES (43,5,'Monday','00:00:00','',1,'');
 INSERT INTO `practice` VALUES (56,6,'Monday','19:00:00','Weekly',1,'Beginners');
+INSERT INTO `practice` VALUES (5481,14,'Thursday','19:00:00','Weekly',1,'Beginner');
 /*!40000 ALTER TABLE `practice` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `test`
---
-
-DROP TABLE IF EXISTS `test`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `test` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `test`
---
-
-LOCK TABLES `test` WRITE;
-/*!40000 ALTER TABLE `test` DISABLE KEYS */;
-/*!40000 ALTER TABLE `test` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -373,7 +292,7 @@ CREATE TABLE `tokens` (
   `expiryDate` date NOT NULL,
   `verified` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=68 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -415,6 +334,40 @@ INSERT INTO `tokens` VALUES (30,'ff3c6aae-f829-41c5-a3a6-d47123b60fc0','macleod.
 INSERT INTO `tokens` VALUES (31,'8c45f8fe-3f78-498b-82c1-0cb882abd7fe','macleod.mac@gmail.com','2015-04-05',0);
 INSERT INTO `tokens` VALUES (32,'f75acd18-8b8b-4851-b84b-3ea8bd7d07ee','macleod.mac@gmail.com','2015-04-06',0);
 INSERT INTO `tokens` VALUES (33,'5ad9bf0a-4e66-4fe3-a2ec-52bad7316349','macleod.mac@gmail.com','2015-04-06',1);
+INSERT INTO `tokens` VALUES (34,'9a904826-8161-4f61-96f3-7a7ef46e9eb0','macleod.mac@gmail.com','2015-04-08',1);
+INSERT INTO `tokens` VALUES (35,'ec38e88b-34d8-4707-8845-4cd335645aa4','macleod.mac@gmail.com','2015-04-08',1);
+INSERT INTO `tokens` VALUES (36,'3f482708-3bfc-4bc1-8b70-dc5e1d4d6696','macleod.mac@gmail.com','2015-04-11',1);
+INSERT INTO `tokens` VALUES (37,'41565b18-731f-4296-9429-92fd42a86438','macleod.mac+user@gmail.com','2015-04-11',1);
+INSERT INTO `tokens` VALUES (38,'ed71aef4-e5de-4536-a597-72f0607bf532','macleod.mac+admin@gmail.com','2015-04-11',1);
+INSERT INTO `tokens` VALUES (39,'7e5dfb20-c3c6-4cec-8a2d-a906f9504872','macleod.mac+captain@gmail.com','2015-04-11',1);
+INSERT INTO `tokens` VALUES (40,'6c82f3f3-3116-4330-934d-a82612d6f4ab','macleod.mac@gmail.com','2015-04-11',1);
+INSERT INTO `tokens` VALUES (41,'8a84790b-4297-4192-9651-9764b729150b','admin','2015-04-11',0);
+INSERT INTO `tokens` VALUES (42,'7404dfc4-09d5-4d68-9de0-82d2793364fe','macleod.mac@gmail.com','2015-04-11',1);
+INSERT INTO `tokens` VALUES (43,'fccbaf7b-43b7-4191-a1e4-f55171b05ba2','macleod.mac@gmail.com','2015-04-11',1);
+INSERT INTO `tokens` VALUES (44,'7b2e3e56-7105-4455-84ec-0e28c8c6cc68',NULL,'2015-04-11',0);
+INSERT INTO `tokens` VALUES (45,'57ae8197-0dfd-4936-9657-0e68123eb2bf',NULL,'2015-04-11',0);
+INSERT INTO `tokens` VALUES (46,'0ebf6807-ecc3-4d3e-a26e-59c8efe4916f',NULL,'2015-04-11',0);
+INSERT INTO `tokens` VALUES (47,'c8d40705-1ab7-4534-9767-0142120a129c',NULL,'2015-04-11',0);
+INSERT INTO `tokens` VALUES (48,'0c7fabcd-32fa-421c-b669-2d010cc5b972','6','2015-04-11',0);
+INSERT INTO `tokens` VALUES (49,'60d7205b-0959-430b-9a10-1f3df975aff0','8','2015-04-11',0);
+INSERT INTO `tokens` VALUES (50,'fa3262d9-d962-4f35-9979-4fe85b6f92a9','10','2015-04-11',0);
+INSERT INTO `tokens` VALUES (51,'515b3929-70b4-4825-af2d-2d456d5cf129','12','2015-04-11',0);
+INSERT INTO `tokens` VALUES (52,'cdfbeda7-0166-4bb4-a8eb-58ba8fe72b9e','13','2015-04-11',1);
+INSERT INTO `tokens` VALUES (53,'7e0e714c-b334-4880-a84b-95d399aa35c3','13','2015-04-11',1);
+INSERT INTO `tokens` VALUES (54,'10424c72-9a98-47fc-95e3-1aea6e09651d','13','2015-04-11',1);
+INSERT INTO `tokens` VALUES (55,'8a9609f8-a0af-4b21-a67b-3827be968928','13','2015-04-11',1);
+INSERT INTO `tokens` VALUES (56,'c1a04120-08f9-4703-b991-3e9edffcc425','14','2015-04-12',1);
+INSERT INTO `tokens` VALUES (57,'7d97c6b0-badc-4760-a96c-75fcd8732c4f','14','2015-04-12',1);
+INSERT INTO `tokens` VALUES (58,'92aa8513-26f9-42e7-9b53-b4736691f044','14','2015-04-12',1);
+INSERT INTO `tokens` VALUES (59,'526ecf7a-7eaa-4b95-9674-fabb802cb5c7','14','2015-04-12',1);
+INSERT INTO `tokens` VALUES (60,'b8e09098-ab0b-4241-b70a-6c952a8f7cc5','14','2015-04-12',1);
+INSERT INTO `tokens` VALUES (61,'a88dfbf6-29ff-466d-af88-9123596a7b13','14','2015-04-12',1);
+INSERT INTO `tokens` VALUES (62,'664e4b81-91b8-44f2-b759-f063765833c7','15','2015-04-12',1);
+INSERT INTO `tokens` VALUES (63,'bac47006-c924-48af-9c59-92c586693f6d','15','2015-04-14',0);
+INSERT INTO `tokens` VALUES (64,'a5cf6e6d-aead-4265-8c95-2ec5199df322','16','2015-04-14',1);
+INSERT INTO `tokens` VALUES (65,'e1c79e70-2d42-4bf6-a921-5317e9061d9f','18','2015-04-14',0);
+INSERT INTO `tokens` VALUES (66,'e1719261-17e3-4bfa-9bb1-8a41bf3b97b5','19','2015-04-14',1);
+INSERT INTO `tokens` VALUES (67,'97ed1a53-9e74-4cd3-ae27-6c70164ff6cc','20','2015-04-14',1);
 /*!40000 ALTER TABLE `tokens` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -462,7 +415,7 @@ CREATE TABLE `towers` (
 
 LOCK TABLES `towers` WRITE;
 /*!40000 ALTER TABLE `towers` DISABLE KEYS */;
-INSERT INTO `towers` VALUES (1,'AB KETTLEB',6918,'Ab Kettleby','','',1,'SK724229',52.7986,-0.92747,'LE14 3HS',52.7997,-0.92635,'GB','Leicester',0,'S James','II*',1,0,0,'Tuning: 1-3 of 4',0,'','','');
+INSERT INTO `towers` VALUES (1,'AB KETTLEB',6918,'Ab Kettleby','','',1,'SK724229',52.7986,-0.92747,'LE14 3HS',52.7997,-0.92635,'GB','Leicester',0,'S James','II*',1,0,0,'Tuning: 1-3 of 4',0,'','',NULL);
 INSERT INTO `towers` VALUES (2,'ABBESS ROD',7481,'Abbess Roding','','',0,'TL571114',51.7796,0.2769,'CM5 0PA',0,0,'GB','Chelmsford',0,'S Edmund K&M','II',1,0,0,'Unringable; ropes fall in a straight line; no sliders',0,'','','');
 INSERT INTO `towers` VALUES (3,'ABBEY DORE',1,'Abbey Dore','','',1,'SO387304',51.9686,-2.89361,'HR2 0AA',0,0,'GB','Hereford',0,'S Mary','I',0,0,0,'Anti-clockwise; no electric lighting on stairs or ante-chamber to ringing room',0,'','','');
 INSERT INTO `towers` VALUES (4,'ABBOTS BIC',6922,'Abbots Bickington','','',0,'SS385133',50.8961,-4.29828,'EX22 7LQ',0,0,'GB','Exeter',0,'S James','II*',1,0,0,'Unringable; anti-clockwise; tuning: 1,2,4 of 5; (BUT notes perceived not=nominal/2)',0,'','','');
@@ -5608,7 +5561,7 @@ INSERT INTO `towers` VALUES (5143,'ROOS',4138,'Roos','','',1,'TA290296',53.7469,
 INSERT INTO `towers` VALUES (5144,'ROPLEY',4139,'Ropley','','',0,'SU645319',51.0834,-1.07922,'SO24 0BX',0,0,'GB','Winchester',0,'S Peter','II',0,0,0,'Unringable; one bell (or more) cracked or broken; bells in store; tower unsafe',0,'','','');
 INSERT INTO `towers` VALUES (5145,'ROSE ASH',4140,'Rose Ash','','',1,'SS787217',50.9819,-3.72867,'EX36 4RB',0,0,'GB','Exeter',0,'S Peter','II*',1,0,0,'',0,'','','');
 INSERT INTO `towers` VALUES (5146,'ROSLISTON',6071,'Rosliston','','',0,'SK243168',52.7484,-1.64109,'DE12 8JU',0,0,'GB','Derby',0,'S Mary','II*',1,0,0,'Unringable',0,'','','');
-INSERT INTO `towers` VALUES (5147,'ROSS ON WY',4141,'Ross on Wye','','',1,'SO597240',51.9136,-2.58607,'HR9 5HT',0,0,'GB','Hereford',0,'S Mary V','I',0,0,0,'',0,'','','');
+INSERT INTO `towers` VALUES (5147,'ROSS ON WY',4141,'Ross on Wye','','',1,'SO597240',51.9136,-2.58607,'HR9 5HT',0,0,'GB','Hereford',0,'S Mary V','I',0,0,0,'',0,'','',NULL);
 INSERT INTO `towers` VALUES (5148,'ROSSCARBER',5889,'Rosscarbery','','Rosscarbery Cath',1,'W286365',51.5779,-9.02983,'',0,0,'IE','(Ireland)',0,'Cath & P Ch of S Fachtna','',0,0,0,'',0,'','','');
 INSERT INTO `towers` VALUES (5149,'ROSTHERNE',4142,'Rostherne','','',1,'SJ742836',53.3495,-2.38828,'WA16 6RT',0,0,'GB','Chester',0,'S Mary','I',0,0,0,'',0,'','','');
 INSERT INTO `towers` VALUES (5150,'ROSTREVOR',5897,'Rostrevor','Kilbroney','',1,'J179184',54.1017,-6.19791,'BT34 3BA',0,0,'GB','(Ireland)',0,'S Bronach','B',0,0,1,'',0,'','','');
@@ -5942,7 +5895,7 @@ INSERT INTO `towers` VALUES (5477,'SHEEN',4320,'Sheen','','',1,'SK113615',53.150
 INSERT INTO `towers` VALUES (5478,'SHEEPSTOR',4321,'Sheepstor','','',1,'SX560676',50.491,-4.03139,'PL20 6PF',0,0,'GB','Exeter',0,'S Leonard','I',1,0,0,'',0,'','','');
 INSERT INTO `towers` VALUES (5479,'SHEEPWASH',4322,'Sheepwash','','',1,'SS486063',50.8367,-4.15027,'EX21 5NL',0,0,'GB','Exeter',0,'S Lawrence','II*',1,0,0,'',0,'','','');
 INSERT INTO `towers` VALUES (5480,'SHEEPY MAG',4323,'Sheepy Magna','','',1,'SK326013',52.6087,-1.52002,'CV9 3QS',0,0,'GB','Leicester',0,'All Saints','II*',0,0,1,'',0,'','','');
-INSERT INTO `towers` VALUES (5481,'SHEFFIEL',4327,'Sheffield','','Sheffield Cath',1,'SK354874',53.3831,-1.4692,'S1 1HA',0,0,'GB','Sheffield',0,'Cath Ch of S Peter & S Paul','I',0,0,0,'Also 6b; three independent means of access to ringing chamber',0,'','','');
+INSERT INTO `towers` VALUES (5481,'SHEFFIEL',4327,'Sheffield','','Sheffield Cath',1,'SK354874',53.3831,-1.4692,'S1 1HA',0,0,'GB','Sheffield',0,'Cath Ch of S Peter & S Paul','I',0,0,0,'Also 6b',0,'','Three independent means of access to ringing chamber','');
 INSERT INTO `towers` VALUES (5482,'SHEFFIELD',4326,'Sheffield','Hallam','Sheffield RC Cath',1,'SK354872',53.3813,-1.46869,'S1 2PA',0,0,'GB','(RC)',0,'RC Cath Ch of S Marie','II*',0,0,0,'',0,'','','');
 INSERT INTO `towers` VALUES (5483,'SHEFFIELDB',397,'Sheffield','Beighton','Sheffield, Beighton',1,'SK442833',53.3452,-1.33671,'S20 1EL',53.3447,-1.33587,'GB','Sheffield',0,'S Mary','II*',0,0,0,'',0,'','','');
 INSERT INTO `towers` VALUES (5484,'SHEFFIELDD',1538,'Sheffield','Dore','Sheffield, Dore',1,'SK307810',53.3257,-1.53973,'S17 3GR',0,0,'GB','Sheffield',0,'Christ Church','II',0,0,1,'',0,'','','');
@@ -7602,34 +7555,6 @@ INSERT INTO `towers` VALUES (7136,'ZENNOR',5757,'Zennor','','',1,'SW454385',50.1
 UNLOCK TABLES;
 
 --
--- Table structure for table `towers_practice`
---
-
-DROP TABLE IF EXISTS `towers_practice`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `towers_practice` (
-  `towerId` int(11) NOT NULL,
-  `practiceId` int(5) NOT NULL,
-  `day` varchar(10) DEFAULT NULL,
-  `time` time DEFAULT NULL,
-  `regularity` varchar(20) DEFAULT NULL,
-  `visitorsWelcome` tinyint(4) DEFAULT '0',
-  PRIMARY KEY (`practiceId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `towers_practice`
---
-
-LOCK TABLES `towers_practice` WRITE;
-/*!40000 ALTER TABLE `towers_practice` DISABLE KEYS */;
-INSERT INTO `towers_practice` VALUES (1,1,NULL,NULL,NULL,0);
-/*!40000 ALTER TABLE `towers_practice` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `users`
 --
 
@@ -7637,12 +7562,15 @@ DROP TABLE IF EXISTS `users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `email` varchar(50) NOT NULL,
   `password` varchar(100) NOT NULL,
   `role` varchar(45) NOT NULL,
   `enabled` tinyint(1) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`email`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `name` varchar(50) DEFAULT NULL,
+  `towerCaptain` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -7651,13 +7579,47 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES ('macleod.mac@gmail.com','394f03bd2fecb2b99770a801b92f83ea6ec6808ca1a52f07bc295bc139bc851e5d1c13430a56aa85','ROLE_ADMIN',1);
-INSERT INTO `users` VALUES ('jamie@macleod.co.uk','78827f331a8f1970d7b5b6ef555504233c30778829348fd7fc55bf77d0bc65119fc9ee401730f22a','ROLE_USER',0);
-INSERT INTO `users` VALUES ('jamie@mymacleod.co.uk','e3846b23e25ecd5b6141086bd32b4935e1c42131e0ecc694a97722acd0a8ebfde94692a08d0dd536','ROLE_USER',0);
-INSERT INTO `users` VALUES ('jmacleod2@shef.ac.uk','32f80014754c64a71c0edbb17eb33f30321cce629ebb7d33824e78dfe1f8989c07a932b9d2876e11','ROLE_USER',0);
-INSERT INTO `users` VALUES ('macleod.mac+amazon@gmail.com','7fba6961d7b1f7c33485ad6109ad25ad1f76c3f07a6911df8337d33204a0717d7e70bca232e1eddc','ROLE_USER',1);
-INSERT INTO `users` VALUES ('macleod.mac+new@gmail.com','6791c5359194dbbc60f624a7813899111e8884f93b14f3633c82e45d3937ac92ba19d46e376a7b53','ROLE_USER',1);
+INSERT INTO `users` VALUES (1,'user','5cfe33618ba15fe1a8abf3a36967f84dc5cc920b61c80ec47d0b64665d793990951e716c337a53cb','ROLE_USER',1,NULL,0);
+INSERT INTO `users` VALUES (3,'admin','cacfc8b2a100acd0127474246e550653c40bbb24dde5c66bb5c023e9df380786e8a6b5496035182c','ROLE_ADMIN',1,NULL,0);
+INSERT INTO `users` VALUES (4,'captain','fa134b9a1b09562e1c2fdebc266a8bd34482db0765d0a81709003ff7a054043df31018c5bd16b5dd','ROLE_CAPTAIN',1,NULL,1);
+INSERT INTO `users` VALUES (15,'jmacleod2@shef.ac.uk','7799bd0d445c4d4f9244c4a0fc708430e3ca4b58d10caeb502552870dcedaaf6f3aefbea7a02bc1e','ROLE_CAPTAIN',1,'Jamie MacLeod',1);
+INSERT INTO `users` VALUES (20,'macleod.mac@gmail.com','5167e35b91c9e024c8b30044339d9c3bafcd0bd652d1f225f34fa34b9d31202eae01dfbe344280e4','ROLE_ADMIN',1,'Jamie MacLeod',0);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `visits`
+--
+
+DROP TABLE IF EXISTS `visits`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `visits` (
+  `visitId` int(11) NOT NULL AUTO_INCREMENT,
+  `towerId` int(11) NOT NULL,
+  `userId` int(11) NOT NULL,
+  `date` date NOT NULL,
+  `rung` tinyint(4) DEFAULT '0',
+  `pealRung` tinyint(4) DEFAULT '0',
+  `quarterPealRung` tinyint(4) DEFAULT '0',
+  `notes` varchar(200) DEFAULT NULL,
+  PRIMARY KEY (`visitId`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `visits`
+--
+
+LOCK TABLES `visits` WRITE;
+/*!40000 ALTER TABLE `visits` DISABLE KEYS */;
+INSERT INTO `visits` VALUES (1,1455,15,'2015-04-01',1,0,0,NULL);
+INSERT INTO `visits` VALUES (2,1,15,'2015-04-13',0,0,0,'');
+INSERT INTO `visits` VALUES (3,1,15,'2015-03-29',1,1,0,'Really good ringing sesh innit');
+INSERT INTO `visits` VALUES (4,10,15,'2015-04-13',1,0,0,'It was good lul\\\r\n');
+INSERT INTO `visits` VALUES (5,444,15,'2015-04-13',1,0,0,'');
+INSERT INTO `visits` VALUES (6,1,20,'2015-04-13',0,0,0,'');
+/*!40000 ALTER TABLE `visits` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -7669,4 +7631,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-04-06 14:53:09
+-- Dump completed on 2015-04-14  9:54:30

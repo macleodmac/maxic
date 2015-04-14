@@ -4,13 +4,14 @@
 		<h3>Login with Email and Password</h3>
 		<c:if test="${param.e != null }">
 			<div class="alert alert-danger" role="alert">Login failed.
-				Check that your email and password are correct.</div>
+				Check that your email and password are correct, and that you have verified your account.</div>
 		</c:if>
 
 		<div class="alert alert-info" role="alert">
 			Sample User Logins:
 			<ul>
 				<li><strong>ROLE_ADMIN</strong>, u: admin p: letmein</li>
+				<li><strong>ROLE_CAPTAIN</strong>, u: captain, p: letmein</li>
 				<li><strong>ROLE_USER</strong>, u: user, p: letmein</li>
 			</ul>
 		</div>

@@ -7,6 +7,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,6 +29,7 @@ public class UserDao {
 	}
 
 	@SuppressWarnings("unchecked")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public List<User> getUsers() {
 		return session().createQuery("from User").list();
 	}
@@ -38,13 +40,16 @@ public class UserDao {
 	}
 
 	public boolean exists(User user) {
-		return session().createQuery("from User where email = :email")
-				.setString("email", user.getEmail()).list().size() == 1;
+		System.out.println("User at dao: " + user);
+		Criteria crit = session().createCriteria(User.class);
+		crit.add(Restrictions.eq("email", user.getEmail()));
+		System.out.println(crit.list().size());
+		return crit.list().size() == 1;
 	}
 
 	public User getUser(String email) {
 		Criteria crit = session().createCriteria(User.class);
-		crit.add(Restrictions.idEq(email));
+		crit.add(Restrictions.eq("email", email));
 		User user = (User) crit.uniqueResult();
 
 		return user;
@@ -66,4 +71,15 @@ public class UserDao {
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		session().update(user);
 	}
+
+	public boolean checkPass(String checkString) {
+		return session().createQuery("from User where password = :password")
+				.setString("password", checkString).list().size() == 1;
+	}
+
+	public void update(User user) {
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
+		session().update(user);
+	}
+
 }

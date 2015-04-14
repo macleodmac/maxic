@@ -30,12 +30,16 @@ public class ContactDetailsService {
 		contactDetailsDao.addContactDetails(contactDetails);
 	}
 
-	public boolean deleteContactDetails(int contactId) {
-		return contactDetailsDao.deleteContactDetails(contactId);
+	public boolean deleteContactDetail(int contactId) {
+		return contactDetailsDao.deleteContactDetail(contactId);
 	}
 
 	public void editContactDetails(ContactDetails contactDetails) {
 		contactDetailsDao.editContactDetails(contactDetails);
 
+	}
+
+	public ContactDetails getContactDetail(int c) {
+		return contactDetailsDao.getContactDetail(c);
 	}
 }

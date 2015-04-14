@@ -20,7 +20,7 @@
 		
 		<sec:authorize access="hasRole('ROLE_ADMIN')">
 				<div class="pull-right" style="padding-right: 10px;">
-					<a class="btn btn-sm btn-default"
+					<a class="btn btn-sm btn-info"
 						href="${pageContext.request.contextPath}/admin/towers/edit?t=${towerWrapper.tower.towerId}">Edit</a>
 				</div>
 			</sec:authorize>

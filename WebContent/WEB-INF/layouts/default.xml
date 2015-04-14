@@ -107,8 +107,6 @@
 		<put-attribute name="content" value="/WEB-INF/tiles/admin/peals/addpeal.jsp"></put-attribute>
 	</definition>
 	
-	
-	
 	<definition name="/admin/peals/editpeal" extends="admin.base">
 		<put-attribute name="title" value="Tower Finder :: Admin :: Edit Peal"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/admin/peals/editpeal.jsp"></put-attribute>
@@ -242,6 +240,31 @@
 	<definition name="/account/visits" extends="towers.base">
 		<put-attribute name="title" value="Tower Finder :: My Visits"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/user/visits.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="/account/visits/add" extends="towers.base">
+		<put-attribute name="title" value="Tower Finder :: Add Visits"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/user/visits/addvisit.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="/account/visits/edit" extends="towers.base">
+		<put-attribute name="title" value="Tower Finder :: Edit Visit"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/user/visits/editvisit.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="/captain/edit" extends="towers.base">
+		<put-attribute name="title" value="Tower Finder :: Edit My Tower"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/captain/edittower.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="/captain/addpractice" extends="admin.base">
+		<put-attribute name="title" value="Tower Finder :: Add Practice"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/captain/addpractice.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="/captain/addcontact" extends="admin.base">
+		<put-attribute name="title" value="Tower Finder :: Add Contact Details"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/captain/addcontact.jsp"></put-attribute>
 	</definition>
 
 </tiles-definitions>
