@@ -30,7 +30,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.maxic.towers.web.dao.TowerJsonObject;
+import com.maxic.towers.web.dao.JsonObject;
 import com.maxic.towers.web.model.ContactDetails;
 import com.maxic.towers.web.model.Country;
 import com.maxic.towers.web.model.Diocese;
@@ -579,49 +579,6 @@ public class AdminController {
 		return "redirect:/admin/towers";
 	}
 
-	@RequestMapping(value = "/admin/towers/towerpagination", method = RequestMethod.GET, produces = "application/json")
-	public @ResponseBody String springPaginationDataTables(
-			HttpServletRequest request) throws IOException {
-
-		int pageNo = 0;
-
-		if (request.getParameter("iDisplayStart") != null) {
-			pageNo = (Integer.valueOf(request.getParameter("iDisplayStart")) / 10) + 1;
-		}
-
-		String searchTerm = request.getParameter("sSearch");
-		int pageLength = Integer
-				.valueOf(request.getParameter("iDisplayLength"));
-		List<Tower> towerList;
-		int towerCount = towerService.getNumberOfTowers();
-		int towerListCount;
-
-		if (searchTerm != null && !searchTerm.equals("")) {
-			towerList = towerService.getPaginatedTowersByTerm(pageLength,
-					(pageNo - 1) * 10, searchTerm);
-			towerListCount = towerService
-					.getNumberOfTowersBySearchTerm(searchTerm);
-		} else {
-			towerList = towerService.getPaginatedTowers(pageLength,
-					(pageNo - 1) * 10);
-			towerListCount = towerCount;
-		}
-
-		TowerJsonObject towerJson = new TowerJsonObject();
-		// Set Total display record
-
-		towerJson.setiTotalDisplayRecords(towerListCount);
-		// Set Total record
-		towerJson.setiTotalRecords(towerCount);
-		towerJson.setAaData(towerList);
-
-		Gson gson = new GsonBuilder().setPrettyPrinting().create();
-		String jsonForReturn = gson.toJson(towerJson);
-
-		return jsonForReturn;
-
-	}
-
 	/*
 	 * 
 	 * ADMIN PEALS REQUEST MAPPINGS
@@ -870,6 +827,45 @@ public class AdminController {
 
 	}
 	
+	@RequestMapping(value = "/admin/users/edit", method = RequestMethod.GET)
+	public String editUser(Model model, @RequestParam("u") int u) {
+
+		User user = userService.getUser(u);
+		model.addAttribute("user", user);
+		
+		Map<Integer, String> hm = towerService.getTowerDescriptorMap();
+		model.addAttribute("towers", hm);
+		
+		Map<Boolean, String> booleanMap = new LinkedHashMap<Boolean, String>();
+		booleanMap.put(true, "Yes");
+		booleanMap.put(false, "No");
+		model.addAttribute("yesno", booleanMap);
+		
+		return "/admin/users/edit";
+
+	}
+	
+	@RequestMapping(value = "/admin/users/doedit", method = RequestMethod.POST)
+	public String editUser(Model model, @Valid User user, BindingResult result, RedirectAttributes redirectAttributes) {
+
+		if (result.hasErrors()) {
+			redirectAttributes.addFlashAttribute("dangerMessage", "The user could not be edited, please try again.");
+			redirectAttributes.addAttribute("u", user.getId());
+			return "redirect:/admin/users/edit";
+		} else if (userService.existsById(user)) {
+			System.out.println(user);
+			userService.update(user);
+			redirectAttributes.addFlashAttribute("message", "User " + user.getEmail() + " successfully edited!");
+			return "redirect:/admin/users";
+		} else {
+			redirectAttributes.addFlashAttribute("dangerMessage", "An unexpected error occurred.");
+			redirectAttributes.addAttribute("u", user.getId());
+			return "redirect:/admin/users/edit";
+		}
+		
+
+	}
+	
 	@RequestMapping(value = "/admin/users/doadd", method = RequestMethod.POST)
 	public String doAddUser(Model model, @Valid User user, BindingResult result, RedirectAttributes redirectAttributes, HttpServletRequest httpRequestServlet) {
 		
@@ -908,16 +904,16 @@ public class AdminController {
 
 	@RequestMapping(value = "/admin/users/reset", method = RequestMethod.GET)
 	public String resetUser(Model model,
-			@RequestParam("u") String email,
+			@RequestParam("u") int id,
 			RedirectAttributes redirectAttributes, HttpServletRequest httpRequestServlet) {
 
 		User tempUser = new User();
-		tempUser.setEmail(email);
+		tempUser.setId(id);
 		VerificationToken verificationToken = null;
 		User user = null;
 		
-		if (userService.exists(tempUser)) {
-			user = userService.getUser(email);
+		if (userService.existsById(tempUser)) {
+			user = userService.getUser(id);
 			String token = UUID.randomUUID().toString();
 			verificationToken = new VerificationToken(token, user);
 			verificationService.addToken(verificationToken);

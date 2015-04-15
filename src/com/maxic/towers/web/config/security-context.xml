@@ -24,6 +24,7 @@
 	</security:authentication-manager>
 
 	<security:http use-expressions="true">
+		<security:intercept-url pattern="/json/**" access="permitAll" />
 		<security:intercept-url pattern="/captain/**" access="hasRole('ROLE_CAPTAIN')" />
 		<security:intercept-url pattern="/account/**" access="isAuthenticated()" />
 		<security:intercept-url pattern="/badtoken" access="permitAll" />

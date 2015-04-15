@@ -42,6 +42,7 @@
 				<label for="name">Email Address</label>
 				<p class="form-control-static">${user.email}</p>
 				<sf:input type="hidden" path="email" id="email" />
+				<sf:input type="hidden" path="name" id="name" />
 			</div>
 			<div class="form-group">
 				<label for="email">Password</label>

@@ -2,7 +2,7 @@ package com.maxic.towers.web.dao;
 import com.maxic.towers.web.model.*;
 import java.util.List;
 
-public class TowerJsonObject {
+public class JsonObject<T> {
 
 	int iTotalRecords;
 
@@ -12,7 +12,7 @@ public class TowerJsonObject {
 
 	String sColumns;
 
-	List<Tower> aaData;
+	List<T> aaData;
 
 	public int getiTotalRecords() {
 		return iTotalRecords;
@@ -46,11 +46,11 @@ public class TowerJsonObject {
 		this.sColumns = sColumns;
 	}
 
-	public List<Tower> getAaData() {
+	public List<T> getAaData() {
 		return aaData;
 	}
 
-	public void setAaData(List<Tower> aaData) {
+	public void setAaData(List<T> aaData) {
 		this.aaData = aaData;
 	}
 }

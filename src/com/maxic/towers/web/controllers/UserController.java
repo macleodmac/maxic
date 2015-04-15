@@ -256,6 +256,7 @@ public class UserController {
 		if (verificationService.validToken(verificationToken)) {
 			userToken = verificationService.getVerificationToken(token);
 			user = userToken.getUser();
+			System.out.println(user);
 			user.setPassword(null);
 			model.addAttribute(user);
 			verificationService.verify(verificationToken);
@@ -278,6 +279,7 @@ public class UserController {
 			return "/changepassword";
 		} else {
 			user.setEnabled(true);
+			System.out.println(user);
 			userService.update(user);
 			return "/resetsuccess";
 
@@ -296,6 +298,7 @@ public class UserController {
 	public String showEditAccount(Model model, Principal principal) {
 		String email = principal.getName();
 		User currentUser = userService.getUser(email);
+		System.out.println(currentUser);
 		currentUser.setPassword(null);
 		EditUser editUser = new EditUser();
 		editUser.setUser(currentUser);
@@ -366,6 +369,8 @@ public class UserController {
 				if (!editUser.getNewName().isEmpty()) {
 					user.setName(editUser.getNewName());
 				}
+				
+				
 
 				System.out.println("Saving User: " + user);
 				userService.update(user);

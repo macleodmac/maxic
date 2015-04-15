@@ -28,7 +28,7 @@ CREATE TABLE `contactdetails` (
   `type` varchar(45) DEFAULT NULL,
   `detail` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`contactId`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -39,6 +39,8 @@ LOCK TABLES `contactdetails` WRITE;
 /*!40000 ALTER TABLE `contactdetails` DISABLE KEYS */;
 INSERT INTO `contactdetails` VALUES (56,1,'Phone','07887394234');
 INSERT INTO `contactdetails` VALUES (5481,6,'Website','http://www.bellringingwebsite.com');
+INSERT INTO `contactdetails` VALUES (3,7,'Phone','01234567890');
+INSERT INTO `contactdetails` VALUES (3,8,'Twitter','macleodmac');
 /*!40000 ALTER TABLE `contactdetails` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -261,7 +263,7 @@ CREATE TABLE `practice` (
   `visitorsWelcome` tinyint(1) DEFAULT '0',
   `practiceName` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`practiceId`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -275,6 +277,7 @@ INSERT INTO `practice` VALUES (2,2,'Monday','00:00:00','',1,'');
 INSERT INTO `practice` VALUES (43,5,'Monday','00:00:00','',1,'');
 INSERT INTO `practice` VALUES (56,6,'Monday','19:00:00','Weekly',1,'Beginners');
 INSERT INTO `practice` VALUES (5481,14,'Thursday','19:00:00','Weekly',1,'Beginner');
+INSERT INTO `practice` VALUES (3,15,'Monday','19:00:00','Weekly',1,'Beginner');
 /*!40000 ALTER TABLE `practice` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -292,7 +295,7 @@ CREATE TABLE `tokens` (
   `expiryDate` date NOT NULL,
   `verified` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=68 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=77 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -368,6 +371,15 @@ INSERT INTO `tokens` VALUES (64,'a5cf6e6d-aead-4265-8c95-2ec5199df322','16','201
 INSERT INTO `tokens` VALUES (65,'e1c79e70-2d42-4bf6-a921-5317e9061d9f','18','2015-04-14',0);
 INSERT INTO `tokens` VALUES (66,'e1719261-17e3-4bfa-9bb1-8a41bf3b97b5','19','2015-04-14',1);
 INSERT INTO `tokens` VALUES (67,'97ed1a53-9e74-4cd3-ae27-6c70164ff6cc','20','2015-04-14',1);
+INSERT INTO `tokens` VALUES (68,'d386c696-6ab7-41c7-996e-f0d293f50632','20','2015-04-15',1);
+INSERT INTO `tokens` VALUES (69,'7e1cfe54-b419-47e0-a069-347d9a3c10fe','20','2015-04-15',1);
+INSERT INTO `tokens` VALUES (70,'5260cb38-be7d-461b-8940-370eac1fa3f5','20','2015-04-15',0);
+INSERT INTO `tokens` VALUES (71,'edd6099d-8126-44e3-a2f4-4ee52412d9ed','15','2015-04-15',0);
+INSERT INTO `tokens` VALUES (72,'0adefe4a-3e2a-424d-9ec7-d48c04673e44','20','2015-04-15',0);
+INSERT INTO `tokens` VALUES (73,'f5950788-703d-4e07-8418-001c44f5aef7','15','2015-04-15',1);
+INSERT INTO `tokens` VALUES (74,'d9884277-aa8f-4b90-9b12-83a720eb6c2e','15','2015-04-15',1);
+INSERT INTO `tokens` VALUES (75,'7a07594c-a8dd-49f7-9681-2e22a141f371','15','2015-04-15',1);
+INSERT INTO `tokens` VALUES (76,'e5235aa0-ba68-48dc-96b5-e1e218e92f2f','20','2015-04-16',0);
 /*!40000 ALTER TABLE `tokens` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -7579,11 +7591,11 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'user','5cfe33618ba15fe1a8abf3a36967f84dc5cc920b61c80ec47d0b64665d793990951e716c337a53cb','ROLE_USER',1,NULL,0);
-INSERT INTO `users` VALUES (3,'admin','cacfc8b2a100acd0127474246e550653c40bbb24dde5c66bb5c023e9df380786e8a6b5496035182c','ROLE_ADMIN',1,NULL,0);
-INSERT INTO `users` VALUES (4,'captain','fa134b9a1b09562e1c2fdebc266a8bd34482db0765d0a81709003ff7a054043df31018c5bd16b5dd','ROLE_CAPTAIN',1,NULL,1);
-INSERT INTO `users` VALUES (15,'jmacleod2@shef.ac.uk','7799bd0d445c4d4f9244c4a0fc708430e3ca4b58d10caeb502552870dcedaaf6f3aefbea7a02bc1e','ROLE_CAPTAIN',1,'Jamie MacLeod',1);
-INSERT INTO `users` VALUES (20,'macleod.mac@gmail.com','5167e35b91c9e024c8b30044339d9c3bafcd0bd652d1f225f34fa34b9d31202eae01dfbe344280e4','ROLE_ADMIN',1,'Jamie MacLeod',0);
+INSERT INTO `users` VALUES (1,'user@towerfinder.com','7970acf9c6832416105a9ea2e0e7d1ffed110378311ec2ddf8b8d9adf4bb6d71530abbe0e51e731b','ROLE_USER',1,'SampleUser',0);
+INSERT INTO `users` VALUES (3,'admin@towerfinder.com','39d4a4bedaafbdff0202972c9e1d0fc208243b437a6f185377f784d68d3590aa1485a2cb6359e10d','ROLE_ADMIN',1,'SampleAdmin',0);
+INSERT INTO `users` VALUES (4,'captain@towerfinder.com','15f9b5c5019f6a5b3d9d565c7019e09076a77602901a440d4a4bae8a17a851c4fe53590c4382271e','ROLE_CAPTAIN',1,'SampleCaptain',1);
+INSERT INTO `users` VALUES (15,'jmacleod2@shef.ac.uk','7795bc9f347ff973f0426433e09c28dbd1fd9f489cff853a047ae83a05ded3b3b724556afec05766','ROLE_ADMIN',1,'Jamie MacLeod',0);
+INSERT INTO `users` VALUES (20,'macleod.mac@gmail.com','26e4d35c2c22b447bd8d963224208165fc3f5ff1d74c1733d2a9582d3fa5a915073c4182aa5a50a1','ROLE_ADMIN',1,'Jamie MacLeod',0);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -7631,4 +7643,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-04-14  9:54:30
+-- Dump completed on 2015-04-15 13:28:22

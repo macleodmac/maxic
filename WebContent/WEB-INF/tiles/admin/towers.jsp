@@ -33,7 +33,7 @@ jQuery.fn.dataTableExt.oApi.fnPagingInfo = function ( oSettings )
 
 $(document).ready(function() {
 
-$("#example").dataTable( {
+$("#usertable").dataTable( {
     "bProcessing": true,
     "bServerSide": true,
     "sort": false,
@@ -49,7 +49,7 @@ $("#example").dataTable( {
         //Un-comment below alert to see page number
     	//alert("Current page number: "+this.fnPagingInfo().iPage);    
     },         
-    "sAjaxSource": "/towers/admin/towers/towerpagination",
+    "sAjaxSource": "/towers/json/towers",
     "aoColumns": [
         { "mData": "towerId" },
         { "mData": "doveId" },
@@ -110,7 +110,7 @@ $("#example").dataTable( {
 		<div class="col-xs-12">
 		<div class="responsive">
 <sf:form action="" method="GET">
-			<table id="example"
+			<table id="usertable"
 				class="display table table-striped table-bordered">
 				<thead>
 					<tr>

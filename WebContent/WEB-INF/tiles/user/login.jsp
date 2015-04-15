@@ -8,11 +8,11 @@
 		</c:if>
 
 		<div class="alert alert-info" role="alert">
-			Sample User Logins:
+			Sample Logins:
 			<ul>
-				<li><strong>ROLE_ADMIN</strong>, u: admin p: letmein</li>
-				<li><strong>ROLE_CAPTAIN</strong>, u: captain, p: letmein</li>
-				<li><strong>ROLE_USER</strong>, u: user, p: letmein</li>
+				<li><strong>ROLE_ADMIN</strong>, u: admin@towerfinder.com | p: letmein</li>
+				<li><strong>ROLE_CAPTAIN</strong>, u: captain@towerfinder.com | p: letmein</li>
+				<li><strong>ROLE_USER</strong>, u: user@towerfinder.com | p: letmein</li>
 			</ul>
 		</div>
 

@@ -2,6 +2,8 @@ package com.maxic.towers.web.service;
 
 import java.util.List;
 
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,7 +33,11 @@ public class UserService {
 	}
 
 	public User getUser(String email) {
-		return userDao.getUser(email);
+		return userDao.getUserByEmail(email);
+	}
+	
+	public User getUser(int id) {
+		return userDao.getUserById(id);
 	}
 
 	public void disable(User user) {
@@ -48,5 +54,30 @@ public class UserService {
 	}
 	public void update(User user) {
 		userDao.update(user);
+	}
+	
+	public int getNumberofUsers() {
+		return userDao.getNumberofUsers();
+	}
+	
+	public int getNumberOfUsersBySearchTerm(String searchTerm) {
+		return userDao.getNumberOfUsersBySearchTerm(searchTerm);
+	}
+	
+	public List<User> getPaginatedUsersByTerm(int pageLength,
+			int displayStart, String searchCriteria) {
+		
+		return userDao.getPaginatedUsersByTerm(pageLength, displayStart, searchCriteria);
+		
+	}
+	
+	public List<User> getPaginatedUsers(int pageLength, int displayStart) {
+		
+		return userDao.getPaginatedUsers(pageLength, displayStart);
+
+	}
+
+	public boolean existsById(User user) {
+		return userDao.existsById(user);
 	}
 }

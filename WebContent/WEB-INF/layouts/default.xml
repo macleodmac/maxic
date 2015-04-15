@@ -167,6 +167,11 @@
 		<put-attribute name="content" value="/WEB-INF/tiles/admin/users/adduser.jsp"></put-attribute>
 	</definition>
 	
+	<definition name="/admin/users/edit" extends="admin.base">
+		<put-attribute name="title" value="Tower Finder :: Admin :: Edit User"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/admin/users/edituser.jsp"></put-attribute>
+	</definition>
+	
 	<definition name="/error" extends="towers.base">
 		<put-attribute name="title" value="Tower Finder :: Error"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/error/error.jsp"></put-attribute>

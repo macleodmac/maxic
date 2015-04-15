@@ -108,6 +108,7 @@ public class TowerDao {
 	public Map<Integer, String> getTowerDescriptorMap() {
 		List<TowerDescriptor> towers = this.getTowerDescriptors();
 		LinkedHashMap<Integer, String> hm = new LinkedHashMap<Integer, String>();
+		hm.put(0, "");
 		for (TowerDescriptor tower : towers) {
 			hm.put(tower.getId(), tower.getDe());
 		}
