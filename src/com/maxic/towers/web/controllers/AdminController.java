@@ -1,6 +1,5 @@
 package com.maxic.towers.web.controllers;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -28,9 +27,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.maxic.towers.web.dao.JsonObject;
 import com.maxic.towers.web.model.ContactDetails;
 import com.maxic.towers.web.model.Country;
 import com.maxic.towers.web.model.Diocese;
@@ -854,7 +850,7 @@ public class AdminController {
 			return "redirect:/admin/users/edit";
 		} else if (userService.existsById(user)) {
 			System.out.println(user);
-			userService.update(user);
+			userService.updateNoPassEncode(user);
 			redirectAttributes.addFlashAttribute("message", "User " + user.getEmail() + " successfully edited!");
 			return "redirect:/admin/users";
 		} else {

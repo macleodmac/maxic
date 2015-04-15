@@ -28,7 +28,7 @@ CREATE TABLE `contactdetails` (
   `type` varchar(45) DEFAULT NULL,
   `detail` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`contactId`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -38,9 +38,8 @@ CREATE TABLE `contactdetails` (
 LOCK TABLES `contactdetails` WRITE;
 /*!40000 ALTER TABLE `contactdetails` DISABLE KEYS */;
 INSERT INTO `contactdetails` VALUES (56,1,'Phone','07887394234');
-INSERT INTO `contactdetails` VALUES (5481,6,'Website','http://www.bellringingwebsite.com');
-INSERT INTO `contactdetails` VALUES (3,7,'Phone','01234567890');
-INSERT INTO `contactdetails` VALUES (3,8,'Twitter','macleodmac');
+INSERT INTO `contactdetails` VALUES (5482,9,'Twitter','cooltower1');
+INSERT INTO `contactdetails` VALUES (5482,10,'Phone','01142110110');
 /*!40000 ALTER TABLE `contactdetails` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -231,7 +230,7 @@ CREATE TABLE `peals` (
   `ringer15` varchar(50) DEFAULT NULL,
   `ringer16` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`pealId`)
-) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -244,6 +243,7 @@ INSERT INTO `peals` VALUES (42,1,'','2011-12-31','','','','',0,'','','','','',''
 INSERT INTO `peals` VALUES (43,1,'','2014-12-12','','','','',0,'','','','','','','','','','','','','','','','','','','','');
 INSERT INTO `peals` VALUES (44,7,'','2015-03-29','','','test','',0,'','','','','test','','','','','','','','','','','','','','','');
 INSERT INTO `peals` VALUES (45,14,'','2015-04-02','','','This is my method.','',0,'','','','','James Boblee','Billy Nomates','','','','','','','','','','','','','','');
+INSERT INTO `peals` VALUES (46,5482,'','2015-04-10','3h42m','','This is the method','',1000,'','','','','Jamie MacLeod','','','','','','','','','','','','','','','');
 /*!40000 ALTER TABLE `peals` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -263,7 +263,7 @@ CREATE TABLE `practice` (
   `visitorsWelcome` tinyint(1) DEFAULT '0',
   `practiceName` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`practiceId`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -276,8 +276,7 @@ INSERT INTO `practice` VALUES (2,1,'Monday','00:00:00','',1,'');
 INSERT INTO `practice` VALUES (2,2,'Monday','00:00:00','',1,'');
 INSERT INTO `practice` VALUES (43,5,'Monday','00:00:00','',1,'');
 INSERT INTO `practice` VALUES (56,6,'Monday','19:00:00','Weekly',1,'Beginners');
-INSERT INTO `practice` VALUES (5481,14,'Thursday','19:00:00','Weekly',1,'Beginner');
-INSERT INTO `practice` VALUES (3,15,'Monday','19:00:00','Weekly',1,'Beginner');
+INSERT INTO `practice` VALUES (5482,16,'Wednesday','19:00:00','Weekly',1,'Beginner');
 /*!40000 ALTER TABLE `practice` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -295,7 +294,7 @@ CREATE TABLE `tokens` (
   `expiryDate` date NOT NULL,
   `verified` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=77 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=80 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -380,6 +379,9 @@ INSERT INTO `tokens` VALUES (73,'f5950788-703d-4e07-8418-001c44f5aef7','15','201
 INSERT INTO `tokens` VALUES (74,'d9884277-aa8f-4b90-9b12-83a720eb6c2e','15','2015-04-15',1);
 INSERT INTO `tokens` VALUES (75,'7a07594c-a8dd-49f7-9681-2e22a141f371','15','2015-04-15',1);
 INSERT INTO `tokens` VALUES (76,'e5235aa0-ba68-48dc-96b5-e1e218e92f2f','20','2015-04-16',0);
+INSERT INTO `tokens` VALUES (77,'43741a11-2ff9-480e-ade7-188a499f985c','21','2015-04-16',1);
+INSERT INTO `tokens` VALUES (78,'eda35df0-596d-45ec-bee9-81d2491108d6','22','2015-04-16',1);
+INSERT INTO `tokens` VALUES (79,'2bf7eb15-c4b0-40b5-ade1-f1b0bca31ffa','23','2015-04-16',1);
 /*!40000 ALTER TABLE `tokens` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -7582,7 +7584,7 @@ CREATE TABLE `users` (
   `name` varchar(50) DEFAULT NULL,
   `towerCaptain` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -7591,11 +7593,8 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'user@towerfinder.com','7970acf9c6832416105a9ea2e0e7d1ffed110378311ec2ddf8b8d9adf4bb6d71530abbe0e51e731b','ROLE_USER',1,'SampleUser',0);
-INSERT INTO `users` VALUES (3,'admin@towerfinder.com','39d4a4bedaafbdff0202972c9e1d0fc208243b437a6f185377f784d68d3590aa1485a2cb6359e10d','ROLE_ADMIN',1,'SampleAdmin',0);
-INSERT INTO `users` VALUES (4,'captain@towerfinder.com','15f9b5c5019f6a5b3d9d565c7019e09076a77602901a440d4a4bae8a17a851c4fe53590c4382271e','ROLE_CAPTAIN',1,'SampleCaptain',1);
-INSERT INTO `users` VALUES (15,'jmacleod2@shef.ac.uk','7795bc9f347ff973f0426433e09c28dbd1fd9f489cff853a047ae83a05ded3b3b724556afec05766','ROLE_ADMIN',1,'Jamie MacLeod',0);
-INSERT INTO `users` VALUES (20,'macleod.mac@gmail.com','26e4d35c2c22b447bd8d963224208165fc3f5ff1d74c1733d2a9582d3fa5a915073c4182aa5a50a1','ROLE_ADMIN',1,'Jamie MacLeod',0);
+INSERT INTO `users` VALUES (23,'macleod.mac@gmail.com','5c28fbf7374c9c35093eb9dd912e4fb7dc1895d852f00aab9f760626ac47ddd836b2cd1f896178d9','ROLE_CAPTAIN',1,'SampleUser',5481);
+INSERT INTO `users` VALUES (22,'jmacleod2@shef.ac.uk','d25e2266b800d91981055ea4ae91c4c66f0e426b484dad2129c95cc75ce1a0cfc26cf238b906ba1e','ROLE_ADMIN',1,'Jamie MacLeod',0);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -7616,7 +7615,7 @@ CREATE TABLE `visits` (
   `quarterPealRung` tinyint(4) DEFAULT '0',
   `notes` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`visitId`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -7631,6 +7630,7 @@ INSERT INTO `visits` VALUES (3,1,15,'2015-03-29',1,1,0,'Really good ringing sesh
 INSERT INTO `visits` VALUES (4,10,15,'2015-04-13',1,0,0,'It was good lul\\\r\n');
 INSERT INTO `visits` VALUES (5,444,15,'2015-04-13',1,0,0,'');
 INSERT INTO `visits` VALUES (6,1,20,'2015-04-13',0,0,0,'');
+INSERT INTO `visits` VALUES (7,5481,23,'2015-04-15',1,0,1,'I enjoyed my time here');
 /*!40000 ALTER TABLE `visits` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -7643,4 +7643,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-04-15 13:28:22
+-- Dump completed on 2015-04-15 13:56:16

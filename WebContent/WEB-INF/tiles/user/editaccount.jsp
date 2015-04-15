@@ -35,7 +35,7 @@
 				$('#passalert').addClass("alert-success");
 				$('#passalert').removeClass("alert-danger");
 				$('#passalert').css('display', '');
-				if (currentPass.length < 8) {
+				if (currentPass.length < 5) {
 					$('#submitbtn').prop('disabled', true);
 				} else {
 					$('#submitbtn').prop('disabled', false);

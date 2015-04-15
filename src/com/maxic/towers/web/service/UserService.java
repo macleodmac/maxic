@@ -56,6 +56,10 @@ public class UserService {
 		userDao.update(user);
 	}
 	
+	public void updateNoPassEncode(User user) {
+		userDao.updateNoPassEncode(user);
+	}
+	
 	public int getNumberofUsers() {
 		return userDao.getNumberofUsers();
 	}

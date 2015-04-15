@@ -92,6 +92,10 @@ public class UserDao {
 		session().update(user);
 	}
 	
+	public void updateNoPassEncode(User user) {
+		session().update(user);
+	}
+	
 	public int getNumberofUsers() {
 		int count = ((Long) session().createCriteria(User.class)
 				.setProjection(Projections.rowCount()).uniqueResult())
