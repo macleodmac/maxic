@@ -28,7 +28,8 @@ function initialize() {
 	var mcOptions = {
 		gridSize : 50,
 		maxZoom : 12,
-		styles : [ {
+		styles : 
+			[ {
 			height : 31,
 			url : "http://i.imgur.com/5oeQDPd.png",
 			width : 31
