@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
@@ -46,8 +45,6 @@ public class UserController {
 	private TowerVisitService towerVisitService;
 	private TowerService towerService;
 
-	@Autowired
-	ApplicationEventPublisher eventPublisher;
 
 	@Autowired
 	private MailSender mailSender;
