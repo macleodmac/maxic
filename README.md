@@ -1,6 +1,14 @@
 #maxic towers project
+
+##Downloading the Latest Version of the Project
+###If setup as below
+* `git pull maxi master` where you have set up the repository
+* When you have pulled the latest versions of the files, in the project directory go to the /data/ folder and run `updateDB.bat`. This will update the MySQL database. This will only work if you have a database called `towers` and an admin user called `admin` with password `letmein`
+
+###If the project is not in your Eclipse workspace
+* File > Import > Existing Maven Projects > Find where you stored the files
+
 ##Environment Setup
-*Note: This won't create a working project, we need to find a way to share the database yet.*
 ###First
 * Create a [Github](https://github.com) account
 * Email me your username so I can add you as a collaborator to the project.
