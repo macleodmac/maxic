@@ -12,8 +12,3 @@
 		<div class="modal-content"></div>
 	</div>
 </div>
-<script>
-$('body').on('hidden.bs.modal', '.modal', function () {
-    $(this).removeData('bs.modal');
-});
-</script>

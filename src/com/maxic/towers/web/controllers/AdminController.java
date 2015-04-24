@@ -554,6 +554,9 @@ public class AdminController {
 								.getName());
 				dioceseService.addDiocese(diocese);
 			}
+			
+			if (!contactDetailsService.contact)
+			//TODO
 			System.out.println(tower);
 		}
 
@@ -561,16 +564,6 @@ public class AdminController {
 
 		List<Tower> insertedTowerList = towerService.getTowers();
 
-		for (Tower tower : insertedTowerList) {
-			if (!practiceService.practicesExist(tower.getTowerId())) {
-				Practice practice = new Practice(tower.getTowerId(), 1, null,
-						null, null, null, false);
-				System.out.println("Adding practice for tower: "
-						+ tower.getTowerId());
-				practiceService.addPractice(practice);
-			}
-
-		}
 
 		return "redirect:/admin/towers";
 	}

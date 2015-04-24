@@ -77,4 +77,10 @@ public class TowerService {
 	public int getNumberOfTowersBySearchTerm(String searchTerm) {
 		return towerDao.getNumberOfTowersBySearchTerm(searchTerm);
 	}
+
+	public List<Tower> getMapTowers(String diocese, int minimumBells,
+			int maximumBells, boolean ringable, boolean groundFloorRing) {
+		return towerDao.getMapTowers(diocese, minimumBells, maximumBells, ringable, groundFloorRing);
+		
+	}
 }

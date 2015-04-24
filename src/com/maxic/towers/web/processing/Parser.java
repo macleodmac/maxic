@@ -1,4 +1,5 @@
 package com.maxic.towers.web.processing;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -34,7 +35,7 @@ public class Parser {
 			InputStream is = resource.getInputStream();
 			br = new BufferedReader(new InputStreamReader(is));
 
-			br.readLine();
+			br.readLine(); // Skip Headers
 
 			while ((line = br.readLine()) != null) {
 
@@ -95,30 +96,44 @@ public class Parser {
 					ringable = false;
 				}
 
-				ArrayList<ContactDetails> detailsList = null;
 				if (!towerProperties[31].isEmpty()) {
-					detailsList = new ArrayList<ContactDetails>();
 					ContactDetails contactDetails = new ContactDetails();
-					contactDetails.setWebsite(towerProperties[31]);
-					detailsList.add(contactDetails);
+					contactDetails.setType("Website");
+					contactDetails.setDetail(towerProperties[31]);
 				}
-				
-				
-				
-				
-				
-				
+
 				System.out.println("Listing: " + towerProperties[39]);
-				Tower tower = new Tower(0, towerProperties[0],
-						Integer.parseInt(towerProperties[5]),
-						towerProperties[10], towerProperties[11],
-						towerProperties[12], ringable, towerProperties[1],
-						latitude, longitude, towerProperties[4],
-						satNavLatitude, satNavLongitude, new Country(
-								towerProperties[8], towerProperties[7]),
-						new Diocese(towerProperties[9], towerProperties[9]), 0,
-						towerProperties[13], towerProperties[38], gfr, sim,
-						toilet, towerProperties[30], 0, "", "", "", null);
+
+				String doveId = towerProperties[0];
+				int towerbaseId = Integer.parseInt(towerProperties[5]);
+				String placeName = towerProperties[10];
+				String placeName2 = towerProperties[11];
+				String placeNameCL = towerProperties[12];
+				String gridReference = towerProperties[1];
+				String postCode = towerProperties[4];
+				Country country = new Country(towerProperties[8],
+						towerProperties[7]);
+				Diocese diocese = new Diocese(towerProperties[9],
+						towerProperties[9]);
+				String dedication = towerProperties[13];
+				String listedGrade = towerProperties[38];
+				String extraInfo = towerProperties[30];
+				String affiliation = towerProperties[33];
+				String accessDetails = "";
+				String towerCaptain = "";
+				int numberOfBells = Integer.parseInt(towerProperties[14]);
+				String website = towerProperties[31];
+				String practiceNight = towerProperties[24];
+				String practiceTime = towerProperties[25];
+				String practiceRegularity = towerProperties[26];
+
+				Tower tower = new Tower(0, doveId, towerbaseId, placeName,
+						placeName2, placeNameCL, ringable, gridReference,
+						latitude, longitude, postCode, satNavLatitude,
+						satNavLongitude, country, diocese, dedication,
+						listedGrade, gfr, sim, toilet, extraInfo, affiliation,
+						accessDetails, towerCaptain, numberOfBells, website,
+						practiceNight, practiceTime, practiceRegularity);
 
 				towerList.add(tower);
 

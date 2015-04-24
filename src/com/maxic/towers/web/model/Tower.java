@@ -1,7 +1,6 @@
 package com.maxic.towers.web.model;
 
 import java.io.Serializable;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -44,17 +43,20 @@ public class Tower implements Serializable {
 	@JoinColumn(name = "dioceseId")
 	private Diocese diocese;
 
-	private int guildId;
 	private String dedication;
 	private String listedGrade;
 	private boolean groundFloorRing;
 	private boolean simulator;
 	private boolean toilet;
 	private String extraInfo;
-	private int buildingId;
 	private String affiliation;
 	private String accessDetails;
 	private String towerCaptain;
+	private int bellNumber;
+	private String website;
+	private String practiceNight;
+	private String practiceTime;
+	private String practiceFrequency;
 
 	public Tower() {
 
@@ -64,11 +66,12 @@ public class Tower implements Serializable {
 			String placeName2, String placeNameCL, boolean ringable,
 			String gridReference, float latitude, float longitude,
 			String postCode, float satNavLatitude, float satNavLongitude,
-			Country country, Diocese diocese, int guildId, String dedication,
+			Country country, Diocese diocese, String dedication,
 			String listedGrade, boolean groundFloorRing, boolean simulator,
-			boolean toilet, String extraInfo, int buildingId,
-			String affiliation, String accessDetails, String towerCaptain,
-			List<Practice> practices) {
+			boolean toilet, String extraInfo, String affiliation,
+			String accessDetails, String towerCaptain, int bellNumber,
+			String website, String practiceNight, String practiceTime,
+			String practiceFrequency) {
 		this.towerId = towerId;
 		this.doveId = doveId;
 		this.towerbaseId = towerbaseId;
@@ -84,18 +87,20 @@ public class Tower implements Serializable {
 		this.satNavLongitude = satNavLongitude;
 		this.country = country;
 		this.diocese = diocese;
-		this.guildId = guildId;
 		this.dedication = dedication;
 		this.listedGrade = listedGrade;
 		this.groundFloorRing = groundFloorRing;
 		this.simulator = simulator;
 		this.toilet = toilet;
 		this.extraInfo = extraInfo;
-		this.buildingId = buildingId;
 		this.affiliation = affiliation;
 		this.accessDetails = accessDetails;
 		this.towerCaptain = towerCaptain;
-	//	this.practices = practices;
+		this.bellNumber = bellNumber;
+		this.website = website;
+		this.practiceNight = practiceNight;
+		this.practiceTime = practiceTime;
+		this.practiceFrequency = practiceFrequency;
 	}
 
 	public int getTowerId() {
@@ -218,14 +223,6 @@ public class Tower implements Serializable {
 		this.diocese = diocese;
 	}
 
-	public int getGuildId() {
-		return guildId;
-	}
-
-	public void setGuildId(int guildId) {
-		this.guildId = guildId;
-	}
-
 	public String getDedication() {
 		return dedication;
 	}
@@ -274,14 +271,6 @@ public class Tower implements Serializable {
 		this.extraInfo = extraInfo;
 	}
 
-	public int getBuildingId() {
-		return buildingId;
-	}
-
-	public void setBuildingId(int buildingId) {
-		this.buildingId = buildingId;
-	}
-
 	public String getAffiliation() {
 		return affiliation;
 	}
@@ -306,6 +295,49 @@ public class Tower implements Serializable {
 		this.towerCaptain = towerCaptain;
 	}
 
+	public int getBellNumber() {
+		return bellNumber;
+	}
+
+	public void setBellNumber(int bellNumber) {
+		this.bellNumber = bellNumber;
+	}
+
+	public String getWebsite() {
+		return website;
+	}
+
+	public void setWebsite(String website) {
+		this.website = website;
+	}
+
+	public String getPracticeNight() {
+		return practiceNight;
+	}
+
+	public void setPracticeNight(String practiceNight) {
+		this.practiceNight = practiceNight;
+	}
+
+	public String getPracticeTime() {
+		return practiceTime;
+	}
+
+	public void setPracticeTime(String practiceTime) {
+		this.practiceTime = practiceTime;
+	}
+
+	public String getPracticeFrequency() {
+		return practiceFrequency;
+	}
+
+	public void setPracticeFrequency(String practiceFrequency) {
+		this.practiceFrequency = practiceFrequency;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 
 	@Override
 	public String toString() {
@@ -317,13 +349,17 @@ public class Tower implements Serializable {
 				+ ", postCode=" + postCode + ", satNavLatitude="
 				+ satNavLatitude + ", satNavLongitude=" + satNavLongitude
 				+ ", country=" + country + ", diocese=" + diocese
-				+ ", guildId=" + guildId + ", dedication=" + dedication
+				+ ", dedication=" + dedication
 				+ ", listedGrade=" + listedGrade + ", groundFloorRing="
 				+ groundFloorRing + ", simulator=" + simulator + ", toilet="
-				+ toilet + ", extraInfo=" + extraInfo + ", buildingId="
-				+ buildingId + ", affiliation=" + affiliation
-				+ ", accessDetails=" + accessDetails + ", towerCaptain="
-				+ towerCaptain + ", practices=]";
+				+ toilet + ", extraInfo=" + extraInfo + ", affiliation="
+				+ affiliation + ", accessDetails=" + accessDetails
+				+ ", towerCaptain=" + towerCaptain + ", bellNumber="
+				+ bellNumber + ", website=" + website + ", practiceNight="
+				+ practiceNight + ", practiceTime=" + practiceTime
+				+ ", practiceFrequency=" + practiceFrequency + "]";
 	}
+
+	
 
 }

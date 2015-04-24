@@ -39,22 +39,6 @@ public class HomeController {
 		return "home";
 	}
 
-	@RequestMapping(value = "/towers/gettowers", method = RequestMethod.GET, produces = "application/json")
-	@ResponseBody
-	public Map<String, Object> getTowers() {
-
-		List<TowerShort> towers = null;
-
-		towers = towerService.getTowersShort();
-
-		Map<String, Object> data = new HashMap<String, Object>();
-
-		data.put("towers", towers);
-		data.put("number", towers.size());
-
-		return data;
-	}
-
 	@RequestMapping(value = "/peals/getpeals", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
 	public Map<String, Object> getPeals() {

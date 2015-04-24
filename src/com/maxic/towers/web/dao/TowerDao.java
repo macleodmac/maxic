@@ -1,6 +1,7 @@
 package com.maxic.towers.web.dao;
 
 import com.maxic.towers.web.model.*;
+
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -145,6 +146,24 @@ public class TowerDao {
 			System.out.println(tower);
 			this.addTower(tower);
 		}
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<Tower> getMapTowers(String diocese, int minimumBells,
+			int maximumBells, boolean ringable, boolean groundFloorRing) {
+
+		Criteria crit = session().createCriteria(Tower.class);
+		
+		if (!diocese.isEmpty()) {
+			crit.add(Restrictions.eq("dioceseId", diocese));
+		}
+		
+		crit.add(Restrictions.between("bells", minimumBells, maximumBells));
+		crit.add(Restrictions.eq("ringable", ringable));
+		crit.add(Restrictions.eq("groundFloorRing", groundFloorRing));
+		
+		System.out.println(crit);
+		return (List<Tower>) crit.list();
 	}
 
 }

@@ -28,6 +28,7 @@ public class TowerVisitDao {
 		Criteria crit = session().createCriteria(TowerVisit.class);
 		crit.add(Restrictions.eq("userId", userId));
 		List<TowerVisit> visits = (List<TowerVisit>) crit.list();
+		//TODO
 		return visits;
 	}
 	

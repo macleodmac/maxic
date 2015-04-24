@@ -1,5 +1,4 @@
 var map;
-
 function initialize() {
 	var mapCanvas = document.getElementById('fullscreen-map');
 	var mapOptions = {
@@ -8,7 +7,7 @@ function initialize() {
 		mapTypeId : google.maps.MapTypeId.ROADMAP
 	}
 	map = new google.maps.Map(mapCanvas, mapOptions);
-	
+
 	var json = (function() {
 		var json = null;
 		$.ajax({
@@ -28,8 +27,7 @@ function initialize() {
 	var mcOptions = {
 		gridSize : 50,
 		maxZoom : 12,
-		styles : 
-			[ {
+		styles : [ {
 			height : 31,
 			url : "http://i.imgur.com/5oeQDPd.png",
 			width : 31
@@ -60,8 +58,6 @@ function initialize() {
 
 		var towerMarker = new google.maps.Marker({
 			position : location,
-			// url : './towers/modal?t=' + json.towers[i]["t"],
-			// map : map,
 			icon : iconURL,
 			title : json.towers[i]["t"].toString()
 		});
@@ -85,5 +81,6 @@ function initialize() {
 
 	var mc = new MarkerClusterer(map, markers, mcOptions);
 }
+
 
 google.maps.event.addDomListener(window, 'load', initialize);

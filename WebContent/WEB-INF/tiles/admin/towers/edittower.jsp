@@ -164,9 +164,9 @@
 		<div class="row">
 			<div class="col-xs-6 col-sm-3">
 				<div class="form-group">
-					<label for="guildId">Guild</label>
-					<sf:input type="text" class="form-control" path="tower.guildId"
-						id="guildId" placeholder="Guild" />
+					<label for="bellNumber">Number of Bells</label>
+					<sf:input type="text" class="form-control" path="tower.bellNumber"
+						id="bellNumber" placeholder="Bell Number" />
 				</div>
 			</div>
 			<div class="col-xs-6 col-sm-3">
@@ -174,13 +174,6 @@
 					<label for="affiliation">Affiliation</label>
 					<sf:input type="text" class="form-control" path="tower.affiliation"
 						id="affiliation" placeholder="Affiliation" />
-				</div>
-			</div>
-			<div class="col-xs-6 col-sm-3">
-				<div class="form-group">
-					<label for="buildingId">Building ID</label>
-					<sf:input type="text" class="form-control" path="tower.buildingId"
-						id="buildingId" placeholder="Building ID" />
 				</div>
 			</div>
 			<div class="col-xs-6 col-sm-3">
@@ -212,14 +205,6 @@
 					<label for="toilet">Toilet</label>
 					<sf:select class="form-control" path="tower.toilet" id="toilet"
 						items="${yesno}" />
-				</div>
-			</div>
-			<div class="col-xs-6 col-sm-3">
-				<div class="form-group">
-					<label for="towerCaptain">Tower Captain</label>
-					<sf:input type="text" class="form-control"
-						path="tower.towerCaptain" id="towerCaptain"
-						placeholder="Tower Captain" />
 				</div>
 			</div>
 		</div>

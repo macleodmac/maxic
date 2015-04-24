@@ -1,7 +1,10 @@
 package com.maxic.towers.web.controllers;
 
 import java.io.IOException;
+import java.security.Principal;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -16,6 +19,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.maxic.towers.web.dao.JsonObject;
 import com.maxic.towers.web.model.Tower;
+import com.maxic.towers.web.model.TowerShort;
+import com.maxic.towers.web.model.TowerVisit;
 import com.maxic.towers.web.model.User;
 import com.maxic.towers.web.service.ContactDetailsService;
 import com.maxic.towers.web.service.CountryService;
@@ -23,6 +28,7 @@ import com.maxic.towers.web.service.DioceseService;
 import com.maxic.towers.web.service.PealService;
 import com.maxic.towers.web.service.PracticeService;
 import com.maxic.towers.web.service.TowerService;
+import com.maxic.towers.web.service.TowerVisitService;
 import com.maxic.towers.web.service.UserService;
 import com.maxic.towers.web.service.VerificationService;
 
@@ -40,6 +46,7 @@ public class JsonController {
 	private ContactDetailsService contactDetailsService;
 	private UserService userService;
 	private VerificationService verificationService;
+	private TowerVisitService towerVisitService;
 
 	@Autowired
 	private MailSender mailSender;
@@ -83,6 +90,11 @@ public class JsonController {
 	@Autowired
 	public void setVerificationService(VerificationService verificationService) {
 		this.verificationService = verificationService;
+	}
+	
+	@Autowired
+	public void setTowerVisitService(TowerVisitService towerVisitService) {
+		this.towerVisitService = towerVisitService;
 	}
 
 	@RequestMapping(value = "/json/towers", method = RequestMethod.GET, produces = "application/json")
@@ -163,6 +175,104 @@ public class JsonController {
 
 		return returnJson;
 
+	}
+	
+	@RequestMapping(value = "/json/towermap", method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody String towerMapJson(
+			HttpServletRequest request, Principal principal) throws IOException {
+
+		boolean ringable = true;
+		boolean groundFloorRing = true;
+		boolean userVisited = false;
+		int minimumBells = 0;
+		int maximumBells = 99;
+		String diocese = ""; 
+		
+		if (request.getParameter("ringable") != null) {
+			if (request.getParameter("ringable").equals("1")) {
+				ringable = true;
+			} else {
+				ringable = false;
+			}
+		}
+		
+		if (request.getParameter("groundFloorRing") != null) {
+			if (request.getParameter("groundFloorRing").equals("1")) {
+				groundFloorRing = true;
+			} else {
+				groundFloorRing = false;
+			}
+		}
+		
+		if (request.getParameter("userVisited") != null) {
+			if (request.getParameter("userVisited").equals("1")) {
+				userVisited = true;
+			} else {
+				userVisited = false;
+			}
+		}
+		
+		if (request.getParameter("minBells") != null) {
+			minimumBells = Integer.valueOf(request.getParameter("minBells"));
+		}
+		
+		if (request.getParameter("maxBells") != null) {
+			maximumBells = Integer.valueOf(request.getParameter("maxBells"));
+		}
+
+		List<Tower> towers = towerService.getMapTowers(diocese, minimumBells, maximumBells, ringable, groundFloorRing);
+
+		if (userVisited) {
+			String username = principal.getName();
+			int userId = userService.getUser(username).getId();
+			List<TowerVisit> visits = towerVisitService.getVisitsByUserId(userId);
+			
+			for (TowerVisit visit : visits) {
+				//TODO
+			}
+		}
+		String searchTerm = request.getParameter("sSearch");
+		int pageLength = Integer.valueOf(request.getParameter("iDisplayLength"));
+		List<Tower> towerList;
+		int towerCount = towerService.getNumberOfTowers();
+		int towerListCount;
+
+		if (searchTerm != null && !searchTerm.equals("")) {
+			towerList = towerService.getPaginatedTowersByTerm(pageLength, (pageNo - 1) * 10, searchTerm);
+			towerListCount = towerService.getNumberOfTowersBySearchTerm(searchTerm);
+		} else {
+			towerList = towerService.getPaginatedTowers(pageLength, (pageNo - 1) * 10);
+			towerListCount = towerCount;
+		}
+
+		JsonObject<Tower> towerJson = new JsonObject<Tower>();
+		
+		towerJson.setiTotalDisplayRecords(towerListCount);
+		towerJson.setiTotalRecords(towerCount);
+		towerJson.setAaData(towerList);
+
+		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+		String returnJson = gson.toJson(towerJson);
+
+		return returnJson;
+
+	}
+	
+	
+	@RequestMapping(value = "/towers/gettowers", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public Map<String, Object> getTowers() {
+
+		List<TowerShort> towers = null;
+
+		towers = towerService.getTowersShort();
+
+		Map<String, Object> data = new HashMap<String, Object>();
+
+		data.put("towers", towers);
+		data.put("number", towers.size());
+
+		return data;
 	}
 
 	
