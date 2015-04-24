@@ -69,4 +69,11 @@ public class PracticeDao {
 		}
 	}
 
+	public boolean existsByNight(int towerId, String day) {
+		Criteria crit = session().createCriteria(Practice.class);
+		crit.add(Restrictions.eq("towerId", towerId));
+		crit.add(Restrictions.eq("day", day));
+		return crit.list().size() == 1;
+	}
+
 }

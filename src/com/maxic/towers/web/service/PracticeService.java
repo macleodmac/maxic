@@ -52,4 +52,8 @@ public class PracticeService {
 	public Practice getPractice(int pr) {
 		return practiceDao.getPractice(pr);
 	}
+
+	public boolean existsByNight(int towerId, String day) {
+		return practiceDao.existsByNight(towerId, day);
+	}
 }

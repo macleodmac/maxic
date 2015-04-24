@@ -42,4 +42,8 @@ public class ContactDetailsService {
 	public ContactDetails getContactDetail(int c) {
 		return contactDetailsDao.getContactDetail(c);
 	}
+	
+	public boolean existsByDetail(int towerId, String detail) {
+		return contactDetailsDao.existsByDetail(towerId, detail);
+	}
 }

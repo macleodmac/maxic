@@ -1,5 +1,4 @@
 package com.maxic.towers.web.dao;
-import com.maxic.towers.web.model.*;
 import java.util.List;
 
 public class JsonObject<T> {

@@ -6,8 +6,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.hibernate.validator.constraints.NotBlank;
-
 @Entity
 @Table(name = "practice")
 public class Practice {
@@ -17,15 +15,11 @@ public class Practice {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int practiceId;
 	
-	@NotBlank
 	private String practiceName;
 	
-	@NotBlank
 	private String day;
 	
-	@NotBlank
 	private String time;
-	@NotBlank
 	private String regularity;
 	private boolean visitorsWelcome;
 

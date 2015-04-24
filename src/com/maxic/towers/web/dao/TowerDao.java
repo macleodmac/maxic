@@ -125,8 +125,15 @@ public class TowerDao {
 		return tower;
 	}
 
+	public Tower getTowerByDoveId(String doveId) {
+		Criteria crit = session().createCriteria(Tower.class);
+		crit.add(Restrictions.eq("doveId", doveId));
+		Tower tower = (Tower) crit.uniqueResult();
+		return tower;
+	}
+
 	public void addTower(Tower tower) {
-		session().save(tower);
+		session().saveOrUpdate(tower);
 	}
 
 	public boolean deleteTower(int id) {
@@ -150,20 +157,28 @@ public class TowerDao {
 
 	@SuppressWarnings("unchecked")
 	public List<Tower> getMapTowers(String diocese, int minimumBells,
-			int maximumBells, boolean ringable, boolean groundFloorRing) {
+			int maximumBells, boolean ringable, boolean groundFloorRing,
+			int results) {
 
 		Criteria crit = session().createCriteria(Tower.class);
-		
+
 		if (!diocese.isEmpty()) {
 			crit.add(Restrictions.eq("dioceseId", diocese));
 		}
-		
-		crit.add(Restrictions.between("bells", minimumBells, maximumBells));
+
+		crit.add(Restrictions.between("bellNumber", minimumBells, maximumBells));
+
 		crit.add(Restrictions.eq("ringable", ringable));
 		crit.add(Restrictions.eq("groundFloorRing", groundFloorRing));
-		
+		crit.setMaxResults(results);
 		System.out.println(crit);
 		return (List<Tower>) crit.list();
+	}
+
+	public boolean existsByDoveId(String doveId) {
+		Criteria crit = session().createCriteria(Tower.class);
+		crit.add(Restrictions.eq("doveId", doveId));
+		return crit.list().size() == 1;
 	}
 
 }

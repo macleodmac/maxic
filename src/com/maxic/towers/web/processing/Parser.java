@@ -18,13 +18,13 @@ import com.maxic.towers.web.model.Tower;
 
 public class Parser {
 
-	public ArrayList<Tower> parseDoveFile() {
+	public static ArrayList<Tower> parseDoveFile(String fileLocation) {
 
 		ApplicationContext appContext = new ClassPathXmlApplicationContext();
 
 		Resource resource = appContext
-				.getResource("classpath:/com/maxic/towers/web/processing/dove.txt");
-
+				.getResource("file:/"+fileLocation);
+		
 		BufferedReader br = null;
 		String line = null;
 		String delimiter = "\\\\";
@@ -126,6 +126,29 @@ public class Parser {
 				String practiceNight = towerProperties[24];
 				String practiceTime = towerProperties[25];
 				String practiceRegularity = towerProperties[26];
+				
+				if (towerProperties[24].equalsIgnoreCase("mon")) {
+					practiceNight = "Monday";
+				} else if (towerProperties[24].equalsIgnoreCase("tue")) {
+					practiceNight = "Tuesday";
+				} else if (towerProperties[24].equalsIgnoreCase("wed")) {
+					practiceNight = "Wednesday";
+				} else if (towerProperties[24].equalsIgnoreCase("thu")) {
+					practiceNight = "Thursday";
+				} else if (towerProperties[24].equalsIgnoreCase("fri")) {
+					practiceNight = "Friday";
+				} else if (towerProperties[24].equalsIgnoreCase("sat")) {
+					practiceNight = "Saturday";
+				} else if (towerProperties[24].equalsIgnoreCase("sun")) {
+					practiceNight = "Sunday";
+				}
+				
+				if (!website.isEmpty()) {
+					if (!website.startsWith("http://")) {
+						website = "http://" + website;
+					}
+				}
+				
 
 				Tower tower = new Tower(0, doveId, towerbaseId, placeName,
 						placeName2, placeNameCL, ringable, gridReference,
@@ -160,11 +183,6 @@ public class Parser {
 		}
 		return towerList;
 
-	}
-
-	static void main(String[] args) {
-		Parser parser = new Parser();
-		parser.parseDoveFile();
 	}
 
 }

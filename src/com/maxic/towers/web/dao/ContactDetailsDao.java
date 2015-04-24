@@ -61,5 +61,12 @@ public class ContactDetailsDao {
 		return contactDetails;
 	}
 
+	public boolean existsByDetail(int towerId, String detail) {
+		Criteria crit = session().createCriteria(ContactDetails.class);
+		crit.add(Restrictions.eq("detail", detail));
+		crit.add(Restrictions.eq("towerId", towerId));
+		return crit.list().size() == 1;
+	}
+
 
 }

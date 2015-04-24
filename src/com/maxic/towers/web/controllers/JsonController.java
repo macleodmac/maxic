@@ -186,6 +186,7 @@ public class JsonController {
 		boolean userVisited = false;
 		int minimumBells = 0;
 		int maximumBells = 99;
+		int results = 10;
 		String diocese = ""; 
 		
 		if (request.getParameter("ringable") != null) {
@@ -220,36 +221,13 @@ public class JsonController {
 			maximumBells = Integer.valueOf(request.getParameter("maxBells"));
 		}
 
-		List<Tower> towers = towerService.getMapTowers(diocese, minimumBells, maximumBells, ringable, groundFloorRing);
-
-		if (userVisited) {
-			String username = principal.getName();
-			int userId = userService.getUser(username).getId();
-			List<TowerVisit> visits = towerVisitService.getVisitsByUserId(userId);
-			
-			for (TowerVisit visit : visits) {
-				//TODO
-			}
-		}
-		String searchTerm = request.getParameter("sSearch");
-		int pageLength = Integer.valueOf(request.getParameter("iDisplayLength"));
-		List<Tower> towerList;
-		int towerCount = towerService.getNumberOfTowers();
-		int towerListCount;
-
-		if (searchTerm != null && !searchTerm.equals("")) {
-			towerList = towerService.getPaginatedTowersByTerm(pageLength, (pageNo - 1) * 10, searchTerm);
-			towerListCount = towerService.getNumberOfTowersBySearchTerm(searchTerm);
-		} else {
-			towerList = towerService.getPaginatedTowers(pageLength, (pageNo - 1) * 10);
-			towerListCount = towerCount;
-		}
+		List<Tower> towers = towerService.getMapTowers(diocese, minimumBells, maximumBells, ringable, groundFloorRing, results);
 
 		JsonObject<Tower> towerJson = new JsonObject<Tower>();
 		
-		towerJson.setiTotalDisplayRecords(towerListCount);
-		towerJson.setiTotalRecords(towerCount);
-		towerJson.setAaData(towerList);
+		towerJson.setiTotalDisplayRecords(5);
+		towerJson.setiTotalRecords(6);
+		towerJson.setAaData(towers);
 
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 		String returnJson = gson.toJson(towerJson);

@@ -79,8 +79,16 @@ public class TowerService {
 	}
 
 	public List<Tower> getMapTowers(String diocese, int minimumBells,
-			int maximumBells, boolean ringable, boolean groundFloorRing) {
-		return towerDao.getMapTowers(diocese, minimumBells, maximumBells, ringable, groundFloorRing);
+			int maximumBells, boolean ringable, boolean groundFloorRing, int results) {
+		return towerDao.getMapTowers(diocese, minimumBells, maximumBells, ringable, groundFloorRing, results);
 		
+	}
+
+	public Tower getTowerByDoveId(String doveId) {
+		return towerDao.getTowerByDoveId(doveId);
+	}
+
+	public boolean existsByDoveId(String doveId) {
+		return towerDao.existsByDoveId(doveId);
 	}
 }
