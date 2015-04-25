@@ -64,7 +64,7 @@ public class AdminController {
 
 	@Autowired
 	private MailSender mailSender;
-	
+
 	@Autowired
 	public void setTowerService(TowerService towerService) {
 		this.towerService = towerService;
@@ -261,7 +261,7 @@ public class AdminController {
 		contactTypes.add("Twitter");
 		contactTypes.add("Facebook");
 		model.addAttribute("contactTypes", contactTypes);
-		
+
 		Map<Boolean, String> booleanMap = new LinkedHashMap<Boolean, String>();
 		booleanMap.put(true, "Yes");
 		booleanMap.put(false, "No");
@@ -295,55 +295,92 @@ public class AdminController {
 			Pattern pattern;
 			Matcher matcher;
 			String contactType = contactDetails.getType();
-			
+
 			if (contactType.equalsIgnoreCase("phone")) {
 				pattern = Pattern.compile("^[0-9]{10,15}$");
 				matcher = pattern.matcher(contactDetails.getDetail());
 				if (matcher.matches()) {
 					contactDetailsService.editContactDetails(contactDetails);
 				} else {
-					redirectAttributes.addAttribute("t", contactDetails.getTowerId());
-					redirectAttributes.addFlashAttribute("dangerMessage", "The phone number  " + contactDetails.getDetail() + " could not be verified, please make sure you follow the rules.");
+					redirectAttributes.addAttribute("t",
+							contactDetails.getTowerId());
+					redirectAttributes
+							.addFlashAttribute(
+									"dangerMessage",
+									"The phone number  "
+											+ contactDetails.getDetail()
+											+ " could not be verified, please make sure you follow the rules.");
 					return "redirect:/admin/towers/edit";
 				}
 			} else if (contactType.equalsIgnoreCase("email")) {
-				pattern = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+				pattern = Pattern.compile(
+						"^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$",
+						Pattern.CASE_INSENSITIVE);
 				matcher = pattern.matcher(contactDetails.getDetail());
 				if (matcher.matches()) {
 					contactDetailsService.editContactDetails(contactDetails);
 				} else {
-					redirectAttributes.addAttribute("t", contactDetails.getTowerId());
-					redirectAttributes.addFlashAttribute("dangerMessage", "The email address  " + contactDetails.getDetail() + " could not be verified, please make sure you follow the rules.");
+					redirectAttributes.addAttribute("t",
+							contactDetails.getTowerId());
+					redirectAttributes
+							.addFlashAttribute(
+									"dangerMessage",
+									"The email address  "
+											+ contactDetails.getDetail()
+											+ " could not be verified, please make sure you follow the rules.");
 					return "redirect:/admin/towers/edit";
 				}
 			} else if (contactType.equalsIgnoreCase("website")) {
-				pattern = Pattern.compile("^(?:(?:https?|ftp):\\/\\/)(?:\\S+(?::\\S*)?@)?(?:(?!(?:10|127)(?:\\.\\d{1,3}){3})(?!(?:169\\.254|192\\.168)(?:\\.\\d{1,3}){2})(?!172\\.(?:1[6-9]|2\\d|3[0-1])(?:\\.\\d{1,3}){2})(?:[1-9]\\d?|1\\d\\d|2[01]\\d|22[0-3])(?:\\.(?:1?\\d{1,2}|2[0-4]\\d|25[0-5])){2}(?:\\.(?:[1-9]\\d?|1\\d\\d|2[0-4]\\d|25[0-4]))|(?:(?:[a-z\\u00a1-\\uffff0-9]-*)*[a-z\\u00a1-\\uffff0-9]+)(?:\\.(?:[a-z\\u00a1-\\uffff0-9]-*)*[a-z\\u00a1-\\uffff0-9]+)*(?:\\.(?:[a-z\\u00a1-\\uffff]{2,})))(?::\\d{2,5})?(?:\\/\\S*)?$", Pattern.CASE_INSENSITIVE);
+				pattern = Pattern
+						.compile(
+								"^(?:(?:https?|ftp):\\/\\/)(?:\\S+(?::\\S*)?@)?(?:(?!(?:10|127)(?:\\.\\d{1,3}){3})(?!(?:169\\.254|192\\.168)(?:\\.\\d{1,3}){2})(?!172\\.(?:1[6-9]|2\\d|3[0-1])(?:\\.\\d{1,3}){2})(?:[1-9]\\d?|1\\d\\d|2[01]\\d|22[0-3])(?:\\.(?:1?\\d{1,2}|2[0-4]\\d|25[0-5])){2}(?:\\.(?:[1-9]\\d?|1\\d\\d|2[0-4]\\d|25[0-4]))|(?:(?:[a-z\\u00a1-\\uffff0-9]-*)*[a-z\\u00a1-\\uffff0-9]+)(?:\\.(?:[a-z\\u00a1-\\uffff0-9]-*)*[a-z\\u00a1-\\uffff0-9]+)*(?:\\.(?:[a-z\\u00a1-\\uffff]{2,})))(?::\\d{2,5})?(?:\\/\\S*)?$",
+								Pattern.CASE_INSENSITIVE);
 				matcher = pattern.matcher(contactDetails.getDetail());
 				if (matcher.matches()) {
 					contactDetailsService.editContactDetails(contactDetails);
 				} else {
-					redirectAttributes.addAttribute("t", contactDetails.getTowerId());
-					redirectAttributes.addFlashAttribute("dangerMessage", "The website address  " + contactDetails.getDetail() + " could not be verified, please make sure you follow the rules.");
+					redirectAttributes.addAttribute("t",
+							contactDetails.getTowerId());
+					redirectAttributes
+							.addFlashAttribute(
+									"dangerMessage",
+									"The website address  "
+											+ contactDetails.getDetail()
+											+ " could not be verified, please make sure you follow the rules.");
 					return "redirect:/admin/towers/edit";
 				}
 			} else if (contactType.equalsIgnoreCase("twitter")) {
-				pattern = Pattern.compile("^[A-z0-9]*$", Pattern.CASE_INSENSITIVE);
+				pattern = Pattern.compile("^[A-z0-9]*$",
+						Pattern.CASE_INSENSITIVE);
 				matcher = pattern.matcher(contactDetails.getDetail());
 				if (matcher.matches()) {
 					contactDetailsService.editContactDetails(contactDetails);
 				} else {
-					redirectAttributes.addAttribute("t", contactDetails.getTowerId());
-					redirectAttributes.addFlashAttribute("dangerMessage", "The Twitter username  " + contactDetails.getDetail() + " could not be verified, please make sure you follow the rules.");
+					redirectAttributes.addAttribute("t",
+							contactDetails.getTowerId());
+					redirectAttributes
+							.addFlashAttribute(
+									"dangerMessage",
+									"The Twitter username  "
+											+ contactDetails.getDetail()
+											+ " could not be verified, please make sure you follow the rules.");
 					return "redirect:/admin/towers/edit";
 				}
 			} else if (contactType.equalsIgnoreCase("facebook")) {
-				pattern = Pattern.compile("^[A-z0-9/]*$", Pattern.CASE_INSENSITIVE);
+				pattern = Pattern.compile("^[A-z0-9/]*$",
+						Pattern.CASE_INSENSITIVE);
 				matcher = pattern.matcher(contactDetails.getDetail());
 				if (matcher.matches()) {
 					contactDetailsService.editContactDetails(contactDetails);
 				} else {
-					redirectAttributes.addAttribute("t", contactDetails.getTowerId());
-					redirectAttributes.addFlashAttribute("dangerMessage", "The Facebook group/page URL " + contactDetails.getDetail() + " could not be verified, please make sure you follow the rules.");
+					redirectAttributes.addAttribute("t",
+							contactDetails.getTowerId());
+					redirectAttributes
+							.addFlashAttribute(
+									"dangerMessage",
+									"The Facebook group/page URL "
+											+ contactDetails.getDetail()
+											+ " could not be verified, please make sure you follow the rules.");
 					return "redirect:/admin/towers/edit";
 				}
 			}
@@ -382,7 +419,7 @@ public class AdminController {
 		booleanMap.put(true, "Yes");
 		booleanMap.put(false, "No");
 		model.addAttribute("yesno", booleanMap);
-		
+
 		Practice practice = new Practice(t, 0, null, null, "00:00:00", null,
 				true);
 		model.addAttribute("practice", practice);
@@ -443,7 +480,7 @@ public class AdminController {
 		contactTypes.add("Twitter");
 		contactTypes.add("Facebook");
 		model.addAttribute("contactTypes", contactTypes);
-		
+
 		return "/admin/towers/addcontact";
 	}
 
@@ -466,35 +503,58 @@ public class AdminController {
 		Pattern pattern;
 		Matcher matcher;
 		String contactType = contactDetails.getType();
-		
+
 		if (contactType.equalsIgnoreCase("phone")) {
 			pattern = Pattern.compile("^[0-9]{10,15}$");
 			matcher = pattern.matcher(contactDetails.getDetail());
 			if (matcher.matches()) {
 				contactDetailsService.addContactDetails(contactDetails);
 			} else {
-				redirectAttributes.addAttribute("t", contactDetails.getTowerId());
-				redirectAttributes.addFlashAttribute("dangerMessage", "The phone number  " + contactDetails.getDetail() + " could not be verified, please make sure you follow the rules below.");
+				redirectAttributes.addAttribute("t",
+						contactDetails.getTowerId());
+				redirectAttributes
+						.addFlashAttribute(
+								"dangerMessage",
+								"The phone number  "
+										+ contactDetails.getDetail()
+										+ " could not be verified, please make sure you follow the rules below.");
 				return "redirect:/admin/towers/addcontact";
 			}
 		} else if (contactType.equalsIgnoreCase("email")) {
-			pattern = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+			pattern = Pattern.compile(
+					"^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$",
+					Pattern.CASE_INSENSITIVE);
 			matcher = pattern.matcher(contactDetails.getDetail());
 			if (matcher.matches()) {
 				contactDetailsService.addContactDetails(contactDetails);
 			} else {
-				redirectAttributes.addAttribute("t", contactDetails.getTowerId());
-				redirectAttributes.addFlashAttribute("dangerMessage", "The email address  " + contactDetails.getDetail() + " could not be verified, please make sure you follow the rules below.");
+				redirectAttributes.addAttribute("t",
+						contactDetails.getTowerId());
+				redirectAttributes
+						.addFlashAttribute(
+								"dangerMessage",
+								"The email address  "
+										+ contactDetails.getDetail()
+										+ " could not be verified, please make sure you follow the rules below.");
 				return "redirect:/admin/towers/addcontact";
 			}
 		} else if (contactType.equalsIgnoreCase("website")) {
-			pattern = Pattern.compile("^(?:(?:https?|ftp):\\/\\/)(?:\\S+(?::\\S*)?@)?(?:(?!(?:10|127)(?:\\.\\d{1,3}){3})(?!(?:169\\.254|192\\.168)(?:\\.\\d{1,3}){2})(?!172\\.(?:1[6-9]|2\\d|3[0-1])(?:\\.\\d{1,3}){2})(?:[1-9]\\d?|1\\d\\d|2[01]\\d|22[0-3])(?:\\.(?:1?\\d{1,2}|2[0-4]\\d|25[0-5])){2}(?:\\.(?:[1-9]\\d?|1\\d\\d|2[0-4]\\d|25[0-4]))|(?:(?:[a-z\\u00a1-\\uffff0-9]-*)*[a-z\\u00a1-\\uffff0-9]+)(?:\\.(?:[a-z\\u00a1-\\uffff0-9]-*)*[a-z\\u00a1-\\uffff0-9]+)*(?:\\.(?:[a-z\\u00a1-\\uffff]{2,})))(?::\\d{2,5})?(?:\\/\\S*)?$", Pattern.CASE_INSENSITIVE);
+			pattern = Pattern
+					.compile(
+							"^(?:(?:https?|ftp):\\/\\/)(?:\\S+(?::\\S*)?@)?(?:(?!(?:10|127)(?:\\.\\d{1,3}){3})(?!(?:169\\.254|192\\.168)(?:\\.\\d{1,3}){2})(?!172\\.(?:1[6-9]|2\\d|3[0-1])(?:\\.\\d{1,3}){2})(?:[1-9]\\d?|1\\d\\d|2[01]\\d|22[0-3])(?:\\.(?:1?\\d{1,2}|2[0-4]\\d|25[0-5])){2}(?:\\.(?:[1-9]\\d?|1\\d\\d|2[0-4]\\d|25[0-4]))|(?:(?:[a-z\\u00a1-\\uffff0-9]-*)*[a-z\\u00a1-\\uffff0-9]+)(?:\\.(?:[a-z\\u00a1-\\uffff0-9]-*)*[a-z\\u00a1-\\uffff0-9]+)*(?:\\.(?:[a-z\\u00a1-\\uffff]{2,})))(?::\\d{2,5})?(?:\\/\\S*)?$",
+							Pattern.CASE_INSENSITIVE);
 			matcher = pattern.matcher(contactDetails.getDetail());
 			if (matcher.matches()) {
 				contactDetailsService.addContactDetails(contactDetails);
 			} else {
-				redirectAttributes.addAttribute("t", contactDetails.getTowerId());
-				redirectAttributes.addFlashAttribute("dangerMessage", "The website address  " + contactDetails.getDetail() + " could not be verified, please make sure you follow the rules below.");
+				redirectAttributes.addAttribute("t",
+						contactDetails.getTowerId());
+				redirectAttributes
+						.addFlashAttribute(
+								"dangerMessage",
+								"The website address  "
+										+ contactDetails.getDetail()
+										+ " could not be verified, please make sure you follow the rules below.");
 				return "redirect:/admin/towers/addcontact";
 			}
 		} else if (contactType.equalsIgnoreCase("twitter")) {
@@ -503,8 +563,14 @@ public class AdminController {
 			if (matcher.matches()) {
 				contactDetailsService.addContactDetails(contactDetails);
 			} else {
-				redirectAttributes.addAttribute("t", contactDetails.getTowerId());
-				redirectAttributes.addFlashAttribute("dangerMessage", "The Twitter username  " + contactDetails.getDetail() + " could not be verified, please make sure you follow the rules below.");
+				redirectAttributes.addAttribute("t",
+						contactDetails.getTowerId());
+				redirectAttributes
+						.addFlashAttribute(
+								"dangerMessage",
+								"The Twitter username  "
+										+ contactDetails.getDetail()
+										+ " could not be verified, please make sure you follow the rules below.");
 				return "redirect:/admin/towers/addcontact";
 			}
 		} else if (contactType.equalsIgnoreCase("facebook")) {
@@ -513,12 +579,18 @@ public class AdminController {
 			if (matcher.matches()) {
 				contactDetailsService.addContactDetails(contactDetails);
 			} else {
-				redirectAttributes.addAttribute("t", contactDetails.getTowerId());
-				redirectAttributes.addFlashAttribute("dangerMessage", "The Facebook group/page URL  " + contactDetails.getDetail() + " could not be verified, please make sure you follow the rules below.");
+				redirectAttributes.addAttribute("t",
+						contactDetails.getTowerId());
+				redirectAttributes
+						.addFlashAttribute(
+								"dangerMessage",
+								"The Facebook group/page URL  "
+										+ contactDetails.getDetail()
+										+ " could not be verified, please make sure you follow the rules below.");
 				return "redirect:/admin/towers/addcontact";
 			}
 		}
-		
+
 		redirectAttributes.addFlashAttribute("message",
 				"Contact Details successfully added!");
 		redirectAttributes.addAttribute("t", contactDetails.getTowerId());
@@ -535,37 +607,6 @@ public class AdminController {
 				"Contact Details successfully deleted!");
 		redirectAttributes.addAttribute("t", t);
 		return "redirect:/admin/towers/edit";
-	}
-
-	@RequestMapping(value = "/admin/towers/parsedove")
-	public String parseDove(Model model) {
-		Parser parser = new Parser();
-		ArrayList<Tower> towerList = parser.parseDoveFile();
-		for (Tower tower : towerList) {
-			if (!countryService.countryExists(tower.getCountry().getIsoCode())) {
-				Country country = new Country(tower.getCountry().getIsoCode(),
-						tower.getCountry().getName());
-				countryService.addCountry(country);
-			}
-			if (!dioceseService
-					.dioceseExists(tower.getDiocese().getDioceseId())) {
-				Diocese diocese = new Diocese(
-						tower.getDiocese().getDioceseId(), tower.getDiocese()
-								.getName());
-				dioceseService.addDiocese(diocese);
-			}
-			
-			if (!contactDetailsService.contact)
-			//TODO
-			System.out.println(tower);
-		}
-
-		towerService.addTowers(towerList);
-
-		List<Tower> insertedTowerList = towerService.getTowers();
-
-
-		return "redirect:/admin/towers";
 	}
 
 	/*
@@ -805,127 +846,148 @@ public class AdminController {
 		return "/admin/users";
 
 	}
-	
+
 	@RequestMapping(value = "/admin/users/add")
 	public String addUser(Model model) {
 
 		User user = new User();
 		model.addAttribute("user", user);
-		
+
 		return "/admin/users/add";
 
 	}
-	
+
 	@RequestMapping(value = "/admin/users/edit", method = RequestMethod.GET)
 	public String editUser(Model model, @RequestParam("u") int u) {
 
 		User user = userService.getUser(u);
 		model.addAttribute("user", user);
-		
+
 		Map<Integer, String> hm = towerService.getTowerDescriptorMap();
 		model.addAttribute("towers", hm);
-		
+
 		Map<Boolean, String> booleanMap = new LinkedHashMap<Boolean, String>();
 		booleanMap.put(true, "Yes");
 		booleanMap.put(false, "No");
 		model.addAttribute("yesno", booleanMap);
-		
+
 		return "/admin/users/edit";
 
 	}
-	
+
 	@RequestMapping(value = "/admin/users/doedit", method = RequestMethod.POST)
-	public String editUser(Model model, @Valid User user, BindingResult result, RedirectAttributes redirectAttributes) {
+	public String editUser(Model model, @Valid User user, BindingResult result,
+			RedirectAttributes redirectAttributes) {
 
 		if (result.hasErrors()) {
-			redirectAttributes.addFlashAttribute("dangerMessage", "The user could not be edited, please try again.");
+			redirectAttributes.addFlashAttribute("dangerMessage",
+					"The user could not be edited, please try again.");
 			redirectAttributes.addAttribute("u", user.getId());
 			return "redirect:/admin/users/edit";
 		} else if (userService.existsById(user)) {
 			System.out.println(user);
 			userService.updateNoPassEncode(user);
-			redirectAttributes.addFlashAttribute("message", "User " + user.getEmail() + " successfully edited!");
+			redirectAttributes.addFlashAttribute("message",
+					"User " + user.getEmail() + " successfully edited!");
 			return "redirect:/admin/users";
 		} else {
-			redirectAttributes.addFlashAttribute("dangerMessage", "An unexpected error occurred.");
+			redirectAttributes.addFlashAttribute("dangerMessage",
+					"An unexpected error occurred.");
 			redirectAttributes.addAttribute("u", user.getId());
 			return "redirect:/admin/users/edit";
 		}
-		
 
 	}
-	
+
 	@RequestMapping(value = "/admin/users/doadd", method = RequestMethod.POST)
-	public String doAddUser(Model model, @Valid User user, BindingResult result, RedirectAttributes redirectAttributes, HttpServletRequest httpRequestServlet) {
-		
+	public String doAddUser(Model model, @Valid User user,
+			BindingResult result, RedirectAttributes redirectAttributes,
+			HttpServletRequest httpRequestServlet) {
+
 		VerificationToken verificationToken = null;
 		if (result.hasErrors()) {
-			redirectAttributes.addFlashAttribute("dangerMessage", "That user could not be added, please try again.");
+			redirectAttributes.addFlashAttribute("dangerMessage",
+					"That user could not be added, please try again.");
 			return "redirect:/admin/users/add";
 		} else if (userService.exists(user)) {
-			redirectAttributes.addFlashAttribute("dangerMessage", "That email already exists in the database, please try again.");
+			redirectAttributes
+					.addFlashAttribute("dangerMessage",
+							"That email already exists in the database, please try again.");
 			return "redirect:/admin/users/add";
 		} else {
 			user.setPassword(UUID.randomUUID().toString());
 			String token = UUID.randomUUID().toString();
 			verificationToken = new VerificationToken(token, user);
 			verificationService.addToken(verificationToken);
-			
+
 			SimpleMailMessage mailMessage = new SimpleMailMessage();
 			String contextPath = httpRequestServlet.getContextPath();
 			StringBuffer sb = new StringBuffer();
 			sb.append("An administrator has created you an account on TowerFinder. \n\n");
 			sb.append("Please visit the below URL to set your password:\n\n");
-			sb.append("http://localhost:8080" + contextPath + "/reset?token=" + verificationToken.getToken() + "\n\n");
+			sb.append("http://localhost:8080" + contextPath + "/reset?token="
+					+ verificationToken.getToken() + "\n\n");
 			sb.append("Please note: this link will expire in two days, and can only be used once.\n\n");
 			sb.append("Many Thanks,\n\n");
 			sb.append("The TowerFinder team");
-			
+
 			mailMessage.setTo(user.getEmail());
 			mailMessage.setFrom("noreply@towerfinder.com");
 			mailMessage.setSubject("TowerFinder - Account Created");
 			mailMessage.setText(sb.toString());
 			mailSender.send(mailMessage);
-			redirectAttributes.addFlashAttribute("message", "User " + user.getEmail() + " has been created and emailed a request to set their password.");
+			redirectAttributes
+					.addFlashAttribute(
+							"message",
+							"User "
+									+ user.getEmail()
+									+ " has been created and emailed a request to set their password.");
 			return "redirect:/admin/users";
 		}
 	}
 
 	@RequestMapping(value = "/admin/users/reset", method = RequestMethod.GET)
-	public String resetUser(Model model,
-			@RequestParam("u") int id,
-			RedirectAttributes redirectAttributes, HttpServletRequest httpRequestServlet) {
+	public String resetUser(Model model, @RequestParam("u") int id,
+			RedirectAttributes redirectAttributes,
+			HttpServletRequest httpRequestServlet) {
 
 		User tempUser = new User();
 		tempUser.setId(id);
 		VerificationToken verificationToken = null;
 		User user = null;
-		
+
 		if (userService.existsById(tempUser)) {
 			user = userService.getUser(id);
 			String token = UUID.randomUUID().toString();
 			verificationToken = new VerificationToken(token, user);
 			verificationService.addToken(verificationToken);
-			
+
 			SimpleMailMessage mailMessage = new SimpleMailMessage();
 			String contextPath = httpRequestServlet.getContextPath();
 			StringBuffer sb = new StringBuffer();
 			sb.append("An administrator has submitted a request to reset your password. \n\n");
 			sb.append("Please visit the below URL to reset your password:\n\n");
-			sb.append("http://localhost:8080" + contextPath + "/reset?token=" + verificationToken.getToken() + "\n\n");
+			sb.append("http://localhost:8080" + contextPath + "/reset?token="
+					+ verificationToken.getToken() + "\n\n");
 			sb.append("Please note: this link will expire in two days, and can only be used once.\n\n");
 			sb.append("Many Thanks,\n\n");
 			sb.append("The TowerFinder team");
-			
+
 			mailMessage.setTo(user.getEmail());
 			mailMessage.setFrom("noreply@towerfinder.com");
 			mailMessage.setSubject("TowerFinder - Reset Password");
 			mailMessage.setText(sb.toString());
 			mailSender.send(mailMessage);
-			redirectAttributes.addFlashAttribute("message", "User " + user.getEmail() + " has been emailed a request to reset their password.");
+			redirectAttributes
+					.addFlashAttribute(
+							"message",
+							"User "
+									+ user.getEmail()
+									+ " has been emailed a request to reset their password.");
 			return "redirect:/admin/users";
 		} else {
-			redirectAttributes.addFlashAttribute("message", "An unforseen error occured, that user was not found.");
+			redirectAttributes.addFlashAttribute("message",
+					"An unforseen error occured, that user was not found.");
 			return "redirect:/admin/users";
 		}
 	}

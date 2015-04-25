@@ -37,9 +37,6 @@
 						<ul class="dropdown-menu" role="menu">
 							<li class="dropdown-header">Administration</li>
 							<li><a
-								href="${pageContext.request.contextPath}/admin/dashboard"
-								data-ytta-id="-">Dashboard</a></li>
-							<li><a
 								href="${pageContext.request.contextPath}/admin/towers"
 								data-ytta-id="-">Towers</a></li>
 							<li><a href="${pageContext.request.contextPath}/admin/peals"
@@ -55,6 +52,9 @@
 							<li><a
 								href="${pageContext.request.contextPath}/admin/messages"
 								data-ytta-id="-">Messages</a></li>
+							<li><a
+								href="${pageContext.request.contextPath}/admin/dove"
+								data-ytta-id="-">Update DB</a></li>
 							<li class="divider"></li>
 							<li class="dropdown-header">Help</li>
 							<li><a

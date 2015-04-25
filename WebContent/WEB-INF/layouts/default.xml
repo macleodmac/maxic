@@ -172,6 +172,11 @@
 		<put-attribute name="content" value="/WEB-INF/tiles/admin/users/edituser.jsp"></put-attribute>
 	</definition>
 	
+	<definition name="admin/dove/uploadfile" extends="admin.base">
+		<put-attribute name="title" value="Tower Finder :: Admin :: Upload Dove File"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/admin/dove/uploadfile.jsp"></put-attribute>
+	</definition>
+	
 	<definition name="/error" extends="towers.base">
 		<put-attribute name="title" value="Tower Finder :: Error"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/error/error.jsp"></put-attribute>
