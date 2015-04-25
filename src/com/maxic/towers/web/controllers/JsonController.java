@@ -2,6 +2,9 @@ package com.maxic.towers.web.controllers;
 
 import java.io.IOException;
 import java.security.Principal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.maxic.towers.web.dao.JsonObject;
+import com.maxic.towers.web.model.Peal;
 import com.maxic.towers.web.model.Tower;
 import com.maxic.towers.web.model.TowerDescriptor;
 import com.maxic.towers.web.model.TowerShort;
@@ -50,7 +54,7 @@ public class JsonController {
 
 	@Autowired
 	private MailSender mailSender;
-	
+
 	@Autowired
 	public void setTowerService(TowerService towerService) {
 		this.towerService = towerService;
@@ -91,20 +95,20 @@ public class JsonController {
 	public void setVerificationService(VerificationService verificationService) {
 		this.verificationService = verificationService;
 	}
-	
+
 	@Autowired
 	public void setTowerVisitService(TowerVisitService towerVisitService) {
 		this.towerVisitService = towerVisitService;
 	}
 
 	@RequestMapping(value = "/admin/json/towers", method = RequestMethod.GET, produces = "application/json")
-	public @ResponseBody String towerJson(
-			HttpServletRequest request) throws IOException {
+	public @ResponseBody String towerJson(HttpServletRequest request)
+			throws IOException {
 
 		int pageNo = 0;
 		int pageLength = 10;
 		String searchTerm = "";
-		
+
 		if (request.getParameter("iDisplayStart") != null) {
 			pageNo = (Integer.valueOf(request.getParameter("iDisplayStart")) / 10) + 1;
 		}
@@ -116,15 +120,18 @@ public class JsonController {
 		int towerListCount;
 
 		if (searchTerm != null && !searchTerm.equals("")) {
-			towerList = towerService.getPaginatedTowersByTerm(pageLength, (pageNo - 1) * 10, searchTerm);
-			towerListCount = towerService.getNumberOfTowersBySearchTerm(searchTerm);
+			towerList = towerService.getPaginatedTowersByTerm(pageLength,
+					(pageNo - 1) * 10, searchTerm);
+			towerListCount = towerService
+					.getNumberOfTowersBySearchTerm(searchTerm);
 		} else {
-			towerList = towerService.getPaginatedTowers(pageLength, (pageNo - 1) * 10);
+			towerList = towerService.getPaginatedTowers(pageLength,
+					(pageNo - 1) * 10);
 			towerListCount = towerCount;
 		}
 
 		JsonObject<Tower> towerJson = new JsonObject<Tower>();
-		
+
 		towerJson.setiTotalDisplayRecords(towerListCount);
 		towerJson.setiTotalRecords(towerCount);
 		towerJson.setAaData(towerList);
@@ -135,9 +142,10 @@ public class JsonController {
 		return returnJson;
 
 	}
-	
+
 	@RequestMapping(value = "/admin/json/users", method = RequestMethod.GET, produces = "application/json")
-	public @ResponseBody String userJson(HttpServletRequest request) throws IOException {
+	public @ResponseBody String userJson(HttpServletRequest request)
+			throws IOException {
 
 		int pageNo = 0;
 		int pageLength = 10;
@@ -148,20 +156,25 @@ public class JsonController {
 		if (request.getParameter("sSearch") != null) {
 			searchTerm = request.getParameter("sSearch");
 		}
-		
+
 		if (request.getParameter("iDisplayLength") != null) {
-			pageLength = Integer.valueOf(request.getParameter("iDisplayLength"));
+			pageLength = Integer
+					.valueOf(request.getParameter("iDisplayLength"));
 		}
-		List <User> userList;
-		
+		List<User> userList;
+
 		int userCount = userService.getNumberofUsers();
 		int userListCount;
 
-		if (!searchTerm.isEmpty() && searchTerm != null && !searchTerm.equals("")) {
-			userList = userService.getPaginatedUsersByTerm(pageLength, (pageNo - 1) * 10, searchTerm);
-			userListCount = userService.getNumberOfUsersBySearchTerm(searchTerm);
+		if (!searchTerm.isEmpty() && searchTerm != null
+				&& !searchTerm.equals("")) {
+			userList = userService.getPaginatedUsersByTerm(pageLength,
+					(pageNo - 1) * 10, searchTerm);
+			userListCount = userService
+					.getNumberOfUsersBySearchTerm(searchTerm);
 		} else {
-			userList = userService.getPaginatedUsers(pageLength, (pageNo - 1) * 10);
+			userList = userService.getPaginatedUsers(pageLength,
+					(pageNo - 1) * 10);
 			userListCount = userCount;
 		}
 
@@ -178,15 +191,15 @@ public class JsonController {
 		return returnJson;
 
 	}
-	
+
 	@RequestMapping(value = "/json/towers", method = RequestMethod.GET, produces = "application/json")
-	public @ResponseBody String userTowerJson(
-			HttpServletRequest request) throws IOException {
+	public @ResponseBody String userTowerJson(HttpServletRequest request)
+			throws IOException {
 
 		int pageNo = 0;
 		int pageLength = 10;
 		String searchTerm = "";
-		
+
 		if (request.getParameter("iDisplayStart") != null) {
 			pageNo = (Integer.valueOf(request.getParameter("iDisplayStart")) / 10) + 1;
 		}
@@ -198,15 +211,18 @@ public class JsonController {
 		int towerListCount;
 
 		if (searchTerm != null && !searchTerm.equals("")) {
-			towerList = towerService.getPaginatedTowerDescriptorsBySearchTerm(pageLength, (pageNo - 1) * 10, searchTerm);
-			towerListCount = towerService.getNumberOfTowersBySearchTerm(searchTerm);
+			towerList = towerService.getPaginatedTowerDescriptorsBySearchTerm(
+					pageLength, (pageNo - 1) * 10, searchTerm);
+			towerListCount = towerService
+					.getNumberOfTowersBySearchTerm(searchTerm);
 		} else {
-			towerList = towerService.getPaginatedTowerDescriptors(pageLength, (pageNo - 1) * 10);
+			towerList = towerService.getPaginatedTowerDescriptors(pageLength,
+					(pageNo - 1) * 10);
 			towerListCount = towerCount;
 		}
 
 		JsonObject<TowerDescriptor> towerJson = new JsonObject<TowerDescriptor>();
-		
+
 		towerJson.setiTotalDisplayRecords(towerListCount);
 		towerJson.setiTotalRecords(towerCount);
 		towerJson.setAaData(towerList);
@@ -217,10 +233,10 @@ public class JsonController {
 		return returnJson;
 
 	}
-	
+
 	@RequestMapping(value = "/json/towermap", method = RequestMethod.GET, produces = "application/json")
-	public @ResponseBody String towerMapJson(
-			HttpServletRequest request, Principal principal) throws IOException {
+	public @ResponseBody String towerMapJson(HttpServletRequest request,
+			Principal principal) throws IOException {
 
 		boolean ringable = true;
 		boolean groundFloorRing = true;
@@ -228,8 +244,8 @@ public class JsonController {
 		int minimumBells = 0;
 		int maximumBells = 99;
 		int results = 10;
-		String diocese = ""; 
-		
+		String diocese = "";
+
 		if (request.getParameter("ringable") != null) {
 			if (request.getParameter("ringable").equals("1")) {
 				ringable = true;
@@ -237,7 +253,7 @@ public class JsonController {
 				ringable = false;
 			}
 		}
-		
+
 		if (request.getParameter("groundFloorRing") != null) {
 			if (request.getParameter("groundFloorRing").equals("1")) {
 				groundFloorRing = true;
@@ -245,7 +261,7 @@ public class JsonController {
 				groundFloorRing = false;
 			}
 		}
-		
+
 		if (request.getParameter("userVisited") != null) {
 			if (request.getParameter("userVisited").equals("1")) {
 				userVisited = true;
@@ -253,19 +269,20 @@ public class JsonController {
 				userVisited = false;
 			}
 		}
-		
+
 		if (request.getParameter("minBells") != null) {
 			minimumBells = Integer.valueOf(request.getParameter("minBells"));
 		}
-		
+
 		if (request.getParameter("maxBells") != null) {
 			maximumBells = Integer.valueOf(request.getParameter("maxBells"));
 		}
 
-		List<Tower> towers = towerService.getMapTowers(diocese, minimumBells, maximumBells, ringable, groundFloorRing, results);
+		List<Tower> towers = towerService.getMapTowers(diocese, minimumBells,
+				maximumBells, ringable, groundFloorRing, results);
 
 		JsonObject<Tower> towerJson = new JsonObject<Tower>();
-		
+
 		towerJson.setiTotalDisplayRecords(5);
 		towerJson.setiTotalRecords(6);
 		towerJson.setAaData(towers);
@@ -276,8 +293,7 @@ public class JsonController {
 		return returnJson;
 
 	}
-	
-	
+
 	@RequestMapping(value = "/towers/gettowers", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
 	public Map<String, Object> getTowers() {
@@ -294,5 +310,74 @@ public class JsonController {
 		return data;
 	}
 
-	
+	@RequestMapping(value = "/json/peals", method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody String pealJson(HttpServletRequest request)
+			throws IOException {
+
+		int pageNo = 0;
+		int pageLength = 10;
+		int towerId = 0;
+
+		if (request.getParameter("iDisplayStart") != null) {
+			pageNo = (Integer.valueOf(request.getParameter("iDisplayStart")) / 10) + 1;
+		}
+		if (request.getParameter("iDisplayStart") != null) {
+			pageLength = Integer
+					.valueOf(request.getParameter("iDisplayLength"));
+		}
+
+		List<Peal> pealList;
+		int pealCount = pealService.getNumberOfPeals();
+		int pealListCount;
+
+		if (Integer.valueOf(request.getParameter("tower")) != 0) {
+			towerId = Integer.valueOf(request.getParameter("tower"));
+		}
+
+		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+		String aLongTimeAgo = "01-01-1000";
+		Date dateFrom = null;
+		try {
+			dateFrom = sdf.parse(aLongTimeAgo);
+		} catch (ParseException e) {
+		}
+		Date dateTo = new Date();
+		;
+		if (request.getParameter("dateFrom") != null) {
+			try {
+				dateFrom = sdf.parse(request.getParameter("dateFrom"));
+			} catch (ParseException e) {
+			}
+		}
+
+		if (request.getParameter("dateTo") != null) {
+			try {
+				dateTo = sdf.parse(request.getParameter("dateTo"));
+			} catch (ParseException e) {
+			}
+		}
+
+		if (dateTo != null || dateFrom != null || towerId != 0) {
+			pealList = pealService.getPaginatedPealsForTower(towerId, dateFrom,
+					dateTo, pageLength, (pageNo - 1) * 10);
+			pealListCount = pealService.getNumberPealsForTower(towerId,
+					dateFrom, dateTo);
+		} else {
+			pealList = pealService.getPaginatedPeals(pageLength,
+					(pageNo - 1) * 10);
+			pealListCount = pealCount;
+		}
+
+		JsonObject<Peal> pealJson = new JsonObject<Peal>();
+
+		pealJson.setiTotalDisplayRecords(pealListCount);
+		pealJson.setiTotalRecords(pealCount);
+		pealJson.setAaData(pealList);
+
+		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+		String returnJson = gson.toJson(pealJson);
+
+		return returnJson;
+
+	}
 }

@@ -40,3 +40,12 @@
 #towertable tbody {
 	cursor: pointer;
 }
+
+@media (min-width: 1200px)
+#towerselect {
+	width: 80%;
+}
+@media (min-width: 1200px)
+#towerselectwrap {
+	width: 50%;
+}

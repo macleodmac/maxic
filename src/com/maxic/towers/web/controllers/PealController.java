@@ -1,6 +1,5 @@
 package com.maxic.towers.web.controllers;
 
-import java.util.List;
 import java.util.Map;
 
 import javax.validation.Valid;
@@ -33,7 +32,7 @@ public class PealController {
 	public void setPealService(PealService pealService) {
 		this.pealService = pealService;
 	}
-	
+
 	@RequestMapping("/peals/add")
 	public String showAddPeal(Model model) {
 		Peal peal = new Peal();
@@ -47,45 +46,35 @@ public class PealController {
 	public String doAddPeal(Model model, @Valid Peal peal,
 			BindingResult result, RedirectAttributes redirectAttributes) {
 		if (result.hasErrors()) {
-			model.addAttribute("message", "Peal not added. An error occured in the input");
+			model.addAttribute("message",
+					"Peal not added. An error occured in the input");
 			Map<Integer, String> hm = towerService.getTowerDescriptorMap();
 			model.addAttribute("towers", hm);
 			return "/peals/add";
 		}
 		pealService.addPeal(peal);
-		
+
 		redirectAttributes.addFlashAttribute("message",
 				"Peal successfully added!");
 		redirectAttributes.addAttribute("t", "all");
 		return ("redirect:/peals");
 	}
-	
+
 	@RequestMapping(value = "/peals/view", method = RequestMethod.GET)
 	public String viewPeal(Model model, @RequestParam("p") int p) {
 		Peal peal = pealService.getPeal(p);
-		String towerDescription = towerService.getTowerDescriptor(peal.getTowerId());
+		String towerDescription = towerService.getTowerDescriptor(peal
+				.getTowerId());
 		model.addAttribute("tower", towerDescription);
 		model.addAttribute("peal", peal);
 		return "/peals/view";
 	}
-	
-	@RequestMapping(value = "/peals", method = RequestMethod.GET)
-	public String viewTowerPeals(Model model, @RequestParam("t") String t) {
-		List<Peal> peals;
-		if (t.equals("all")) {
-			peals = pealService.getPeals();
-		} else {
-			int towerId = Integer.parseInt(t);
-			peals = pealService.getPealsForTower(towerId);
-		}
-		
-		model.addAttribute("peals", peals);
+
+	@RequestMapping(value = "/peals")
+	public String viewPeals(Model model) {
+		Map<Integer, String> hm = towerService.getTowerDescriptorMap();
+		model.addAttribute("towers", hm);
 		return "/peals";
 	}
 
-	
-	
-	
-	
-	
 }

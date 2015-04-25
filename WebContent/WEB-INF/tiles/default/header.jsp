@@ -18,7 +18,7 @@
 			<ul class="nav navbar-nav">
 				<li><a href="${pageContext.request.contextPath}/towers"
 					data-ytta-id="-">Towers</a></li>
-				<li><a href="${pageContext.request.contextPath}/peals?t=all"
+				<li><a href="${pageContext.request.contextPath}/peals"
 					data-ytta-id="-">Peals</a></li>
 
 			</ul>

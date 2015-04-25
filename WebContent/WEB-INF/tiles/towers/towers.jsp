@@ -42,7 +42,7 @@ var table = $("#towertable").dataTable( {
     "iDisplayStart": 0,     
     "sAjaxSource": "/towers/json/towers",
     "columns": [
-		{ "bVisible": false, "mData": "id", width: "10%"},
+		{ "mData": "id", width: "10%"},
 		{ "mData": "de" }
     ]
 } );

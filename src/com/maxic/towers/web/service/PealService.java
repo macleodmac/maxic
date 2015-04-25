@@ -1,6 +1,7 @@
 package com.maxic.towers.web.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,5 +50,31 @@ public class PealService {
 
 	public boolean addPeals(ArrayList<Peal> pealList) {
 		return pealDao.addPeals(pealList);
+	}
+
+	public int getNumberOfPeals() {
+		return pealDao.getNumberOfPeals();
+	}
+
+	public List<Peal> getPaginatedPeals(int pageLength, int displayStart) {
+		return pealDao.getPaginatedPeals(pageLength, displayStart);
+	}
+
+	public List<Peal> getPaginatedPealsForTower(int towerId, int pageLength,
+			int displayStart) {
+		return pealDao.getPaginatedPealsForTower(towerId, pageLength, displayStart);
+	}
+
+	public int getNumberPealsForTower(int towerId) {
+		return pealDao.getNumberPealsForTower(towerId);
+	}
+
+	public List<Peal> getPaginatedPealsForTower(int towerId, Date dateFrom,
+			Date dateTo, int pageLength, int displayStart) {
+		return pealDao.getPaginatedPealsForTower(towerId, dateFrom, dateTo, pageLength, displayStart);
+	}
+
+	public int getNumberPealsForTower(int towerId, Date dateFrom, Date dateTo) {
+		return pealDao.getNumberPealsForTower(towerId, dateFrom, dateTo);
 	}
 }
