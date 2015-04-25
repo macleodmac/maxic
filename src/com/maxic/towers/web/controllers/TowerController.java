@@ -95,5 +95,10 @@ public class TowerController {
 		model.addAttribute("towerWrapper", towerWrapper);
 		return "/towers/modal";
 	}
+	
+	@RequestMapping(value = "/towers", method = RequestMethod.GET)
+	public String showTowers(Model model) {
+		return "/towers";
+	}
 
 }

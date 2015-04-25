@@ -10,6 +10,9 @@ import java.util.Map;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Disjunction;
+import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +43,25 @@ public class TowerDao {
 	public List<TowerDescriptor> getTowerDescriptors() {
 
 		List<Tower> towers = this.getTowers();
+		
+		return this.getDescriptors(towers);
+	}
+	
+	public List<TowerDescriptor> getPaginatedTowerDescriptors(int pageLength, int displayStart) {
+
+		List<Tower> towers = this.getPaginatedTowers(pageLength, displayStart);
+		
+		return this.getDescriptors(towers);
+	}
+	
+	public List<TowerDescriptor> getPaginatedTowerDescriptorsBySearchTerm(int pageLength, int displayStart, String searchTerm) {
+
+		List<Tower> towers = this.getPaginatedTowersByTerm(pageLength, displayStart, searchTerm);
+		
+		return this.getDescriptors(towers);
+	}
+	
+	private List<TowerDescriptor> getDescriptors(List<Tower> towers) {
 		List<TowerDescriptor> towerDescriptors = new ArrayList<TowerDescriptor>();
 		for (Tower tower : towers) {
 			StringBuffer sb = new StringBuffer();
@@ -59,30 +81,54 @@ public class TowerDao {
 
 		return towerDescriptors;
 	}
+	
+	
 
 	@SuppressWarnings("unchecked")
 	public List<Tower> getPaginatedTowers(int pageLength, int displayStart) {
-		return session().createQuery("from Tower order by placeName")
-				.setFirstResult(displayStart).setMaxResults(pageLength).list();
+		
+		Criteria crit = session().createCriteria(Tower.class);
+		crit.addOrder(Order.asc("placeName"));
+		crit.setFirstResult(displayStart);
+		crit.setMaxResults(pageLength);
+		
+		return crit.list();
 
 	}
 
 	@SuppressWarnings("unchecked")
 	public List<Tower> getPaginatedTowersByTerm(int pageLength,
 			int displayStart, String searchCriteria) {
-		return session()
-				.createQuery("from Tower where placeName like :searchCriteria")
-				.setString("searchCriteria", "%" + searchCriteria + "%")
-				.setFirstResult(displayStart).setMaxResults(pageLength).list();
+		
+		Criteria crit = session().createCriteria(Tower.class);
+		
+		Disjunction or = Restrictions.disjunction();
+		or.add(Restrictions.ilike("placeName", '%'+searchCriteria+'%', MatchMode.ANYWHERE));
+		or.add(Restrictions.ilike("placeName2", '%'+searchCriteria+'%', MatchMode.ANYWHERE));
+		or.add(Restrictions.ilike("placeNameCL", '%'+searchCriteria+'%', MatchMode.ANYWHERE));
+		or.add(Restrictions.ilike("doveId", '%'+searchCriteria+'%', MatchMode.ANYWHERE));
+		
+		crit.add(or);
+		crit.addOrder(Order.asc("placeName"));
+		crit.setFirstResult(displayStart);
+		crit.setMaxResults(pageLength);
+		
+		return crit.list();
 
 	}
 
 	public int getNumberOfTowersBySearchTerm(String searchCriteria) {
-		int count = session()
-				.createQuery("from Tower where placeName like :searchCriteria")
-				.setString("searchCriteria", "%" + searchCriteria + "%").list()
-				.size();
-		return count;
+		Criteria crit = session().createCriteria(Tower.class);
+		
+		Disjunction or = Restrictions.disjunction();
+		or.add(Restrictions.ilike("placeName", '%'+searchCriteria+'%', MatchMode.ANYWHERE));
+		or.add(Restrictions.ilike("placeName2", '%'+searchCriteria+'%', MatchMode.ANYWHERE));
+		or.add(Restrictions.ilike("placeNameCL", '%'+searchCriteria+'%', MatchMode.ANYWHERE));
+		or.add(Restrictions.ilike("doveId", '%'+searchCriteria+'%', MatchMode.ANYWHERE));
+		
+		crit.add(or);
+
+		return crit.list().size();
 	}
 
 	public int getNumberOfTowers() {

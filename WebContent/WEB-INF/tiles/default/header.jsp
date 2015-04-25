@@ -16,7 +16,8 @@
 		</div>
 		<div id="navbar" class="collapse navbar-collapse">
 			<ul class="nav navbar-nav">
-				<li><a href="#" data-ytta-id="-">Towers</a></li>
+				<li><a href="${pageContext.request.contextPath}/towers"
+					data-ytta-id="-">Towers</a></li>
 				<li><a href="${pageContext.request.contextPath}/peals?t=all"
 					data-ytta-id="-">Peals</a></li>
 
@@ -52,8 +53,7 @@
 							<li><a
 								href="${pageContext.request.contextPath}/admin/messages"
 								data-ytta-id="-">Messages</a></li>
-							<li><a
-								href="${pageContext.request.contextPath}/admin/dove"
+							<li><a href="${pageContext.request.contextPath}/admin/dove"
 								data-ytta-id="-">Update DB</a></li>
 							<li class="divider"></li>
 							<li class="dropdown-header">Help</li>
@@ -81,8 +81,9 @@
 							<sec:authorize access="hasRole('ROLE_CAPTAIN')">
 								<li class="divider"></li>
 								<li class="dropdown-header">Tower Captain</li>
-								
-								<li><a href="${pageContext.request.contextPath}/captain/edit"
+
+								<li><a
+									href="${pageContext.request.contextPath}/captain/edit"
 									data-ytta-id="-">Edit Tower</a></li>
 							</sec:authorize>
 							<li class="divider"></li>

@@ -55,6 +55,11 @@
 		<put-attribute name="content" value="/WEB-INF/tiles/peals/peals.jsp"></put-attribute>
 	</definition>
 	
+	<definition name="/towers" extends="towers.base">
+		<put-attribute name="title" value="Tower Finder :: View Towers"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/towers/towers.jsp"></put-attribute>
+	</definition>
+	
 	<definition name="/peals/view" extends="towers.base">
 		<put-attribute name="title" value="Tower Finder :: View Peal"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/peals/viewpeal.jsp"></put-attribute>

@@ -19,8 +19,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.maxic.towers.web.dao.JsonObject;
 import com.maxic.towers.web.model.Tower;
+import com.maxic.towers.web.model.TowerDescriptor;
 import com.maxic.towers.web.model.TowerShort;
-import com.maxic.towers.web.model.TowerVisit;
 import com.maxic.towers.web.model.User;
 import com.maxic.towers.web.service.ContactDetailsService;
 import com.maxic.towers.web.service.CountryService;
@@ -97,18 +97,20 @@ public class JsonController {
 		this.towerVisitService = towerVisitService;
 	}
 
-	@RequestMapping(value = "/json/towers", method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "/admin/json/towers", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody String towerJson(
 			HttpServletRequest request) throws IOException {
 
 		int pageNo = 0;
-
+		int pageLength = 10;
+		String searchTerm = "";
+		
 		if (request.getParameter("iDisplayStart") != null) {
 			pageNo = (Integer.valueOf(request.getParameter("iDisplayStart")) / 10) + 1;
 		}
 
-		String searchTerm = request.getParameter("sSearch");
-		int pageLength = Integer.valueOf(request.getParameter("iDisplayLength"));
+		searchTerm = request.getParameter("sSearch");
+		pageLength = Integer.valueOf(request.getParameter("iDisplayLength"));
 		List<Tower> towerList;
 		int towerCount = towerService.getNumberOfTowers();
 		int towerListCount;
@@ -172,6 +174,45 @@ public class JsonController {
 
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 		String returnJson = gson.toJson(userJson);
+
+		return returnJson;
+
+	}
+	
+	@RequestMapping(value = "/json/towers", method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody String userTowerJson(
+			HttpServletRequest request) throws IOException {
+
+		int pageNo = 0;
+		int pageLength = 10;
+		String searchTerm = "";
+		
+		if (request.getParameter("iDisplayStart") != null) {
+			pageNo = (Integer.valueOf(request.getParameter("iDisplayStart")) / 10) + 1;
+		}
+
+		searchTerm = request.getParameter("sSearch");
+		pageLength = Integer.valueOf(request.getParameter("iDisplayLength"));
+		List<TowerDescriptor> towerList;
+		int towerCount = towerService.getNumberOfTowers();
+		int towerListCount;
+
+		if (searchTerm != null && !searchTerm.equals("")) {
+			towerList = towerService.getPaginatedTowerDescriptorsBySearchTerm(pageLength, (pageNo - 1) * 10, searchTerm);
+			towerListCount = towerService.getNumberOfTowersBySearchTerm(searchTerm);
+		} else {
+			towerList = towerService.getPaginatedTowerDescriptors(pageLength, (pageNo - 1) * 10);
+			towerListCount = towerCount;
+		}
+
+		JsonObject<TowerDescriptor> towerJson = new JsonObject<TowerDescriptor>();
+		
+		towerJson.setiTotalDisplayRecords(towerListCount);
+		towerJson.setiTotalRecords(towerCount);
+		towerJson.setAaData(towerList);
+
+		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+		String returnJson = gson.toJson(towerJson);
 
 		return returnJson;
 

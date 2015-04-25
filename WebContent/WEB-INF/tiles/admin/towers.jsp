@@ -49,7 +49,7 @@ $("#usertable").dataTable( {
         //Un-comment below alert to see page number
     	//alert("Current page number: "+this.fnPagingInfo().iPage);    
     },         
-    "sAjaxSource": "/towers/json/towers",
+    "sAjaxSource": "/towers/admin/json/towers",
     "aoColumns": [
         { "mData": "towerId" },
         { "mData": "doveId" },

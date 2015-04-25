@@ -33,3 +33,10 @@
 .google-map-canvas,
 .google-map-canvas * { .box-sizing(content-box); }
 
+.highlight {
+	background-color: #EEEEEE;
+}
+
+#towertable tbody {
+	cursor: pointer;
+}

@@ -91,4 +91,12 @@ public class TowerService {
 	public boolean existsByDoveId(String doveId) {
 		return towerDao.existsByDoveId(doveId);
 	}
+	
+	public List<TowerDescriptor> getPaginatedTowerDescriptors(int pageLength, int displayStart) {
+		return towerDao.getPaginatedTowerDescriptors(pageLength, displayStart);
+	}
+	
+	public List<TowerDescriptor> getPaginatedTowerDescriptorsBySearchTerm(int pageLength, int displayStart, String searchTerm) {
+		return towerDao.getPaginatedTowerDescriptorsBySearchTerm(pageLength, displayStart, searchTerm);
+	}
 }
