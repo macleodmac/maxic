@@ -1,4 +1,4 @@
-#maxic towers project
+#maxic towers project latest
 
 ##Downloading the Latest Version of the Project
 ###If setup as below
