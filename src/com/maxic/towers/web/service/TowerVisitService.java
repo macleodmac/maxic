@@ -37,4 +37,12 @@ public class TowerVisitService {
 	public void editTowerVisit(TowerVisit visit) {
 		towerVisitDao.editTowerVisit(visit);
 	}
+
+	public int getNumberOfVisits(int userId) {
+		return towerVisitDao.getNumberOfVisits(userId);
+	}
+
+	public List<TowerVisit> getPaginatedVisits(int userId, int pageLength, int displayLength) {
+		return towerVisitDao.getPaginatedVisits(userId, pageLength, displayLength);
+	}
 }

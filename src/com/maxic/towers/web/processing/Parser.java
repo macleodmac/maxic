@@ -113,8 +113,9 @@ public class Parser {
 				String postCode = towerProperties[4];
 				Country country = new Country(towerProperties[8],
 						towerProperties[7]);
-				Diocese diocese = new Diocese(towerProperties[9],
-						towerProperties[9]);
+				String dioceseId = towerProperties[9].replaceAll("+", " and ");
+				Diocese diocese = new Diocese(dioceseId,
+						dioceseId);
 				String dedication = towerProperties[13];
 				String listedGrade = towerProperties[38];
 				String extraInfo = towerProperties[30];

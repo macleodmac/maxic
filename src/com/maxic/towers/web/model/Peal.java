@@ -4,8 +4,11 @@ import java.sql.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -14,7 +17,9 @@ import org.hibernate.validator.constraints.NotBlank;
 @Table(name="peals")
 public class Peal {
 
-	private int towerId;
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "towerId", nullable = false)
+	private TowerDescriptor tower;
 	@Id
 	@GeneratedValue
 	@Column(name="pealId")
@@ -54,7 +59,7 @@ public class Peal {
 		
 	}
 
-	public Peal(int towerId, int pealId, String dedication, Date dateRung,
+	public Peal(TowerDescriptor tower, int pealId, String dedication, Date dateRung,
 			String time, String tenor, String method, String methodDetails,
 			int changes, String leader, String composer, String footnotes,
 			String composition, String ringer1, String ringer2, String ringer3,
@@ -62,7 +67,7 @@ public class Peal {
 			String ringer8, String ringer9, String ringer10, String ringer11,
 			String ringer12, String ringer13, String ringer14, String ringer15,
 			String ringer16) {
-		this.towerId = towerId;
+		this.tower = tower;
 		this.pealId = pealId;
 		this.dedication = dedication;
 		this.dateRung = dateRung;
@@ -93,12 +98,12 @@ public class Peal {
 		this.ringer16 = ringer16;
 	}
 
-	public int getTowerId() {
-		return towerId;
+	public TowerDescriptor getTower() {
+		return tower;
 	}
 
-	public void setTowerId(int towerId) {
-		this.towerId = towerId;
+	public void setTower(TowerDescriptor tower) {
+		this.tower = tower;
 	}
 
 	public int getPealId() {
@@ -327,9 +332,9 @@ public class Peal {
 
 	@Override
 	public String toString() {
-		return "Peal [towerId=" + towerId + ", pealId=" + pealId
-				+ ", dedication=" + dedication + ", dateRung=" + dateRung
-				+ ", time=" + time + ", tenor=" + tenor + ", method=" + method
+		return "Peal [tower=" + tower + ", pealId=" + pealId + ", dedication="
+				+ dedication + ", dateRung=" + dateRung + ", time=" + time
+				+ ", tenor=" + tenor + ", method=" + method
 				+ ", methodDetails=" + methodDetails + ", changes=" + changes
 				+ ", leader=" + leader + ", composer=" + composer
 				+ ", footnotes=" + footnotes + ", composition=" + composition
@@ -342,6 +347,8 @@ public class Peal {
 				+ ", ringer13=" + ringer13 + ", ringer14=" + ringer14
 				+ ", ringer15=" + ringer15 + ", ringer16=" + ringer16 + "]";
 	}
+
+
 
 	
 	

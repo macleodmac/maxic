@@ -12,18 +12,22 @@
 <div class="container">
 	<div class="row">
 		<div class="col-xs-12 col-md-8 col-md-offset-2">
-			<h2>${tower} <sec:authorize access="hasRole('ROLE_ADMIN')">
-				<div class="pull-right">
-					<a class="btn btn-sm btn-default"
-						href="${pageContext.request.contextPath}/admin/peals/edit?p=${peal.pealId}">Edit</a>
-				</div>
-			</sec:authorize></h2>
+			<h2>${tower}
+				<sec:authorize access="hasRole('ROLE_ADMIN')">
+					<div class="pull-right">
+						<a class="btn btn-sm btn-default"
+							href="${pageContext.request.contextPath}/admin/peals/edit?p=${peal.pealId}">Edit</a>
+					</div>
+				</sec:authorize>
+			</h2>
 			<hr />
-			<h3>Association</h3>
-			<h4>${peal.dateRung}in ${peal.time}</h4>
-			<h4>
-				<strong>${peal.changes} ${peal.method}</strong>
-			</h4>
+			<h3>
+				<strong>${peal.changes}</strong> <strong>${peal.method}</strong>
+			</h3>
+			<h4>${peal.dateRung} in ${peal.time}</h4>
+			<c:if test="${not empty peal.composer}">
+					<h4>Composed by ${peal.composer }</h4>
+				</c:if>
 		</div>
 	</div>
 	<div class="row">
@@ -134,6 +138,13 @@
 	</div>
 	<div class="row">
 		<div class="col-xs-12 col-md-4 col-md-offset-2">
+			<div class="form-group">
+				<a class="btn btn-sm btn-default"
+					href="${pageContext.request.contextPath}/towers/view?t=${peal.tower.id}">View
+					Tower</a> <a class="btn btn-sm btn-default"
+					href="${pageContext.request.contextPath}/peals?t=${peal.tower.id}">View
+					More Performances</a>
+			</div>
 			<div class="form-group">
 				<label for="currentLink">Sharing Link</label> <input
 					onClick="this.setSelectionRange(0, this.value.length)" type="text"

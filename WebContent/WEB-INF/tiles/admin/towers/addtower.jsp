@@ -49,30 +49,21 @@
 				<div class="form-group">
 					<label for="placeName2">Place Name 2</label>
 					<sf:input type="text" class="form-control" path="placeName2"
-						id="placeName2" placeholder="placeName2" />
+						id="placeName2" placeholder="Place Name" />
 				</div>
 			</div>
 			<div class="col-xs-6 col-sm-4">
 				<div class="form-group">
-					<label for="placeNameCL">placeNameCL</label>
+					<label for="placeNameCL">Place Name (CL)</label>
 					<sf:input type="text" class="form-control" path="placeNameCL"
-						id="placeNameCL" placeholder="placeNameCL" />
+						id="placeNameCL" placeholder="Place Name (County Lists)" />
 				</div>
 			</div>
-		</div>
-		<div class="row">
-			<div class="col-xs-6">
+			<div class="col-xs-6 col-sm-4">
 				<div class="form-group">
-					<label for="ringable">ringable</label>
-					<sf:input type="text" class="form-control" path="ringable"
-						id="ringable" placeholder="ringable" />
-				</div>
-			</div>
-			<div class="col-xs-6">
-				<div class="form-group">
-					<label for="dedication">dedication</label>
+					<label for="dedication">Dedication</label>
 					<sf:input type="text" class="form-control" path="dedication"
-						id="dedication" placeholder="dedication" />
+						id="dedication" placeholder="e.g. S Mary" />
 				</div>
 			</div>
 		</div>
@@ -109,16 +100,16 @@
 		<div class="row">
 			<div class="col-xs-6 col-sm-3">
 				<div class="form-group">
-					<label for="gridReference">gridReference</label>
+					<label for="gridReference">Grid Reference</label>
 					<sf:input type="text" class="form-control" path="gridReference"
-						id="gridReference" placeholder="gridReference" />
+						id="gridReference" placeholder="Grid Reference" />
 				</div>
 			</div>
 			<div class="col-xs-6 col-sm-3">
 				<div class="form-group">
-					<label for="postCode">postCode</label>
+					<label for="postCode">Postcode</label>
 					<sf:input type="text" class="form-control" path="postCode"
-						id="postCode" placeholder="postCode" />
+						id="postCode" placeholder="Postcode" />
 				</div>
 			</div>
 			<div class="col-xs-6 col-sm-3">
@@ -139,77 +130,63 @@
 		<div class="row">
 			<div class="col-xs-6 col-sm-3">
 				<div class="form-group">
-					<label for="guildId">guildId</label>
-					<sf:input type="text" class="form-control" path="guildId"
-						id="guildId" placeholder="guildId" />
-				</div>
-			</div>
-			<div class="col-xs-6 col-sm-3">
-				<div class="form-group">
-					<label for="affiliation">affiliation</label>
+					<label for="affiliation">Affiliation</label>
 					<sf:input type="text" class="form-control" path="affiliation"
-						id="affiliation" placeholder="affiliation" />
+						id="affiliation" placeholder="Affiliation" />
 				</div>
 			</div>
 			<div class="col-xs-6 col-sm-3">
 				<div class="form-group">
-					<label for="buildingId">buildingId</label>
-					<sf:input type="text" class="form-control" path="buildingId"
-						id="buildingId" placeholder="buildingId" />
-				</div>
-			</div>
-			<div class="col-xs-6 col-sm-3">
-				<div class="form-group">
-					<label for="listedGrade">listedGrade</label>
+					<label for="listedGrade">Listed Grade</label>
 					<sf:input type="text" class="form-control" path="listedGrade"
-						id="listedGrade" placeholder="listedGrade" />
+						id="listedGrade" placeholder="Listed Grade" />
 				</div>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-xs-6 col-sm-3">
 				<div class="form-group">
-					<label for="groundFloorRing">groundFloorRing</label>
-					<sf:input type="text" class="form-control" path="groundFloorRing"
-						id="groundFloorRing" placeholder="groundFloorRing" />
+					<label for="ringable">Ringable?</label>
+					<sf:select class="form-control" path="ringable"
+						id="ringable" items="${yesno}" />
 				</div>
 			</div>
 			<div class="col-xs-6 col-sm-3">
 				<div class="form-group">
-					<label for="simulator">simulator</label>
-					<sf:input type="text" class="form-control" path="simulator"
-						id="simulator" placeholder="simulator" />
+					<label for="groundFloorRing">Ground Floor Ring?</label>
+					<sf:select class="form-control" path="groundFloorRing"
+						id="groundFloorRing" items="${yesno}" />
 				</div>
 			</div>
 			<div class="col-xs-6 col-sm-3">
 				<div class="form-group">
-					<label for="toilet">toilet</label>
-					<sf:input type="text" class="form-control" path="toilet"
-						id="toilet" placeholder="toilet" />
+					<label for="simulator">Simulator?</label>
+					<sf:select class="form-control" path="simulator"
+						id="simulator" items="${yesno}" />
 				</div>
 			</div>
 			<div class="col-xs-6 col-sm-3">
 				<div class="form-group">
-					<label for="towerCaptain">towerCaptain</label>
-					<sf:input type="text" class="form-control" path="towerCaptain"
-						id="towerCaptain" placeholder="towerCaptain" />
+					<label for="toilet">Toilet?</label>
+					<sf:select class="form-control" path="toilet"
+						id="toilet" items="${yesno}" />
 				</div>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-xs-6">
 				<div class="form-group">
-					<label for="accessDetails">accessDetails</label>
+					<label for="accessDetails">Access Details</label>
 					<sf:textarea style="resize: none;" rows="3" class="form-control"
 						path="accessDetails" id="accessDetails"
-						placeholder="accessDetails" />
+						placeholder="Access Details" />
 				</div>
 			</div>
 			<div class="col-xs-6">
 				<div class="form-group">
-					<label for="extraInfo">extraInfo</label>
+					<label for="extraInfo">Extra Information</label>
 					<sf:textarea style="resize: none;" rows="3" class="form-control"
-						path="extraInfo" id="extraInfo" placeholder="extraInfo" />
+						path="extraInfo" id="extraInfo" placeholder="Extra Information" />
 				</div>
 			</div>
 		</div>

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.maxic.towers.web.model.Peal;
+import com.maxic.towers.web.model.TowerDescriptor;
 import com.maxic.towers.web.service.PealService;
 import com.maxic.towers.web.service.TowerService;
 
@@ -63,9 +64,10 @@ public class PealController {
 	@RequestMapping(value = "/peals/view", method = RequestMethod.GET)
 	public String viewPeal(Model model, @RequestParam("p") int p) {
 		Peal peal = pealService.getPeal(p);
-		String towerDescription = towerService.getTowerDescriptor(peal
-				.getTowerId());
-		model.addAttribute("tower", towerDescription);
+		TowerDescriptor towerDescriptor = towerService.getTowerDescriptor(peal
+				.getTower().getId());
+		
+		model.addAttribute("tower", towerDescriptor.getDe());
 		model.addAttribute("peal", peal);
 		return "/peals/view";
 	}

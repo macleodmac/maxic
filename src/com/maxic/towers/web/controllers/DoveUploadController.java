@@ -1,7 +1,6 @@
 package com.maxic.towers.web.controllers;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -14,9 +13,6 @@ import java.util.TreeMap;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -26,6 +22,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.maxic.towers.web.model.ContactDetails;
@@ -76,34 +73,38 @@ public class DoveUploadController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public String fileUploaded(Model model, @Validated DoveFileWrapper file,
-			BindingResult result, RedirectAttributes redirectAttributes,
-			HttpServletRequest request) {
+	public String fileUploaded(Model model,
+			RedirectAttributes redirectAttributes, HttpServletRequest request) {
 		String filePath;
-		boolean success = true;
 
-		if (result.hasErrors()) {
-			success = false;
-		} else {
-			MultipartFile multipartFile = file.getFile();
-			filePath = request.getServletContext().getRealPath("/")
-					+ multipartFile.getOriginalFilename();
-			try {
-				multipartFile.transferTo(new File(filePath));
-				if (multipartFile.getOriginalFilename().equalsIgnoreCase(
-						"dove.txt")) {
-					success = this.processDoveTxt(filePath);
-				} else if (multipartFile.getOriginalFilename()
-						.equalsIgnoreCase("newpks.txt")) {
-					success = this.processNewPks(filePath);
-				} else {
-					success = false;
-				}
-			} catch (Exception e) {
+		MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest) request;
+		MultipartFile file = multiRequest.getFile("file");
+
+		System.out.println(file.getContentType());
+		System.out.println(file.getOriginalFilename());
+
+		boolean success = true;
+		System.out.println("at FileUpload controller");
+		System.out.println("Getting file");
+//		filePath = request.getServletContext().getRealPath("/")
+//				+ multipartFile.getOriginalFilename();
+		try {
+			System.out.println("ATTEMPTING TO TRANSFER FILE");
+			// multipartFile.transferTo(new File(filePath));
+			System.out.println("FILE TRANSFERRED");
+			if (file.getOriginalFilename()
+					.equalsIgnoreCase("dove.txt")) {
+				success = this.processDoveTxt(file);
+			} else if (file.getOriginalFilename().equalsIgnoreCase(
+					"newpks.txt")) {
+				success = this.processNewPks(file);
+			} else {
 				success = false;
 			}
-
+		} catch (Exception e) {
+			success = false;
 		}
+
 		if (success) {
 			model.addAttribute("successMessage",
 					"The database was successfully updated!");
@@ -115,11 +116,11 @@ public class DoveUploadController {
 		return "admin/dove/uploadfile";
 	}
 
-	private boolean processNewPks(String filePath) {
+	private boolean processNewPks(MultipartFile multipartFile) {
 
 		boolean success = true;
 		try {
-			Map<String, String> pks = parseNewPks(filePath);
+			Map<String, String> pks = parseNewPks(multipartFile);
 			for (Map.Entry<String, String> entry : pks.entrySet()) {
 				String oldId = entry.getKey().toString();
 				String newId = entry.getValue();
@@ -140,8 +141,8 @@ public class DoveUploadController {
 		return success;
 	}
 
-	private boolean processDoveTxt(String filePath) {
-		List<Tower> towerList = this.parseDoveFile(filePath);
+	private boolean processDoveTxt(MultipartFile multipartFile) {
+		List<Tower> towerList = this.parseDoveFile(multipartFile);
 		boolean success = true;
 		try {
 			if (towerList != null) {
@@ -207,11 +208,7 @@ public class DoveUploadController {
 		return success;
 	}
 
-	private Map<String, String> parseNewPks(String fileLocation) {
-
-		ApplicationContext appContext = new ClassPathXmlApplicationContext();
-
-		Resource resource = appContext.getResource("file:/" + fileLocation);
+	private Map<String, String> parseNewPks(MultipartFile multipartFile) {
 
 		BufferedReader br = null;
 		String line = null;
@@ -221,7 +218,7 @@ public class DoveUploadController {
 
 		try {
 
-			InputStream is = resource.getInputStream();
+			InputStream is = multipartFile.getInputStream();
 			br = new BufferedReader(new InputStreamReader(is));
 
 			br.readLine(); // Skip Headers
@@ -233,6 +230,7 @@ public class DoveUploadController {
 				map.put(ids[0], ids[1]);
 
 			}
+			is.close();
 			return map;
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -247,21 +245,13 @@ public class DoveUploadController {
 					e.printStackTrace();
 				}
 			}
-		}
-		try {
-			((BufferedReader) appContext).close();
-		} catch (IOException e) {
-			e.printStackTrace();
+
 		}
 		return map;
 
 	}
 
-	private ArrayList<Tower> parseDoveFile(String fileLocation) {
-
-		ApplicationContext appContext = new ClassPathXmlApplicationContext();
-
-		Resource resource = appContext.getResource("file:/" + fileLocation);
+	private ArrayList<Tower> parseDoveFile(MultipartFile multipartFile) {
 
 		BufferedReader br = null;
 		String line = null;
@@ -270,7 +260,7 @@ public class DoveUploadController {
 
 		try {
 
-			InputStream is = resource.getInputStream();
+			InputStream is = multipartFile.getInputStream();
 			br = new BufferedReader(new InputStreamReader(is));
 
 			br.readLine(); // Skip Headers
@@ -398,6 +388,8 @@ public class DoveUploadController {
 				towerList.add(tower);
 
 			}
+
+			is.close();
 			return towerList;
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -413,11 +405,7 @@ public class DoveUploadController {
 				}
 			}
 		}
-		try {
-			((BufferedReader) appContext).close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+
 		return towerList;
 
 	}

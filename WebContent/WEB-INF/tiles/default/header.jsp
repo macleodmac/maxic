@@ -19,7 +19,7 @@
 				<li><a href="${pageContext.request.contextPath}/towers"
 					data-ytta-id="-">Towers</a></li>
 				<li><a href="${pageContext.request.contextPath}/peals"
-					data-ytta-id="-">Peals</a></li>
+					data-ytta-id="-">Performances</a></li>
 
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
@@ -41,7 +41,7 @@
 								href="${pageContext.request.contextPath}/admin/towers"
 								data-ytta-id="-">Towers</a></li>
 							<li><a href="${pageContext.request.contextPath}/admin/peals"
-								data-ytta-id="-">Peals</a></li>
+								data-ytta-id="-">Performances</a></li>
 							<li><a
 								href="${pageContext.request.contextPath}/admin/countries"
 								data-ytta-id="-">Countries</a></li>

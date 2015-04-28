@@ -1,21 +1,26 @@
 package com.maxic.towers.web.controllers;
 
+import java.io.IOException;
 import java.security.Principal;
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,6 +34,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.maxic.towers.web.model.EditUser;
+import com.maxic.towers.web.model.TowerDescriptor;
 import com.maxic.towers.web.model.TowerVisit;
 import com.maxic.towers.web.model.User;
 import com.maxic.towers.web.model.VerificationToken;
@@ -44,7 +50,6 @@ public class UserController {
 	private VerificationService verificationService;
 	private TowerVisitService towerVisitService;
 	private TowerService towerService;
-
 
 	@Autowired
 	private MailSender mailSender;
@@ -283,6 +288,7 @@ public class UserController {
 		}
 	}
 
+	@PreAuthorize("isAuthorised()")
 	@RequestMapping(value = "/account")
 	public String showAccount(Model model, Principal principal) {
 		String email = principal.getName();
@@ -291,6 +297,7 @@ public class UserController {
 		return "/account";
 	}
 
+	@PreAuthorize("isAuthorised()")
 	@RequestMapping(value = "/account/edit")
 	public String showEditAccount(Model model, Principal principal) {
 		String email = principal.getName();
@@ -304,6 +311,7 @@ public class UserController {
 		return "/account/edit";
 	}
 
+	@PreAuthorize("isAuthorised()")
 	@RequestMapping(value = "/account/doedit")
 	public String showMyVisits(Model model, @Valid EditUser editUser,
 			BindingResult result, WebRequest request, Errors errors,
@@ -366,8 +374,6 @@ public class UserController {
 				if (!editUser.getNewName().isEmpty()) {
 					user.setName(editUser.getNewName());
 				}
-				
-				
 
 				System.out.println("Saving User: " + user);
 				userService.update(user);
@@ -392,6 +398,7 @@ public class UserController {
 
 	}
 
+	@PreAuthorize("isAuthorised()")
 	@RequestMapping(value = "/account/visits")
 	public String showMyVisits(Model model, Principal principal) {
 		String email = principal.getName();
@@ -403,9 +410,28 @@ public class UserController {
 		return "/account/visits";
 	}
 
+	@PreAuthorize("isAuthorised()")
+	@RequestMapping(value = "/account/visits/view")
+	public String showVisit(Model model, Principal principal,
+			@RequestParam("v") int visitId) {
+		String email = principal.getName();
+		int userId = userService.getUser(email).getId();
+
+		TowerVisit visit = towerVisitService.getTowerVisit(visitId);
+		TowerDescriptor description = towerService.getTowerDescriptor(visit
+				.getTower().getId());
+		visit.setTower(description);
+		if (visit.getUserId() == userId) {
+			model.addAttribute("visit", visit);
+			return "/account/visits/view";
+		} else {
+			return "redirect:/403";
+		}
+	}
+
+	@PreAuthorize("isAuthorised()")
 	@RequestMapping(value = "/account/visits/add", method = RequestMethod.GET)
-	public String addVisit(Model model, Principal principal,
-			@RequestParam("t") int t) {
+	public String addVisit(Model model, Principal principal) {
 		String email = principal.getName();
 		User currentUser = userService.getUser(email);
 		currentUser.setPassword(null);
@@ -413,8 +439,9 @@ public class UserController {
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(new Timestamp(cal.getTime().getTime()));
 		Date date = new Date(cal.getTime().getTime());
-
-		TowerVisit visit = new TowerVisit(t, 0, id, date, false, false, false,
+		TowerDescriptor td = new TowerDescriptor();
+		td.setId(0);
+		TowerVisit visit = new TowerVisit(td, 0, id, date, false, false, false,
 				null);
 
 		model.addAttribute("visit", visit);
@@ -430,13 +457,14 @@ public class UserController {
 		return "/account/visits/add";
 	}
 
+	@PreAuthorize("isAuthorised()")
 	@RequestMapping(value = "/account/visits/doadd", method = RequestMethod.POST)
 	public String doAddVisit(Model model, @Valid TowerVisit towerVisit,
 			BindingResult result, RedirectAttributes redirectAttributes) {
 		if (result.hasErrors()) {
 			redirectAttributes.addFlashAttribute("dangerMessage",
 					"Visit not added. An error occured in the input");
-			redirectAttributes.addAttribute("t", towerVisit.getTowerId());
+			redirectAttributes.addAttribute("t", towerVisit.getTower().getId());
 			return "redirect:/account/visits/add";
 		} else {
 			towerVisitService.addTowerVisit(towerVisit);
@@ -444,6 +472,74 @@ public class UserController {
 					"Tower visit successfully added!");
 			return "redirect:/account/visits";
 		}
+	}
+
+	@PreAuthorize("isAuthorised()")
+	@RequestMapping(value = "/account/visits/delete", method = RequestMethod.GET)
+	public String deleteVisit(Model model, Principal principal,
+			@RequestParam("v") int visitId) {
+		String email = principal.getName();
+		int userId = userService.getUser(email).getId();
+
+		TowerVisit visit = towerVisitService.getTowerVisit(visitId);
+
+		if (visit.getUserId() == userId) {
+			towerVisitService.deleteTowerVisit(visit);
+		} else {
+			return "redirect:/403";
+		}
+		return "redirect:/account/visits";
+	}
+
+	@PreAuthorize("isAuthorised()")
+	@RequestMapping("/account/visits/download")
+	public String downloadVisits(HttpServletResponse response,
+			RedirectAttributes redirectAttributes, Principal principal) {
+
+		int userId = userService.getUser(principal.getName()).getId();
+		String csvFileName = userId + "-visits.csv";
+		response.setContentType("text/csv");
+		response.setHeader("Content-Disposition", "attachment;filename=\""
+				+ csvFileName + "\"");
+		List<TowerVisit> visits = towerVisitService.getVisitsByUserId(userId);
+
+		List<String> rows = new ArrayList<String>();
+
+		rows.add("visitId,date,towerId,towerDescription,rung,quarterPealRung,pealRung,notes");
+		rows.add("\n");
+		for (TowerVisit visit : visits) {
+			rows.add("\""
+					+ visit.getVisitId()
+					+ "\",\""
+					+ visit.getDate()
+					+ "\",\""
+					+ visit.getTower().getId()
+					+ "\",\""
+					+ towerService.getTowerDescriptor(
+							(visit.getTower().getId())).getDe() + "\",\""
+					+ visit.getRung() + "\",\"" + visit.getQuarterPealRung()
+					+ "\",\"" + visit.getPealRung() + "\",\""
+					+ visit.getNotes() + "\"");
+			rows.add("\n");
+		}
+
+		Iterator<String> iter = rows.iterator();
+		while (iter.hasNext()) {
+			String outputString = (String) iter.next();
+			try {
+				response.getOutputStream().print(outputString);
+			} catch (IOException e) {
+				return "redirect:/500";
+			}
+		}
+
+		try {
+			response.getOutputStream().flush();
+		} catch (IOException e) {
+			return "redirect:/500";
+		}
+
+		return null;
 	}
 
 }

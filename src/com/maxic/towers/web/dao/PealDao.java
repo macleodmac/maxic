@@ -7,8 +7,11 @@ import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Disjunction;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
@@ -69,8 +72,15 @@ public class PealDao {
 	}
 
 	public boolean deletePeal(int id) {
-		String hql = "delete from Peal where pealId = :id";
-		return session().createQuery(hql).setInteger("id", id).executeUpdate() == 1;
+		Criteria crit = session().createCriteria(Peal.class);
+		crit.add(Restrictions.idEq(id));
+		try {
+			session().delete(crit.uniqueResult());
+			return true;
+		} catch (HibernateException e) {
+			return false;
+		}
+		
 
 	}
 
@@ -99,7 +109,7 @@ public class PealDao {
 		crit.addOrder(Order.desc("dateRung"));
 		crit.setFirstResult(displayStart);
 		crit.setMaxResults(pageLength);
-		
+
 		return crit.list();
 	}
 
@@ -107,45 +117,59 @@ public class PealDao {
 	public List<Peal> getPaginatedPealsForTower(int towerId, int pageLength,
 			int displayStart) {
 		Criteria crit = session().createCriteria(Peal.class);
-		crit.add(Restrictions.eq("towerId", towerId));
+		crit.add(Restrictions.eq("tower.id", towerId));
 		crit.addOrder(Order.desc("dateRung"));
 		crit.setFirstResult(displayStart);
 		crit.setMaxResults(pageLength);
-		
+
 		return crit.list();
 	}
 
 	public int getNumberPealsForTower(int towerId) {
 		Criteria crit = session().createCriteria(Peal.class);
-		crit.add(Restrictions.eq("towerId", towerId));
-		
+		crit.add(Restrictions.eq("tower.id", towerId));
+
 		return crit.list().size();
 	}
 
 	@SuppressWarnings("unchecked")
 	public List<Peal> getPaginatedPealsForTower(int towerId, Date dateFrom,
-			Date dateTo, int pageLength, int displayStart) {
+			Date dateTo, String ringer, int pageLength, int displayStart) {
 		Criteria crit = session().createCriteria(Peal.class);
 		if (towerId != 0) {
-			crit.add(Restrictions.eq("towerId", towerId));
+			crit.add(Restrictions.eq("tower.id", towerId));
 		}
+		Disjunction or = Restrictions.disjunction();
+		if (!ringer.isEmpty()) {
+			for (int i = 1; i <= 16; i++) {
+				or.add(Restrictions.ilike("ringer" + i, '%' + ringer + '%', MatchMode.ANYWHERE));
+			}
+			crit.add(or);
+		}
+
 		crit.add(Restrictions.between("dateRung", dateFrom, dateTo));
 		crit.addOrder(Order.desc("dateRung"));
 		crit.setFirstResult(displayStart);
 		crit.setMaxResults(pageLength);
 		return crit.list();
 	}
-	
-	public int getNumberPealsForTower(int towerId, Date dateFrom,
-			Date dateTo) {
+
+	public int getNumberPealsForTower(int towerId, Date dateFrom, Date dateTo,
+			String ringer) {
 		Criteria crit = session().createCriteria(Peal.class);
 		if (towerId != 0) {
-			crit.add(Restrictions.eq("towerId", towerId));
+			crit.add(Restrictions.eq("tower.id", towerId));
+		}
+		Disjunction or = Restrictions.disjunction();
+		if (!ringer.isEmpty()) {
+			for (int i = 1; i <= 16; i++) {
+				or.add(Restrictions.ilike("ringer" + i, '%' + ringer + '%', MatchMode.ANYWHERE));
+			}
+			crit.add(or);
 		}
 		crit.add(Restrictions.between("dateRung", dateFrom, dateTo));
-		
+
 		return crit.list().size();
 	}
-
 
 }

@@ -2980,19 +2980,19 @@ LOCK TABLES `countries` WRITE;
 INSERT INTO `countries` VALUES ('AU','Australia');
 INSERT INTO `countries` VALUES ('CA','Canada');
 INSERT INTO `countries` VALUES ('ES','Spain');
-INSERT INTO `countries` VALUES ('GB','United Kingdom');
-INSERT INTO `countries` VALUES ('GD','Grenada');
-INSERT INTO `countries` VALUES ('GG','Guernsey');
+INSERT INTO `countries` VALUES ('GB','');
+INSERT INTO `countries` VALUES ('GD','Windward Is');
+INSERT INTO `countries` VALUES ('GG','Channel Is');
 INSERT INTO `countries` VALUES ('IE','Ireland');
 INSERT INTO `countries` VALUES ('IM','Isle of Man');
 INSERT INTO `countries` VALUES ('IN','India');
-INSERT INTO `countries` VALUES ('JE','Jersey');
+INSERT INTO `countries` VALUES ('JE','Channel Is');
 INSERT INTO `countries` VALUES ('KE','Kenya');
 INSERT INTO `countries` VALUES ('NL','Netherlands');
 INSERT INTO `countries` VALUES ('NZ','New Zealand');
 INSERT INTO `countries` VALUES ('PK','Pakistan');
 INSERT INTO `countries` VALUES ('US','USA');
-INSERT INTO `countries` VALUES ('VC','Saint Vincent And Grenadines');
+INSERT INTO `countries` VALUES ('VC','Windward Is');
 INSERT INTO `countries` VALUES ('ZA','South Africa');
 INSERT INTO `countries` VALUES ('ZW','Zimbabwe');
 /*!40000 ALTER TABLE `countries` ENABLE KEYS */;
@@ -3058,7 +3058,7 @@ INSERT INTO `dioceses` VALUES ('Norwich','Norwich');
 INSERT INTO `dioceses` VALUES ('Oxford','Oxford');
 INSERT INTO `dioceses` VALUES ('Peterborough','Peterborough');
 INSERT INTO `dioceses` VALUES ('Portsmouth','Portsmouth');
-INSERT INTO `dioceses` VALUES ('PrivOwnership','Private Ownership');
+INSERT INTO `dioceses` VALUES ('PrivOwnership','PrivOwnership');
 INSERT INTO `dioceses` VALUES ('Rochester','Rochester');
 INSERT INTO `dioceses` VALUES ('Royal Peculiar','Royal Peculiar');
 INSERT INTO `dioceses` VALUES ('Salisbury','Salisbury');
@@ -3144,7 +3144,7 @@ CREATE TABLE `peals` (
   `ringer15` varchar(50) DEFAULT NULL,
   `ringer16` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`pealId`)
-) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3158,6 +3158,7 @@ INSERT INTO `peals` VALUES (43,1,'','2014-12-12','','','','',0,'','','','','',''
 INSERT INTO `peals` VALUES (44,7,'','2015-03-29','','','test','',0,'','','','','test','','','','','','','','','','','','','','','');
 INSERT INTO `peals` VALUES (45,14,'','2015-04-02','','','This is my method.','',0,'','','','','James Boblee','Billy Nomates','','','','','','','','','','','','','','');
 INSERT INTO `peals` VALUES (46,5482,'','2015-04-10','3h42m','','This is the method','',1000,'','','','','Jamie MacLeod','','','','','','','','','','','','','','','');
+INSERT INTO `peals` VALUES (47,178,'','2015-04-26','','','Suprise Major','',200,'','','','','Jamie MacLeod','','','','','','','','','','','','','','','');
 /*!40000 ALTER TABLE `peals` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -6758,7 +6759,7 @@ CREATE TABLE `towers` (
   `practiceTime` varchar(10) DEFAULT NULL,
   `practiceFrequency` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`towerId`)
-) ENGINE=InnoDB AUTO_INCREMENT=7137 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7138 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -7171,7 +7172,7 @@ INSERT INTO `towers` VALUES (401,'BARTON  CB',327,'Barton','','',1,'TL407557',52
 INSERT INTO `towers` VALUES (402,'BARTON  NY',328,'Barton','','',1,'NZ230089',54.4754,-1.64588,'DL10 6JF',0,0,'GB','WYorks+Dales',NULL,'S Cuthbert & S Mary','II',0,0,0,'',NULL,'YACR','','',4,'http://www.riponandleedsbells.org.uk/barton.htm','','','');
 INSERT INTO `towers` VALUES (403,'BARTON IN',333,'Barton in Fabis','','',1,'SK522327',52.8897,-1.22514,'NG11 0AA',0,0,'GB','SouthwellNottm',NULL,'S George','I',1,0,0,'',NULL,'Swell','','',6,'','','','');
 INSERT INTO `towers` VALUES (404,'BARTON LE',334,'Barton le Clay','','',1,'TL085304',51.9615,-0.42188,'MK45 4JZ',0,0,'GB','St Albans',NULL,'S Nicholas','I',0,0,0,'',NULL,'Beds','','',8,'','Monday','','');
-INSERT INTO `towers` VALUES (405,'BARTON MI-',7551,'Barton Mills','','',0,'TL716738',52.3355,0.51839,'IP28 6AP',0,0,'GB','StEds+Ipswich',NULL,'S Mary','II*',0,0,0,'Unringable; tuning: 1-3 of 4',NULL,'','','',3,'','','','');
+INSERT INTO `towers` VALUES (405,'BARTON MIL',7551,'Barton Mills','','',0,'TL716738',52.3355,0.51839,'IP28 6AP',0,0,'GB','StEds+Ipswich',NULL,'S Mary','II*',0,0,0,'Unringable; tuning: 1-3 of 4',NULL,'','','',3,'','','','');
 INSERT INTO `towers` VALUES (406,'BARTON SAI',330,'Barton St David','','',1,'ST539317',51.0829,-2.65846,'TA11 6BS',0,0,'GB','Bath+Wells',NULL,'S David','II*',1,0,1,'Restoration work under way; octagonal tower; PN shared: Barton St David, Kingweston, West Lydford',NULL,'B&W','','',6,'http://bath-wells.org/towerselect.php?DoveID=BARTON+SAI','','','');
 INSERT INTO `towers` VALUES (407,'BARTON SEA',329,'Barton Seagrave','','',1,'SP888770',52.3847,-0.69612,'NN15 6SZ',0,0,'GB','Peterborough',NULL,'S Botolph','I',0,0,0,'Anti-clockwise',NULL,'PDG','','',8,'','Monday','','');
 INSERT INTO `towers` VALUES (408,'BARTON STA',331,'Barton Stacey','','',1,'SU434411',51.1679,-1.37955,'SO21 3RT',0,0,'GB','Winchester',NULL,'All Saints','II*',0,0,1,'',NULL,'W&P','','',6,'http://www.wp-ringers.org.uk/newsite/districts/onetower.asp?dove=BARTON STA','Wednesday','','');
@@ -11466,7 +11467,7 @@ INSERT INTO `towers` VALUES (4696,'OVERSTONE',6739,'Overstone','','',1,'SP805660
 INSERT INTO `towers` VALUES (4697,'OVERTON',3784,'Overton','','',1,'SU514499',51.2467,-1.26426,'RG25 3HF',0,0,'GB','Winchester',NULL,'S Mary','II*',0,0,0,'',NULL,'W&P','','',8,'http://www.wp-ringers.org.uk/newsite/districts/onetower.asp?dove=OVERTON','Friday','','');
 INSERT INTO `towers` VALUES (4698,'OVERTON OD',3786,'Overton on Dee','','',1,'SJ373418',52.9701,-2.93482,'LL13 0FA',0,0,'GB','St Asaph',NULL,'S Mary V','II*',1,0,0,'',NULL,'NWA','','',6,'','Monday','','');
 INSERT INTO `towers` VALUES (4699,'OVING  BUC',6866,'Oving','','',0,'SP782213',51.8854,-0.86469,'HP22 4HN',0,0,'GB','Oxford',NULL,'All Saints','II*',1,0,0,'Unringable; tuning: 1-3 of 4',NULL,'','','',3,'','','','');
-INSERT INTO `towers` VALUES (4700,'OVINGHAM3',7747,'Ovingham','','',1,'NZ085637',54.9679,-1.86899,'NE42 6AB',54.9681,-1.86871,'GB','Newcastle',NULL,'S Mary V','I',0,0,0,'Also, in a separate frame, a ring of 3 (see 3-bell list)',NULL,'D&N','','',8,'http://www.ovinghambells.co.uk','','','');
+INSERT INTO `towers` VALUES (4700,'OVINGHAM',7747,'Ovingham','','',1,'NZ085637',54.9679,-1.86899,'NE42 6AB',54.9681,-1.86871,'GB','Newcastle',NULL,'S Mary V','I',0,0,0,'Also, in a separate frame, a ring of 3 (see 3-bell list)',NULL,'D&N','','',8,'http://www.ovinghambells.co.uk','','','');
 INSERT INTO `towers` VALUES (4701,'OVINGHAM3',7429,'Ovingham','','Ovingham(3)',1,'NZ085637',54.9679,-1.86899,'NE42 6AB',54.9681,-1.86871,'GB','Newcastle',NULL,'S Mary V','I',0,0,0,'Also a ring of 8 in a separate frame; tuning: non-diatonic',NULL,'','','',3,'http://www.ovinghambells.co.uk','','','');
 INSERT INTO `towers` VALUES (4702,'OVINGTON',3788,'Ovington','','',1,'SU560316',51.081,-1.20069,'SO24 0RB',0,0,'GB','Winchester',NULL,'S Peter','II',0,0,0,'Tuning: 1-4 of 6',NULL,'W&P','','',4,'http://www.wp-ringers.org.uk/newsite/districts/onetower.asp?dove=OVINGTON','','','');
 INSERT INTO `towers` VALUES (4703,'OWSLEBURY',3789,'Owslebury','','',1,'SU514233',51.0076,-1.2676,'SO21 1LR',0,0,'GB','Winchester',NULL,'S Andrew','II*',0,0,0,'',NULL,'W&P','','',6,'http://www.wp-ringers.org.uk/newsite/districts/onetower.asp?dove=OWSLEBURY','','','');
@@ -13784,7 +13785,7 @@ INSERT INTO `towers` VALUES (7014,'WOOTTON  B',5657,'Wootton','','',1,'TL003450'
 INSERT INTO `towers` VALUES (7015,'WOOTTON  H',5658,'Wootton','','',1,'TA088161',53.6308,-0.35477,'DN39 6SF',0,0,'GB','Lincoln',NULL,'S Andrew','I',1,0,0,'',NULL,'LinDG','','',4,'','','','');
 INSERT INTO `towers` VALUES (7016,'WOOTTON  N',5659,'Wootton','','',1,'SP762565',52.2017,-0.88613,'NN4 6LQ',0,0,'GB','Peterborough',NULL,'S George M','I',1,0,0,'',NULL,'PDG','','',6,'','Tuesday','','');
 INSERT INTO `towers` VALUES (7017,'WOOTTON  O',5660,'Wootton','','',1,'SP438198',51.8757,-1.36389,'OX20 1DZ',0,0,'GB','Oxford',NULL,'S Mary','II*',0,0,0,'',NULL,'ODG','','',6,'','','','');
-INSERT INTO `towers` VALUES (7018,'ROYAL WBAS',5661,'Wootton Bassett','','',1,'SU066825',51.5415,-1.90617,'SN4 7BB',0,0,'GB','Salisbury',NULL,'S Bartholomew & All Saints','II*',0,0,0,'',NULL,'Salis','','',8,'http://www.sdgr.org.uk/branches/calne/tower-275','','','');
+INSERT INTO `towers` VALUES (7018,'WOOTTON BA',5661,'Wootton Bassett','','',1,'SU066825',51.5415,-1.90617,'SN4 7BB',0,0,'GB','Salisbury',NULL,'S Bartholomew & All Saints','II*',0,0,0,'',NULL,'Salis','','',8,'http://www.sdgr.org.uk/branches/calne/tower-275','','','');
 INSERT INTO `towers` VALUES (7019,'WOOTTON CO',5662,'Wootton Courtenay','','',1,'SS938434',51.1803,-3.52052,'TA24 8RJ',0,0,'GB','Bath+Wells',NULL,'All Saints','I',1,0,0,'',NULL,'B&W','','',6,'http://bath-wells.org/towerselect.php?DoveID=WOOTTON+CO','','','');
 INSERT INTO `towers` VALUES (7020,'WOOTTON RI',5663,'Wootton Rivers','','',1,'SU196629',51.3652,-1.71894,'SN8 4NH',0,0,'GB','Salisbury',NULL,'S Andrew','II*',1,0,0,'',NULL,'Salis','','',6,'http://www.sdgr.org.uk/branches/marlborough/tower-276','','','');
 INSERT INTO `towers` VALUES (7021,'WOOTTON ST',5664,'Wootton St Lawrence','','',1,'SU592532',51.2751,-1.15271,'RG23 8PE',0,0,'GB','Winchester',NULL,'S Lawrence','II*',1,0,0,'',NULL,'W&P','','',6,'http://www.wp-ringers.org.uk/newsite/districts/onetower.asp?dove=WOOTTON ST','','','');
@@ -13954,7 +13955,7 @@ CREATE TABLE `visits` (
   `quarterPealRung` tinyint(4) DEFAULT '0',
   `notes` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`visitId`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -13970,6 +13971,8 @@ INSERT INTO `visits` VALUES (4,10,15,'2015-04-13',1,0,0,'It was good lul\\\r\n')
 INSERT INTO `visits` VALUES (5,444,15,'2015-04-13',1,0,0,'');
 INSERT INTO `visits` VALUES (6,1,20,'2015-04-13',0,0,0,'');
 INSERT INTO `visits` VALUES (7,5481,23,'2015-04-15',1,0,1,'I enjoyed my time here');
+INSERT INTO `visits` VALUES (11,12,24,'2015-04-28',1,0,0,'Good sesh mate');
+INSERT INTO `visits` VALUES (12,9,24,'2015-04-15',0,1,0,'testsastsadsa');
 /*!40000 ALTER TABLE `visits` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -13982,4 +13985,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-04-25 16:21:08
+-- Dump completed on 2015-04-28 19:24:12

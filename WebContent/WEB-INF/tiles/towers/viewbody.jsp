@@ -14,18 +14,32 @@
 				<c:if test="${not towerWrapper.tower.ringable}">
 					<td>No</td>
 				</c:if>
-
 			</tr>
+			<tr>
+				<th>Ground Floor Ring</th>
+				<c:if test="${towerWrapper.tower.groundFloorRing}">
+					<td>Yes</td>
+				</c:if>
+				<c:if test="${not towerWrapper.tower.groundFloorRing}">
+					<td>No</td>
+				</c:if>
+			</tr>
+			<tr>
+				<th>Toilet</th>
+				<c:if test="${towerWrapper.tower.toilet}">
+					<td>Yes</td>
+				</c:if>
+				<c:if test="${not towerWrapper.tower.toilet}">
+					<td>No</td>
+				</c:if>
+			</tr>
+			
 			<c:if test="${not empty towerWrapper.tower.extraInfo}">
 				<tr>
 					<th>Info</th>
 					<td>${towerWrapper.tower.extraInfo}</td>
 				</tr>
 			</c:if>
-			<tr>
-				<th>News</th>
-				<td>Sample News</td>
-			</tr>
 			<c:if test="${not empty towerWrapper.tower.accessDetails}">
 				<tr>
 					<th>Access</th>
@@ -72,10 +86,10 @@
 			<table class="table">
 				<thead>
 					<tr>
-						<th></th>
+						<th>Name</th>
 						<th>Day</th>
 						<th>Time</th>
-						<th></th>
+						<th>Frequency</th>
 						<th>Visitors?</th>
 					</tr>
 				</thead>

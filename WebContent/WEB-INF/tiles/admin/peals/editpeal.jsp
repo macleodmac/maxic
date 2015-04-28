@@ -34,7 +34,7 @@
 			<div class="col-xs-9 col-sm-6">
 				<div class="form-group">
 					<label for="towerId">Tower</label>
-					<sf:select class="form-control" path="towerId" id="towerId"
+					<sf:select class="form-control" path="tower.id" id="towerId"
 						items="${towers}" />
 				</div>
 			</div>

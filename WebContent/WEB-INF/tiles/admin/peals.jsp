@@ -44,7 +44,7 @@
 							<td>${row.pealId}</td>
 							<td>${row.dateRung}</td>
 							<td>${row.method}</td>
-							<td>${row.towerId}</td>
+							<td>${row.tower.id}</td>
 							<td><a class="btn btn-xs btn-default"
 								href="${pageContext.request.contextPath}/admin/peals/edit?p=${row.pealId}">Edit</a></td>
 						</tr>
@@ -58,7 +58,7 @@
 		<div class="col-xs-12">
 			<a class="btn btn-default"
 				href="${pageContext.request.contextPath}/admin/peals/add">Add a
-				Peal</a>
+				Performance</a>
 		</div>
 	</div>
 </div>

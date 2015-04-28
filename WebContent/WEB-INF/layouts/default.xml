@@ -216,11 +216,7 @@
 		<put-attribute name="title" value="Tower Finder :: Create an Account"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/user/newaccount.jsp"></put-attribute>
 	</definition>
-	
-	<definition name="/accountcreated" extends="towers.base">
-		<put-attribute name="title" value="Tower Finder :: Account Created"></put-attribute>
-		<put-attribute name="content" value="/WEB-INF/tiles/user/accountcreated.jsp"></put-attribute>
-	</definition>
+
 	
 	<definition name="/forgotpassword" extends="towers.base">
 		<put-attribute name="title" value="Tower Finder :: Forgotten Password"></put-attribute>
@@ -255,6 +251,11 @@
 	<definition name="/account/visits" extends="towers.base">
 		<put-attribute name="title" value="Tower Finder :: My Visits"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/user/visits.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="/account/visits/view" extends="towers.base">
+		<put-attribute name="title" value="Tower Finder :: Add Visits"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/user/visits/viewvisit.jsp"></put-attribute>
 	</definition>
 	
 	<definition name="/account/visits/add" extends="towers.base">

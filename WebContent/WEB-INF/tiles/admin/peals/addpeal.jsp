@@ -19,15 +19,10 @@
 		
 		<div class="row">
 			<div class="col-xs-6">
-				<div class="form-group">
-					<a class="btn btn-default"
-						href="${pageContext.request.contextPath}/admin/peals">Back</a>
-				</div>
+				<h3>Add a Performance</h3>
 			</div>
 			<div class="col-xs-6 text-right">
-				<div class="form-group">
-					<button type="submit" class="btn btn-default">Add Peal</button>
-				</div>
+					<p><button type="submit" class="btn btn-default">Add Performance</button></p>
 			</div>
 		</div>
 
@@ -46,7 +41,7 @@
 			<div class="col-xs-12 col-sm-9">
 				<div class="form-group">
 					<label for="towerId">Tower</label>
-					<sf:select class="form-control" path="towerId" id="towerId"
+					<sf:select class="form-control" path="tower.id" id="towerId"
 						items="${towers}" />
 				</div>
 			</div>
@@ -81,18 +76,25 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-xs-4 col-sm-3">
+			<div class="col-xs-3">
 				<div class="form-group">
 					<label for="changes">Changes</label>
 					<sf:input type="text" class="form-control" path="changes"
 						id="changes" placeholder="Changes" />
 				</div>
 			</div>
-			<div class="col-xs-8 col-sm-9">
+			<div class="col-xs-6">
 				<div class="form-group">
 					<label for="method">Method</label>
 					<sf:input type="text" class="form-control" path="method"
 						id="method" placeholder="Method" />
+				</div>
+			</div>
+			<div class="col-xs-3">
+				<div class="form-group">
+					<label for="satNavLatitude">Composer</label>
+					<sf:input type="text" class="form-control" path="composer"
+						id="composer" placeholder="Composer" />
 				</div>
 			</div>
 			<div class="col-xs-12">
@@ -221,32 +223,17 @@
 			<div class="col-xs-12 col-sm-6">
 				<div class="form-group">
 					<label for="footnotes">Footnotes</label>
-					<sf:textarea style="resize: none;" rows="3" class="form-control"
+					<sf:textarea style="resize: none;" rows="2" class="form-control"
 						path="footnotes" id="footnotes" placeholder="Footnotes" />
 				</div>
 			</div>
 			<div class="col-xs-12 col-sm-6">
 				<div class="form-group">
 					<label for="composition">Composition</label>
-					<sf:textarea style="resize: none;" rows="3" class="form-control"
+					<sf:textarea style="resize: none;" rows="2" class="form-control"
 						path="composition" id="composition" placeholder="Composition" />
 				</div>
 			</div>
-			<div class="col-xs-6 col-sm-3">
-				<div class="form-group">
-					<label for="leader">Leader</label>
-					<sf:input type="text" class="form-control" path="leader"
-						id="leader" placeholder="Leader" />
-				</div>
-			</div>
-			<div class="col-xs-6 col-sm-3">
-				<div class="form-group">
-					<label for="satNavLatitude">Composer</label>
-					<sf:input type="text" class="form-control" path="composer"
-						id="composer" placeholder="Composer" />
-				</div>
-			</div>
-
 		</div>
 	</sf:form>
 <script>

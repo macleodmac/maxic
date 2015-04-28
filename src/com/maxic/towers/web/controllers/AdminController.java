@@ -1,6 +1,5 @@
 package com.maxic.towers.web.controllers;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
@@ -37,7 +36,6 @@ import com.maxic.towers.web.model.TowerDescriptor;
 import com.maxic.towers.web.model.TowerWrapper;
 import com.maxic.towers.web.model.User;
 import com.maxic.towers.web.model.VerificationToken;
-import com.maxic.towers.web.processing.Parser;
 import com.maxic.towers.web.service.ContactDetailsService;
 import com.maxic.towers.web.service.CountryService;
 import com.maxic.towers.web.service.DioceseService;
@@ -180,6 +178,10 @@ public class AdminController {
 
 		Map<String, String> dioceseMap = dioceseService.getDioceseMap();
 		model.addAttribute("dioceses", dioceseMap);
+		Map<Boolean, String> booleanMap = new LinkedHashMap<Boolean, String>();
+		booleanMap.put(true, "Yes");
+		booleanMap.put(false, "No");
+		model.addAttribute("yesno", booleanMap);
 		return "/admin/towers/addtower";
 	}
 
@@ -216,7 +218,13 @@ public class AdminController {
 	public String deleteTower(Model model, @RequestParam("t") String t,
 			RedirectAttributes redirectAttributes) {
 		int id = Integer.parseInt(t);
-		boolean success = towerService.deleteTower(id);
+		boolean success = true;
+		
+		try {
+			towerService.deleteTower(id);
+		} catch (Exception e) {
+			success = false;
+		}
 
 		if (success) {
 			redirectAttributes.addFlashAttribute("message",
@@ -802,6 +810,7 @@ public class AdminController {
 	@RequestMapping(value = "/admin/dioceses/edit", method = RequestMethod.GET)
 	public String showEditDiocese(Model model, @RequestParam("d") String d) {
 		Diocese diocese = dioceseService.getDiocese(d);
+		System.out.println(diocese);
 		model.addAttribute("diocese", diocese);
 
 		return "/admin/dioceses/editdiocese";

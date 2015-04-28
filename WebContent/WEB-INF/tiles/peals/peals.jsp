@@ -49,12 +49,15 @@
 					d.tower = $('#towerselect').val();
 					d.dateTo = $('#dateTo').val();
 					d.dateFrom = $('#dateFrom').val();
+					d.ringer = $('#ringer').val();
 				}
 			},
 			"columns" : [ {
 				"mData" : "dateRung"
 			}, {
-				"mData" : "towerId"
+				"mData" : "tower.de"
+			}, {
+				"mData" : "changes"
 			}, {
 				"mData" : "method"
 			} ]
@@ -79,58 +82,148 @@
 			table.ajax.reload();
 		});
 
-		$('#dateFrom').datepicker({
-			format : 'dd-mm-yyyy'
+		var timer = null;
+		$('#ringer').keydown(function() {
+			clearTimeout(timer);
+			timer = setTimeout(updateSearch, 1000)
 		});
 
-		$('#dateFrom').on('changeDate', function() {
+		function updateSearch() {
 			table.ajax.reload();
-		});
-
-		$('#dateTo').datepicker({
-			format : 'dd-mm-yyyy'
-		});
-
-		$('#dateTo').on('changeDate', function() {
-			table.ajax.reload();
-		});
+		}
 		
+		var dFrom = $('#dateFrom').datepicker({
+			format : 'dd-mm-yyyy',
+			endDate : '0d',
+			autoclose : true,
+			onRender : function(date) {
+				return date.valueOf() > now.valueOf() ? 'disabled' : '';
+			}
+		}).on('changeDate', function(ev) {
+			if ($('#dateFrom').val() > $('#dateTo').val()) {
+			    var dateTo = $('#dateTo').val();
+			    var dateParts = dateTo.split("-");
+			    var date = new Date(dateParts[2], (dateParts[1] - 1), dateParts[0]);
+			    var dateMonth;
+			    if (date.getMonth() < 10) {
+			    	dateMonth = '0'+(date.getMonth()+1);
+			    } else {
+			    	dateMonth = date.getMonth()+1;
+			    }
+			    var dateString = date.getDate()+'-'+dateMonth+'-'+date.getFullYear();
+			    console.log('New date: ' +dateString);
+			    console.log('Current date: ' + $('#dateFrom').val());
+			    $('#dateFrom').val(dateString);
+			  }
+			table.ajax.reload();
+		}).data('datepicker');
+
+		var dTo = $('#dateTo').datepicker({
+			format : 'dd-mm-yyyy',
+			endDate : '0d',
+			autoclose : true,
+			onRender : function(date) {
+				return date.valueOf() > now.valueOf() ? 'disabled' : '';
+			}
+		}).on('changeDate', function(ev) {
+			if ($('#dateFrom').val() > $('#dateTo').val()) {
+			    var dateTo = $('#dateTo').val();
+			    var dateParts = dateTo.split("-");
+			    var date = new Date(dateParts[2], (dateParts[1] - 1), dateParts[0]);
+			    var dateMonth;
+			    console.log(dTo.valueOf());
+			    if (date.getMonth() < 10) {
+			    	dateMonth = '0'+(date.getMonth()+1);
+			    } else {
+			    	dateMonth = date.getMonth()+1;
+			    }
+			    var dateString = date.getDate()+'-'+dateMonth+'-'+date.getFullYear();
+			    $('#dateFrom').val(dateString);
+			  }
+			table.ajax.reload();
+		}).data('datepicker');
+		
+
 		$('#clearbtn').click(function() {
 			$('#dateFrom').val("");
 			$('#dateTo').val("");
 			$('#towerselect').val("0");
+			$('#ringer').val("");
 			table.ajax.reload();
 		});
+		
+		var tower = getUrlParameter('t');
+		
+		if (tower != null) {
+			$('#towerselect').val(tower);
+			table.ajax.reload();
+		}
 
 	});
-	
-	
-	
+	function getUrlParameter(sParam)
+	{
+	    var sPageURL = window.location.search.substring(1);
+	    var sURLVariables = sPageURL.split('&');
+	    for (var i = 0; i < sURLVariables.length; i++) 
+	    {
+	        var sParameterName = sURLVariables[i].split('=');
+	        if (sParameterName[0] == sParam) 
+	        {
+	            return sParameterName[1];
+	        }
+	    }
+	}          
 </script>
 <div class="container">
 	<div class="row">
-		<div class="col-xs-12 col-sm-10 col-sm-offset-1">
-			<form class="form-inline">
-				<div class="form-group" id="towerselectwrap">
-					<label for="tower">Tower</label> <select name="tower"
-						class="form-control" id="towerselect">
-						<c:forEach items="${towers}" var="tower">
-							<option value="${tower.key}">${tower.value}</option>
-						</c:forEach>
-					</select>
-				</div>
+		<div class="col-xs-10 col-xs-offset-1">
+			<h3>
+				Latest Performances <a class="btn btn-default btn-sm"
+					data-toggle="collapse" href="#filter" aria-expanded="false"
+					aria-controls="collapseExample"> Filter</a>
+			</h3>
 
-				<div class="form-group">
-					<label for="dp1">From</label> <input type="text"
-						class="form-control" id="dateFrom" placeholder="Date From">
-				</div>
-				<div class="form-group">
-					<label for="dp2">to</label> <input type="text" class="form-control"
-						id="dateTo" placeholder="Date To">
-				</div>
-				<a class="btn btn-default" id="clearbtn">Clear
-					Filters</a>
-			</form>
+			<div class="collapse in" id="filter">
+				<form class="form">
+					<div class="col-xs-12 col-md-4">
+						<div class="form-group" id="towerselectwrap">
+							<label for="tower">Tower</label> <select name="tower"
+								class="form-control" id="towerselect">
+								<c:forEach items="${towers}" var="tower">
+									<option value="${tower.key}">${tower.value}</option>
+								</c:forEach>
+							</select>
+						</div>
+					</div>
+					<div class="col-xs-6 col-md-2">
+
+						<div class="form-group">
+							<label for="dp1">Date From</label> <input type="text"
+								class="form-control" id="dateFrom" placeholder="Date From">
+						</div>
+					</div>
+					<div class="col-xs-6 col-md-2">
+						<div class="form-group">
+							<label for="dp2">Date To</label> <input type="text"
+								class="form-control" id="dateTo" placeholder="Date To">
+						</div>
+					</div>
+					<div class="col-xs-6 col-md-3">
+						<div class="form-group">
+							<label for="ringer">Ringer</label> <input type="text"
+								class="form-control" id="ringer" placeholder="Ringer">
+						</div>
+					</div>
+					<div class="col-xs-6 col-md-1">
+						<div class="form-group">
+							<label for="clearbtn"></label>
+							<p class="form-control-static">
+								<a class="btn btn-sm btn-default" id="clearbtn">Clear</a>
+							</p>
+						</div>
+					</div>
+				</form>
+			</div>
 		</div>
 	</div>
 	<div class="row">
@@ -147,6 +240,7 @@
 							<tr>
 								<th>Date</th>
 								<th>Tower</th>
+								<th></th>
 								<th>Method</th>
 							</tr>
 						</thead>
@@ -156,9 +250,11 @@
 		</div>
 	</div>
 	<div class="row">
-
-		<a class="btn btn-primary"
-			href="${pageContext.request.contextPath}/peals/add">Add a Peal</a>
+		<div class="col-xs-12 col-sm-10 col-sm-offset-1">
+			<hr />
+			<a class="btn btn-primary"
+				href="${pageContext.request.contextPath}/peals/add">Add a Performance</a>
+		</div>
 	</div>
 </div>
 <br />

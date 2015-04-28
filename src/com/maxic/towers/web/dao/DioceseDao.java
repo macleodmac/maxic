@@ -34,8 +34,9 @@ public class DioceseDao {
 
 		Criteria crit = session().createCriteria(Diocese.class);
 		crit.add(Restrictions.idEq(id));
+		System.out.println("looking for diocese " + id);
 		Diocese diocese = (Diocese) crit.uniqueResult();
-
+		System.out.println(diocese);
 		return diocese;
 	}
 

@@ -12,21 +12,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.maxic.towers.web.model.Peal;
-import com.maxic.towers.web.model.TowerShort;
 import com.maxic.towers.web.service.PealService;
-import com.maxic.towers.web.service.TowerService;
 
 @Controller
 public class HomeController {
 
 	private static Logger logger = Logger.getLogger(HomeController.class);
-	private TowerService towerService;
 	private PealService pealService;
-
-	@Autowired
-	public void setTowerService(TowerService towerService) {
-		this.towerService = towerService;
-	}
 
 	@Autowired
 	public void setPealService(PealService pealService) {

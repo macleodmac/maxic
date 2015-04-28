@@ -70,7 +70,10 @@ $('.dTable tbody').on('mouseout', 'tr', function() {
 <div class="container">
 	
 	<div class="row">
+		
 		<div class="col-xs-12 col-sm-10 col-sm-offset-1">
+		<h3>Tower Search</h3>
+		<hr />
 		<div class="responsive">
 		<sf:form action="" method="GET">
 			<table id="towertable"

@@ -70,11 +70,11 @@ public class PealService {
 	}
 
 	public List<Peal> getPaginatedPealsForTower(int towerId, Date dateFrom,
-			Date dateTo, int pageLength, int displayStart) {
-		return pealDao.getPaginatedPealsForTower(towerId, dateFrom, dateTo, pageLength, displayStart);
+			Date dateTo, String ringer, int pageLength, int displayStart) {
+		return pealDao.getPaginatedPealsForTower(towerId, dateFrom, dateTo, ringer, pageLength, displayStart);
 	}
 
-	public int getNumberPealsForTower(int towerId, Date dateFrom, Date dateTo) {
-		return pealDao.getNumberPealsForTower(towerId, dateFrom, dateTo);
+	public int getNumberPealsForTower(int towerId, Date dateFrom, Date dateTo, String ringer) {
+		return pealDao.getNumberPealsForTower(towerId, dateFrom, dateTo, ringer);
 	}
 }

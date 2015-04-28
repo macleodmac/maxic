@@ -25,6 +25,7 @@ import com.maxic.towers.web.model.Peal;
 import com.maxic.towers.web.model.Tower;
 import com.maxic.towers.web.model.TowerDescriptor;
 import com.maxic.towers.web.model.TowerShort;
+import com.maxic.towers.web.model.TowerVisit;
 import com.maxic.towers.web.model.User;
 import com.maxic.towers.web.service.ContactDetailsService;
 import com.maxic.towers.web.service.CountryService;
@@ -317,6 +318,14 @@ public class JsonController {
 		int pageNo = 0;
 		int pageLength = 10;
 		int towerId = 0;
+		List<Peal> pealList;
+		int pealCount = pealService.getNumberOfPeals();
+		int pealListCount;
+		String ringer = "";
+		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+		String aLongTimeAgo = "01-01-1000";
+		Date dateFrom = null;
+		Date dateTo = new Date();
 
 		if (request.getParameter("iDisplayStart") != null) {
 			pageNo = (Integer.valueOf(request.getParameter("iDisplayStart")) / 10) + 1;
@@ -326,23 +335,19 @@ public class JsonController {
 					.valueOf(request.getParameter("iDisplayLength"));
 		}
 
-		List<Peal> pealList;
-		int pealCount = pealService.getNumberOfPeals();
-		int pealListCount;
-
-		if (Integer.valueOf(request.getParameter("tower")) != 0) {
+		if (request.getParameter("tower") != null) {
 			towerId = Integer.valueOf(request.getParameter("tower"));
 		}
 
-		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-		String aLongTimeAgo = "01-01-1000";
-		Date dateFrom = null;
+		if (request.getParameter("ringer") != null) {
+			ringer = request.getParameter("ringer");
+		}
+
 		try {
 			dateFrom = sdf.parse(aLongTimeAgo);
 		} catch (ParseException e) {
 		}
-		Date dateTo = new Date();
-		;
+
 		if (request.getParameter("dateFrom") != null) {
 			try {
 				dateFrom = sdf.parse(request.getParameter("dateFrom"));
@@ -357,15 +362,21 @@ public class JsonController {
 			}
 		}
 
-		if (dateTo != null || dateFrom != null || towerId != 0) {
+		if (dateTo != null || dateFrom != null || towerId != 0
+				|| !ringer.isEmpty()) {
 			pealList = pealService.getPaginatedPealsForTower(towerId, dateFrom,
-					dateTo, pageLength, (pageNo - 1) * 10);
+					dateTo, ringer, pageLength, (pageNo - 1) * 10);
 			pealListCount = pealService.getNumberPealsForTower(towerId,
-					dateFrom, dateTo);
+					dateFrom, dateTo, ringer);
 		} else {
 			pealList = pealService.getPaginatedPeals(pageLength,
 					(pageNo - 1) * 10);
 			pealListCount = pealCount;
+		}
+		System.out.println(pealList);
+		for (Peal peal : pealList) {
+			peal.setTower(towerService.getTowerDescriptor(peal.getTower()
+					.getId()));
 		}
 
 		JsonObject<Peal> pealJson = new JsonObject<Peal>();
@@ -376,6 +387,47 @@ public class JsonController {
 
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 		String returnJson = gson.toJson(pealJson);
+
+		return returnJson;
+
+	}
+
+	@RequestMapping(value = "/json/visits", method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody String visitsJson(Principal principal,
+			HttpServletRequest request) throws IOException {
+
+		int pageNo = 0;
+		int pageLength = 10;
+		List<TowerVisit> visitList;
+		int visitCount;
+		int userId = userService.getUser(principal.getName()).getId();
+
+		if (request.getParameter("iDisplayStart") != null) {
+			pageNo = (Integer.valueOf(request.getParameter("iDisplayStart")) / 10) + 1;
+		}
+		if (request.getParameter("iDisplayStart") != null) {
+			pageLength = Integer
+					.valueOf(request.getParameter("iDisplayLength"));
+		}
+
+		visitCount = towerVisitService.getNumberOfVisits(userId);
+
+		visitList = towerVisitService.getPaginatedVisits(userId, pageLength,
+				(pageNo - 1) * 10);
+
+		for (TowerVisit visit : visitList) {
+			visit.setTower(towerService.getTowerDescriptor(visit.getTower()
+					.getId()));
+		}
+
+		JsonObject<TowerVisit> visitJson = new JsonObject<TowerVisit>();
+
+		visitJson.setiTotalDisplayRecords(visitCount);
+		visitJson.setiTotalRecords(visitCount);
+		visitJson.setAaData(visitList);
+
+		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+		String returnJson = gson.toJson(visitJson);
 
 		return returnJson;
 

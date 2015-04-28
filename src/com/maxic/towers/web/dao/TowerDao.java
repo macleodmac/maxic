@@ -1,7 +1,5 @@
 package com.maxic.towers.web.dao;
 
-import com.maxic.towers.web.model.*;
-
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -18,6 +16,10 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.maxic.towers.web.model.Tower;
+import com.maxic.towers.web.model.TowerDescriptor;
+import com.maxic.towers.web.model.TowerShort;
 
 @Transactional
 @Component("towerDao")
@@ -45,6 +47,24 @@ public class TowerDao {
 		List<Tower> towers = this.getTowers();
 		
 		return this.getDescriptors(towers);
+	}
+	
+	public TowerDescriptor getTowerDescriptor(int towerId) {
+		Tower tower = this.getTower(towerId);
+		StringBuffer sb = new StringBuffer();
+		sb.append(tower.getPlaceName());
+		if (tower.getPlaceName2() != null
+				&& !tower.getPlaceName2().equals("")) {
+			sb.append(", " + tower.getPlaceName2());
+		}
+		if (tower.getDedication() != null
+				&& !tower.getDedication().equals("")) {
+			sb.append(", " + tower.getDedication());
+		}
+		TowerDescriptor towerDescriptor = new TowerDescriptor(
+				tower.getTowerId(), sb.toString());
+		
+		return towerDescriptor;
 	}
 	
 	public List<TowerDescriptor> getPaginatedTowerDescriptors(int pageLength, int displayStart) {
@@ -138,20 +158,6 @@ public class TowerDao {
 		return count;
 	}
 
-	public String getTowerDescriptor(int id) {
-		Tower tower = this.getTower(id);
-		StringBuffer sb = new StringBuffer();
-		sb.append(tower.getPlaceName());
-		if (tower.getPlaceName2() != null && !tower.getPlaceName2().equals("")) {
-			sb.append(", " + tower.getPlaceName2());
-		}
-		if (tower.getDedication() != null && !tower.getDedication().equals("")) {
-			sb.append(", " + tower.getDedication());
-		}
-
-		return sb.toString();
-	}
-
 	public Map<Integer, String> getTowerDescriptorMap() {
 		List<TowerDescriptor> towers = this.getTowerDescriptors();
 		LinkedHashMap<Integer, String> hm = new LinkedHashMap<Integer, String>();
@@ -182,9 +188,11 @@ public class TowerDao {
 		session().saveOrUpdate(tower);
 	}
 
-	public boolean deleteTower(int id) {
-		String hql = "delete from Tower where `towerId` = :id";
-		return session().createQuery(hql).setInteger("id", id).executeUpdate() == 1;
+	public void deleteTower(int id) {
+		Criteria crit = session().createCriteria(Tower.class);
+		crit.add(Restrictions.idEq(id));
+		
+		session().delete(crit.uniqueResult());
 	}
 
 	public void editTower(Tower tower) {

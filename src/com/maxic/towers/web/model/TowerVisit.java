@@ -4,9 +4,12 @@ import java.sql.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -14,8 +17,9 @@ import javax.persistence.Table;
 public class TowerVisit {
 	
 	
-	@Column(name = "towerId", unique = false, nullable = false)
-	private int towerId;
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "towerId", nullable = false)
+	private TowerDescriptor tower;
 	
 	@Id
 	@Column(name = "visitId", unique = true, nullable = false)
@@ -44,10 +48,10 @@ public class TowerVisit {
 		
 	}
 
-	public TowerVisit(int towerId, int visitId, int userId, Date date,
+	public TowerVisit(TowerDescriptor tower, int visitId, int userId, Date date,
 			boolean rung, boolean pealRung, boolean quarterPealRung,
 			String notes) {
-		this.towerId = towerId;
+		this.tower = tower;
 		this.visitId = visitId;
 		this.userId = userId;
 		this.date = date;
@@ -57,12 +61,14 @@ public class TowerVisit {
 		this.notes = notes;
 	}
 
-	public int getTowerId() {
-		return towerId;
+	
+
+	public TowerDescriptor getTower() {
+		return tower;
 	}
 
-	public void setTowerId(int towerId) {
-		this.towerId = towerId;
+	public void setTower(TowerDescriptor tower) {
+		this.tower = tower;
 	}
 
 	public int getVisitId() {
@@ -89,7 +95,7 @@ public class TowerVisit {
 		this.date = date;
 	}
 
-	public boolean isRung() {
+	public boolean getRung() {
 		return rung;
 	}
 
@@ -97,7 +103,7 @@ public class TowerVisit {
 		this.rung = rung;
 	}
 
-	public boolean isPealRung() {
+	public boolean getPealRung() {
 		return pealRung;
 	}
 
@@ -105,7 +111,7 @@ public class TowerVisit {
 		this.pealRung = pealRung;
 	}
 
-	public boolean isQuarterPealRung() {
+	public boolean getQuarterPealRung() {
 		return quarterPealRung;
 	}
 
@@ -123,7 +129,7 @@ public class TowerVisit {
 
 	@Override
 	public String toString() {
-		return "TowerVisit [towerId=" + towerId + ", visitId=" + visitId
+		return "TowerVisit [tower=" + tower + ", visitId=" + visitId
 				+ ", userId=" + userId + ", date=" + date + ", rung=" + rung
 				+ ", pealRung=" + pealRung + ", quarterPealRung="
 				+ quarterPealRung + ", notes=" + notes + "]";

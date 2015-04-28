@@ -38,6 +38,11 @@ public class Diocese {
 		this.name = name;
 	}
 
+	@Override
+	public String toString() {
+		return "Diocese [dioceseId=" + dioceseId + ", name=" + name + "]";
+	}
+
 	
 	
 	

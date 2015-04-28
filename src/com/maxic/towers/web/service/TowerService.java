@@ -32,8 +32,8 @@ public class TowerService {
 		return towerDao.getTower(id);
 	}
 
-	public boolean deleteTower(int id) {
-		return towerDao.deleteTower(id);
+	public void deleteTower(int id) {
+		towerDao.deleteTower(id);
 	}
 
 	public void editTower(Tower tower) {
@@ -57,7 +57,7 @@ public class TowerService {
 		return towerDao.getTowerDescriptorMap();
 	}
 
-	public String getTowerDescriptor(int towerId) {
+	public TowerDescriptor getTowerDescriptor(int towerId) {
 		return towerDao.getTowerDescriptor(towerId);
 	}
 	
