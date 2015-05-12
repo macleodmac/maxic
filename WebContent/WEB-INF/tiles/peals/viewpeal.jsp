@@ -24,10 +24,16 @@
 			<h3>
 				<strong>${peal.changes}</strong> <strong>${peal.method}</strong>
 			</h3>
+			<c:if test="${not empty peal.methodDetails}">
+				<p>${peal.methodDetails }</p>
+			</c:if>
 			<h4>${peal.dateRung} in ${peal.time}</h4>
 			<c:if test="${not empty peal.composer}">
-					<h4>Composed by ${peal.composer }</h4>
-				</c:if>
+				<h4>Composed by ${peal.composer }</h4>
+			</c:if>
+			<c:if test="${not empty peal.leader}">
+				<h4>Led by ${peal.leader }</h4>
+			</c:if>
 		</div>
 	</div>
 	<div class="row">
@@ -54,13 +60,13 @@
 				<c:if test="${not empty peal.ringer4}">
 					<tr>
 						<th>4 (7-8)</th>
-						<td>${peal.ringer1}</td>
+						<td>${peal.ringer4}</td>
 					</tr>
 				</c:if>
 				<c:if test="${not empty peal.ringer5}">
 					<tr>
 						<th>5 (9-10)</th>
-						<td>${peal.ringer2}</td>
+						<td>${peal.ringer5}</td>
 					</tr>
 				</c:if>
 				<c:if test="${not empty peal.ringer6}">
@@ -72,7 +78,7 @@
 				<c:if test="${not empty peal.ringer7}">
 					<tr>
 						<th>7 (13-14)</th>
-						<td>${peal.ringer1}</td>
+						<td>${peal.ringer7}</td>
 					</tr>
 				</c:if>
 				<c:if test="${not empty peal.ringer8}">
@@ -138,18 +144,32 @@
 	</div>
 	<div class="row">
 		<div class="col-xs-12 col-md-4 col-md-offset-2">
+			<c:if test="${not empty peal.footnotes}">
+				<p>${peal.footnotes }</p>
+			</c:if>
+			<hr />
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-12 col-md-8 col-md-offset-2">
 			<div class="form-group">
-				<a class="btn btn-sm btn-default"
+				<a class="btn btn-sm btn-primary"
 					href="${pageContext.request.contextPath}/towers/view?t=${peal.tower.id}">View
-					Tower</a> <a class="btn btn-sm btn-default"
+					Tower</a> <a class="btn btn-sm btn-primary"
 					href="${pageContext.request.contextPath}/peals?t=${peal.tower.id}">View
 					More Performances</a>
 			</div>
-			<div class="form-group">
-				<label for="currentLink">Sharing Link</label> <input
-					onClick="this.setSelectionRange(0, this.value.length)" type="text"
-					class="form-control" id="currentLink" value="" />
-			</div>
 		</div>
 	</div>
+
+	<c:if test="${not empty peal.ringingWorldId}">
+		<div class="row">
+			<div class="col-xs-12 col-md-8 col-md-offset-2">
+				<p class="text-muted credit">
+					Imported from BellBoard, entry <a
+						href="http://www.bb.ringingworld.co.uk/view.php?id=${peal.ringingWorldId}">${peal.ringingWorldId}</a>
+				</p>
+			</div>
+		</div>
+	</c:if>
 </div>

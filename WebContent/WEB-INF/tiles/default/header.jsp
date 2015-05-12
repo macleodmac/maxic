@@ -12,88 +12,86 @@
 					class="icon-bar"></span>
 			</button>
 			<a class="navbar-brand" href="${pageContext.request.contextPath}/"
-				data-ytta-id="-">Tower Finder</a>
+				data-ytta-id="-"> <img id="mainlogo"
+             src="${pageContext.request.contextPath}/static/img/logo.png"></a>
 		</div>
 		<div id="navbar" class="collapse navbar-collapse">
-			<ul class="nav navbar-nav">
-				<li><a href="${pageContext.request.contextPath}/towers"
-					data-ytta-id="-">Towers</a></li>
-				<li><a href="${pageContext.request.contextPath}/peals"
-					data-ytta-id="-">Performances</a></li>
-
-			</ul>
 			<ul class="nav navbar-nav navbar-right">
+				<li><a href="${pageContext.request.contextPath}/towers"
+					data-ytta-id="-">towers</a></li>
+				<li><a href="${pageContext.request.contextPath}/peals"
+					data-ytta-id="-">performances</a></li>
 				<li><a href="${pageContext.request.contextPath}/about"
-					data-ytta-id="-">About</a></li>
+					data-ytta-id="-">about</a></li>
 				<sec:authorize access="isAnonymous()">
 					<li><a href="${pageContext.request.contextPath}/login"
-						data-ytta-id="-">Login</a></li>
+						data-ytta-id="-">login</a></li>
 					<li><a href="${pageContext.request.contextPath}/newaccount"
-						data-ytta-id="-">Create Account</a></li>
+						data-ytta-id="-">signup</a></li>
 				</sec:authorize>
 				<sec:authorize access="hasRole('ROLE_ADMIN')">
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
 						data-toggle="dropdown" role="button" aria-expanded="false"
-						data-ytta-id="-">Admin<span class="caret"></span></a>
+						data-ytta-id="-">admin<span class="caret"></span></a>
 						<ul class="dropdown-menu" role="menu">
-							<li class="dropdown-header">Administration</li>
+							<li class="dropdown-header">administration</li>
 							<li><a
 								href="${pageContext.request.contextPath}/admin/towers"
-								data-ytta-id="-">Towers</a></li>
+								data-ytta-id="-">towers</a></li>
 							<li><a href="${pageContext.request.contextPath}/admin/peals"
-								data-ytta-id="-">Performances</a></li>
+								data-ytta-id="-">performances</a></li>
 							<li><a
 								href="${pageContext.request.contextPath}/admin/countries"
-								data-ytta-id="-">Countries</a></li>
+								data-ytta-id="-">countries</a></li>
 							<li><a
 								href="${pageContext.request.contextPath}/admin/dioceses"
-								data-ytta-id="-">Dioceses</a></li>
+								data-ytta-id="-">dioceses</a></li>
 							<li><a href="${pageContext.request.contextPath}/admin/users"
-								data-ytta-id="-">Users</a></li>
+								data-ytta-id="-">users</a></li>
 							<li><a
 								href="${pageContext.request.contextPath}/admin/messages"
-								data-ytta-id="-">Messages</a></li>
+								data-ytta-id="-">messages</a></li>
 							<li><a href="${pageContext.request.contextPath}/admin/dove"
-								data-ytta-id="-">Update DB</a></li>
+								data-ytta-id="-">database</a></li>
 							<li class="divider"></li>
-							<li class="dropdown-header">Help</li>
+							<li class="dropdown-header">help</li>
 							<li><a
 								href="${pageContext.request.contextPath}/admin/manual"
-								data-ytta-id="-">Manual</a></li>
+								data-ytta-id="-">manual</a></li>
 							<li><a
 								href="${pageContext.request.contextPath}/admin/documentation"
-								data-ytta-id="-">Documentation</a></li>
+								data-ytta-id="-">documentation</a></li>
 						</ul></li>
 				</sec:authorize>
 				<sec:authorize access="isAuthenticated()">
 					<sec:authentication var="user" property="principal" />
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
 						data-toggle="dropdown" role="button" aria-expanded="false"
-						data-ytta-id="-">Account<span class="caret"></span></a>
+						data-ytta-id="-">account<span class="caret"></span></a>
 						<ul class="dropdown-menu" role="menu">
-							<li class="dropdown-header">Account</li>
+							<li class="dropdown-header">account</li>
 							<li><a
 								href="${pageContext.request.contextPath}/account/visits"
-								data-ytta-id="-">My Visits</a></li>
+								data-ytta-id="-">my visits</a></li>
 							<li><a
 								href="${pageContext.request.contextPath}/account/edit"
-								data-ytta-id="-">Edit Details</a></li>
+								data-ytta-id="-">edit details</a></li>
 							<sec:authorize access="hasRole('ROLE_CAPTAIN')">
 								<li class="divider"></li>
-								<li class="dropdown-header">Tower Captain</li>
+								<li class="dropdown-header">tower captain</li>
 
 								<li><a
 									href="${pageContext.request.contextPath}/captain/edit"
-									data-ytta-id="-">Edit Tower</a></li>
+									data-ytta-id="-">edit tower</a></li>
 							</sec:authorize>
 							<li class="divider"></li>
-							<li class="dropdown-header">Help</li>
+							<li class="dropdown-header">help</li>
 							<li><a
 								href="${pageContext.request.contextPath}/admin/manual"
-								data-ytta-id="-">Manual</a></li>
+								data-ytta-id="-">manual</a></li>
 						</ul></li>
 					<li><a
-						href="${pageContext.request.contextPath}/j_spring_security_logout">Logout</a></li>
+						href="${pageContext.request.contextPath}/j_spring_security_logout">logout</a></li>
 				</sec:authorize>
 			</ul>
 		</div>

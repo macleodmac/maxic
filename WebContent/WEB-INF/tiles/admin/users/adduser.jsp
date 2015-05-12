@@ -8,14 +8,10 @@
 
 		<div class="row">
 			<div class="col-xs-6">
-				<div class="form-group">
-					<a class="btn btn-default"
-						href="${pageContext.request.contextPath}/admin/users">Back</a>
-				</div>
 			</div>
 			<div class="col-xs-6 text-right">
 				<div class="form-group">
-					<button type="submit" class="btn btn-default">Save Changes</button>
+					<button type="submit" class="btn btn-primary">Save Changes</button>
 				</div>
 			</div>
 		</div>

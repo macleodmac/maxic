@@ -68,7 +68,7 @@ public class PealDao {
 	}
 
 	public void addPeal(Peal peal) {
-		session().save(peal);
+		session().saveOrUpdate(peal);
 	}
 
 	public boolean deletePeal(int id) {
@@ -167,9 +167,19 @@ public class PealDao {
 			}
 			crit.add(or);
 		}
-		crit.add(Restrictions.between("dateRung", dateFrom, dateTo));
+//		crit.add(Restrictions.between("dateRung", dateFrom, dateTo));
+		crit.add(Restrictions.ge("dateRung", dateFrom));
+		crit.add(Restrictions.le("dateRung", dateTo));
 
 		return crit.list().size();
 	}
+
+	public boolean bellboardPealExists(int pealId) {
+		Criteria crit = session().createCriteria(Peal.class);
+		crit.add(Restrictions.eq("ringingWorldId", pealId));
+		
+		return crit.list().size() == 1;
+	}
+
 
 }

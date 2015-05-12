@@ -74,6 +74,6 @@
 	<a class="btn btn-default btn-primary"
 		href="${pageContext.request.contextPath}/towers/view?t=${tower.towerId}">View
 		Alone</a>
-	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
 
 </div>

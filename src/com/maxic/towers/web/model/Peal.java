@@ -14,7 +14,7 @@ import javax.persistence.Table;
 import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
-@Table(name="peals")
+@Table(name = "peals")
 public class Peal {
 
 	@ManyToOne(fetch = FetchType.EAGER)
@@ -22,14 +22,14 @@ public class Peal {
 	private TowerDescriptor tower;
 	@Id
 	@GeneratedValue
-	@Column(name="pealId")
+	@Column(name = "pealId")
 	private int pealId;
 	private String dedication;
 	private Date dateRung;
-	//private String dateRung;    //date
-	private String time;		//time
+	// private String dateRung; //date
+	private String time; // time
 	private String tenor;
-	@NotBlank(message="Method cannot be blank.")
+	//@NotBlank(message = "Method cannot be blank.")
 	private String method;
 	private String methodDetails;
 	private int changes;
@@ -37,7 +37,7 @@ public class Peal {
 	private String composer;
 	private String footnotes;
 	private String composition;
-	@NotBlank(message="At least one ringer must be entered.")
+	//@NotBlank(message = "At least one ringer must be entered.")
 	private String ringer1;
 	private String ringer2;
 	private String ringer3;
@@ -54,48 +54,19 @@ public class Peal {
 	private String ringer14;
 	private String ringer15;
 	private String ringer16;
-	
-	public Peal(){
-		
+
+	private int ringingWorldId;
+
+	public Peal() {
+
 	}
 
-	public Peal(TowerDescriptor tower, int pealId, String dedication, Date dateRung,
-			String time, String tenor, String method, String methodDetails,
-			int changes, String leader, String composer, String footnotes,
-			String composition, String ringer1, String ringer2, String ringer3,
-			String ringer4, String ringer5, String ringer6, String ringer7,
-			String ringer8, String ringer9, String ringer10, String ringer11,
-			String ringer12, String ringer13, String ringer14, String ringer15,
-			String ringer16) {
-		this.tower = tower;
-		this.pealId = pealId;
-		this.dedication = dedication;
-		this.dateRung = dateRung;
-		this.time = time;
-		this.tenor = tenor;
-		this.method = method;
-		this.methodDetails = methodDetails;
-		this.changes = changes;
-		this.leader = leader;
-		this.composer = composer;
-		this.footnotes = footnotes;
-		this.composition = composition;
-		this.ringer1 = ringer1;
-		this.ringer2 = ringer2;
-		this.ringer3 = ringer3;
-		this.ringer4 = ringer4;
-		this.ringer5 = ringer5;
-		this.ringer6 = ringer6;
-		this.ringer7 = ringer7;
-		this.ringer8 = ringer8;
-		this.ringer9 = ringer9;
-		this.ringer10 = ringer10;
-		this.ringer11 = ringer11;
-		this.ringer12 = ringer12;
-		this.ringer13 = ringer13;
-		this.ringer14 = ringer14;
-		this.ringer15 = ringer15;
-		this.ringer16 = ringer16;
+	public int getRingingWorldId() {
+		return ringingWorldId;
+	}
+
+	public void setRingingWorldId(int ringingWorldId) {
+		this.ringingWorldId = ringingWorldId;
 	}
 
 	public TowerDescriptor getTower() {
@@ -348,8 +319,4 @@ public class Peal {
 				+ ", ringer15=" + ringer15 + ", ringer16=" + ringer16 + "]";
 	}
 
-
-
-	
-	
 }

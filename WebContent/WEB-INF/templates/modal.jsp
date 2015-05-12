@@ -40,10 +40,10 @@
 		<a class="btn btn-default btn-primary pull-left"
 			href="${pageContext.request.contextPath}/towers/view?t=${towerWrapper.tower.towerId}">View
 			Alone</a>
-		<a class="btn btn-default btn-info pull-left"
+		<a class="btn btn-default btn-primary pull-left"
 			href="http://dove.cccbr.org.uk/detail.php?DoveID=${towerWrapper.tower.doveId}">View
 			on Dove's Guide</a>
-		<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
 
 	</div>
 	<tiles:insertAttribute name="footer"></tiles:insertAttribute>

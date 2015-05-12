@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Controller;
@@ -59,6 +60,15 @@ public class AdminController {
 	private ContactDetailsService contactDetailsService;
 	private UserService userService;
 	private VerificationService verificationService;
+
+	@Value("${mailSender.username}")
+	private String fromEmail;
+
+	@Value("${mailSender.webUrl}")
+	private String websiteUrl;
+
+	@Value("${general.siteName}")
+	private String siteName;
 
 	@Autowired
 	private MailSender mailSender;
@@ -219,7 +229,7 @@ public class AdminController {
 			RedirectAttributes redirectAttributes) {
 		int id = Integer.parseInt(t);
 		boolean success = true;
-		
+
 		try {
 			towerService.deleteTower(id);
 		} catch (Exception e) {
@@ -395,7 +405,6 @@ public class AdminController {
 		}
 
 		for (Practice practice : towerWrapper.getPracticeList()) {
-			System.out.println("Here at " + practice);
 			practiceService.editPractice(practice);
 		}
 
@@ -625,10 +634,9 @@ public class AdminController {
 	@RequestMapping("/admin/peals")
 	public String showPeals(Model model,
 			@ModelAttribute("message") String message) {
-
-		List<Peal> peals = pealService.getPeals();
-		model.addAttribute("peals", peals);
 		model.addAttribute("message", message);
+		Map<Integer, String> hm = towerService.getTowerDescriptorMap();
+		model.addAttribute("towers", hm);
 		return "/admin/peals";
 	}
 
@@ -673,13 +681,9 @@ public class AdminController {
 			@RequestParam("p") String p, RedirectAttributes redirectAttributes) {
 		model.addAttribute("p", p);
 		if (result.hasErrors()) {
-			for (Object error : result.getAllErrors()) {
-				System.out.println(error);
-			}
 			redirectAttributes.addAttribute("p", p);
 			return ("redirect:/admin/peals/edit");
 		}
-		System.out.println("Trying to edit peal");
 		pealService.editPeal(peal);
 		return ("redirect:/admin/peals");
 	}
@@ -749,13 +753,9 @@ public class AdminController {
 			RedirectAttributes redirectAttributes) {
 		model.addAttribute("c", c);
 		if (result.hasErrors()) {
-			for (Object error : result.getAllErrors()) {
-				System.out.println(error);
-			}
 			redirectAttributes.addAttribute("c", c);
 			return ("redirect:/admin/countries/edit");
 		}
-		System.out.println("Trying to edit country");
 		countryService.editCountry(country);
 		return ("redirect:/admin/countries");
 	}
@@ -810,7 +810,6 @@ public class AdminController {
 	@RequestMapping(value = "/admin/dioceses/edit", method = RequestMethod.GET)
 	public String showEditDiocese(Model model, @RequestParam("d") String d) {
 		Diocese diocese = dioceseService.getDiocese(d);
-		System.out.println(diocese);
 		model.addAttribute("diocese", diocese);
 
 		return "/admin/dioceses/editdiocese";
@@ -822,13 +821,9 @@ public class AdminController {
 			RedirectAttributes redirectAttributes) {
 		model.addAttribute("d", d);
 		if (result.hasErrors()) {
-			for (Object error : result.getAllErrors()) {
-				System.out.println(error);
-			}
 			redirectAttributes.addAttribute("d", d);
 			return ("redirect:/admin/dioceses/edit");
 		}
-		System.out.println("Trying to edit diocese");
 		dioceseService.editDiocese(diocese);
 		return ("redirect:/admin/dioceses");
 	}
@@ -894,7 +889,6 @@ public class AdminController {
 			redirectAttributes.addAttribute("u", user.getId());
 			return "redirect:/admin/users/edit";
 		} else if (userService.existsById(user)) {
-			System.out.println(user);
 			userService.updateNoPassEncode(user);
 			redirectAttributes.addFlashAttribute("message",
 					"User " + user.getEmail() + " successfully edited!");
@@ -932,17 +926,18 @@ public class AdminController {
 			SimpleMailMessage mailMessage = new SimpleMailMessage();
 			String contextPath = httpRequestServlet.getContextPath();
 			StringBuffer sb = new StringBuffer();
-			sb.append("An administrator has created you an account on TowerFinder. \n\n");
+			sb.append("An administrator has created you an account on "
+					+ siteName + " \n\n");
 			sb.append("Please visit the below URL to set your password:\n\n");
-			sb.append("http://localhost:8080" + contextPath + "/reset?token="
+			sb.append(websiteUrl + contextPath + "/reset?token="
 					+ verificationToken.getToken() + "\n\n");
 			sb.append("Please note: this link will expire in two days, and can only be used once.\n\n");
 			sb.append("Many Thanks,\n\n");
-			sb.append("The TowerFinder team");
+			sb.append("The " + siteName + " team");
 
 			mailMessage.setTo(user.getEmail());
-			mailMessage.setFrom("noreply@towerfinder.com");
-			mailMessage.setSubject("TowerFinder - Account Created");
+			mailMessage.setFrom(fromEmail);
+			mailMessage.setSubject(siteName + " - Account Created");
 			mailMessage.setText(sb.toString());
 			mailSender.send(mailMessage);
 			redirectAttributes
@@ -976,15 +971,15 @@ public class AdminController {
 			StringBuffer sb = new StringBuffer();
 			sb.append("An administrator has submitted a request to reset your password. \n\n");
 			sb.append("Please visit the below URL to reset your password:\n\n");
-			sb.append("http://localhost:8080" + contextPath + "/reset?token="
+			sb.append(websiteUrl + contextPath + "/reset?token="
 					+ verificationToken.getToken() + "\n\n");
 			sb.append("Please note: this link will expire in two days, and can only be used once.\n\n");
 			sb.append("Many Thanks,\n\n");
-			sb.append("The TowerFinder team");
+			sb.append("The " + siteName + " team");
 
 			mailMessage.setTo(user.getEmail());
-			mailMessage.setFrom("noreply@towerfinder.com");
-			mailMessage.setSubject("TowerFinder - Reset Password");
+			mailMessage.setFrom(fromEmail);
+			mailMessage.setSubject(siteName + " - Reset Password");
 			mailMessage.setText(sb.toString());
 			mailSender.send(mailMessage);
 			redirectAttributes

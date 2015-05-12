@@ -8,9 +8,7 @@
 		<div class="row">
 			<div class="col-xs-6">
 				<div class="form-group">
-					<a class="btn btn-default"
-						href="${pageContext.request.contextPath}/admin/towers">Back to Towers</a>
-					<a class="btn btn-info"
+					<a class="btn btn-primary"
 						href="${pageContext.request.contextPath}/towers/view?t=${towerWrapper.tower.towerId}">View
 						Tower</a>
 				</div>
@@ -227,7 +225,7 @@
 			</div>
 		</div>
 		<h3>
-			Practices <a class="btn btn-default btn-sm"
+			Practices <a class="btn btn-primary btn-sm"
 				href="${pageContext.request.contextPath}/admin/towers/addpractice?t=${towerWrapper.tower.towerId}">Add</a>
 		</h3>
 		<c:if test="${empty towerWrapper.practiceList}">
@@ -305,7 +303,7 @@
 			</c:forEach>
 		</c:if>
 		<h3>
-			Contact Details <a class="btn btn-default btn-sm"
+			Contact Details <a class="btn btn-primary btn-sm"
 				href="${pageContext.request.contextPath}/admin/towers/addcontact?t=${towerWrapper.tower.towerId}">Add</a>
 		</h3>
 		<c:if test="${empty towerWrapper.contactDetailsList}">

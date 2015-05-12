@@ -3,9 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
-<div class="media-left">
-	<img class="media-object" height="30px" width="30px" style="margin-top: 5px;" src="${pageContext.request.contextPath}/static/img/flags/${towerWrapper.tower.country.isoCode}.png" alt="Flag">
-</div>
 <div class="media-body">
 	<h2 class="modal-title">
 
@@ -20,7 +17,7 @@
 		
 		<sec:authorize access="hasRole('ROLE_ADMIN')">
 				<div class="pull-right" style="padding-right: 10px;">
-					<a class="btn btn-sm btn-info"
+					<a class="btn btn-sm btn-primary"
 						href="${pageContext.request.contextPath}/admin/towers/edit?t=${towerWrapper.tower.towerId}">Edit</a>
 				</div>
 			</sec:authorize>

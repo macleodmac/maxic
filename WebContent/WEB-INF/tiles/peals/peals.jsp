@@ -178,7 +178,7 @@
 	<div class="row">
 		<div class="col-xs-10 col-xs-offset-1">
 			<h3>
-				Latest Performances <a class="btn btn-default btn-sm"
+				Latest Performances <a class="btn btn-primary btn-sm"
 					data-toggle="collapse" href="#filter" aria-expanded="false"
 					aria-controls="collapseExample"> Filter</a>
 			</h3>
@@ -218,7 +218,7 @@
 						<div class="form-group">
 							<label for="clearbtn"></label>
 							<p class="form-control-static">
-								<a class="btn btn-sm btn-default" id="clearbtn">Clear</a>
+								<a class="btn btn-sm btn-primary" id="clearbtn">Clear</a>
 							</p>
 						</div>
 					</div>

@@ -38,7 +38,7 @@
 						<tr>
 							<td>${diocese.dioceseId}</td>
 							<td>${diocese.name}</td>
-							<td><a class="btn btn-xs btn-default"
+							<td><a class="btn btn-xs btn-primary"
 								href="${pageContext.request.contextPath}/admin/dioceses/edit?d=${diocese.dioceseId}">Edit</a></td>
 						</tr>
 
@@ -49,9 +49,10 @@
 	</div>
 	<div class="row">
 		<div class="col-xs-12">
-			<a class="btn btn-default"
+			<a class="btn btn-primary"
 				href="${pageContext.request.contextPath}/admin/dioceses/add">Add a
 				Diocese</a>
 		</div>
 	</div>
+	<br />
 </div>

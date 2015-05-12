@@ -208,7 +208,6 @@ public class TowerCaptainController {
 		}
 
 		for (Practice practice : towerWrapper.getPracticeList()) {
-			System.out.println("Here at " + practice);
 			practiceService.editPractice(practice);
 		}
 

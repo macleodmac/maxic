@@ -32,8 +32,8 @@ jQuery.fn.dataTableExt.oApi.fnPagingInfo = function ( oSettings )
 };
 
 $(document).ready(function() {
-
-$("#usertable").dataTable( {
+	
+var table = $("#towertable").dataTable( {
     "bProcessing": true,
     "bServerSide": true,
     "sort": false,
@@ -42,13 +42,7 @@ $("#usertable").dataTable( {
     //Default: Page display length
     "iDisplayLength": 10,
     //We will use below variable to track page number on server side(For more information visit: http://legacy.datatables.net/usage/options#iDisplayStart)
-    "iDisplayStart": 0,
-    "fnDrawCallback": function () {
-        //Get page numer on client. Please note: number start from 0 So
-        //for the first page you will see 0 second page 1 third page 2...
-        //Un-comment below alert to see page number
-    	//alert("Current page number: "+this.fnPagingInfo().iPage);    
-    },         
+    "iDisplayStart": 0,      
     "sAjaxSource": "/towers/admin/json/towers",
     "aoColumns": [
         { "mData": "towerId" },
@@ -56,23 +50,19 @@ $("#usertable").dataTable( {
         { "mData": "dedication" },
         { "mData": "placeName" },
         { "mData": "placeName2" },
-        { "mData": "placeNameCL" },
-        
+        { "mData": "placeNameCL" }
     ],
     "columnDefs": [
-    	{
-    		"render": function (data, type, row) {
-    			return '<a class="btn btn-xs btn-primary" href="${pageContext.request.contextPath}/towers/view?t='+data +'">View</a> <a class="btn btn-xs btn-warning" href="${pageContext.request.contextPath}/admin/towers/edit?t='+data +'">Edit</a> <div class="pull-right">'+data+'</div>';
-    		},
-    		"targets": 0
-    	},
-    	{ "visible": true, "targets": [ 0 ]}
-    
-    
-    
-    ]
-    
-} );
+               	{
+               		"render": function (data, type, row) {
+               			return '<a class="btn btn-xs btn-primary" href="${pageContext.request.contextPath}/towers/view?t='+data +'">View</a> <a class="btn btn-xs btn-warning" href="${pageContext.request.contextPath}/admin/towers/edit?t='+data +'">Edit</a> <div class="pull-right">'+data+'</div>';
+               		},
+               		"targets": 0
+               	}
+               ]
+               
+               
+    } );
 
 } );
 </script>
@@ -95,7 +85,7 @@ $("#usertable").dataTable( {
 	</div>
 	<div class="row">
 		<div class="col-xs-12">
-			<a class="btn btn-default"
+			<a class="btn btn-primary"
 				href="${pageContext.request.contextPath}/admin/towers/add">Add a
 				Tower</a>
 		</div>
@@ -110,7 +100,7 @@ $("#usertable").dataTable( {
 		<div class="col-xs-12">
 		<div class="responsive">
 <sf:form action="" method="GET">
-			<table id="usertable"
+			<table id="towertable"
 				class="display table table-striped table-bordered">
 				<thead>
 					<tr>

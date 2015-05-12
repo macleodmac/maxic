@@ -39,7 +39,7 @@
 					</div>
 					<div class="alert alert-warning" role="alert">The filename must be newpks.txt</div>
 					<div class="form-group">
-						<button type="submit" class="btn btn-default">Upload</button>
+						<button type="submit" class="btn btn-primary">Upload</button>
 					</div>
 					<sf:errors path="file" cssClass="alert alert-danger" element="div" />
 				</sf:form>
@@ -55,7 +55,7 @@
 					</div>
 					<div class="alert alert-warning" role="alert">The filename must be dove.txt</div>
 					<div class="form-group">
-						<button type="submit" class="btn btn-default">Upload</button>
+						<button type="submit" class="btn btn-primary">Upload</button>
 					</div>
 					<sf:errors path="file" cssClass="alert alert-danger" element="div" />
 				</sf:form>

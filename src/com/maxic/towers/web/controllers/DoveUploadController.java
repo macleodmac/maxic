@@ -15,8 +15,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -75,8 +73,8 @@ public class DoveUploadController {
 	@RequestMapping(method = RequestMethod.POST)
 	public String fileUploaded(Model model,
 			RedirectAttributes redirectAttributes, HttpServletRequest request) {
-		String filePath;
-
+		
+		System.out.println(request.toString());
 		MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest) request;
 		MultipartFile file = multiRequest.getFile("file");
 
@@ -84,14 +82,7 @@ public class DoveUploadController {
 		System.out.println(file.getOriginalFilename());
 
 		boolean success = true;
-		System.out.println("at FileUpload controller");
-		System.out.println("Getting file");
-//		filePath = request.getServletContext().getRealPath("/")
-//				+ multipartFile.getOriginalFilename();
 		try {
-			System.out.println("ATTEMPTING TO TRANSFER FILE");
-			// multipartFile.transferTo(new File(filePath));
-			System.out.println("FILE TRANSFERRED");
 			if (file.getOriginalFilename()
 					.equalsIgnoreCase("dove.txt")) {
 				success = this.processDoveTxt(file);
@@ -103,7 +94,7 @@ public class DoveUploadController {
 			}
 		} catch (Exception e) {
 			success = false;
-		}
+	}
 
 		if (success) {
 			model.addAttribute("successMessage",

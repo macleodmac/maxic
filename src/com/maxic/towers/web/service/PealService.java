@@ -77,4 +77,9 @@ public class PealService {
 	public int getNumberPealsForTower(int towerId, Date dateFrom, Date dateTo, String ringer) {
 		return pealDao.getNumberPealsForTower(towerId, dateFrom, dateTo, ringer);
 	}
+
+	public boolean bellboardPealExists(int pealId) {
+		return pealDao.bellboardPealExists(pealId);
+	}
+
 }

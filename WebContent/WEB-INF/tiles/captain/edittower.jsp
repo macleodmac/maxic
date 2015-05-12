@@ -9,7 +9,7 @@
 		<div class="row">
 			<div class="col-xs-12 col-sm-3">
 				<div class="form-group">
-					<a class="btn btn-info"
+					<a class="btn btn-primary"
 						href="${pageContext.request.contextPath}/captain/view">View
 						Tower</a>
 				</div>

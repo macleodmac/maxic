@@ -38,7 +38,7 @@
 						<tr>
 							<td>${country.isoCode}</td>
 							<td>${country.name}</td>
-							<td><a class="btn btn-xs btn-default"
+							<td><a class="btn btn-xs btn-primary"
 								href="${pageContext.request.contextPath}/admin/countries/edit?c=${country.isoCode}">Edit</a></td>
 						</tr>
 
@@ -49,7 +49,7 @@
 	</div>
 	<div class="row">
 		<div class="col-xs-12">
-			<a class="btn btn-default"
+			<a class="btn btn-primary"
 				href="${pageContext.request.contextPath}/admin/countries/add">Add a
 				Country</a>
 		</div>

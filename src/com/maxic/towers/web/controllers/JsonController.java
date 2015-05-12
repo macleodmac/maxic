@@ -2,9 +2,11 @@ package com.maxic.towers.web.controllers;
 
 import java.io.IOException;
 import java.security.Principal;
+import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.Arrays;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -45,12 +47,7 @@ public class JsonController {
 	 */
 	private TowerService towerService;
 	private PealService pealService;
-	private CountryService countryService;
-	private DioceseService dioceseService;
-	private PracticeService practiceService;
-	private ContactDetailsService contactDetailsService;
 	private UserService userService;
-	private VerificationService verificationService;
 	private TowerVisitService towerVisitService;
 
 	@Autowired
@@ -67,34 +64,8 @@ public class JsonController {
 	}
 
 	@Autowired
-	public void setCountryService(CountryService countryService) {
-		this.countryService = countryService;
-	}
-
-	@Autowired
-	public void setDioceseService(DioceseService dioceseService) {
-		this.dioceseService = dioceseService;
-	}
-
-	@Autowired
-	public void setPracticeService(PracticeService practiceService) {
-		this.practiceService = practiceService;
-	}
-
-	@Autowired
-	public void setContactDetailsService(
-			ContactDetailsService contactDetailsService) {
-		this.contactDetailsService = contactDetailsService;
-	}
-
-	@Autowired
 	public void setUserService(UserService userService) {
 		this.userService = userService;
-	}
-
-	@Autowired
-	public void setVerificationService(VerificationService verificationService) {
-		this.verificationService = verificationService;
 	}
 
 	@Autowired
@@ -109,13 +80,29 @@ public class JsonController {
 		int pageNo = 0;
 		int pageLength = 10;
 		String searchTerm = "";
+		// Map<String, String[]> params = request.getParameterMap();
+		// for (Map.Entry<String, String[]> entry : params.entrySet()) {
+		// System.out.println(entry.getKey() + "/" +
+		// Arrays.toString(entry.getValue()));
+		// }
 
 		if (request.getParameter("iDisplayStart") != null) {
 			pageNo = (Integer.valueOf(request.getParameter("iDisplayStart")) / 10) + 1;
 		}
 
+		if (request.getParameter("start") != null) {
+			pageNo = (Integer.valueOf(request.getParameter("start")) / 10) + 1;
+		}
+
+		if (request.getParameter("iDisplayLength") != null) {
+			pageLength = Integer
+					.valueOf(request.getParameter("iDisplayLength"));
+		}
+		if (request.getParameter("length") != null) {
+			pageLength = Integer.valueOf(request.getParameter("length"));
+		}
 		searchTerm = request.getParameter("sSearch");
-		pageLength = Integer.valueOf(request.getParameter("iDisplayLength"));
+
 		List<Tower> towerList;
 		int towerCount = towerService.getNumberOfTowers();
 		int towerListCount;
@@ -154,14 +141,23 @@ public class JsonController {
 		if (request.getParameter("iDisplayStart") != null) {
 			pageNo = (Integer.valueOf(request.getParameter("iDisplayStart")) / 10) + 1;
 		}
-		if (request.getParameter("sSearch") != null) {
-			searchTerm = request.getParameter("sSearch");
+
+		if (request.getParameter("start") != null) {
+			pageNo = (Integer.valueOf(request.getParameter("start")) / 10) + 1;
 		}
 
 		if (request.getParameter("iDisplayLength") != null) {
 			pageLength = Integer
 					.valueOf(request.getParameter("iDisplayLength"));
 		}
+		if (request.getParameter("length") != null) {
+			pageLength = Integer.valueOf(request.getParameter("length"));
+		}
+
+		if (request.getParameter("sSearch") != null) {
+			searchTerm = request.getParameter("sSearch");
+		}
+
 		List<User> userList;
 
 		int userCount = userService.getNumberofUsers();
@@ -180,10 +176,8 @@ public class JsonController {
 		}
 
 		JsonObject<User> userJson = new JsonObject<User>();
-		System.out.println("UserListCount " + userListCount);
 		userJson.setiTotalDisplayRecords(userListCount);
 		userJson.setiTotalRecords(userCount);
-		System.out.println("UserCount " + userCount);
 		userJson.setAaData(userList);
 
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -205,8 +199,19 @@ public class JsonController {
 			pageNo = (Integer.valueOf(request.getParameter("iDisplayStart")) / 10) + 1;
 		}
 
+		if (request.getParameter("start") != null) {
+			pageNo = (Integer.valueOf(request.getParameter("start")) / 10) + 1;
+		}
+
+		if (request.getParameter("iDisplayLength") != null) {
+			pageLength = Integer
+					.valueOf(request.getParameter("iDisplayLength"));
+		}
+		if (request.getParameter("length") != null) {
+			pageLength = Integer.valueOf(request.getParameter("length"));
+		}
+
 		searchTerm = request.getParameter("sSearch");
-		pageLength = Integer.valueOf(request.getParameter("iDisplayLength"));
 		List<TowerDescriptor> towerList;
 		int towerCount = towerService.getNumberOfTowers();
 		int towerListCount;
@@ -297,8 +302,14 @@ public class JsonController {
 
 	@RequestMapping(value = "/towers/gettowers", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
-	public Map<String, Object> getTowers() {
+	public Map<String, Object> getTowers(HttpServletRequest request) {
 
+		Map<String, String[]> params = request.getParameterMap();
+		for (Map.Entry<String, String[]> entry : params.entrySet()) {
+			System.out.println(entry.getKey() + "/"
+					+ Arrays.toString(entry.getValue()));
+		}
+		
 		List<TowerShort> towers = null;
 
 		towers = towerService.getTowersShort();
@@ -311,28 +322,42 @@ public class JsonController {
 		return data;
 	}
 
+	@SuppressWarnings("unused")
 	@RequestMapping(value = "/json/peals", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody String pealJson(HttpServletRequest request)
 			throws IOException {
+
+		// Map<String, String[]> params = request.getParameterMap();
+		// for (Map.Entry<String, String[]> entry : params.entrySet()) {
+		// System.out.println(entry.getKey() + "/" + entry.getValue());
+		// }
 
 		int pageNo = 0;
 		int pageLength = 10;
 		int towerId = 0;
 		List<Peal> pealList;
 		int pealCount = pealService.getNumberOfPeals();
-		int pealListCount;
+		int pealListCount = 0;
 		String ringer = "";
 		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 		String aLongTimeAgo = "01-01-1000";
 		Date dateFrom = null;
-		Date dateTo = new Date();
-
+		Date dateTo = new Date(Calendar.getInstance().getTimeInMillis());
+		System.out.println(pealCount + "/" + pealListCount);
 		if (request.getParameter("iDisplayStart") != null) {
 			pageNo = (Integer.valueOf(request.getParameter("iDisplayStart")) / 10) + 1;
 		}
-		if (request.getParameter("iDisplayStart") != null) {
+
+		if (request.getParameter("start") != null) {
+			pageNo = (Integer.valueOf(request.getParameter("start")) / 10) + 1;
+		}
+
+		if (request.getParameter("iDisplayLength") != null) {
 			pageLength = Integer
 					.valueOf(request.getParameter("iDisplayLength"));
+		}
+		if (request.getParameter("length") != null) {
+			pageLength = Integer.valueOf(request.getParameter("length"));
 		}
 
 		if (request.getParameter("tower") != null) {
@@ -344,23 +369,27 @@ public class JsonController {
 		}
 
 		try {
-			dateFrom = sdf.parse(aLongTimeAgo);
+			dateFrom = new Date(sdf.parse(aLongTimeAgo).getTime());
 		} catch (ParseException e) {
 		}
 
 		if (request.getParameter("dateFrom") != null) {
 			try {
-				dateFrom = sdf.parse(request.getParameter("dateFrom"));
+				dateFrom = new Date(sdf.parse(request.getParameter("dateFrom"))
+						.getTime());
 			} catch (ParseException e) {
 			}
 		}
 
 		if (request.getParameter("dateTo") != null) {
 			try {
-				dateTo = sdf.parse(request.getParameter("dateTo"));
+				dateTo = new Date(sdf.parse(request.getParameter("dateTo"))
+						.getTime());
 			} catch (ParseException e) {
 			}
 		}
+		System.out.println("DateFrom: " + dateFrom.toString() + " // "
+				+ "DateTo: " + dateTo.toString());
 
 		if (dateTo != null || dateFrom != null || towerId != 0
 				|| !ringer.isEmpty()) {
@@ -368,12 +397,15 @@ public class JsonController {
 					dateTo, ringer, pageLength, (pageNo - 1) * 10);
 			pealListCount = pealService.getNumberPealsForTower(towerId,
 					dateFrom, dateTo, ringer);
+			System.out.println("HERE");
 		} else {
 			pealList = pealService.getPaginatedPeals(pageLength,
 					(pageNo - 1) * 10);
 			pealListCount = pealCount;
+			System.out.println("THERE");
 		}
-		System.out.println(pealList);
+		System.out.println(pealCount + "/" + pealListCount);
+
 		for (Peal peal : pealList) {
 			peal.setTower(towerService.getTowerDescriptor(peal.getTower()
 					.getId()));
@@ -405,9 +437,17 @@ public class JsonController {
 		if (request.getParameter("iDisplayStart") != null) {
 			pageNo = (Integer.valueOf(request.getParameter("iDisplayStart")) / 10) + 1;
 		}
-		if (request.getParameter("iDisplayStart") != null) {
+
+		if (request.getParameter("start") != null) {
+			pageNo = (Integer.valueOf(request.getParameter("start")) / 10) + 1;
+		}
+
+		if (request.getParameter("iDisplayLength") != null) {
 			pageLength = Integer
 					.valueOf(request.getParameter("iDisplayLength"));
+		}
+		if (request.getParameter("length") != null) {
+			pageLength = Integer.valueOf(request.getParameter("length"));
 		}
 
 		visitCount = towerVisitService.getNumberOfVisits(userId);

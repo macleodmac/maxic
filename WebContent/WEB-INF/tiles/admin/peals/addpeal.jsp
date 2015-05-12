@@ -22,7 +22,7 @@
 				<h3>Add a Performance</h3>
 			</div>
 			<div class="col-xs-6 text-right">
-					<p><button type="submit" class="btn btn-default">Add Performance</button></p>
+					<p><button type="submit" class="btn btn-primary">Add Performance</button></p>
 			</div>
 		</div>
 

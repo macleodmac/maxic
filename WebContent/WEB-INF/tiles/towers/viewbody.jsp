@@ -50,7 +50,7 @@
 		<h4>
 			Latest Performances
 			<c:if test="${not empty peals}">
-				<a class="btn btn-default btn-xs pull-right"
+				<a class="btn btn-primary btn-xs pull-right"
 					href="${pageContext.request.contextPath}/peals?t=${towerWrapper.tower.towerId}">View
 					All</a>
 			</c:if>
@@ -68,8 +68,8 @@
 					<c:forEach var="peal" items="${peals}">
 						<tr>
 							<td>${peal.dateRung}</td>
-							<td>${peal.changes}${peal.method}</td>
-							<td><a class="btn btn-default btn-xs pull-right"
+							<td>${peal.changes} ${peal.method}</td>
+							<td><a class="btn btn-primary btn-xs pull-right"
 								href="${pageContext.request.contextPath}/peals/view?p=${peal.pealId}">View</a></td>
 						</tr>
 					</c:forEach>
@@ -151,85 +151,3 @@
 		</c:if>
 	</div>
 </div>
-
-
-
-
-
-<!-- <table class="table">
-	<tr>
-		<th>Location</th>
-		<td>
-			<p>
-				<strong>${tower.placeName}</strong>
-				<c:if test="${not empty tower.placeName2}"> ${tower.placeName2}</c:if>
-			</p> <c:if test="${not empty tower.dedication}">
-				<p>${tower.dedication}</p>
-			</c:if> <c:if test="${not empty tower.placeNameCL}">
-				<p>County Lists: ${tower.placeNameCL}</p>
-			</c:if>
-		</td>
-	</tr>
-	<c:if test="${tower.latitude ne 0.0 && tower.longitude ne 0.0}">
-		<tr>
-			<th>Co-Ordinates</th>
-			<td>${tower.latitude},${tower.longitude}</td>
-		</tr>
-	</c:if>
-	<c:if test="${not empty tower.gridReference}">
-		<tr>
-			<th>Grid Reference</th>
-			<td>${tower.gridReference}</td>
-		</tr>
-	</c:if>
-	<c:if test="${not empty tower.postCode}">
-		<tr>
-			<th>Postcode</th>
-			<td>${tower.postCode}</td>
-		</tr>
-	</c:if>
-	<c:if test="${not empty tower.diocese.name}">
-		<tr>
-			<th>Diocese</th>
-			<td>${tower.diocese.name}</td>
-		</tr>
-	</c:if>
-	<c:if test="${not empty tower.country.isoCode}">
-		<tr>
-			<th>Country</th>
-			<td>${tower.country.isoCode}</td>
-		</tr>
-	</c:if>
-	<c:if test="${not empty tower.guildId}">
-		<tr>
-			<th>guildId</th>
-			<td>${tower.guildId}</td>
-		</tr>
-	</c:if>
-
-	<c:if test="${not empty tower.listedGrade}">
-		<tr>
-			<th>listedGrade</th>
-			<td>${tower.listedGrade}</td>
-		</tr>
-	</c:if>
-	<tr>
-		<th>bells</th>
-		<td>bellNumber</td>
-	</tr>
-	<tr>
-		<th>Tenor</th>
-		<td>tenorDetails</td>
-	</tr>
-	<tr>
-		<th>AdditionalInfo</th>
-		<td>${tower.extraInfo}</td>
-	</tr>
-	<c:if
-		test="${tower.satNavLatitude ne 0.0 && tower.satNavLongitude ne 0.0}">
-		<tr>
-			<th>Sat Nav Location</th>
-			<td>${tower.satNavLatitude},${tower.satNavLongitude}</td>
-		</tr>
-	</c:if>
-</table> -->

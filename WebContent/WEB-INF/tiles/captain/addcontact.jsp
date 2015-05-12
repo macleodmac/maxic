@@ -10,10 +10,6 @@
 
 		<div class="row">
 			<div class="col-xs-12 col-sm-3">
-				<div class="form-group">
-					<a class="btn btn-default"
-						href="${pageContext.request.contextPath}/captain/edit">Back</a>
-				</div>
 			</div>
 			<div class="col-xs-12 col-sm-6">
 				<c:if test="${not empty message }">

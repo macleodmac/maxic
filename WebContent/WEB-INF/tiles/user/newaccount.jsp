@@ -76,7 +76,7 @@
 				<div id="matchpass"></div>
 				<div id="passlength"></div>
 			</div>
-			<button type="submit" id="submitbtn" class="btn btn-default" disabled>Submit</button>
+			<button type="submit" id="submitbtn" class="btn btn-primary" disabled>Submit</button>
 		</sf:form>
 	</div>
 </div>

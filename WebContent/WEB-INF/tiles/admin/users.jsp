@@ -87,7 +87,7 @@ $("#towertable").dataTable( {
 	</div>
 	<div class="row">
 		<div class="col-xs-12">
-			<a class="btn btn-default"
+			<a class="btn btn-primary"
 				href="${pageContext.request.contextPath}/admin/users/add">Add a
 				User</a>
 		</div>

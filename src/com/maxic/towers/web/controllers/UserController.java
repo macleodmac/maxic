@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
@@ -50,6 +51,15 @@ public class UserController {
 	private VerificationService verificationService;
 	private TowerVisitService towerVisitService;
 	private TowerService towerService;
+	
+	@Value("${mailSender.username}")
+	private String fromEmail;
+	
+	@Value("${mailSender.webUrl}")
+	private String websiteUrl;
+	
+	@Value("${general.siteName}")
+	private String siteName;
 
 	@Autowired
 	private MailSender mailSender;
@@ -112,17 +122,17 @@ public class UserController {
 			SimpleMailMessage mailMessage = new SimpleMailMessage();
 			String contextPath = httpRequestServlet.getContextPath();
 			StringBuffer sb = new StringBuffer();
-			sb.append("Thank you for creating a TowerFinder account.\n\n");
+			sb.append("Thank you for creating a " + siteName + " account.\n\n");
 			sb.append("Please visit the below URL to verify your account:\n\n");
-			sb.append("http://localhost:8080" + contextPath + "/verify?token="
+			sb.append(websiteUrl + contextPath + "/verify?token="
 					+ verificationToken.getToken() + "\n\n");
 			sb.append("Please note: this link will expire in two days, and can only be used once.\n\n");
 			sb.append("Many Thanks,\n\n");
-			sb.append("The TowerFinder team");
+			sb.append("The " + siteName + " team");
 
 			mailMessage.setTo(user.getEmail());
-			mailMessage.setFrom("noreply@towerfinder.com");
-			mailMessage.setSubject("TowerFinder - Account Created");
+			mailMessage.setFrom(fromEmail);
+			mailMessage.setSubject(siteName + " - Account Created");
 			mailMessage.setText(sb.toString());
 			mailSender.send(mailMessage);
 		} catch (DuplicateKeyException e) {
@@ -219,17 +229,17 @@ public class UserController {
 			SimpleMailMessage mailMessage = new SimpleMailMessage();
 			String contextPath = httpRequestServlet.getContextPath();
 			StringBuffer sb = new StringBuffer();
-			sb.append("Thank you for your request to reset your TowerFinder password. \n\n");
+			sb.append("Thank you for your request to reset your " + siteName + " password. \n\n");
 			sb.append("Please visit the below URL to reset your password:\n\n");
-			sb.append("http://localhost:8080" + contextPath + "/reset?token="
+			sb.append(websiteUrl + contextPath + "/reset?token="
 					+ verificationToken.getToken() + "\n\n");
 			sb.append("Please note: this link will expire in two days, and can only be used once.\n\n");
 			sb.append("Many Thanks,\n\n");
-			sb.append("The TowerFinder team");
+			sb.append("The " + siteName + " team");
 
 			mailMessage.setTo(user.getEmail());
-			mailMessage.setFrom("abc@gmail.com");
-			mailMessage.setSubject("TowerFinder - Reset Password");
+			mailMessage.setFrom(fromEmail);
+			mailMessage.setSubject(siteName + " - Reset Password");
 			mailMessage.setText(sb.toString());
 			mailSender.send(mailMessage);
 			return "redirect:/resetpassword";
@@ -258,7 +268,6 @@ public class UserController {
 		if (verificationService.validToken(verificationToken)) {
 			userToken = verificationService.getVerificationToken(token);
 			user = userToken.getUser();
-			System.out.println(user);
 			user.setPassword(null);
 			model.addAttribute(user);
 			verificationService.verify(verificationToken);
@@ -272,7 +281,6 @@ public class UserController {
 	public String doResetPassword(Model model, @Valid User user,
 			BindingResult result, WebRequest request, Errors errors,
 			HttpServletRequest httpRequestServlet) {
-		System.out.println(user);
 		if (result.hasErrors()) {
 
 			for (ObjectError error : result.getAllErrors()) {
@@ -281,7 +289,6 @@ public class UserController {
 			return "/changepassword";
 		} else {
 			user.setEnabled(true);
-			System.out.println(user);
 			userService.update(user);
 			return "/resetsuccess";
 
@@ -302,8 +309,7 @@ public class UserController {
 	public String showEditAccount(Model model, Principal principal) {
 		String email = principal.getName();
 		User currentUser = userService.getUser(email);
-		System.out.println(currentUser);
-		currentUser.setPassword(null);
+		currentUser.setPassword("");
 		EditUser editUser = new EditUser();
 		editUser.setUser(currentUser);
 
@@ -331,7 +337,6 @@ public class UserController {
 
 			User user = editUser.getUser();
 
-			System.out.println("Current User: " + user);
 			User checkingUser = userService.getUser(user.getEmail());
 
 			if (passwordEncoder.matches(user.getPassword(),
@@ -348,16 +353,16 @@ public class UserController {
 							+ "\n\n");
 					sb.append("If you did not wish to make this change please contact an administrator. \n\n");
 					sb.append("Many Thanks,\n\n");
-					sb.append("The TowerFinder team");
+					sb.append("The " + siteName + " team");
 
 					mailMessage.setTo(user.getEmail());
-					mailMessage.setFrom("noreply@towerfinder.com");
-					mailMessage.setSubject("TowerFinder - Email Changed");
+					mailMessage.setFrom(fromEmail);
+					mailMessage.setSubject(siteName + " - Email Changed");
 					mailMessage.setText(sb.toString());
 
 					newEmailMessage.setTo(editUser.getNewEmail());
-					newEmailMessage.setFrom("noreply@towerfinder.com");
-					newEmailMessage.setSubject("TowerFinder - Email Changed");
+					newEmailMessage.setFrom(fromEmail);
+					newEmailMessage.setSubject(siteName + " - Email Changed");
 					newEmailMessage.setText(sb.toString());
 
 					user.setEmail(editUser.getNewEmail());
@@ -375,7 +380,6 @@ public class UserController {
 					user.setName(editUser.getNewName());
 				}
 
-				System.out.println("Saving User: " + user);
 				userService.update(user);
 
 				if (!editUser.getNewEmail().isEmpty()) {
