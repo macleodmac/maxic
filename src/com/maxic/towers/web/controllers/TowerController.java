@@ -47,6 +47,12 @@ public class TowerController {
 		this.pealService = pealService;
 	}
 
+	/**
+	 * Fetches tower id from page, fetches tower using service, wraps it in a tower wrapper
+	 * 
+	 * @param t string identifying tower by towerId
+	 * @return /towers/view view if successful
+	 */
 	@RequestMapping(value = "/towers/view", method = RequestMethod.GET)
 	public String viewTower(Model model, @RequestParam("t") int t) {
 
@@ -72,6 +78,12 @@ public class TowerController {
 		return "/towers/view";
 	}
 
+	/**
+	 * Fetches tower id from page, fetches tower using service, wraps it in a tower wrapper
+	 * 
+	 * @param t string identifying tower by towerId
+	 * @return /towers/modal view if successful
+	 */
 	@RequestMapping(value = "/towers/modal", method = RequestMethod.GET)
 	public String viewTowerModal(Model model, @RequestParam("t") int t) {
 		TowerWrapper towerWrapper = new TowerWrapper();

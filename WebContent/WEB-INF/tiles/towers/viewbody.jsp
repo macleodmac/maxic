@@ -7,6 +7,10 @@
 		<h4>News and Information</h4>
 		<table class="table">
 			<tr>
+				<th>Bells</th>
+				<td>${towerWrapper.tower.bellNumber}</td>
+			</tr>
+			<tr>
 				<th>Ringable</th>
 				<c:if test="${towerWrapper.tower.ringable}">
 					<td>Yes</td>
@@ -15,6 +19,7 @@
 					<td>No</td>
 				</c:if>
 			</tr>
+
 			<tr>
 				<th>Ground Floor Ring</th>
 				<c:if test="${towerWrapper.tower.groundFloorRing}">
@@ -33,7 +38,7 @@
 					<td>No</td>
 				</c:if>
 			</tr>
-			
+
 			<c:if test="${not empty towerWrapper.tower.extraInfo}">
 				<tr>
 					<th>Info</th>
@@ -68,7 +73,7 @@
 					<c:forEach var="peal" items="${peals}">
 						<tr>
 							<td>${peal.dateRung}</td>
-							<td>${peal.changes} ${peal.method}</td>
+							<td>${peal.changes}${peal.method}</td>
 							<td><a class="btn btn-primary btn-xs pull-right"
 								href="${pageContext.request.contextPath}/peals/view?p=${peal.pealId}">View</a></td>
 						</tr>
@@ -83,13 +88,13 @@
 	<div class="col-xs-12 col-sm-6">
 		<h4>Practice Details</h4>
 		<c:if test="${not empty towerWrapper.practiceList}">
-			<table class="table">
+			<table class="table table-responsive">
 				<thead>
 					<tr>
 						<th>Name</th>
 						<th>Day</th>
 						<th>Time</th>
-						<th>Frequency</th>
+						<th>Freq</th>
 						<th>Visitors?</th>
 					</tr>
 				</thead>

@@ -1,19 +1,22 @@
-
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 <input id="pac-input" class="controls" type="text"
 	placeholder="Search Box"></input>
 
 
-<div id="filterOptions" class="controls">
-		<a data-toggle="collapse" href="#collapseExample"
-			aria-expanded="false" aria-controls="collapseExample">Filter
-			Results</a>
+<div id="filterOptions" class="controls filtering">
+	<a data-toggle="collapse" href="#collapseExample" aria-expanded="false"
+		aria-controls="collapseExample"><strong>Filter Results</strong></a>
 	<div class="collapse" id="collapseExample">
 		<br /> <input id="ringable" type="checkbox" checked="checked"
 			placeholder="Checkbox">Show Ringable Only<br /> <input
 			id="groundFloorRing" type="checkbox" placeholder="Checkbox"
-			checked="checked">Show Non-Ground Floor Ring <br /> <input
-			id="userVisited" type="checkbox" placeholder="Checkbox">Show
-		User Visited <br /> Bells: <select id="minBells">
+			checked="checked">Show Non-Ground Floor Ring <br />
+		<sec:authorize access="isAuthenticated()">
+			<input id="userVisited" type="checkbox" placeholder="Checkbox">Show
+		User Visited Only <br />  <br />
+		</sec:authorize>
+		Bells: <select id="minBells">
 			<option selected>1</option>
 			<option>2</option>
 			<option>3</option>

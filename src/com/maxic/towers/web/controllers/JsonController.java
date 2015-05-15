@@ -8,8 +8,10 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -29,15 +31,10 @@ import com.maxic.towers.web.model.TowerDescriptor;
 import com.maxic.towers.web.model.TowerShort;
 import com.maxic.towers.web.model.TowerVisit;
 import com.maxic.towers.web.model.User;
-import com.maxic.towers.web.service.ContactDetailsService;
-import com.maxic.towers.web.service.CountryService;
-import com.maxic.towers.web.service.DioceseService;
 import com.maxic.towers.web.service.PealService;
-import com.maxic.towers.web.service.PracticeService;
 import com.maxic.towers.web.service.TowerService;
 import com.maxic.towers.web.service.TowerVisitService;
 import com.maxic.towers.web.service.UserService;
-import com.maxic.towers.web.service.VerificationService;
 
 @Controller
 public class JsonController {
@@ -73,6 +70,13 @@ public class JsonController {
 		this.towerVisitService = towerVisitService;
 	}
 
+	/**
+	 * Fetches towers based on request attributes
+	 * 
+	 * @param request
+	 *            get request from page
+	 * @return json object
+	 */
 	@RequestMapping(value = "/admin/json/towers", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody String towerJson(HttpServletRequest request)
 			throws IOException {
@@ -131,6 +135,13 @@ public class JsonController {
 
 	}
 
+	/**
+	 * Fetches users based on request attributes
+	 * 
+	 * @param request
+	 *            get request from page
+	 * @return json object
+	 */
 	@RequestMapping(value = "/admin/json/users", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody String userJson(HttpServletRequest request)
 			throws IOException {
@@ -187,6 +198,13 @@ public class JsonController {
 
 	}
 
+	/**
+	 * Fetches towers based on request attributes
+	 * 
+	 * @param request
+	 *            get request from page
+	 * @return json object
+	 */
 	@RequestMapping(value = "/json/towers", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody String userTowerJson(HttpServletRequest request)
 			throws IOException {
@@ -240,17 +258,29 @@ public class JsonController {
 
 	}
 
+	/**
+	 * Fetches towers based on request attributes
+	 * 
+	 * @param request
+	 *            get request from page
+	 * @return json object
+	 */
 	@RequestMapping(value = "/json/towermap", method = RequestMethod.GET, produces = "application/json")
-	public @ResponseBody String towerMapJson(HttpServletRequest request,
-			Principal principal) throws IOException {
+	public @ResponseBody Map<String, Object> towerMapJson(
+			HttpServletRequest request, Principal principal) throws IOException {
 
 		boolean ringable = true;
 		boolean groundFloorRing = true;
 		boolean userVisited = false;
 		int minimumBells = 0;
 		int maximumBells = 99;
-		int results = 10;
 		String diocese = "";
+
+		Map<String, String[]> params = request.getParameterMap();
+		for (Map.Entry<String, String[]> entry : params.entrySet()) {
+			System.out.println(entry.getKey() + "/"
+					+ Arrays.toString(entry.getValue()));
+		}
 
 		if (request.getParameter("ringable") != null) {
 			if (request.getParameter("ringable").equals("1")) {
@@ -262,9 +292,9 @@ public class JsonController {
 
 		if (request.getParameter("groundFloorRing") != null) {
 			if (request.getParameter("groundFloorRing").equals("1")) {
-				groundFloorRing = true;
-			} else {
 				groundFloorRing = false;
+			} else {
+				groundFloorRing = true;
 			}
 		}
 
@@ -284,20 +314,39 @@ public class JsonController {
 			maximumBells = Integer.valueOf(request.getParameter("maxBells"));
 		}
 
-		List<Tower> towers = towerService.getMapTowers(diocese, minimumBells,
-				maximumBells, ringable, groundFloorRing, results);
+		List<TowerShort> towers = towerService.getMapTowers(diocese,
+				minimumBells, maximumBells, ringable, groundFloorRing);
+		List<TowerVisit> towerVisits = null;
+		Set<TowerShort> finalSet = new HashSet<TowerShort>();
+		if (request.getParameter("userVisited") != null) {
+			System.out.println("NOT NULL");
+			if (request.getParameter("userVisited").equals("1")) {
+				System.out.println("USER VISITED");
+				towerVisits = towerVisitService.getVisitsByUserId(userService
+						.getUser(principal.getName()).getId());
+				for (TowerVisit visit : towerVisits) {
+					for (TowerShort tower : towers) {
+						if (visit.getTower().getId() == tower.getT()) {
+							System.out.println("Adding");
+							finalSet.add(tower);
+							break;
+						}
+					}
 
-		JsonObject<Tower> towerJson = new JsonObject<Tower>();
+				}
+			} else {
+				finalSet = new HashSet<TowerShort>(towers);
+			}
+		} else {
+			finalSet = new HashSet<TowerShort>(towers);
+		}
 
-		towerJson.setiTotalDisplayRecords(5);
-		towerJson.setiTotalRecords(6);
-		towerJson.setAaData(towers);
+		Map<String, Object> data = new HashMap<String, Object>();
 
-		Gson gson = new GsonBuilder().setPrettyPrinting().create();
-		String returnJson = gson.toJson(towerJson);
+		data.put("towers", finalSet);
+		data.put("number", towers.size());
 
-		return returnJson;
-
+		return data;
 	}
 
 	@RequestMapping(value = "/towers/gettowers", method = RequestMethod.GET, produces = "application/json")
@@ -309,7 +358,7 @@ public class JsonController {
 			System.out.println(entry.getKey() + "/"
 					+ Arrays.toString(entry.getValue()));
 		}
-		
+
 		List<TowerShort> towers = null;
 
 		towers = towerService.getTowersShort();
@@ -322,6 +371,13 @@ public class JsonController {
 		return data;
 	}
 
+	/**
+	 * Fetches peals based on request attributes
+	 * 
+	 * @param request
+	 *            get request from page
+	 * @return json object
+	 */
 	@SuppressWarnings("unused")
 	@RequestMapping(value = "/json/peals", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody String pealJson(HttpServletRequest request)
@@ -424,6 +480,13 @@ public class JsonController {
 
 	}
 
+	/**
+	 * Fetches visits based on request attributes
+	 * 
+	 * @param request
+	 *            get request from page
+	 * @return json object
+	 */
 	@RequestMapping(value = "/json/visits", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody String visitsJson(Principal principal,
 			HttpServletRequest request) throws IOException {

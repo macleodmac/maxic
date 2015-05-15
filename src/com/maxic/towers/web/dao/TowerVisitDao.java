@@ -24,6 +24,13 @@ public class TowerVisitDao {
 		return sessionFactory.getCurrentSession();
 	}
 
+	/**
+	 * Fetch visits from database for a give userId
+	 * 
+	 * @param userId
+	 *            ther userId to check
+	 * @return list of visits
+	 */
 	@SuppressWarnings("unchecked")
 	public List<TowerVisit> getVisitsByUserId(int userId) {
 		Criteria crit = session().createCriteria(TowerVisit.class);
@@ -32,6 +39,13 @@ public class TowerVisitDao {
 		return visits;
 	}
 
+	/**
+	 * Fetch visit from database with a given id
+	 * 
+	 * @param id
+	 *            visit id
+	 * @return visit
+	 */
 	public TowerVisit getTowerVisit(int id) {
 
 		Criteria crit = session().createCriteria(TowerVisit.class);
@@ -41,24 +55,64 @@ public class TowerVisitDao {
 		return visit;
 	}
 
+	/**
+	 * Persists visit to database
+	 * 
+	 * @param visit
+	 *            to persist
+	 */
 	public void addTowerVisit(TowerVisit visit) {
 		session().save(visit);
 	}
 
+	/**
+	 * Delete visit details from the database for a given visitId
+	 * 
+	 * 
+	 * @param visitId
+	 *            to delete
+	 * @return boolean success
+	 */
 	public void deleteTowerVisit(TowerVisit visit) {
 		session().delete(visit);
 	}
 
+	/**
+	 * Update given visit in the database
+	 * 
+	 * 
+	 * @param visit
+	 *            to update
+	 */
 	public void editTowerVisit(TowerVisit visit) {
 		session().update(visit);
 	}
 
+	/**
+	 * Returns total number of visits that match a given userId
+	 * 
+	 * @param userId
+	 *            the userId being checked
+	 * @return int number of visits
+	 */
 	public int getNumberOfVisits(int userId) {
 		Criteria crit = session().createCriteria(TowerVisit.class);
 		crit.add(Restrictions.eq("userId", userId));
 		return crit.list().size();
 	}
 
+	/**
+	 * Returns paginated visits with a limited number of results and first
+	 * result for a given userId
+	 * 
+	 * @param pageLength
+	 *            number of records to return
+	 * @param displayStart
+	 *            record to start from
+	 * @param userId
+	 *            to check
+	 * @return list of tower visits
+	 */
 	@SuppressWarnings("unchecked")
 	public List<TowerVisit> getPaginatedVisits(int userId, int pageLength,
 			int displayStart) {

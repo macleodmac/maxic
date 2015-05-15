@@ -13,8 +13,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.jsoup.Jsoup;
@@ -97,7 +95,12 @@ public class CrawlerController {
 
 	}
 
-	@Scheduled(fixedDelay = 10800000)
+	/**
+	 * Connects to bellboard, gets a list of all the latest performances, checks
+	 * if they already exist, if not scrapes their data and adds to the database
+	 * Runs every day
+	 */
+	@Scheduled(fixedDelay = 86400000)
 	public void crawlBellboard() {
 		String baseUrl = "http://www.bb.ringingworld.co.uk/";
 		Document doc;
@@ -113,9 +116,9 @@ public class CrawlerController {
 		} catch (IOException e) {
 
 		}
-		
+
 		List<String> finalLinkList = new ArrayList<String>();
-		
+
 		for (String link : linkList) {
 			String temp = link.replaceAll("[^0-9]", "");
 			int tempId = Integer.parseInt(temp);
@@ -136,9 +139,9 @@ public class CrawlerController {
 
 		Peal peal;
 		for (String link : finalLinkList) {
-			
-//		for (int i = 0; i <5; i++) {
-//			String link = finalLinkList.get(i);
+
+			// for (int i = 0; i <5; i++) {
+			// String link = finalLinkList.get(i);
 			peal = parsePage(baseUrl + link);
 			String rwId = link.replaceAll("[^0-9]", "");
 			try {
@@ -154,7 +157,8 @@ public class CrawlerController {
 			float[] scores = StringMetrics.compare(metric, bbDescription,
 					descriptions);
 			System.out.println("Description: " + bbDescription);
-			List<Float> floatScores = Arrays.asList(ArrayUtils.toObject(scores));
+			List<Float> floatScores = Arrays
+					.asList(ArrayUtils.toObject(scores));
 			int minIndex = floatScores.indexOf(Collections.min(floatScores));
 			String minDesc = descriptions.get(minIndex);
 			int maxIndex = floatScores.indexOf(Collections.max(floatScores));
@@ -164,12 +168,17 @@ public class CrawlerController {
 			int towerId = map.get(maxDesc);
 			TowerDescriptor tower = towerService.getTowerDescriptor(towerId);
 			peal.setTower(tower);
-			
+
 			pealService.addPeal(peal);
 		}
 
 	}
 
+	/**
+	 * Connects to the url, fetches data and creates a peal from it
+	 * @param  url String url of the performance to be scraped
+	 * @return  Peal the peal extracted from information on the page
+	 */
 	private Peal parsePage(String url) {
 		Document doc;
 		Peal peal = new Peal();
@@ -249,18 +258,18 @@ public class CrawlerController {
 			String time;
 			try {
 				time = dateSplit[1];
-//				Pattern minutePattern = Pattern
-//						.compile("^([0-9]+\\sh\\s?[0-9]{1,2})(.*)");
-//				Pattern hourPattern = Pattern
-//						.compile("^([0-9]{1,2}\\s?Mins)(.*)");
-//				Matcher minuteMatcher = minutePattern.matcher(time);
-//				Matcher hourMatcher = hourPattern.matcher(time);
-//
-//				if (minuteMatcher.matches()) {
-//					time = minuteMatcher.group(1);
-//				} else if (hourMatcher.matches()) {
-//					time = hourMatcher.group(1);
-//				}
+				// Pattern minutePattern = Pattern
+				// .compile("^([0-9]+\\sh\\s?[0-9]{1,2})(.*)");
+				// Pattern hourPattern = Pattern
+				// .compile("^([0-9]{1,2}\\s?Mins)(.*)");
+				// Matcher minuteMatcher = minutePattern.matcher(time);
+				// Matcher hourMatcher = hourPattern.matcher(time);
+				//
+				// if (minuteMatcher.matches()) {
+				// time = minuteMatcher.group(1);
+				// } else if (hourMatcher.matches()) {
+				// time = hourMatcher.group(1);
+				// }
 			} catch (ArrayIndexOutOfBoundsException e) {
 				time = null;
 			}
@@ -340,10 +349,6 @@ public class CrawlerController {
 		}
 
 		return peal;
-	}
-
-	private int towerMatcher(String towerString) {
-		return 0;
 	}
 
 }

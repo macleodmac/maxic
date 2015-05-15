@@ -56,6 +56,7 @@ html, body {
 	padding: 0 11px 0 13px;
 	text-overflow: ellipsis;
 	width: 40%;
+	margin-right: 16px;
 }
 
 #pac-input:focus {
@@ -79,13 +80,30 @@ html, body {
 }
 
 #filterOptions {
-	background-color: white;
+	background-color: #103C55;
 	height: auto;
-	margin-right: 16px;
+	margin-left: 10px;
 	padding: 15px;
 	font-family: Roboto;
+	margin-top: 50px;
+	color: #FCF5D9;
 }
 
-#filterOptions > input, select {
-	margin-top:10px;
+#filterOptions>a {
+	color: #FCF5D9;
+	font-size: 1.4em;
+}
+
+#filterOptions>input, select {
+	margin-top: 10px;
+	color: #103C55;
+}
+
+@media ( max-width : 768px) {
+	.filtering {
+		
+	}
+	#pac-input {
+		width: 70%;
+	}
 }

@@ -44,15 +44,23 @@
 
 @media ( min-width : 1200px) #towerselect {
 	width
+	
+	
 	:
+	
 	 
+	
 	80%;
 }
 
 @media ( min-width : 1200px) #towerselectwrap {
 	width
+	
+	
 	:
+	
 	 
+	
 	50%;
 }
 
@@ -107,7 +115,6 @@ a {
 	fieldset[disabled] .btn-primary.focus, fieldset[disabled] .btn-primary:active,
 	fieldset[disabled] .btn-primary:focus, fieldset[disabled] .btn-primary:hover
 	{
-	  background-color: #103C55;
-  border-color: #103C55;
-}
+	background-color: #103C55;
+	border-color: #103C55;
 }

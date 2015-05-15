@@ -51,13 +51,13 @@ public class UserController {
 	private VerificationService verificationService;
 	private TowerVisitService towerVisitService;
 	private TowerService towerService;
-	
+
 	@Value("${mailSender.username}")
 	private String fromEmail;
-	
+
 	@Value("${mailSender.webUrl}")
 	private String websiteUrl;
-	
+
 	@Value("${general.siteName}")
 	private String siteName;
 
@@ -87,6 +87,11 @@ public class UserController {
 		this.towerService = towerService;
 	}
 
+	/**
+	 * Creates new user instance and returns to the page
+	 * 
+	 * @return /newaccount view
+	 */
 	@RequestMapping(value = "/newaccount")
 	public String createUser(Model model) {
 
@@ -97,6 +102,15 @@ public class UserController {
 		return "/newaccount";
 	}
 
+	/**
+	 * Fetches user from page using POST, checks for errors, adds user to
+	 * database using service. Creates verification token, then emails the user
+	 * confirmation and link to verify their account
+	 * 
+	 * @param user
+	 *            user object fetched from form submission
+	 * @return redirect:/accountcreated view if successful
+	 */
 	@RequestMapping(value = "/createaccount", method = RequestMethod.POST)
 	public String createUser(Model model, @Valid User user,
 			BindingResult result, WebRequest request, Errors errors,
@@ -168,6 +182,14 @@ public class UserController {
 		return "/loggedout";
 	}
 
+	/**
+	 * Checks token to see it is not expired, and hasn't been used before
+	 * Enables the user if the token is valid
+	 * 
+	 * @param token
+	 *            token object fetched from url request
+	 * @return /verified view if successful
+	 */
 	@RequestMapping(value = "/verify", method = RequestMethod.GET)
 	public String verifyUser(Model model, @RequestParam("token") String token,
 			RedirectAttributes redirectAttributes) {
@@ -211,6 +233,13 @@ public class UserController {
 		return "/forgotpassword";
 	}
 
+	/**
+	 * Creates token for user to reset password, emails token to user
+	 * 
+	 * @param email
+	 *            email of user fetched from url
+	 * @return redirect:/resetpassword view if successful
+	 */
 	@RequestMapping(value = "/recoverpassword", method = RequestMethod.POST)
 	public String recoverPassword(Model model, String email,
 			HttpServletRequest httpRequestServlet,
@@ -229,7 +258,8 @@ public class UserController {
 			SimpleMailMessage mailMessage = new SimpleMailMessage();
 			String contextPath = httpRequestServlet.getContextPath();
 			StringBuffer sb = new StringBuffer();
-			sb.append("Thank you for your request to reset your " + siteName + " password. \n\n");
+			sb.append("Thank you for your request to reset your " + siteName
+					+ " password. \n\n");
 			sb.append("Please visit the below URL to reset your password:\n\n");
 			sb.append(websiteUrl + contextPath + "/reset?token="
 					+ verificationToken.getToken() + "\n\n");
@@ -255,6 +285,14 @@ public class UserController {
 		return "/resetpassword";
 	}
 
+	/**
+	 * Checks token to see it is not expired, and presents view for user to
+	 * reset password if the token is valid
+	 * 
+	 * @param token
+	 *            token object fetched from url request
+	 * @return /verified view if successful
+	 */
 	@RequestMapping(value = "/reset", method = RequestMethod.GET)
 	public String resetPassword(Model model,
 			@RequestParam("token") String token,
@@ -273,6 +311,7 @@ public class UserController {
 			verificationService.verify(verificationToken);
 			return "/changepassword";
 		} else {
+			System.out.println(verificationToken);
 			return "/badtoken";
 		}
 	}
@@ -304,6 +343,11 @@ public class UserController {
 		return "/account";
 	}
 
+	/**
+	 * Fetches user from the datatbase and presents for editing
+	 * 
+	 * @return redirect:/account/edit if successful
+	 */
 	@PreAuthorize("isAuthorised()")
 	@RequestMapping(value = "/account/edit")
 	public String showEditAccount(Model model, Principal principal) {
@@ -317,6 +361,12 @@ public class UserController {
 		return "/account/edit";
 	}
 
+	/**
+	 * Saves changes to user after edits have been made, and emails user to
+	 * notify of changes
+	 * 
+	 * @return redirect:/account/edit if successful
+	 */
 	@PreAuthorize("isAuthorised()")
 	@RequestMapping(value = "/account/doedit")
 	public String showMyVisits(Model model, @Valid EditUser editUser,
@@ -402,6 +452,11 @@ public class UserController {
 
 	}
 
+	/**
+	 * Fetches user visits from database using principal object
+	 * 
+	 * @return /account/visits if successful
+	 */
 	@PreAuthorize("isAuthorised()")
 	@RequestMapping(value = "/account/visits")
 	public String showMyVisits(Model model, Principal principal) {
@@ -414,6 +469,13 @@ public class UserController {
 		return "/account/visits";
 	}
 
+	/**
+	 * Fetches user visit from database using visitId
+	 * 
+	 * @param v
+	 *            int representing visitId
+	 * @return /account/visits/view if successful
+	 */
 	@PreAuthorize("isAuthorised()")
 	@RequestMapping(value = "/account/visits/view")
 	public String showVisit(Model model, Principal principal,
@@ -433,6 +495,11 @@ public class UserController {
 		}
 	}
 
+	/**
+	 * Creates a new instance of TowerVisit for user to fill in
+	 * 
+	 * @return /account/visits/add if successful
+	 */
 	@PreAuthorize("isAuthorised()")
 	@RequestMapping(value = "/account/visits/add", method = RequestMethod.GET)
 	public String addVisit(Model model, Principal principal) {
@@ -461,6 +528,13 @@ public class UserController {
 		return "/account/visits/add";
 	}
 
+	/**
+	 * Fetches the tower visit using POST and saves to the database
+	 * 
+	 * @param towerVisit
+	 *            the towervisit object fetched form the form
+	 * @return redirect:/account/visits if successful
+	 */
 	@PreAuthorize("isAuthorised()")
 	@RequestMapping(value = "/account/visits/doadd", method = RequestMethod.POST)
 	public String doAddVisit(Model model, @Valid TowerVisit towerVisit,
@@ -478,6 +552,13 @@ public class UserController {
 		}
 	}
 
+	/**
+	 * Fetches the tower visit using the visitId and deletes from the database
+	 * 
+	 * @param v
+	 *            the visitId representing the visit
+	 * @return redirect:/account/visits if successful
+	 */
 	@PreAuthorize("isAuthorised()")
 	@RequestMapping(value = "/account/visits/delete", method = RequestMethod.GET)
 	public String deleteVisit(Model model, Principal principal,
@@ -495,6 +576,11 @@ public class UserController {
 		return "redirect:/account/visits";
 	}
 
+	/**
+	 * Fetches the tower visits related to the user from the database
+	 * 
+	 * @return CSV response file
+	 */
 	@PreAuthorize("isAuthorised()")
 	@RequestMapping("/account/visits/download")
 	public String downloadVisits(HttpServletResponse response,

@@ -2,286 +2,322 @@
 <!DOCTYPE tiles-definitions PUBLIC
        "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
-       
+
 <tiles-definitions>
 
 	<definition name="home" template="/WEB-INF/templates/home.jsp">
-		<put-attribute name="title" value="Towermap :: Home"></put-attribute>
+		<put-attribute name="title" value="towermap :: Home"></put-attribute>
 		<put-attribute name="header" value="/WEB-INF/tiles/default/header.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/main/home.jsp"></put-attribute>
 	</definition>
-	
+
 	<definition name="towers.base" template="/WEB-INF/templates/default.jsp">
-		<put-attribute name="title" value="Towermap"></put-attribute>
+		<put-attribute name="title" value="towermap"></put-attribute>
 		<put-attribute name="header" value="/WEB-INF/tiles/default/header.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/default/content.jsp"></put-attribute>
 		<put-attribute name="footer" value="/WEB-INF/tiles/default/footer.jsp"></put-attribute>
 	</definition>
-	
+
 	<definition name="modal.base" template="/WEB-INF/templates/modal.jsp">
-		<put-attribute name="title" value="Towermap"></put-attribute>
+		<put-attribute name="title" value="towermap"></put-attribute>
 		<put-attribute name="prebody" value="/WEB-INF/tiles/default/prebody.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/default/content.jsp"></put-attribute>
 		<put-attribute name="footer" value="/WEB-INF/tiles/default/footer.jsp"></put-attribute>
 	</definition>
-	
+
 	<definition name="view.base" template="/WEB-INF/templates/view.jsp">
-		<put-attribute name="title" value="Towermap"></put-attribute>
+		<put-attribute name="title" value="towermap"></put-attribute>
 		<put-attribute name="header" value="/WEB-INF/tiles/default/header.jsp"></put-attribute>
 		<put-attribute name="prebody" value="/WEB-INF/tiles/default/prebody.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/default/content.jsp"></put-attribute>
 		<put-attribute name="footer" value="/WEB-INF/tiles/default/footer.jsp"></put-attribute>
 	</definition>
-	
+
 	<definition name="/towers/view" extends="view.base">
-		<put-attribute name="title" value="Towermap :: View Tower"></put-attribute>
-		<put-attribute name="prebody" value="/WEB-INF/tiles/towers/viewprebody.jsp"></put-attribute>
+		<put-attribute name="title" value="towermap :: View Tower"></put-attribute>
+		<put-attribute name="prebody"
+			value="/WEB-INF/tiles/towers/viewprebody.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/towers/viewbody.jsp"></put-attribute>
 	</definition>
-	
+
 	<definition name="/towers/alltower" extends="view.base">
-		<put-attribute name="title" value="Towermap :: View Tower"></put-attribute>
-		<put-attribute name="prebody" value="/WEB-INF/tiles/towers/allprebody.jsp"></put-attribute>
+		<put-attribute name="title" value="towermap :: View Tower"></put-attribute>
+		<put-attribute name="prebody"
+			value="/WEB-INF/tiles/towers/allprebody.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/towers/alltower.jsp"></put-attribute>
 	</definition>
-	
+
 	<definition name="/towers/modal" extends="modal.base">
-		<put-attribute name="title" value="Towermap :: View Tower"></put-attribute>
-		<put-attribute name="prebody" value="/WEB-INF/tiles/towers/viewprebody.jsp"></put-attribute>
+		<put-attribute name="title" value="towermap :: View Tower"></put-attribute>
+		<put-attribute name="prebody"
+			value="/WEB-INF/tiles/towers/viewprebody.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/towers/viewbody.jsp"></put-attribute>
 	</definition>
-	
+
 	<definition name="/peals" extends="towers.base">
-		<put-attribute name="title" value="Towermap :: View Peals"></put-attribute>
+		<put-attribute name="title" value="towermap :: View Peals"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/peals/peals.jsp"></put-attribute>
 	</definition>
-	
+
 	<definition name="/towers" extends="towers.base">
-		<put-attribute name="title" value="Towermap :: View Towers"></put-attribute>
+		<put-attribute name="title" value="towermap :: View Towers"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/towers/towers.jsp"></put-attribute>
 	</definition>
-	
+
 	<definition name="/peals/view" extends="towers.base">
-		<put-attribute name="title" value="Towermap :: View Peal"></put-attribute>
+		<put-attribute name="title" value="towermap :: View Peal"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/peals/viewpeal.jsp"></put-attribute>
 	</definition>
-	
+
 	<definition name="/peals/add" extends="admin.base">
-		<put-attribute name="title" value="Towermap :: Add a Peal"></put-attribute>
-		<put-attribute name="content" value="/WEB-INF/tiles/admin/peals/addpeal.jsp"></put-attribute>
+		<put-attribute name="title" value="towermap :: Add a Peal"></put-attribute>
+		<put-attribute name="content"
+			value="/WEB-INF/tiles/admin/peals/addpeal.jsp"></put-attribute>
 	</definition>
-	
+
 	<definition name="admin.base" template="/WEB-INF/templates/default.jsp">
-		<put-attribute name="title" value="Towermap"></put-attribute>
+		<put-attribute name="title" value="towermap"></put-attribute>
 		<put-attribute name="header" value="/WEB-INF/tiles/default/header.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/default/content.jsp"></put-attribute>
 		<put-attribute name="footer" value="/WEB-INF/tiles/default/footer.jsp"></put-attribute>
 	</definition>
-	
+
 	<definition name="/admin/towers" extends="admin.base">
-		<put-attribute name="title" value="Towermap :: Admin :: View Towers"></put-attribute>
+		<put-attribute name="title" value="towermap :: Admin :: View Towers"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/admin/towers.jsp"></put-attribute>
 	</definition>
-	
+
 	<definition name="/admin/towers/edittower" extends="admin.base">
-		<put-attribute name="title" value="Towermap :: Admin :: Edit Tower"></put-attribute>
-		<put-attribute name="content" value="/WEB-INF/tiles/admin/towers/edittower.jsp"></put-attribute>
+		<put-attribute name="title" value="towermap :: Admin :: Edit Tower"></put-attribute>
+		<put-attribute name="content"
+			value="/WEB-INF/tiles/admin/towers/edittower.jsp"></put-attribute>
 	</definition>
-	
+
 	<definition name="/admin/towers/addtower" extends="admin.base">
-		<put-attribute name="title" value="Towermap :: Admin :: Add Tower"></put-attribute>
-		<put-attribute name="content" value="/WEB-INF/tiles/admin/towers/addtower.jsp"></put-attribute>
+		<put-attribute name="title" value="towermap :: Admin :: Add Tower"></put-attribute>
+		<put-attribute name="content"
+			value="/WEB-INF/tiles/admin/towers/addtower.jsp"></put-attribute>
 	</definition>
-	
+
 	<definition name="/admin/towers/addpractice" extends="admin.base">
-		<put-attribute name="title" value="Towermap :: Admin :: Add Practice"></put-attribute>
-		<put-attribute name="content" value="/WEB-INF/tiles/admin/towers/addpractice.jsp"></put-attribute>
+		<put-attribute name="title" value="towermap :: Admin :: Add Practice"></put-attribute>
+		<put-attribute name="content"
+			value="/WEB-INF/tiles/admin/towers/addpractice.jsp"></put-attribute>
 	</definition>
-	
+
 	<definition name="/admin/towers/addcontact" extends="admin.base">
-		<put-attribute name="title" value="Towermap :: Admin :: Add Contact"></put-attribute>
-		<put-attribute name="content" value="/WEB-INF/tiles/admin/towers/addcontact.jsp"></put-attribute>
+		<put-attribute name="title" value="towermap :: Admin :: Add Contact"></put-attribute>
+		<put-attribute name="content"
+			value="/WEB-INF/tiles/admin/towers/addcontact.jsp"></put-attribute>
 	</definition>
-	
+
 	<definition name="/admin/peals" extends="admin.base">
-		<put-attribute name="title" value="Towermap :: Admin :: View Peals"></put-attribute>
+		<put-attribute name="title" value="towermap :: Admin :: View Peals"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/admin/peals.jsp"></put-attribute>
 	</definition>
-	
+
 	<definition name="/admin/peals/addpeal" extends="admin.base">
-		<put-attribute name="title" value="Towermap :: Admin :: Add a Peal"></put-attribute>
-		<put-attribute name="content" value="/WEB-INF/tiles/admin/peals/addpeal.jsp"></put-attribute>
+		<put-attribute name="title" value="towermap :: Admin :: Add a Peal"></put-attribute>
+		<put-attribute name="content"
+			value="/WEB-INF/tiles/admin/peals/addpeal.jsp"></put-attribute>
 	</definition>
-	
+
 	<definition name="/admin/peals/editpeal" extends="admin.base">
-		<put-attribute name="title" value="Towermap :: Admin :: Edit Peal"></put-attribute>
-		<put-attribute name="content" value="/WEB-INF/tiles/admin/peals/editpeal.jsp"></put-attribute>
+		<put-attribute name="title" value="towermap :: Admin :: Edit Peal"></put-attribute>
+		<put-attribute name="content"
+			value="/WEB-INF/tiles/admin/peals/editpeal.jsp"></put-attribute>
 	</definition>
-	
+
 	<definition name="/admin/dashboard" extends="admin.base">
-		<put-attribute name="title" value="Towermap :: Admin :: Dashboard"></put-attribute>
+		<put-attribute name="title" value="towermap :: Admin :: Dashboard"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/admin/dashboard.jsp"></put-attribute>
 	</definition>
-	
+
 	<definition name="/admin/countries/addcountry" extends="admin.base">
-		<put-attribute name="title" value="Towermap :: Admin :: Add Country"></put-attribute>
-		<put-attribute name="content" value="/WEB-INF/tiles/admin/countries/addcountry.jsp"></put-attribute>
+		<put-attribute name="title" value="towermap :: Admin :: Add Country"></put-attribute>
+		<put-attribute name="content"
+			value="/WEB-INF/tiles/admin/countries/addcountry.jsp"></put-attribute>
 	</definition>
-	
+
 	<definition name="/admin/countries/editcountry" extends="admin.base">
-		<put-attribute name="title" value="Towermap :: Admin :: Edit Country"></put-attribute>
-		<put-attribute name="content" value="/WEB-INF/tiles/admin/countries/editcountry.jsp"></put-attribute>
+		<put-attribute name="title" value="towermap :: Admin :: Edit Country"></put-attribute>
+		<put-attribute name="content"
+			value="/WEB-INF/tiles/admin/countries/editcountry.jsp"></put-attribute>
 	</definition>
-	
+
 	<definition name="/admin/dioceses" extends="admin.base">
-		<put-attribute name="title" value="Towermap :: Admin :: Dioceses"></put-attribute>
+		<put-attribute name="title" value="towermap :: Admin :: Dioceses"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/admin/dioceses.jsp"></put-attribute>
 	</definition>
-	
+
 	<definition name="/admin/dioceses/adddiocese" extends="admin.base">
-		<put-attribute name="title" value="Towermap :: Admin :: Add Diocese"></put-attribute>
-		<put-attribute name="content" value="/WEB-INF/tiles/admin/dioceses/adddiocese.jsp"></put-attribute>
+		<put-attribute name="title" value="towermap :: Admin :: Add Diocese"></put-attribute>
+		<put-attribute name="content"
+			value="/WEB-INF/tiles/admin/dioceses/adddiocese.jsp"></put-attribute>
 	</definition>
-	
+
 	<definition name="/admin/dioceses/editdiocese" extends="admin.base">
-		<put-attribute name="title" value="Towermap :: Admin :: Edit Diocese"></put-attribute>
-		<put-attribute name="content" value="/WEB-INF/tiles/admin/dioceses/editdiocese.jsp"></put-attribute>
+		<put-attribute name="title" value="towermap :: Admin :: Edit Diocese"></put-attribute>
+		<put-attribute name="content"
+			value="/WEB-INF/tiles/admin/dioceses/editdiocese.jsp"></put-attribute>
 	</definition>
-	
+
 	<definition name="/admin/countries" extends="admin.base">
-		<put-attribute name="title" value="Towermap :: Admin :: Countries"></put-attribute>
+		<put-attribute name="title" value="towermap :: Admin :: Countries"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/admin/countries.jsp"></put-attribute>
 	</definition>
-	
+
 	<definition name="/admin/manual" extends="admin.base">
-		<put-attribute name="title" value="Towermap :: Admin :: Manual"></put-attribute>
+		<put-attribute name="title" value="towermap :: Admin :: Manual"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/admin/manual.jsp"></put-attribute>
 	</definition>
-	
+
 	<definition name="/admin/documentation" extends="admin.base">
-		<put-attribute name="title" value="Towermap :: Admin :: Documentation"></put-attribute>
-		<put-attribute name="content" value="/WEB-INF/tiles/admin/documentation.jsp"></put-attribute>
+		<put-attribute name="title" value="towermap :: Admin :: Documentation"></put-attribute>
+		<put-attribute name="content"
+			value="/WEB-INF/tiles/admin/documentation.jsp"></put-attribute>
 	</definition>
-	
+
 	<definition name="/admin/users" extends="admin.base">
-		<put-attribute name="title" value="Towermap :: Admin :: Users"></put-attribute>
+		<put-attribute name="title" value="towermap :: Admin :: Users"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/admin/users.jsp"></put-attribute>
 	</definition>
-	
+
 	<definition name="/admin/users/add" extends="admin.base">
-		<put-attribute name="title" value="Towermap :: Admin :: Add User"></put-attribute>
-		<put-attribute name="content" value="/WEB-INF/tiles/admin/users/adduser.jsp"></put-attribute>
+		<put-attribute name="title" value="towermap :: Admin :: Add User"></put-attribute>
+		<put-attribute name="content"
+			value="/WEB-INF/tiles/admin/users/adduser.jsp"></put-attribute>
 	</definition>
-	
+
 	<definition name="/admin/users/edit" extends="admin.base">
-		<put-attribute name="title" value="Towermap :: Admin :: Edit User"></put-attribute>
-		<put-attribute name="content" value="/WEB-INF/tiles/admin/users/edituser.jsp"></put-attribute>
+		<put-attribute name="title" value="towermap :: Admin :: Edit User"></put-attribute>
+		<put-attribute name="content"
+			value="/WEB-INF/tiles/admin/users/edituser.jsp"></put-attribute>
 	</definition>
-	
+
 	<definition name="admin/dove/uploadfile" extends="admin.base">
-		<put-attribute name="title" value="Towermap :: Admin :: Upload Dove File"></put-attribute>
-		<put-attribute name="content" value="/WEB-INF/tiles/admin/dove/uploadfile.jsp"></put-attribute>
+		<put-attribute name="title"
+			value="towermap :: Admin :: Upload Dove File"></put-attribute>
+		<put-attribute name="content"
+			value="/WEB-INF/tiles/admin/dove/uploadfile.jsp"></put-attribute>
 	</definition>
-	
+
 	<definition name="/error" extends="towers.base">
-		<put-attribute name="title" value="Towermap :: Error"></put-attribute>
+		<put-attribute name="title" value="towermap :: Error"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/error/error.jsp"></put-attribute>
 	</definition>
-	
+
 	<definition name="/about" extends="towers.base">
-		<put-attribute name="title" value="Towermap :: About"></put-attribute>
+		<put-attribute name="title" value="towermap :: About"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/main/about.jsp"></put-attribute>
 	</definition>
-	
+
+	<definition name="/help" extends="towers.base">
+		<put-attribute name="title" value="towermap :: Help"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/main/help.jsp"></put-attribute>
+	</definition>
+
 	<definition name="/login" extends="towers.base">
-		<put-attribute name="title" value="Towermap :: Login"></put-attribute>
+		<put-attribute name="title" value="towermap :: Login"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/user/login.jsp"></put-attribute>
 	</definition>
-	
+
 	<definition name="/loggedout" extends="towers.base">
-		<put-attribute name="title" value="Towermap :: Logged Out"></put-attribute>
+		<put-attribute name="title" value="towermap :: Logged Out"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/user/loggedout.jsp"></put-attribute>
 	</definition>
-	
+
 	<definition name="/accountcreated" extends="towers.base">
-		<put-attribute name="title" value="Towermap :: Account Created"></put-attribute>
-		<put-attribute name="content" value="/WEB-INF/tiles/user/accountcreated.jsp"></put-attribute>
+		<put-attribute name="title" value="towermap :: Account Created"></put-attribute>
+		<put-attribute name="content"
+			value="/WEB-INF/tiles/user/accountcreated.jsp"></put-attribute>
 	</definition>
-	
+
 	<definition name="/verified" extends="towers.base">
-		<put-attribute name="title" value="Towermap :: Account Verified"></put-attribute>
+		<put-attribute name="title" value="towermap :: Account Verified"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/user/verified.jsp"></put-attribute>
 	</definition>
-	
+
 	<definition name="/newaccount" extends="towers.base">
-		<put-attribute name="title" value="Towermap :: Create an Account"></put-attribute>
+		<put-attribute name="title" value="towermap :: Create an Account"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/user/newaccount.jsp"></put-attribute>
 	</definition>
 
-	
+
 	<definition name="/forgotpassword" extends="towers.base">
-		<put-attribute name="title" value="Towermap :: Forgotten Password"></put-attribute>
-		<put-attribute name="content" value="/WEB-INF/tiles/user/forgotpassword.jsp"></put-attribute>
+		<put-attribute name="title" value="towermap :: Forgotten Password"></put-attribute>
+		<put-attribute name="content"
+			value="/WEB-INF/tiles/user/forgotpassword.jsp"></put-attribute>
 	</definition>
-	
+
 	<definition name="/resetpassword" extends="towers.base">
-		<put-attribute name="title" value="Towermap :: Reset Password"></put-attribute>
-		<put-attribute name="content" value="/WEB-INF/tiles/user/resetpassword.jsp"></put-attribute>
+		<put-attribute name="title" value="towermap :: Reset Password"></put-attribute>
+		<put-attribute name="content"
+			value="/WEB-INF/tiles/user/resetpassword.jsp"></put-attribute>
 	</definition>
-	
+
 	<definition name="/changepassword" extends="towers.base">
-		<put-attribute name="title" value="Towermap :: Change Password"></put-attribute>
-		<put-attribute name="content" value="/WEB-INF/tiles/user/changepassword.jsp"></put-attribute>
+		<put-attribute name="title" value="towermap :: Change Password"></put-attribute>
+		<put-attribute name="content"
+			value="/WEB-INF/tiles/user/changepassword.jsp"></put-attribute>
 	</definition>
-	
+
 	<definition name="/badtoken" extends="towers.base">
-		<put-attribute name="title" value="Towermap :: Bad Token"></put-attribute>
+		<put-attribute name="title" value="towermap :: Bad Token"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/user/badtoken.jsp"></put-attribute>
 	</definition>
-	
+
 	<definition name="/resetsuccess" extends="towers.base">
-		<put-attribute name="title" value="Towermap :: Password Reset"></put-attribute>
-		<put-attribute name="content" value="/WEB-INF/tiles/user/resetsuccess.jsp"></put-attribute>
+		<put-attribute name="title" value="towermap :: Password Reset"></put-attribute>
+		<put-attribute name="content"
+			value="/WEB-INF/tiles/user/resetsuccess.jsp"></put-attribute>
 	</definition>
-	
+
 	<definition name="/account/edit" extends="towers.base">
-		<put-attribute name="title" value="Towermap :: Edit Account"></put-attribute>
-		<put-attribute name="content" value="/WEB-INF/tiles/user/editaccount.jsp"></put-attribute>
+		<put-attribute name="title" value="towermap :: Edit Account"></put-attribute>
+		<put-attribute name="content"
+			value="/WEB-INF/tiles/user/editaccount.jsp"></put-attribute>
 	</definition>
-	
+
 	<definition name="/account/visits" extends="towers.base">
-		<put-attribute name="title" value="Towermap :: My Visits"></put-attribute>
+		<put-attribute name="title" value="towermap :: My Visits"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/user/visits.jsp"></put-attribute>
 	</definition>
-	
+
 	<definition name="/account/visits/view" extends="towers.base">
-		<put-attribute name="title" value="Towermap :: Add Visits"></put-attribute>
-		<put-attribute name="content" value="/WEB-INF/tiles/user/visits/viewvisit.jsp"></put-attribute>
+		<put-attribute name="title" value="towermap :: Add Visits"></put-attribute>
+		<put-attribute name="content"
+			value="/WEB-INF/tiles/user/visits/viewvisit.jsp"></put-attribute>
 	</definition>
-	
+
 	<definition name="/account/visits/add" extends="towers.base">
-		<put-attribute name="title" value="Towermap :: Add Visits"></put-attribute>
-		<put-attribute name="content" value="/WEB-INF/tiles/user/visits/addvisit.jsp"></put-attribute>
+		<put-attribute name="title" value="towermap :: Add Visits"></put-attribute>
+		<put-attribute name="content"
+			value="/WEB-INF/tiles/user/visits/addvisit.jsp"></put-attribute>
 	</definition>
-	
+
 	<definition name="/account/visits/edit" extends="towers.base">
-		<put-attribute name="title" value="Towermap :: Edit Visit"></put-attribute>
-		<put-attribute name="content" value="/WEB-INF/tiles/user/visits/editvisit.jsp"></put-attribute>
+		<put-attribute name="title" value="towermap :: Edit Visit"></put-attribute>
+		<put-attribute name="content"
+			value="/WEB-INF/tiles/user/visits/editvisit.jsp"></put-attribute>
 	</definition>
-	
+
 	<definition name="/captain/edit" extends="towers.base">
-		<put-attribute name="title" value="Towermap :: Edit My Tower"></put-attribute>
-		<put-attribute name="content" value="/WEB-INF/tiles/captain/edittower.jsp"></put-attribute>
+		<put-attribute name="title" value="towermap :: Edit My Tower"></put-attribute>
+		<put-attribute name="content"
+			value="/WEB-INF/tiles/captain/edittower.jsp"></put-attribute>
 	</definition>
-	
+
 	<definition name="/captain/addpractice" extends="admin.base">
-		<put-attribute name="title" value="Towermap :: Add Practice"></put-attribute>
-		<put-attribute name="content" value="/WEB-INF/tiles/captain/addpractice.jsp"></put-attribute>
+		<put-attribute name="title" value="towermap :: Add Practice"></put-attribute>
+		<put-attribute name="content"
+			value="/WEB-INF/tiles/captain/addpractice.jsp"></put-attribute>
 	</definition>
-	
+
 	<definition name="/captain/addcontact" extends="admin.base">
-		<put-attribute name="title" value="Towermap :: Add Contact Details"></put-attribute>
-		<put-attribute name="content" value="/WEB-INF/tiles/captain/addcontact.jsp"></put-attribute>
+		<put-attribute name="title" value="towermap :: Add Contact Details"></put-attribute>
+		<put-attribute name="content"
+			value="/WEB-INF/tiles/captain/addcontact.jsp"></put-attribute>
 	</definition>
 
 </tiles-definitions>

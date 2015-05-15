@@ -38,11 +38,9 @@
 	</div>
 	<div class="modal-footer">
 		<a class="btn btn-default btn-primary pull-left"
-			href="${pageContext.request.contextPath}/towers/view?t=${towerWrapper.tower.towerId}">View
-			Alone</a>
+			href="${pageContext.request.contextPath}/towers/view?t=${towerWrapper.tower.towerId}">View</a>
 		<a class="btn btn-default btn-primary pull-left"
-			href="http://dove.cccbr.org.uk/detail.php?DoveID=${towerWrapper.tower.doveId}">View
-			on Dove's Guide</a>
+			href="http://dove.cccbr.org.uk/detail.php?DoveID=${towerWrapper.tower.doveId}">Dove</a>
 		<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
 
 	</div>

@@ -22,12 +22,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @Component("pealDao")
 public class PealDao {
-	// private NamedParameterJdbcTemplate jdbc;
-	//
-	// @Autowired
-	// public void setDataSource(DataSource jdbc) {
-	// this.jdbc = new NamedParameterJdbcTemplate(jdbc);
-	// }
 
 	@Autowired
 	private SessionFactory sessionFactory;
@@ -36,11 +30,22 @@ public class PealDao {
 		return sessionFactory.getCurrentSession();
 	}
 
+	/**
+	 * Fetches all peals from the database
+	 * 
+	 * @return list of peals
+	 */
 	@SuppressWarnings("unchecked")
 	public List<Peal> getPeals() {
 		return session().createQuery("from Peal").list();
 	}
 
+	/**
+	 * Fetches all peals from the database for a given tower
+	 * 
+	 * @param towerId
+	 * @return list of peals
+	 */
 	@SuppressWarnings("unchecked")
 	public List<Peal> getLatestPealsForTower(int towerId) {
 		return session()
@@ -49,6 +54,12 @@ public class PealDao {
 				.setInteger("towerId", towerId).setMaxResults(5).list();
 	}
 
+	/**
+	 * Fetches 5 latest peals from the database for a given tower
+	 * 
+	 * @param towerId
+	 * @return list of peals
+	 */
 	@SuppressWarnings("unchecked")
 	public List<Peal> getPealsForTower(int towerId) {
 		return session()
@@ -57,6 +68,12 @@ public class PealDao {
 				.setInteger("towerId", towerId).list();
 	}
 
+	/**
+	 * Fetches peal from the database for a given pealId
+	 * 
+	 * @param pealId
+	 * @return Peal
+	 */
 	public Peal getPeal(int id) {
 
 		Criteria crit = session().createCriteria(Peal.class);
@@ -67,10 +84,24 @@ public class PealDao {
 
 	}
 
+	/**
+	 * Persists peal to database
+	 * 
+	 * @param peal
+	 *            to persist
+	 */
 	public void addPeal(Peal peal) {
 		session().saveOrUpdate(peal);
 	}
 
+	/**
+	 * Delete peal details from the database for a given pealId
+	 * 
+	 * 
+	 * @param pealId
+	 *            to delete
+	 * @return boolean success
+	 */
 	public boolean deletePeal(int id) {
 		Criteria crit = session().createCriteria(Peal.class);
 		crit.add(Restrictions.idEq(id));
@@ -80,14 +111,26 @@ public class PealDao {
 		} catch (HibernateException e) {
 			return false;
 		}
-		
 
 	}
 
+	/**
+	 * Update given peal in the database
+	 * 
+	 * 
+	 * @param peal
+	 *            to update
+	 */
 	public void editPeal(Peal peal) {
 		session().update(peal);
 	}
 
+	/**
+	 * Persists peal list to database
+	 * 
+	 * @param list
+	 *            of peals to persist
+	 */
 	public boolean addPeals(ArrayList<Peal> pealList) {
 		for (Peal peal : pealList) {
 			this.addPeal(peal);
@@ -95,6 +138,11 @@ public class PealDao {
 		return false;
 	}
 
+	/**
+	 * Checks how many peal records there are in the database
+	 * 
+	 * @return int total number of peals
+	 */
 	public int getNumberOfPeals() {
 
 		int count = ((Long) session().createCriteria(Peal.class)
@@ -103,6 +151,15 @@ public class PealDao {
 		return count;
 	}
 
+	/**
+	 * Returns paginated peals with a limited number of results and first result
+	 * 
+	 * @param pageLength
+	 *            number of records to return
+	 * @param displayStart
+	 *            record to start from
+	 * @return list of peals
+	 */
 	@SuppressWarnings("unchecked")
 	public List<Peal> getPaginatedPeals(int pageLength, int displayStart) {
 		Criteria crit = session().createCriteria(Peal.class);
@@ -113,6 +170,18 @@ public class PealDao {
 		return crit.list();
 	}
 
+	/**
+	 * Returns paginated peals with a limited number of results and first result
+	 * for a given tower
+	 * 
+	 * @param pageLength
+	 *            number of records to return
+	 * @param displayStart
+	 *            record to start from
+	 * @param towerId
+	 *            to fetch
+	 * @return list of peals
+	 */
 	@SuppressWarnings("unchecked")
 	public List<Peal> getPaginatedPealsForTower(int towerId, int pageLength,
 			int displayStart) {
@@ -125,6 +194,14 @@ public class PealDao {
 		return crit.list();
 	}
 
+	/**
+	 * Checks how many peal records there are in the database for a given tower
+	 * id
+	 * 
+	 * @param towerId
+	 *            to check
+	 * @return int total number of peals
+	 */
 	public int getNumberPealsForTower(int towerId) {
 		Criteria crit = session().createCriteria(Peal.class);
 		crit.add(Restrictions.eq("tower.id", towerId));
@@ -132,6 +209,24 @@ public class PealDao {
 		return crit.list().size();
 	}
 
+	/**
+	 * Returns paginated peals with a limited number of results and first result
+	 * for a given tower
+	 * 
+	 * @param pageLength
+	 *            number of records to return
+	 * @param displayStart
+	 *            record to start from
+	 * @param towerId
+	 *            to fetch
+	 * @param dateFrom
+	 *            start date of search
+	 * @param dateTo
+	 *            end date of search
+	 * @param ringer
+	 *            ringer name
+	 * @return list of peals
+	 */
 	@SuppressWarnings("unchecked")
 	public List<Peal> getPaginatedPealsForTower(int towerId, Date dateFrom,
 			Date dateTo, String ringer, int pageLength, int displayStart) {
@@ -142,7 +237,8 @@ public class PealDao {
 		Disjunction or = Restrictions.disjunction();
 		if (!ringer.isEmpty()) {
 			for (int i = 1; i <= 16; i++) {
-				or.add(Restrictions.ilike("ringer" + i, '%' + ringer + '%', MatchMode.ANYWHERE));
+				or.add(Restrictions.ilike("ringer" + i, '%' + ringer + '%',
+						MatchMode.ANYWHERE));
 			}
 			crit.add(or);
 		}
@@ -154,6 +250,23 @@ public class PealDao {
 		return crit.list();
 	}
 
+	/**
+	 * Returns number of peals for a given search
+	 * 
+	 * @param pageLength
+	 *            number of records to return
+	 * @param displayStart
+	 *            record to start from
+	 * @param towerId
+	 *            to fetch
+	 * @param dateFrom
+	 *            start date of search
+	 * @param dateTo
+	 *            end date of search
+	 * @param ringer
+	 *            ringer name
+	 * @return int total number of peals
+	 */
 	public int getNumberPealsForTower(int towerId, Date dateFrom, Date dateTo,
 			String ringer) {
 		Criteria crit = session().createCriteria(Peal.class);
@@ -163,23 +276,29 @@ public class PealDao {
 		Disjunction or = Restrictions.disjunction();
 		if (!ringer.isEmpty()) {
 			for (int i = 1; i <= 16; i++) {
-				or.add(Restrictions.ilike("ringer" + i, '%' + ringer + '%', MatchMode.ANYWHERE));
+				or.add(Restrictions.ilike("ringer" + i, '%' + ringer + '%',
+						MatchMode.ANYWHERE));
 			}
 			crit.add(or);
 		}
-//		crit.add(Restrictions.between("dateRung", dateFrom, dateTo));
 		crit.add(Restrictions.ge("dateRung", dateFrom));
 		crit.add(Restrictions.le("dateRung", dateTo));
 
 		return crit.list().size();
 	}
 
+	/**
+	 * Check whether a bellboard id is already in the peal database
+	 * 
+	 * @param pealId
+	 *            the id to check
+	 * @return boolean true/false
+	 */
 	public boolean bellboardPealExists(int pealId) {
 		Criteria crit = session().createCriteria(Peal.class);
 		crit.add(Restrictions.eq("ringingWorldId", pealId));
-		
+
 		return crit.list().size() == 1;
 	}
-
 
 }

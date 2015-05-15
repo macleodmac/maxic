@@ -15,8 +15,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
@@ -27,7 +25,6 @@ import com.maxic.towers.web.model.ContactDetails;
 import com.maxic.towers.web.model.Country;
 import com.maxic.towers.web.model.Diocese;
 import com.maxic.towers.web.model.DoveFileWrapper;
-import com.maxic.towers.web.model.FileValidator;
 import com.maxic.towers.web.model.Practice;
 import com.maxic.towers.web.model.Tower;
 import com.maxic.towers.web.service.ContactDetailsService;
@@ -40,8 +37,7 @@ import com.maxic.towers.web.service.TowerService;
 @RequestMapping("/admin/dove")
 public class DoveUploadController {
 
-	@Autowired
-	FileValidator validator;
+
 
 	@Autowired
 	TowerService towerService;
@@ -58,10 +54,6 @@ public class DoveUploadController {
 	@Autowired
 	CountryService countryService;
 
-	@InitBinder
-	private void initBinder(WebDataBinder binder) {
-		binder.setValidator(validator);
-	}
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String getForm(Model model) {
@@ -69,7 +61,13 @@ public class DoveUploadController {
 		model.addAttribute("file", fileModel);
 		return "admin/dove/uploadfile";
 	}
-
+	
+	/**
+	 * Fetches file from POST request, parses it according to filename
+	 * 
+	 * @param request  including uploaded file
+	 * @return admin/dove/uploadfile view if successful
+	 */
 	@RequestMapping(method = RequestMethod.POST)
 	public String fileUploaded(Model model,
 			RedirectAttributes redirectAttributes, HttpServletRequest request) {
@@ -107,6 +105,12 @@ public class DoveUploadController {
 		return "admin/dove/uploadfile";
 	}
 
+	/**
+	 * Uses file to edit primary keys in database
+	 * 
+	 * @param multipartFile  uploaded file
+	 * @return boolean success
+	 */
 	private boolean processNewPks(MultipartFile multipartFile) {
 
 		boolean success = true;
@@ -131,7 +135,12 @@ public class DoveUploadController {
 
 		return success;
 	}
-
+	/**
+	 * Uses file to edit towers in database
+	 * 
+	 * @param multipartFile  uploaded file
+	 * @return boolean success
+	 */
 	private boolean processDoveTxt(MultipartFile multipartFile) {
 		List<Tower> towerList = this.parseDoveFile(multipartFile);
 		boolean success = true;
@@ -199,6 +208,13 @@ public class DoveUploadController {
 		return success;
 	}
 
+	
+	/**
+	 * Parses new primary keys from file
+	 * 
+	 * @param multipartFile  uploaded file
+	 * @return Map<String, String> oldKey/newKey pairings
+	 */
 	private Map<String, String> parseNewPks(MultipartFile multipartFile) {
 
 		BufferedReader br = null;
@@ -242,6 +258,12 @@ public class DoveUploadController {
 
 	}
 
+	/**
+	 * Parses towers from file
+	 * 
+	 * @param multipartFile  uploaded file
+	 * @return  ArrayList<Tower> new towers
+	 */
 	private ArrayList<Tower> parseDoveFile(MultipartFile multipartFile) {
 
 		BufferedReader br = null;

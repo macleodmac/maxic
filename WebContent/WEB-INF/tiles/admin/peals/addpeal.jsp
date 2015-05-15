@@ -14,7 +14,7 @@
 
 	
 	<sf:form method="post"
-		action="${pageContext.request.contextPath}/admin/peals/doadd"
+		action="${pageContext.request.contextPath}/peals/doadd"
 		modelAttribute="peal" commandName="peal">
 		
 		<div class="row">
@@ -33,7 +33,6 @@
 					<c:out value="${message}"></c:out>
 				</div>
 			</c:if>
-			<sf:errors path="dateRung" cssClass="alert alert-danger" element="div" />
 			<sf:errors path="method" cssClass="alert alert-danger" element="div" />
 			<sf:errors path="ringer1" cssClass="alert alert-danger" element="div" />
 		</div>
@@ -49,7 +48,7 @@
 				<div class="form-group">
 					<label for="dateRung">Date</label>
 					<sf:input type="text" class="form-control" path="dateRung" id="dp"
-						placeholder="Date"/>
+						placeholder="Date" required="required" />
 				</div>
 			</div>
 			<div class="col-xs-12 col-sm-6">
@@ -64,7 +63,7 @@
 				<div class="form-group">
 					<label for="time">Duration</label>
 					<sf:input type="text" class="form-control" path="time" id="time"
-						placeholder="Duration" />
+						placeholder="Duration" required="required" />
 				</div>
 			</div>
 			<div class="col-xs-6 col-sm-3">
@@ -80,14 +79,14 @@
 				<div class="form-group">
 					<label for="changes">Changes</label>
 					<sf:input type="text" class="form-control" path="changes"
-						id="changes" placeholder="Changes" />
+						id="changes" placeholder="Changes" required="required" />
 				</div>
 			</div>
 			<div class="col-xs-6">
 				<div class="form-group">
 					<label for="method">Method</label>
 					<sf:input type="text" class="form-control" path="method"
-						id="method" placeholder="Method" />
+						id="method" placeholder="Method" required="required" />
 				</div>
 			</div>
 			<div class="col-xs-3">
@@ -112,7 +111,7 @@
 				<div class="form-group">
 					<label for="ringer1">1 (1-2)</label>
 					<sf:input type="text" class="form-control" path="ringer1"
-						id="ringer" />
+						id="ringer" required="required" />
 				</div>
 			</div>
 			<div class="col-xs-6 col-sm-3">

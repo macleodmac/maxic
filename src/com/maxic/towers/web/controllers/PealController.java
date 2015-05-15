@@ -42,7 +42,14 @@ public class PealController {
 		model.addAttribute("peal", peal);
 		return "/peals/add";
 	}
-
+	/**
+	 * Fetches peal details from page using POST, checks for errors, adds peal to
+	 * database using service
+	 * 
+	 * @param peal
+	 *            peal object fetched from form submission
+	 * @return redirect:/peals view if successful
+	 */
 	@RequestMapping(value = "/peals/doadd", method = RequestMethod.POST)
 	public String doAddPeal(Model model, @Valid Peal peal,
 			BindingResult result, RedirectAttributes redirectAttributes) {
@@ -57,10 +64,16 @@ public class PealController {
 
 		redirectAttributes.addFlashAttribute("message",
 				"Peal successfully added!");
-		redirectAttributes.addAttribute("t", "all");
-		return ("redirect:/peals");
+		redirectAttributes.addAttribute("t", peal.getTower().getId());
+		return ("redirect:/peals/");
 	}
 
+	/**
+	 * Fetches peal details from service using pealId in request
+	 * 
+	 * @param p int representing pealId
+	 * @return /peals/view view if successful
+	 */
 	@RequestMapping(value = "/peals/view", method = RequestMethod.GET)
 	public String viewPeal(Model model, @RequestParam("p") int p) {
 		Peal peal = pealService.getPeal(p);

@@ -23,6 +23,8 @@
 					data-ytta-id="-">performances</a></li>
 				<li><a href="${pageContext.request.contextPath}/about"
 					data-ytta-id="-">about</a></li>
+				<li><a href="${pageContext.request.contextPath}/help"
+					data-ytta-id="-">help</a></li>
 				<sec:authorize access="isAnonymous()">
 					<li><a href="${pageContext.request.contextPath}/login"
 						data-ytta-id="-">login</a></li>
@@ -53,14 +55,6 @@
 								data-ytta-id="-">messages</a></li>
 							<li><a href="${pageContext.request.contextPath}/admin/dove"
 								data-ytta-id="-">database</a></li>
-							<li class="divider"></li>
-							<li class="dropdown-header">help</li>
-							<li><a
-								href="${pageContext.request.contextPath}/admin/manual"
-								data-ytta-id="-">manual</a></li>
-							<li><a
-								href="${pageContext.request.contextPath}/admin/documentation"
-								data-ytta-id="-">documentation</a></li>
 						</ul></li>
 				</sec:authorize>
 				<sec:authorize access="isAuthenticated()">
@@ -84,11 +78,6 @@
 									href="${pageContext.request.contextPath}/captain/edit"
 									data-ytta-id="-">edit tower</a></li>
 							</sec:authorize>
-							<li class="divider"></li>
-							<li class="dropdown-header">help</li>
-							<li><a
-								href="${pageContext.request.contextPath}/admin/manual"
-								data-ytta-id="-">manual</a></li>
 						</ul></li>
 					<li><a
 						href="${pageContext.request.contextPath}/j_spring_security_logout">logout</a></li>

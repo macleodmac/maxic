@@ -1,6 +1,5 @@
 package com.maxic.towers.web.controllers;
 
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -24,7 +23,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.maxic.towers.web.model.ContactDetails;
@@ -137,34 +135,13 @@ public class AdminController {
 		return "/admin/documentation";
 	}
 
-	@RequestMapping(value = "/towerlist", method = RequestMethod.GET, produces = "application/json")
-	@ResponseBody
-	public Map<String, Object> getTowerList() {
-
-		List<TowerDescriptor> towers = null;
-		towers = towerService.getTowerDescriptors();
-
-		Map<String, Object> towerMap = new HashMap<String, Object>();
-
-		towerMap.put("towers", towers);
-		towerMap.put("number", towers.size());
-
-		return towerMap;
-	}
-
+	
 	/*
 	 * 
 	 * ADMIN TOWERS REQUEST MAPPINGS
+	 * 
 	 */
 
-	/**
-	 * Fetches a list of all towers from the tower service and returns to the
-	 * page
-	 * 
-	 * @param message
-	 *            arbitrary information message to display on the page
-	 * @return /admin/towers view
-	 */
 	@RequestMapping("/admin/towers")
 	public String showTowers(Model model,
 			@ModelAttribute("message") String message) {
@@ -220,8 +197,7 @@ public class AdminController {
 	 * Fetches tower id from page, deletes tower using service, adds
 	 * success/failure flashAttribute
 	 * 
-	 * @param t
-	 *            string identifying tower by towerId
+	 * @param t string identifying tower by towerId
 	 * @return redirect:/admin/towers view if successful
 	 */
 	@RequestMapping(value = "/admin/towers/dodelete", method = RequestMethod.GET)
@@ -246,6 +222,13 @@ public class AdminController {
 		}
 	}
 
+	/**
+	 * Fetches tower id from page, fetches tower using service, returns view
+	 * for editing tower
+	 * 
+	 * @param t string identifying tower by towerId
+	 * @return /admin/towers/edittower view if successful
+	 */
 	@RequestMapping(value = "/admin/towers/edit", method = RequestMethod.GET)
 	public String editTower(Model model, @RequestParam("t") String t) {
 		int id = Integer.parseInt(t);
@@ -295,6 +278,13 @@ public class AdminController {
 		return "/admin/towers/edittower";
 	}
 
+	/**
+	 * Fetches tower id from page, saves edited tower using service, returns view
+	 * for editing tower
+	 * 
+	 * @param t string identifying tower by towerId
+	 * @return redirect:/admin/towers/edit view if successful
+	 */
 	@RequestMapping(value = "/admin/towers/doedit", method = RequestMethod.POST)
 	public String doEdit(Model model, TowerWrapper towerWrapper,
 			BindingResult result, @RequestParam("t") String t,
@@ -415,9 +405,9 @@ public class AdminController {
 	}
 
 	/**
-	 * Creates a new instance of a practice and returns to the tower edit page
+	 * Creates a new instance of a practice and returns to the add practice view
 	 * 
-	 * @return /admin/towers/add view
+	 * @return /admin/towers/addpractice view
 	 */
 	@RequestMapping(value = "/admin/towers/addpractice")
 	public String addPractice(Model model, @RequestParam("t") int t) {
@@ -445,12 +435,12 @@ public class AdminController {
 	}
 
 	/**
-	 * Fetches tower from page using POST, checks for errors, adds tower to
+	 * Fetches practice details from page using POST, checks for errors, adds practice to
 	 * database using service
 	 * 
-	 * @param tower
-	 *            tower object fetched from form submission
-	 * @return redirect:/admin/towers/towers view if successful
+	 * @param practice
+	 *            practice object fetched from form submission
+	 * @return redirect:/admin/towers/edit view if successful
 	 */
 	@RequestMapping(value = "/admin/towers/doaddpractice", method = RequestMethod.POST)
 	public String doAddPractice(Model model, @Valid Practice practice,
@@ -466,7 +456,15 @@ public class AdminController {
 		redirectAttributes.addAttribute("t", practice.getTowerId());
 		return "redirect:/admin/towers/edit";
 	}
-
+	
+	/**
+	 * Fetches tower, practice id from page, deletes practice using service, returns view
+	 * for editing tower
+	 * 
+	 * @param t string identifying tower by towerId
+	 * @param pr string identifying practice by practiceId
+	 * @return redirect:/admin/towers/edit view if successful
+	 */
 	@RequestMapping(value = "/admin/towers/dodeletepractice", method = RequestMethod.GET)
 	public String doDeletePractice(Model model, @RequestParam("pr") int pr,
 			@RequestParam("t") int t, RedirectAttributes redirectAttributes) {
@@ -480,9 +478,9 @@ public class AdminController {
 	}
 
 	/**
-	 * Creates a new instance of a practice and returns to the tower edit page
+	 * Creates a new instance of a contact detail and returns to the add practice view
 	 * 
-	 * @return /admin/towers/add view
+	 * @return /admin/towers/addcontact view
 	 */
 	@RequestMapping(value = "/admin/towers/addcontact")
 	public String addContact(Model model, @RequestParam("t") int t) {
@@ -502,12 +500,12 @@ public class AdminController {
 	}
 
 	/**
-	 * Fetches tower from page using POST, checks for errors, adds tower to
+	 * Fetches contact details from page using POST, checks for errors, adds contact details to
 	 * database using service
 	 * 
-	 * @param tower
-	 *            tower object fetched from form submission
-	 * @return redirect:/admin/towers/towers view if successful
+	 * @param contactDetails
+	 *            practice object fetched from form submission
+	 * @return redirect:/admin/towers/edit view if successful
 	 */
 	@RequestMapping(value = "/admin/towers/doaddcontact", method = RequestMethod.POST)
 	public String doAddContact(Model model,
@@ -614,6 +612,14 @@ public class AdminController {
 		return "redirect:/admin/towers/edit";
 	}
 
+	/**
+	 * Fetches tower, contact id from page, deletes contact using service, returns view
+	 * for editing tower
+	 * 
+	 * @param t string identifying tower by towerId
+	 * @param c string identifying contact by contactId
+	 * @return redirect:/admin/towers/edit view if successful
+	 */
 	@RequestMapping(value = "/admin/towers/dodeletecontact", method = RequestMethod.GET)
 	public String doDeleteContact(Model model, @RequestParam("c") int c,
 			@RequestParam("t") int t, RedirectAttributes redirectAttributes) {
@@ -629,6 +635,7 @@ public class AdminController {
 	/*
 	 * 
 	 * ADMIN PEALS REQUEST MAPPINGS
+	 * 
 	 */
 
 	@RequestMapping("/admin/peals")
@@ -640,6 +647,11 @@ public class AdminController {
 		return "/admin/peals";
 	}
 
+	/**
+	 * Creates a new instance of a peal and returns to the add peal view
+	 * 
+	 * @return /admin/towers/addpeal view
+	 */
 	@RequestMapping("/admin/peals/add")
 	public String showAddPeal(Model model) {
 		Peal peal = new Peal();
@@ -649,6 +661,14 @@ public class AdminController {
 		return "/admin/peals/addpeal";
 	}
 
+	/**
+	 * Fetches peal details from page using POST, checks for errors, adds peal to
+	 * database using service
+	 * 
+	 * @param peal
+	 *            peal object fetched from form submission
+	 * @return redirect:/admin/peals view if successful
+	 */
 	@RequestMapping(value = "/admin/peals/doadd", method = RequestMethod.POST)
 	public String doAddPeal(Model model, @Valid Peal peal,
 			BindingResult result, RedirectAttributes redirectAttributes) {
@@ -665,6 +685,13 @@ public class AdminController {
 		return ("redirect:/admin/peals");
 	}
 
+	/**
+	 * Fetches peal id from page, fetches peal using service, returns view
+	 * for editing peal
+	 * 
+	 * @param p string identifying peal by pealId
+	 * @return /admin/peals/editpeal view if successful
+	 */
 	@RequestMapping(value = "/admin/peals/edit", method = RequestMethod.GET)
 	public String showEditPeal(Model model, @RequestParam("p") String p) {
 		int pealId = Integer.parseInt(p);
@@ -676,6 +703,13 @@ public class AdminController {
 		return "/admin/peals/editpeal";
 	}
 
+	/**
+	 * Fetches peal id from page, saves edited peal using service, returns view
+	 * for peal list
+	 * 
+	 * @param p string identifying peal by pealId
+	 * @return redirect:/admin/peals view if successful
+	 */
 	@RequestMapping(value = "/admin/peals/doedit", method = RequestMethod.POST)
 	public String doEditPeal(Model model, Peal peal, BindingResult result,
 			@RequestParam("p") String p, RedirectAttributes redirectAttributes) {
@@ -688,6 +722,13 @@ public class AdminController {
 		return ("redirect:/admin/peals");
 	}
 
+	/**
+	 * Fetches peal id from page, deletes peal using service, returns view
+	 * for peal list
+	 * 
+	 * @param p string identifying peal by pealId
+	 * @return redirect:/admin/peals view if successful
+	 */
 	@RequestMapping(value = "/admin/peals/dodelete", method = RequestMethod.GET)
 	public String deletePeal(Model model, @RequestParam("p") String p,
 			RedirectAttributes redirectAttributes) {
@@ -707,6 +748,7 @@ public class AdminController {
 	/*
 	 * 
 	 * ADMIN COUNTRIES REQUEST MAPPINGS
+	 * 
 	 */
 
 	@RequestMapping("/admin/countries")
@@ -719,6 +761,11 @@ public class AdminController {
 		return "/admin/countries";
 	}
 
+	/**
+	 * Creates a new instance of a country and returns to the add country view
+	 * 
+	 * @return /admin/countries/addcountry view
+	 */
 	@RequestMapping("/admin/countries/add")
 	public String showAddCountry(Model model) {
 		Country country = new Country();
@@ -727,6 +774,14 @@ public class AdminController {
 		return "/admin/countries/addcountry";
 	}
 
+	/**
+	 * Fetches country details from page using POST, checks for errors, adds country to
+	 * database using service
+	 * 
+	 * @param country
+	 *            country object fetched from form submission
+	 * @return redirect:/admin/countries view if successful
+	 */
 	@RequestMapping(value = "/admin/countries/doadd", method = RequestMethod.POST)
 	public String doAddCountry(Model model, @Valid Country country,
 			BindingResult result, RedirectAttributes redirectAttributes) {
@@ -739,6 +794,13 @@ public class AdminController {
 		return ("redirect:/admin/countries");
 	}
 
+	/**
+	 * Fetches country id from page, fetches country using service, returns view
+	 * for editing country
+	 * 
+	 * @param c string identifying country by countryId
+	 * @return /admin/editcountry view if successful
+	 */
 	@RequestMapping(value = "/admin/countries/edit", method = RequestMethod.GET)
 	public String showEditCountry(Model model, @RequestParam("c") String c) {
 		Country country = countryService.getCountry(c);
@@ -747,6 +809,13 @@ public class AdminController {
 		return "/admin/countries/editcountry";
 	}
 
+	/**
+	 * Fetches country id from page, saves edited country using service, returns view
+	 * for country list
+	 * 
+	 * @param c string identifying country by countryId
+	 * @return redirect:/admin/countries view if successful
+	 */
 	@RequestMapping(value = "/admin/countries/doedit", method = RequestMethod.POST)
 	public String doEditCountry(Model model, Country country,
 			BindingResult result, @RequestParam("c") String c,
@@ -760,6 +829,13 @@ public class AdminController {
 		return ("redirect:/admin/countries");
 	}
 
+	/**
+	 * Fetches country id from page, deletes country using service, returns view
+	 * for country list
+	 * 
+	 * @param c string identifying country by countryId
+	 * @return redirect:/admin/countries view if successful
+	 */
 	@RequestMapping(value = "/admin/countries/dodelete", method = RequestMethod.GET)
 	public String deleteCountry(Model model, @RequestParam("c") String c,
 			RedirectAttributes redirectAttributes) {
@@ -775,6 +851,7 @@ public class AdminController {
 	/*
 	 * 
 	 * ADMIN DIOCESE REQUEST MAPPINGS
+	 * 
 	 */
 
 	@RequestMapping("/admin/dioceses")
@@ -787,6 +864,11 @@ public class AdminController {
 		return "/admin/dioceses";
 	}
 
+	/**
+	 * Creates a new instance of a diocese and returns to the add diocese view
+	 * 
+	 * @return /admin/dioceses/adddiocese view
+	 */
 	@RequestMapping("/admin/dioceses/add")
 	public String showAddDiocese(Model model) {
 		Diocese diocese = new Diocese();
@@ -795,6 +877,15 @@ public class AdminController {
 		return "/admin/dioceses/adddiocese";
 	}
 
+	
+	/**
+	 * Fetches diocese details from page using POST, checks for errors, adds diocese to
+	 * database using service
+	 * 
+	 * @param diocese
+	 *            diocese object fetched from form submission
+	 * @return redirect:/admin/dioceses view if successful
+	 */
 	@RequestMapping(value = "/admin/dioceses/doadd", method = RequestMethod.POST)
 	public String doAddDiocese(Model model, @Valid Diocese diocese,
 			BindingResult result, RedirectAttributes redirectAttributes) {
@@ -807,6 +898,13 @@ public class AdminController {
 		return ("redirect:/admin/dioceses");
 	}
 
+	/**
+	 * Fetches diocese id from page, fetches diocese using service, returns view
+	 * for editing diocese
+	 * 
+	 * @param d string identifying diocese by dioceseId
+	 * @return /admin/towers/editdiocese view if successful
+	 */
 	@RequestMapping(value = "/admin/dioceses/edit", method = RequestMethod.GET)
 	public String showEditDiocese(Model model, @RequestParam("d") String d) {
 		Diocese diocese = dioceseService.getDiocese(d);
@@ -815,6 +913,13 @@ public class AdminController {
 		return "/admin/dioceses/editdiocese";
 	}
 
+	/**
+	 * Fetches diocese id from page, saves edited diocese using service, returns view
+	 * for diocese list
+	 * 
+	 * @param d string identifying diocese by dioceseId
+	 * @return redirect:/admin/dioceses view if successful
+	 */
 	@RequestMapping(value = "/admin/dioceses/doedit", method = RequestMethod.POST)
 	public String doEditDiocese(Model model, Diocese diocese,
 			BindingResult result, @RequestParam("d") String d,
@@ -828,6 +933,13 @@ public class AdminController {
 		return ("redirect:/admin/dioceses");
 	}
 
+	/**
+	 * Fetches diocese id from page, deletes diocese using service, returns view
+	 * for diocese list
+	 * 
+	 * @param d string identifying diocese by dioceseId
+	 * @return redirect:/admin/dioceses view if successful
+	 */
 	@RequestMapping(value = "/admin/dioceses/dodelete", method = RequestMethod.GET)
 	public String deleteDiocese(Model model, @RequestParam("d") String d,
 			RedirectAttributes redirectAttributes) {
@@ -840,6 +952,13 @@ public class AdminController {
 
 	}
 
+
+	/*
+	 * 
+	 * ADMIN USER REQUEST MAPPINGS
+	 * 
+	 */
+	
 	@RequestMapping(value = "/admin/users")
 	public String showUsers(Model model) {
 
@@ -851,6 +970,11 @@ public class AdminController {
 
 	}
 
+	/**
+	 * Creates a new instance of a user and returns to the add user view
+	 * 
+	 * @return /admin/users/add view
+	 */
 	@RequestMapping(value = "/admin/users/add")
 	public String addUser(Model model) {
 
@@ -860,48 +984,15 @@ public class AdminController {
 		return "/admin/users/add";
 
 	}
-
-	@RequestMapping(value = "/admin/users/edit", method = RequestMethod.GET)
-	public String editUser(Model model, @RequestParam("u") int u) {
-
-		User user = userService.getUser(u);
-		model.addAttribute("user", user);
-
-		Map<Integer, String> hm = towerService.getTowerDescriptorMap();
-		model.addAttribute("towers", hm);
-
-		Map<Boolean, String> booleanMap = new LinkedHashMap<Boolean, String>();
-		booleanMap.put(true, "Yes");
-		booleanMap.put(false, "No");
-		model.addAttribute("yesno", booleanMap);
-
-		return "/admin/users/edit";
-
-	}
-
-	@RequestMapping(value = "/admin/users/doedit", method = RequestMethod.POST)
-	public String editUser(Model model, @Valid User user, BindingResult result,
-			RedirectAttributes redirectAttributes) {
-
-		if (result.hasErrors()) {
-			redirectAttributes.addFlashAttribute("dangerMessage",
-					"The user could not be edited, please try again.");
-			redirectAttributes.addAttribute("u", user.getId());
-			return "redirect:/admin/users/edit";
-		} else if (userService.existsById(user)) {
-			userService.updateNoPassEncode(user);
-			redirectAttributes.addFlashAttribute("message",
-					"User " + user.getEmail() + " successfully edited!");
-			return "redirect:/admin/users";
-		} else {
-			redirectAttributes.addFlashAttribute("dangerMessage",
-					"An unexpected error occurred.");
-			redirectAttributes.addAttribute("u", user.getId());
-			return "redirect:/admin/users/edit";
-		}
-
-	}
-
+	
+	/**
+	 * Fetches user details from page using POST, checks for errors, adds user to
+	 * database using service
+	 * 
+	 * @param user
+	 *            user object fetched from form submission
+	 * @return redirect:/admin/users view if successful
+	 */
 	@RequestMapping(value = "/admin/users/doadd", method = RequestMethod.POST)
 	public String doAddUser(Model model, @Valid User user,
 			BindingResult result, RedirectAttributes redirectAttributes,
@@ -950,6 +1041,68 @@ public class AdminController {
 		}
 	}
 
+	/**
+	 * Fetches user id from page, fetches user using service, returns view
+	 * for editing user
+	 * 
+	 * @param u string identifying user by userId
+	 * @return /admin/towers/editdiocese view if successful
+	 */
+	@RequestMapping(value = "/admin/users/edit", method = RequestMethod.GET)
+	public String editUser(Model model, @RequestParam("u") int u) {
+
+		User user = userService.getUser(u);
+		model.addAttribute("user", user);
+
+		Map<Integer, String> hm = towerService.getTowerDescriptorMap();
+		model.addAttribute("towers", hm);
+
+		Map<Boolean, String> booleanMap = new LinkedHashMap<Boolean, String>();
+		booleanMap.put(true, "Yes");
+		booleanMap.put(false, "No");
+		model.addAttribute("yesno", booleanMap);
+
+		return "/admin/users/edit";
+
+	}
+
+	/**
+	 * Fetches user id from page, saves edited user using service, returns view
+	 * for user list
+	 * 
+	 * @param u string identifying user by userId
+	 * @return redirect:/admin/users view if successful
+	 */
+	@RequestMapping(value = "/admin/users/doedit", method = RequestMethod.POST)
+	public String editUser(Model model, @Valid User user, BindingResult result,
+			RedirectAttributes redirectAttributes) {
+
+		if (result.hasErrors()) {
+			redirectAttributes.addFlashAttribute("dangerMessage",
+					"The user could not be edited, please try again.");
+			redirectAttributes.addAttribute("u", user.getId());
+			return "redirect:/admin/users/edit";
+		} else if (userService.existsById(user)) {
+			userService.updateNoPassEncode(user);
+			redirectAttributes.addFlashAttribute("message",
+					"User " + user.getEmail() + " successfully edited!");
+			return "redirect:/admin/users";
+		} else {
+			redirectAttributes.addFlashAttribute("dangerMessage",
+					"An unexpected error occurred.");
+			redirectAttributes.addAttribute("u", user.getId());
+			return "redirect:/admin/users/edit";
+		}
+
+	}
+
+	/**
+	 * Fetches user id from page, creates new token, emails user to reset password, returns view
+	 * for user list with message
+	 * 
+	 * @param u string identifying user by userId
+	 * @return redirect:/admin/users view if successful
+	 */
 	@RequestMapping(value = "/admin/users/reset", method = RequestMethod.GET)
 	public String resetUser(Model model, @RequestParam("u") int id,
 			RedirectAttributes redirectAttributes,

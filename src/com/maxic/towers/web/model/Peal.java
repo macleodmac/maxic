@@ -11,8 +11,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.hibernate.validator.constraints.NotBlank;
-
 @Entity
 @Table(name = "peals")
 public class Peal {
@@ -26,10 +24,8 @@ public class Peal {
 	private int pealId;
 	private String dedication;
 	private Date dateRung;
-	// private String dateRung; //date
 	private String time; // time
 	private String tenor;
-	//@NotBlank(message = "Method cannot be blank.")
 	private String method;
 	private String methodDetails;
 	private int changes;
@@ -37,7 +33,6 @@ public class Peal {
 	private String composer;
 	private String footnotes;
 	private String composition;
-	//@NotBlank(message = "At least one ringer must be entered.")
 	private String ringer1;
 	private String ringer2;
 	private String ringer3;
